@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public static class Vector2Extensions
@@ -39,7 +40,7 @@ public static class Vector2Extensions
     /// <returns>True if this vector's y value is 0</returns>
     public static bool IsYIdle(this Vector2 v)
     {
-        return v.y == 0;
+        return v.y.IsIdle();
     }
 
     /// <summary>
@@ -79,7 +80,7 @@ public static class Vector2Extensions
     /// <returns>True if this vector's x value is 0</returns>
     public static bool IsXIdle(this Vector2 v)
     {
-        return v.x == 0;
+        return v.x.IsIdle();
     }
 
     /// <summary>
@@ -138,7 +139,22 @@ public static class Vector2Extensions
     /// <returns></returns>
     public static Vector2 Round(this Vector2 v)
     {
-        return new(Mathf.Round(v.x), Mathf.Round(v.y));
+        return new(Mathf.RoundToInt(v.x), Mathf.RoundToInt(v.y));
+    }
+
+    /// <summary>
+    /// Clamps the Vector2 x and y values towards 0.<br/>
+    /// Example:
+    /// <br/><br/>
+    ///     • x is 1.25 (positive), so x will be clamped to 1<br/>
+    ///     • y is -5.75 (negative), so y will be clamped to -5
+    /// 
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
+    public static Vector2 Truncate(this Vector2 v)
+    {
+        return new((float)Math.Truncate(v.x), (float)Math.Truncate(v.y));
     }
 
     /// <summary>
@@ -149,5 +165,10 @@ public static class Vector2Extensions
     public static Vector2 NormalizeAndRound(this Vector2 v)
     {
         return v.normalized.Round();
+    }
+
+    public static Vector2 Add(this Vector2 v, Vector2 other)
+    {
+        return v + other;
     }
 }

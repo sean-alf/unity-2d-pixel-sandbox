@@ -150,7 +150,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData: []
   tileSetImportData:
-  - name: Layer 1
+  - name: OutdoorWall_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -162,16 +162,21 @@ ScriptedImporter:
       y: 0
       width: 16
       height: 16
-    spriteID: f00e7929c0e604f25bab366fc92958c4
+    spriteID: afb3ba56c164b4fdab20b211118fbd79
     spriteBone: []
     spriteOutline: []
     vertices: []
-    spritePhysicsOutline: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: 8, y: 8}
+      - {x: -8, y: 8}
+      - {x: -8, y: -8}
+      - {x: 8, y: -8}
     indices: 
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: Frame_1
+  - name: OutdoorWall_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -183,51 +188,257 @@ ScriptedImporter:
       y: 16
       width: 16
       height: 16
-    spriteID: fe4c4675077eb48ca928ab094e142637
+    spriteID: 180f7db775b984df7884e242a369563e
     spriteBone: []
     spriteOutline: []
     vertices: []
-    spritePhysicsOutline: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: 8, y: 8}
+      - {x: -8, y: 8}
+      - {x: -8, y: -8}
+      - {x: 8, y: -8}
     indices: 
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 16}
+  - name: OutdoorWall_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 32
+      width: 16
+      height: 16
+    spriteID: 91441886f72324d3a8b15afeffc9f2b6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: 8, y: 8}
+      - {x: -8, y: 8}
+      - {x: -8, y: -8}
+      - {x: 8, y: -8}
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 32}
+  - name: OutdoorWall_4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 48
+      width: 16
+      height: 16
+    spriteID: 9c6a5702e937a438191977a831d0e4f3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: 8, y: -8}
+      - {x: 8, y: 8}
+      - {x: -8, y: 8}
+      - {x: -8, y: -8}
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 48}
+  - name: OutdoorWall_5
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 16
+      y: 0
+      width: 16
+      height: 16
+    spriteID: 4b085c2988a4f4b4ba4aff6e66a87c95
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: 8, y: -8}
+      - {x: 8, y: 8}
+      - {x: -8, y: 8}
+      - {x: -8, y: -8}
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 16, y: 0}
+  - name: OutdoorWall_6
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 16
+      y: 16
+      width: 16
+      height: 16
+    spriteID: 4397fc2c51cfc4d9d8a9a126b3ebd1f6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: 8, y: 8}
+      - {x: -8, y: 8}
+      - {x: -8, y: -8}
+      - {x: 8, y: -8}
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 16, y: 16}
+  - name: OutdoorWall_7
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 16
+      y: 32
+      width: 16
+      height: 16
+    spriteID: d4bbc74f32cef4d56ace34c29de0b5cd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: 8, y: -8}
+      - {x: 8, y: 8}
+      - {x: -8, y: 8}
+      - {x: -8, y: -8}
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 16, y: 32}
+  - name: OutdoorWall_8
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 16
+      y: 48
+      width: 16
+      height: 16
+    spriteID: 4d2dc54cf431247e59c2c518616f9b04
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: 8, y: 8}
+      - {x: -8, y: 8}
+      - {x: -8, y: -8}
+      - {x: 8, y: -8}
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 16, y: 48}
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 4287466680
+      value0: 4183719368
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: Layer 1
+    name: Tilemap
     layerFlags: 3
-    layerType: 0
+    layerType: 2
     blendMode: 0
-    cells:
-    - name: Frame_0
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      spriteId: f00e7929c0e604f25bab366fc92958c4
-    - name: Frame_1
-      frameIndex: 1
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      spriteId: fe4c4675077eb48ca928ab094e142637
+    cells: []
     linkedCells: []
-    tileCells: []
+    tileCells:
+    - layerIndex: 0
+      frameIndex: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 4
+        height: 4
+      tileIndices: 01000000000000000600000007000000000000000400000000000000080000000000000005000000000000000000000003000000010000000100000002000000
     tileSetIndex: 0
     parentIndex: -1
-  tileSets: []
+  tileSets:
+  - id: 0
+    name: OutdoorWall
+    tileSize:
+      x: 16
+      y: 16
+    tiles:
+    - tileId: 1
+      size:
+        x: 16
+        y: 16
+      name: OutdoorWall_1
+      spriteId: afb3ba56c164b4fdab20b211118fbd79
+    - tileId: 2
+      size:
+        x: 16
+        y: 16
+      name: OutdoorWall_2
+      spriteId: 180f7db775b984df7884e242a369563e
+    - tileId: 3
+      size:
+        x: 16
+        y: 16
+      name: OutdoorWall_3
+      spriteId: 91441886f72324d3a8b15afeffc9f2b6
+    - tileId: 4
+      size:
+        x: 16
+        y: 16
+      name: OutdoorWall_4
+      spriteId: 9c6a5702e937a438191977a831d0e4f3
+    - tileId: 5
+      size:
+        x: 16
+        y: 16
+      name: OutdoorWall_5
+      spriteId: 4b085c2988a4f4b4ba4aff6e66a87c95
+    - tileId: 6
+      size:
+        x: 16
+        y: 16
+      name: OutdoorWall_6
+      spriteId: 4397fc2c51cfc4d9d8a9a126b3ebd1f6
+    - tileId: 7
+      size:
+        x: 16
+        y: 16
+      name: OutdoorWall_7
+      spriteId: d4bbc74f32cef4d56ace34c29de0b5cd
+    - tileId: 8
+      size:
+        x: 16
+        y: 16
+      name: OutdoorWall_8
+      spriteId: 4d2dc54cf431247e59c2c518616f9b04
+    guid: 1933204150
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -268,5 +479,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 16, y: 16}
-  previousTextureSize: {x: 16, y: 32}
+  canvasSize: {x: 64, y: 64}
+  previousTextureSize: {x: 32, y: 64}

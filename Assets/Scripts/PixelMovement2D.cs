@@ -5,7 +5,11 @@ public class PixelMovement2D
     private static readonly string TAG = "PixelMovement2D";
     private static readonly ILogger logger = Debug.unityLogger;
 
-    private Vector2 rbPositionTmp;
+    private Vector2 positionAccumulator = new(0, 0);
+    private Vector2 prevAccumulator = new(0, 0);
+    private Vector2 currentRoundedInput = new(0, 0);
+    private Vector2 prevRoundedInput = new(0, 0);
+
     private readonly Rigidbody2D rb;
 
     public bool enableLogs;
@@ -13,11 +17,11 @@ public class PixelMovement2D
     public PixelMovement2D(Rigidbody2D rb)
     {
         this.rb = rb;
-        rbPositionTmp = this.rb.position;
     }
 
     /// <summary>
     /// The value of direction does not need to be normalized and/or rounded before passing into this function.
+    /// This function ignores any blocked direction.
     /// </summary>
     /// <param name="direction"></param>
     /// <param name="speed"></param>
@@ -27,7 +31,7 @@ public class PixelMovement2D
     }
 
     /// <summary>
-    /// The value of direction does not need to be normalized and/or rounded before passing into this function.
+    /// The value of direction MUST BE normalized and rounded before passing into this function.
     /// </summary>
     /// <param name="direction"></param>
     /// <param name="blocked"></param>
@@ -38,62 +42,62 @@ public class PixelMovement2D
         if (direction.IsIdle()) return;
 
         // Rounding ensures movement speed is the same whether it's horizontal, vertical, or diagonal
-        Vector2 roundedInput = new(
-            blocked.x.IsSameDirection(direction.x) ? 0 : Mathf.Round(direction.normalized.x),
-            blocked.y.IsSameDirection(direction.y) ? 0 : Mathf.Round(direction.normalized.y)
-        );
+        currentRoundedInput = direction.NormalizeAndRound();
 
-        // If movement is blocked in the X direction, set the tmp to the rigidbody value so that the tmp
-        // will not wander from the rigidbody's pivot point
-        if (blocked.x.IsSameDirection(direction.x))
+        if (enableLogs && currentRoundedInput != prevRoundedInput)
         {
-            rbPositionTmp.x = rb.position.x;
-        }
-        else
-        {
-            rbPositionTmp.x += speed * Time.fixedDeltaTime * roundedInput.x;
+            prevRoundedInput = currentRoundedInput;
+            logger.Log(TAG, $"input {currentRoundedInput}, speed {speed}");
         }
 
-        // If movement is blocked in the Y direction, set the tmp to the rigidbody value so that the tmp
-        // will not wander from the rigidbody's pivot point
-        if (blocked.y.IsSameDirection(direction.y))
+        if (blocked.IsSameXDirection(direction))
         {
-            rbPositionTmp.y = rb.position.y;
+            positionAccumulator.x = 0;
         }
-        else
+        else if (!currentRoundedInput.IsXIdle())
         {
-            rbPositionTmp.y += speed * Time.fixedDeltaTime * roundedInput.y;
-        }
-
-        Vector2 roundedPosition = new(
-            Mathf.Round(rbPositionTmp.x),
-            Mathf.Round(rbPositionTmp.y)
-        );
-
-        if (enableLogs)
-        {
-            logger.Log(TAG, $@"Move
-    rb pos {rb.position}
-    rb pos tmp {rbPositionTmp}
-    rounded pos {roundedPosition}
-    rounded input {roundedInput}
-    speed {speed}
-    fixedTimeDelta {Time.fixedDeltaTime}");
+            // positionAccumulator.x += speed * Time.fixedDeltaTime * roundedInput.x;
+            positionAccumulator.x += speed * currentRoundedInput.x;
         }
 
-        rb.MovePosition(roundedPosition);
-    }
+        if (blocked.IsSameYDirection(direction))
+        {
+            positionAccumulator.y = 0;
+        }
+        else if (!currentRoundedInput.IsYIdle())
+        {
+            positionAccumulator.y += speed * currentRoundedInput.y;
+        }
 
-    /// <summary>
-    /// Resets the temporary position to the current RigidBody2D position, in case it had to be moved externally.
-    /// </summary>
-    public void ResetPosition()
-    {
-        rbPositionTmp = rb.position;
+        if (enableLogs && positionAccumulator != prevAccumulator)
+        {
+            prevAccumulator = positionAccumulator;
+            logger.Log(TAG, $"pos acc {positionAccumulator}");
+        }
+
+        Vector2 newPosition = rb.position.Add(positionAccumulator).Truncate();
+
+        if (enableLogs && rb.position != newPosition)
+        {
+            logger.Log(TAG, $"rb pos {rb.position}, pos acc {positionAccumulator}, new pos {newPosition}");
+        }
+
+        rb.MovePosition(newPosition);
+
+        // Reset the accumulator if it is large enough to cause movement
+        if (Mathf.Abs(positionAccumulator.x) >= 1)
+        {
+            positionAccumulator.x = 0;
+        }
+
+        if (Mathf.Abs(positionAccumulator.y) >= 1)
+        {
+            positionAccumulator.y = 0;
+        }
     }
 
     public void DrawGizmos()
     {
-        Gizmos.DrawSphere(new(rbPositionTmp.x, rbPositionTmp.y, 1), 2);
+        Gizmos.DrawSphere(new(positionAccumulator.x, positionAccumulator.y, 1), 2);
     }
 }

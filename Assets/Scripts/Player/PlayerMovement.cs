@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
 
         input.onActionTriggered += OnInput;
         // Make sure the initial position is not fractional
-        rb.position = new(Mathf.Round(rb.position.x), Mathf.Round(rb.position.x));
+        rb.position = rb.position.Truncate();
         movement2D = new(rb)
         {
             enableLogs = enableVerboseLogs
@@ -155,11 +155,6 @@ public class PlayerMovement : MonoBehaviour
             // Combine the directions of all of the collision contacts
             foreach (var c in collision.contacts)
             {
-                if (enableVerboseLogs)
-                {
-                    logger.Log(TAG, $"contact normal {c.normal}");
-                }
-
                 var v = c.normal.Round();
 
                 if (v.IsHorizontal())
@@ -172,11 +167,6 @@ public class PlayerMovement : MonoBehaviour
                     currentBlockedDirection.y = -v.y;
                 }
             }
-
-            if (enableVerboseLogs)
-            {
-                logger.Log(TAG, $"contact directions {currentBlockedDirection}");
-            }
         }
         else
         {
@@ -184,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
             currentBlockedDirection.y = 0;
         }
 
-        if (enableVerboseLogs)
+        if (enableLogs && currentBlockedDirection != prevBlockedDirection)
         {
             logger.Log(TAG, $"blocked direction {currentBlockedDirection}");
         }

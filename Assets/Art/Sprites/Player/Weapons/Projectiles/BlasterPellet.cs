@@ -63,7 +63,6 @@ public class BlasterPellet : MonoBehaviour, BasicBlaster.IBlasterAmmo
 
         transform.position = position;
         rb.position = position;
-        movement.ResetPosition();
         gameObject.SetActive(true);
         animator.Play("BlasterPelletInit");
     }
