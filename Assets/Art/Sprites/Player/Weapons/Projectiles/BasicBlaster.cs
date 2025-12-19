@@ -91,5 +91,7 @@ public class BasicBlaster : Weapon
         {
             recycleablePellets.Add(Instantiate(blasterPelletPrefab.GetComponent<BlasterPellet>()));
         }
+
+        gameObject.SetActive(false);
     }
 }
