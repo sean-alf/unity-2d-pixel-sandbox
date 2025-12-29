@@ -67,5 +67,7 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "2D Pixel Game Sandbox.slnx"
+    "dotnet.defaultSolution": "2D Pixel Game Sandbox.slnx",
+    "omnisharp.useModernNet": false,
+    "omnisharp.autoStart": false
 }

@@ -36,64 +36,68 @@ public class PixelMovement2D
     /// <param name="direction"></param>
     /// <param name="blocked"></param>
     /// <param name="speed"></param>
+    // public void Move(Vector2 direction, Vector2 blocked, float speed)
+    // {
+    //     // Don't do anything if idle
+    //     if (direction.IsIdle()) return;
+
+    //     currentRoundedInput = direction;
+
+    //     if (enableLogs && currentRoundedInput != prevRoundedInput)
+    //     {
+    //         prevRoundedInput = currentRoundedInput;
+    //         logger.Log(TAG, $"input {currentRoundedInput}, speed {speed}");
+    //     }
+
+    //     if (blocked.IsSameXDirection(direction))
+    //     {
+    //         positionAccumulator.x = 0;
+    //     }
+    //     else if (!currentRoundedInput.IsXIdle())
+    //     {
+    //         // positionAccumulator.x += speed * Time.fixedDeltaTime * roundedInput.x;
+    //         positionAccumulator.x += speed * currentRoundedInput.x;
+    //     }
+
+    //     if (blocked.IsSameYDirection(direction))
+    //     {
+    //         positionAccumulator.y = 0;
+    //     }
+    //     else if (!currentRoundedInput.IsYIdle())
+    //     {
+    //         positionAccumulator.y += speed * currentRoundedInput.y;
+    //     }
+
+    //     if (enableLogs && positionAccumulator != prevAccumulator)
+    //     {
+    //         prevAccumulator = positionAccumulator;
+    //         logger.Log(TAG, $"pos acc {positionAccumulator}");
+    //     }
+
+    //     Vector2 newPosition = rb.position.Add(positionAccumulator).Truncate();
+
+    //     if (enableLogs && rb.position != newPosition)
+    //     {
+    //         logger.Log(TAG, $"rb pos {rb.position}, new pos {newPosition}, pos acc {positionAccumulator}");
+    //     }
+
+    //     rb.MovePosition(newPosition);
+
+    //     // Reset the accumulator if it is large enough to cause movement
+    //     if (Mathf.Abs(positionAccumulator.x) >= 1)
+    //     {
+    //         positionAccumulator.x = 0;
+    //     }
+
+    //     if (Mathf.Abs(positionAccumulator.y) >= 1)
+    //     {
+    //         positionAccumulator.y = 0;
+    //     }
+    // }
+
     public void Move(Vector2 direction, Vector2 blocked, float speed)
     {
-        // Don't do anything if idle
-        if (direction.IsIdle()) return;
-
-        // Rounding ensures movement speed is the same whether it's horizontal, vertical, or diagonal
-        currentRoundedInput = direction.NormalizeAndRound();
-
-        if (enableLogs && currentRoundedInput != prevRoundedInput)
-        {
-            prevRoundedInput = currentRoundedInput;
-            logger.Log(TAG, $"input {currentRoundedInput}, speed {speed}");
-        }
-
-        if (blocked.IsSameXDirection(direction))
-        {
-            positionAccumulator.x = 0;
-        }
-        else if (!currentRoundedInput.IsXIdle())
-        {
-            // positionAccumulator.x += speed * Time.fixedDeltaTime * roundedInput.x;
-            positionAccumulator.x += speed * currentRoundedInput.x;
-        }
-
-        if (blocked.IsSameYDirection(direction))
-        {
-            positionAccumulator.y = 0;
-        }
-        else if (!currentRoundedInput.IsYIdle())
-        {
-            positionAccumulator.y += speed * currentRoundedInput.y;
-        }
-
-        if (enableLogs && positionAccumulator != prevAccumulator)
-        {
-            prevAccumulator = positionAccumulator;
-            logger.Log(TAG, $"pos acc {positionAccumulator}");
-        }
-
-        Vector2 newPosition = rb.position.Add(positionAccumulator).Truncate();
-
-        if (enableLogs && rb.position != newPosition)
-        {
-            logger.Log(TAG, $"rb pos {rb.position}, pos acc {positionAccumulator}, new pos {newPosition}");
-        }
-
-        rb.MovePosition(newPosition);
-
-        // Reset the accumulator if it is large enough to cause movement
-        if (Mathf.Abs(positionAccumulator.x) >= 1)
-        {
-            positionAccumulator.x = 0;
-        }
-
-        if (Mathf.Abs(positionAccumulator.y) >= 1)
-        {
-            positionAccumulator.y = 0;
-        }
+        rb.MovePosition((Time.fixedDeltaTime * speed * direction) + rb.position);
     }
 
     public void DrawGizmos()
