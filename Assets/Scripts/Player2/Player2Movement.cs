@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,12 +10,12 @@ public class Player2Movement : MonoBehaviour
     [Range(10, 200)]
     private float speed = 10;
 
+    [SerializeField]
+    private MenusAndDisplayManager madm;
+
     [Header("Debug")]
     [SerializeField]
     private bool enableLogs = false;
-
-    [SerializeField]
-    private List<Door> doors;
 
     private static readonly ILogger logger = Debug.unityLogger;
 
@@ -28,12 +27,20 @@ public class Player2Movement : MonoBehaviour
     private Vector2 currentDirection;
     private Vector2 lastNonIdleDirection;
     private bool actionButtonPressed = false;
+    private GameObject other;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        input = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        if (input == null)
+        {
+            input = GetComponent<PlayerInput>();
+        }
 
         input.onActionTriggered += OnInput;
     }
@@ -50,7 +57,7 @@ public class Player2Movement : MonoBehaviour
 
     private void OnInput(InputAction.CallbackContext context)
     {
-        if (context.action.name == "Look") return;
+        if (context.action.name == "Look" || context.phase == InputActionPhase.Started) return;
 
         switch (context.action.name)
         {
@@ -82,9 +89,13 @@ public class Player2Movement : MonoBehaviour
 
                     if (actionButtonPressed)
                     {
-                        foreach (var door in doors)
+                        if (other != null && other.TryGetComponent(out AccessPanel p))
                         {
-                            door.Toggle();
+                            p.Activate();
+                        }
+                        else
+                        {
+                            madm.ToggleTopLeftDisplay();
                         }
                     }
 
@@ -97,7 +108,23 @@ public class Player2Movement : MonoBehaviour
         }
     }
 
-    void OnDestroy()
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (this.other != other.gameObject)
+        {
+            this.other = other.gameObject;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (this.other == other.gameObject)
+        {
+            this.other = null;
+        }
+    }
+
+    private void OnDisable()
     {
         input.onActionTriggered -= OnInput;
     }

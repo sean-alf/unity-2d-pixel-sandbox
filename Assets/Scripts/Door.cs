@@ -25,19 +25,19 @@ public class Door : MonoBehaviour
 
     private void Start()
     {
-        animator.Play(startOpen ? "DoorOpened" : "DoorClosed");
+        animator.Play(startOpen ? DoorAnimatorStates.BaseLayer.DOOR_OPENED : DoorAnimatorStates.BaseLayer.DOOR_CLOSED);
     }
 
     public void Open()
     {
         if (ignore || isOpen) return;
-        animator.Play("DoorOpen");
+        animator.Play(DoorAnimatorStates.BaseLayer.DOOR_OPEN);
     }
 
     public void Close()
     {
         if (ignore || !isOpen) return;
-        animator.Play("DoorClose");
+        animator.Play(DoorAnimatorStates.BaseLayer.DOOR_CLOSE);
     }
 
     public void Toggle()

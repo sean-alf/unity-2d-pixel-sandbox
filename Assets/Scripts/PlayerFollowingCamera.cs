@@ -1,5 +1,8 @@
 using UnityEngine;
 
+#if UNITY_EDITOR
+[ExecuteInEditMode]
+#endif
 [RequireComponent(typeof(Camera))]
 public class PlayerFollowingCamera : MonoBehaviour
 {
