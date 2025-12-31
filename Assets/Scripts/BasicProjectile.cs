@@ -1,0 +1,65 @@
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
+public class BasicProjectile : MonoBehaviour
+{
+    private static readonly int TO_EDGE_OF_EYE_PX = 4;
+
+    [SerializeField]
+    [Range(1, 100)]
+    private int speed = 1;
+
+    private Rigidbody2D rb;
+    private Animator animator;
+    private SpriteRenderer sr;
+    private Vector2 direction;
+    private bool inUse = false;
+    private bool move = true;
+    private int halfHeight;
+
+    public bool InUse => inUse;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
+
+        halfHeight = (int)sr.size.y / 2;
+    }
+
+    private void FixedUpdate()
+    {
+        if (inUse && move)
+        {
+            rb.MovePosition((speed * direction) + rb.position);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        move = false;
+        animator.Play(BlasterBeamAnimatorStates.BaseLayer.BLASTER_BEAM_DISSIPATE);
+    }
+
+    public void Use(Vector2 direction, Transform transform)
+    {
+        inUse = true;
+        move = true;
+
+        this.direction = direction;
+
+        Vector3 position = transform.position;
+        float angle = Vector2.SignedAngle(Vector2.up, direction);
+        this.transform.SetPositionAndRotation(position.Add((TO_EDGE_OF_EYE_PX + halfHeight) * direction.normalized), Quaternion.Euler(0, 0, angle));
+        gameObject.SetActive(true);
+    }
+
+    public void Animator_Dissipated()
+    {
+        inUse = false;
+        gameObject.SetActive(false);
+    }
+}

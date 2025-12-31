@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(ProjectileManager))]
 public class Player2Movement : MonoBehaviour
 {
     [SerializeField]
@@ -28,11 +29,13 @@ public class Player2Movement : MonoBehaviour
     private Vector2 lastNonIdleDirection;
     private bool actionButtonPressed = false;
     private GameObject other;
+    private ProjectileManager projectileManager;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        projectileManager = GetComponent<ProjectileManager>();
     }
 
     private void OnEnable()
@@ -95,7 +98,7 @@ public class Player2Movement : MonoBehaviour
                         }
                         else
                         {
-                            madm.ToggleTopLeftDisplay();
+                            projectileManager.Shoot(lastNonIdleDirection, transform);
                         }
                     }
 
