@@ -34,6 +34,27 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 996815303245547897, guid: ee755864374ae45099cfc1438abb14b2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 3
+  - m_Name: PhaseBeam
+    m_Hash: 370471083
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: 0
+      m_Hash: 886824737
+      m_Sprite: {fileID: 8806215975727125558, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 8806215975727125558, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: 1
+      m_Hash: 64810935
+      m_Sprite: {fileID: 8819406656770812563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 8819406656770812563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: 2
+      m_Hash: 450215437
+      m_Sprite: {fileID: 3235122463981467377, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 3235122463981467377, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 3
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639027119405985480
+  m_ModificationHash: 639027817712801270
   m_Version: 1

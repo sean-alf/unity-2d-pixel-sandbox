@@ -8,6 +8,9 @@ public class BasicProjectile : MonoBehaviour
     private static readonly int TO_EDGE_OF_EYE_PX = 4;
 
     [SerializeField]
+    private ProjectileAnimationStateManager.ProjectileID id = ProjectileAnimationStateManager.ProjectileID.UNSET;
+
+    [SerializeField]
     [Range(1, 100)]
     private int speed = 1;
 
@@ -15,6 +18,7 @@ public class BasicProjectile : MonoBehaviour
     private Animator animator;
     private SpriteRenderer sr;
     private Vector2 direction;
+    private readonly ProjectileAnimationStateManager animationStateManager = new();
     private bool inUse = false;
     private bool move = true;
     private int halfHeight;
@@ -41,7 +45,17 @@ public class BasicProjectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         move = false;
-        animator.Play(BlasterBeamAnimatorStates.BaseLayer.BLASTER_BEAM_DISSIPATE);
+
+        var stateName = animationStateManager.GetAnimationData(id).finishStateName;
+
+        if (stateName != null)
+        {
+            animator.Play(stateName);
+        }
+        else
+        {
+            Debug.LogError($"BasicProjectile ({gameObject.name}): finish state name null!");
+        }
     }
 
     public void Use(Vector2 direction, Transform transform)
@@ -57,7 +71,7 @@ public class BasicProjectile : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void Animator_Dissipated()
+    public void Animator_Finish()
     {
         inUse = false;
         gameObject.SetActive(false);
