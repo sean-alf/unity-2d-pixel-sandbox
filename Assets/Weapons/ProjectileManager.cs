@@ -1,41 +1,94 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(IDirectionProvider))]
 public class ProjectileManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject projectileTemplate;
+    public interface IDirectionProvider
+    {
+        public Vector2 LookDirection { get; }
+    }
 
-    private readonly List<BasicProjectile> projectiles = new();
-    private readonly int maxProjectiles = 5;
+    [SerializeField]
+    private List<ProjectileSO> projectiles;
+
+    [SerializeField]
+    private MenusAndDisplayManager madm;
+
+    private readonly List<BasicProjectile> projectilesList = new();
+
+    private IDirectionProvider directionProvider;
+    private ProjectileSO selectedProjectile;
+    private int currentIndex = 0;
+    private int count;
 
     private void Awake()
     {
-        for (int i = 0; i < maxProjectiles; i++)
+        directionProvider = GetComponent<IDirectionProvider>();
+
+        if (projectiles == null || projectiles.Count == 0)
         {
-            if (Instantiate(projectileTemplate, Vector3.zero, Quaternion.identity).TryGetComponent(out BasicProjectile p))
-            {
-                p.gameObject.SetActive(false);
-                projectiles.Add(p);
-            }
-            else
-            {
-                Debug.LogError("ProjectileManager: invalid projectileTemplate, no BasicProjectile attached!!!");
-            }
+            Debug.LogError("Projectile Manager: Projectiles not set!!");
+            return;
         }
+
+        count = projectiles.Count;
+
+        // Automatically set the selected projectile to the first one in the list
+        selectedProjectile = projectiles[currentIndex];
     }
 
-    public void Shoot(Vector2 direction, Transform transform)
+    private void Start()
     {
-        var p = projectiles.Find((p) => !p.InUse);
+        SetProjectiles();
+    }
+
+    public void Shoot()
+    {
+        var p = projectilesList.Find((p) => !p.InUse);
 
         if (p != null)
         {
-            p.Use(direction, transform);
+            p.Use(directionProvider.LookDirection, transform);
         }
         else
         {
             Debug.LogWarning("all projectiles in use!!");
         }
+    }
+
+    public void SelectNext()
+    {
+        currentIndex = (currentIndex + 1) % count;
+        selectedProjectile = projectiles[currentIndex];
+        SetProjectiles();
+    }
+
+    public void SelectPrevious()
+    {
+        currentIndex = (currentIndex - 1 + count) % count;
+        selectedProjectile = projectiles[currentIndex];
+        SetProjectiles();
+    }
+
+    private void SetProjectiles()
+    {
+        foreach (var p in projectilesList)
+        {
+            if (p != null)
+            {
+                Destroy(p.gameObject);
+            }
+        }
+
+        projectilesList.Clear();
+
+        for (int i = 0; i < selectedProjectile.MaxProjectiles; i++)
+        {
+            selectedProjectile.Instantiate(p => projectilesList.Add(p));
+        }
+
+        madm.UpdatePrimaryWeaponIcon(selectedProjectile.MenuIcon);
     }
 }

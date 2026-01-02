@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4be9f044d3e45f291b6bbc52915bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  topLeftDisplay: {fileID: 1439387686}
+  topLeftContainer: {fileID: 1439387690}
 --- !u!4 &12611837
 Transform:
   m_ObjectHideFlags: 0
@@ -177,10 +177,10 @@ GameObject:
   - component: {fileID: 52699971}
   - component: {fileID: 52699974}
   - component: {fileID: 52699975}
-  - component: {fileID: 52699977}
   - component: {fileID: 52699979}
   - component: {fileID: 52699978}
   - component: {fileID: 52699980}
+  - component: {fileID: 52699982}
   - component: {fileID: 52699981}
   m_Layer: 7
   m_Name: Player
@@ -315,36 +315,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &52699977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52699970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  m_NotificationBehavior: 3
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 519420031}
 --- !u!61 &52699978
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -430,7 +400,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845ebb81f27e5409a9c73cec60b91fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  projectileTemplate: {fileID: 6726146697752115651, guid: 38a076081aab04bf1952f02100ccf903, type: 3}
+  projectiles:
+  - {fileID: 11400000, guid: be13011e2b5414e2b95bea7faa3ec29d, type: 2}
+  - {fileID: 11400000, guid: ff070e1858bb447bc940df4cf678b0d5, type: 2}
+  madm: {fileID: 12611836}
 --- !u!114 &52699981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,10 +415,39 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bba0f20971d04c5fbf60a2d812bccef, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player2Movement
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 40
-  madm: {fileID: 12611836}
   enableLogs: 0
+--- !u!114 &52699982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52699970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: df70fa95-8a34-4494-b137-73ab6b9c7d37
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 519420031}
 --- !u!114 &122622511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2367,6 +2369,7 @@ GameObject:
   - component: {fileID: 1439387687}
   - component: {fileID: 1439387688}
   - component: {fileID: 1439387689}
+  - component: {fileID: 1439387690}
   m_Layer: 0
   m_Name: TopLeftContainer
   m_TagString: Untagged
@@ -2463,6 +2466,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   sortingOrder: 100
+--- !u!114 &1439387690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439387686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1794edcd56ecb4085a97939a80093de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  primaryWeaponIconRenderer: {fileID: 1514829353}
+  primaryToolIconRenderer: {fileID: 1342155403}
 --- !u!1 &1502861054
 GameObject:
   m_ObjectHideFlags: 0
