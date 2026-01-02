@@ -6,6 +6,7 @@ using UnityEngine;
 public class BasicProjectile : MonoBehaviour
 {
     private static readonly int TO_EDGE_OF_EYE_PX = 4;
+    private static readonly ProjectileAnimationStateManager animationStateManager = new();
 
     [SerializeField]
     private ProjectileAnimationStateManager.ProjectileID id = ProjectileAnimationStateManager.ProjectileID.UNSET;
@@ -18,7 +19,6 @@ public class BasicProjectile : MonoBehaviour
     private Animator animator;
     private SpriteRenderer sr;
     private Vector2 direction;
-    private readonly ProjectileAnimationStateManager animationStateManager = new();
     private bool inUse = false;
     private bool move = true;
     private int halfHeight;
