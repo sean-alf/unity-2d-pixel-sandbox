@@ -1,7 +1,8 @@
 using UnityEngine;
 
-[ExecuteInEditMode]
+[ExecuteAlways]
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class CameraBoundCollider : MonoBehaviour
 {
     public enum Position
@@ -18,59 +19,81 @@ public class CameraBoundCollider : MonoBehaviour
     [SerializeField]
     private int pixelOffset;
 
-    [SerializeField]
-    [Tooltip("Dummy bool value  to use as a reset button to reset the bound")]
-    private bool reset = false;
-
     private Camera c;
     private BoxCollider2D bc;
+    private SpriteRenderer sr;
 
-    private void OnEnable()
+    private void Awake()
     {
-        if (c == null)
-        {
-            c = GetComponentInParent<Camera>();
-        }
+        c = GetComponentInParent<Camera>();
 
-        if (bc == null)
-        {
-            bc = GetComponent<BoxCollider2D>();
-        }
+        bc = GetComponent<BoxCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
 
-        PositionBound();
+        // Make sure to clear out any offset
+        bc.offset = new(0, 0);
+        // Set draw mode to tiled to simplify the sprite sizing
+        sr.drawMode = SpriteDrawMode.Tiled;
+        // Make sure the x and y scale is always 1
+        transform.localScale = new(1, 1);
     }
 
-    private void OnValidate()
+    public void Reset()
     {
-        if (reset)
-        {
-            PositionBound();
-        }
+        if ((!Application.isPlaying && !Application.isEditor) || c == null) return;
+
+        float halfWidth = c.orthographicSize * c.aspect;
+        float halfHeight = c.orthographicSize;
+
+        SetSize(halfWidth, halfHeight);
+        SetPosition(halfWidth, halfHeight);
     }
 
-    private void PositionBound()
+    private void SetSize(float halfWidth, float halfHeight)
     {
-        if (c == null)
+        float x = sr.sprite.bounds.size.x;
+        float y = sr.sprite.bounds.size.y;
+
+        switch (position)
         {
-            throw new($"CameraBoundCollider ({gameObject.name}): Camera not found in parent!");
+            case Position.TOP:
+            case Position.BOTTOM:
+                {
+                    x = (x + pixelOffset + halfWidth) * 2;
+                    break;
+                }
+            case Position.LEFT:
+            case Position.RIGHT:
+                {
+                    y = (y + pixelOffset + halfHeight) * 2;
+                    break;
+                }
         }
 
+        sr.size = new(x, y);
+
+        // Set the box collider size now that the sprite's size has been updated
+        bc.size = sr.size;
+    }
+
+    private void SetPosition(float halfWidth, float halfHeight)
+    {
         float x = c.transform.position.x;
         float y = c.transform.position.y;
 
         switch (position)
         {
             case Position.LEFT:
-                x += -((c.orthographicSize * c.aspect) + (bc.size.x / 2) + pixelOffset);
+                x += -(halfWidth + (bc.size.x / 2) + pixelOffset);
                 break;
             case Position.RIGHT:
-                x += (c.orthographicSize * c.aspect) + (bc.size.x / 2) + pixelOffset;
+                x += halfWidth + (bc.size.x / 2) + pixelOffset;
                 break;
             case Position.TOP:
-                y += c.orthographicSize + (bc.size.y / 2) + pixelOffset;
+                y += halfHeight + (bc.size.y / 2) + pixelOffset;
                 break;
             case Position.BOTTOM:
-                y += -(c.orthographicSize + (bc.size.y / 2) + pixelOffset);
+                y += -(halfHeight + (bc.size.y / 2) + pixelOffset);
                 break;
         }
 

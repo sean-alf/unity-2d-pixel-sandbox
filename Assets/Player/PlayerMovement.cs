@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ProjectileManager))]
-public class Player2Movement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     [Range(10, 200)]
@@ -70,14 +70,14 @@ public class Player2Movement : MonoBehaviour
 
                     if (currentDirection.IsIdle())
                     {
-                        animator.Play("Player2Idle");
+                        animator.Play(PlayerAnimatorStates.BaseLayer.PLAYER_DEFAULT);
                     }
                     else
                     {
                         // This is for determining which way the player is facing even when stopped
                         lastNonIdleDirection = currentDirection;
                         rb.SetRotation(Quaternion.LookRotation(Vector3.forward, currentDirection));
-                        animator.Play("Player2Move");
+                        animator.Play(PlayerAnimatorStates.BaseLayer.PLAYER_MOVING);
                     }
 
                     if (enableLogs)

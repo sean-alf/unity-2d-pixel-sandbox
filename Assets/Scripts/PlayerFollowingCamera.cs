@@ -1,8 +1,6 @@
 using UnityEngine;
 
-#if UNITY_EDITOR
-[ExecuteInEditMode]
-#endif
+[ExecuteAlways]
 [RequireComponent(typeof(Camera))]
 public class PlayerFollowingCamera : MonoBehaviour
 {
@@ -18,6 +16,8 @@ public class PlayerFollowingCamera : MonoBehaviour
 
     void LateUpdate()
     {
+        if (follow == null || camera == null) return;
+
         camera.transform.position = new(follow.position.x, follow.position.y, camera.transform.position.z);
     }
 }
