@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyDamageHandler : MonoBehaviour
+public class EnemyDamageHandler : MonoBehaviour, ILogTagProvider
 {
     [SerializeField]
     private GameObject deathCloudTemplate;
@@ -8,22 +8,38 @@ public class EnemyDamageHandler : MonoBehaviour
     [SerializeField]
     private int health = 1;
 
+    [Header("Debug")]
+    [Space]
+
+    [SerializeField]
+    private LogLevelSelector logLevelSelector;
+
+    private Logging.Tag logTag;
+
+    public Logging.Tag LogTag => logTag;
+
+    private void OnEnable()
+    {
+        logTag = this.CreateLogTag();
+        Logging.SetLogLevel(logTag, logLevelSelector.logLevel);
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log($"EnemyDamageHandler: Collision {other.gameObject.name}");
+        Logging.LogDebug(logTag, $"Collision {other.gameObject.name}");
 
         if (other.gameObject.TryGetComponent(out CollisionData data))
         {
-            Debug.Log($"EnemyDamageHandler: has CollisionData");
+            Logging.LogDebug(logTag, $"has CollisionData");
 
             if (data.receivers.Contains(CollisionData.Receiver.Enemy))
             {
-                Debug.Log($"EnemyDamageHandler: receiver is Enemy");
+                Logging.LogInfo(logTag, $"receiver is Enemy");
 
                 if (data.type == CollisionData.Type.Damage)
                 {
-                    Debug.Log($"EnemyDamageHandler: type is Damage");
-                    Debug.Log($"EnemyDamageHandler: strength {data.strength}");
+                    Logging.LogInfo(logTag, $"type is Damage");
+                    Logging.LogInfo(logTag, $"strength {data.strength}");
 
                     health -= data.strength;
 

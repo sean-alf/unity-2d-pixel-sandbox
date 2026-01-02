@@ -149,6 +149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   topLeftContainer: {fileID: 1439387690}
+  logLevelSelector:
+    logLevel: 0
 --- !u!4 &12611837
 Transform:
   m_ObjectHideFlags: 0

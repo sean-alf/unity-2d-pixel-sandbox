@@ -191,6 +191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   id: 1
   speed: 3
+  logLevelSelector:
+    logLevel: 5
 --- !u!61 &-1618711439479532105
 BoxCollider2D:
   m_ObjectHideFlags: 0

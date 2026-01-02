@@ -190,3 +190,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 2
+  logLevelSelector:
+    logLevel: 5

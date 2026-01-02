@@ -1,9 +1,25 @@
 using UnityEngine;
 
-public class MenusAndDisplayManager : MonoBehaviour
+public class MenusAndDisplayManager : MonoBehaviour, ILogTagProvider
 {
     [SerializeField]
     private TopLeftContainer topLeftContainer;
+
+    [Header("Debug")]
+    [Space]
+    
+    [SerializeField]
+    private LogLevelSelector logLevelSelector;
+
+    private Logging.Tag logTag;
+
+    public Logging.Tag LogTag => logTag;
+
+    private void OnEnable()
+    {
+        logTag = this.CreateLogTag();
+        Logging.SetLogLevel(logTag, logLevelSelector.logLevel);
+    }
 
     public void ShowTopLeftDisplay()
     {
@@ -19,7 +35,7 @@ public class MenusAndDisplayManager : MonoBehaviour
 
     public void ToggleTopLeftDisplay()
     {
-        Debug.Log($"MADM: activate {!topLeftContainer.gameObject.activeSelf}");
+        Logging.LogInfo(logTag, $"activate {!topLeftContainer.gameObject.activeSelf}");
         topLeftContainer.gameObject.SetActive(!topLeftContainer.gameObject.activeSelf);
     }
 

@@ -252,3 +252,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   id: 0
   speed: 3
+  logLevelSelector:
+    logLevel: 5

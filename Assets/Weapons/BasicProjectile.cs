@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class BasicProjectile : MonoBehaviour
+public class BasicProjectile : MonoBehaviour, ILogTagProvider
 {
     private static readonly int TO_EDGE_OF_EYE_PX = 4;
     private static readonly ProjectileAnimationStateManager animationStateManager = new();
@@ -15,15 +15,30 @@ public class BasicProjectile : MonoBehaviour
     [Range(1, 100)]
     private int speed = 1;
 
+    [Header("Debug")]
+    [Space]
+
+    [SerializeField]
+    private LogLevelSelector logLevelSelector;
+
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sr;
     private Vector2 direction;
+    private Logging.Tag logTag;
     private bool inUse = false;
     private bool move = true;
     private int halfHeight;
 
     public bool InUse => inUse;
+
+    public Logging.Tag LogTag => logTag;
+
+    private void OnEnable()
+    {
+        logTag = this.CreateLogTag();
+        Logging.SetLogLevel(logTag, logLevelSelector.logLevel);
+    }
 
     private void Awake()
     {
@@ -54,7 +69,7 @@ public class BasicProjectile : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"BasicProjectile ({gameObject.name}): finish state name null!");
+            Logging.LogError(logTag, $"finish state name null!");
         }
     }
 
