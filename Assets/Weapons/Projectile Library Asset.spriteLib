@@ -38,23 +38,43 @@ MonoBehaviour:
     m_Hash: 370471083
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: 0
-      m_Hash: 886824737
-      m_Sprite: {fileID: 8806215975727125558, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 8806215975727125558, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
-    - m_Name: 1
-      m_Hash: 64810935
+    - m_Name: Default_0
+      m_Hash: 510843877
       m_Sprite: {fileID: 8819406656770812563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 8819406656770812563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
-    - m_Name: 2
-      m_Hash: 450215437
+    - m_Name: Default_1
+      m_Hash: 695593843
+      m_Sprite: {fileID: 8806215975727125558, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 8806215975727125558, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Default_2
+      m_Hash: 813480649
       m_Sprite: {fileID: 3235122463981467377, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 3235122463981467377, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Dissipate_0
+      m_Hash: 200312933
+      m_Sprite: {fileID: 8819406656770812563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 8819406656770812563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Dissipate_1
+      m_Hash: 1022867699
+      m_Sprite: {fileID: 3235122463981467377, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 3235122463981467377, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Dissipate_2
+      m_Hash: 637462857
+      m_Sprite: {fileID: -2214568417701883563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -2214568417701883563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Dissipate_3
+      m_Hash: 318364127
+      m_Sprite: {fileID: 2438521779293102440, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2438521779293102440, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 3
+    m_EntryOverrideCount: 7
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639027817712801270
+  m_ModificationHash: 639028868446878980
   m_Version: 1

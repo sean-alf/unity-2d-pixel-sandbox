@@ -214,16 +214,16 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: PhaseBeam_0
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 28
-      width: 14
-      height: 14
+      x: 28
+      y: 4
+      width: 12
+      height: 12
     spriteID: 983c46f597e1c4d8bb7ff10ae5949729
     spriteBone: []
     spriteOutline: []
@@ -240,16 +240,16 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: PhaseBeam_1
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 28
-      y: 24
-      width: 12
-      height: 12
+      x: 4
+      y: 4
+      width: 16
+      height: 16
     spriteID: 546b54c582eda412da154a833cee4cd8
     spriteBone: []
     spriteOutline: []
@@ -266,16 +266,16 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: PhaseBeam_2
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
-      width: 16
-      height: 16
+      y: 28
+      width: 14
+      height: 14
     spriteID: dbef59e7cac8746d8982934654fd0eb8
     spriteBone: []
     spriteOutline: []
@@ -292,16 +292,16 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: PhaseBeam_3
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 28
-      y: 4
-      width: 12
-      height: 12
+      x: 4
+      y: 72
+      width: 14
+      height: 14
     spriteID: 79c0ac07f95044965b0f96cbaae4cdef
     spriteBone: []
     spriteOutline: []
@@ -312,6 +312,27 @@ ScriptedImporter:
       - {x: 3, y: -3}
       - {x: 3, y: 3}
       - {x: -3, y: 3}
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: PhaseBeam_4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 28
+      y: 24
+      width: 12
+      height: 12
+    spriteID: 6566c1bd737ac4df081471246215b805
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
     indices: 
     edges: []
     tessellationDetail: 0
@@ -366,6 +387,33 @@ ScriptedImporter:
         width: 12
         height: 12
       spriteId: 645aa0d67a3ab49e8bdfa81cfbb2675d
+    - name: Frame_4
+      frameIndex: 4
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 1
+        width: 14
+        height: 14
+      spriteId: 980ba9dee54e34153abae5df20c6f203
+    - name: Frame_5
+      frameIndex: 5
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 1
+        width: 14
+        height: 14
+      spriteId: 2342767fd21f94468addaf3c1a3b10dd
+    - name: Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 2
+        width: 12
+        height: 12
+      spriteId: 5965f15b49962401fa279a485f62d4a9
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -412,4 +460,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 16, y: 16}
-  previousTextureSize: {x: 64, y: 64}
+  previousTextureSize: {x: 64, y: 128}
