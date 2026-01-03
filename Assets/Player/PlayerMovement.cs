@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lastNonIdleDirection = Vector2.up;
     private GameObject other;
 
-    public Vector2 LookDirection => lastNonIdleDirection;
-
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -63,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext context)
     {
-        currentDirection = context.ReadValue<Vector2>().NormalizeAndRound();
+        currentDirection = context.ReadValue<Vector2>().normalized;
 
         if (currentDirection.IsIdle())
         {
@@ -95,8 +93,8 @@ public class PlayerMovement : MonoBehaviour
     {
         projectileManager.Shoot(new ProjectileManager.StartingPoint
         {
-            direction = LookDirection,
-            position = transform.position.Add(TO_EDGE_OF_EYE_PX * LookDirection.normalized),
+            direction = lastNonIdleDirection,
+            position = transform.position.Add(TO_EDGE_OF_EYE_PX * lastNonIdleDirection.normalized),
         });
     }
 
