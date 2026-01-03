@@ -3,10 +3,14 @@ using UnityEngine;
 public class HealthManager : MonoBehaviour
 {
     [SerializeField]
+    [Range(10, 50)]
     private int maximumHealth;
+    private int prevMaxHealth;
 
     [SerializeField]
+    [Range(0, 50)]
     private int currentHealth;
+    private int prevCurrentHealth;
 
     [SerializeField]
     private MenusAndDisplayManager menusAndDisplayManager;
@@ -15,14 +19,22 @@ public class HealthManager : MonoBehaviour
 
     private void Awake()
     {
+        prevMaxHealth = maximumHealth;
         currentHealth = maximumHealth;
-        energyIndicator = menusAndDisplayManager.GetTopLeftContainer().GetEnergyIndicator();
+        prevCurrentHealth = currentHealth;
+
+        if (energyIndicator == null)
+        {
+            energyIndicator = menusAndDisplayManager.GetTopLeftContainer().GetEnergyIndicator();
+        }
+
         energyIndicator.SetMaximumAndFill(maximumHealth);
     }
 
     public void DoDamage(int strength)
     {
         currentHealth -= strength;
+        prevCurrentHealth = currentHealth;
 
         energyIndicator.DecreaseLevel(strength);
 
@@ -36,5 +48,29 @@ public class HealthManager : MonoBehaviour
     {
         Debug.Log("I got dead again!!");
         gameObject.SetActive(false);
+    }
+
+    private void OnValidate()
+    {
+        if (currentHealth > maximumHealth) currentHealth = maximumHealth;
+
+        if (menusAndDisplayManager == null) return;
+
+        if (energyIndicator == null)
+        {
+            energyIndicator = menusAndDisplayManager.GetTopLeftContainer().GetEnergyIndicator();
+        }
+
+        if (currentHealth != prevCurrentHealth)
+        {
+            prevCurrentHealth = currentHealth;
+            energyIndicator.SetLevel(currentHealth);
+        }
+
+        if (maximumHealth != prevMaxHealth)
+        {
+            prevMaxHealth = maximumHealth;
+            energyIndicator.SetMaximum(maximumHealth);
+        }
     }
 }

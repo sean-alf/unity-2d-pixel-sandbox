@@ -19,12 +19,7 @@ public class EnergyIndicator : MonoBehaviour
     [SerializeField]
     private Sprite brokenBorderSprite;
 
-    [SerializeField]
-    [Range(10, 50)]
     private int max;
-
-    [SerializeField]
-    [Range(0, 50)]
     private int level;
 
     [SerializeField]
@@ -55,6 +50,13 @@ public class EnergyIndicator : MonoBehaviour
     public void IncreaseMaximum(int amount)
     {
         max += amount;
+        UpdateIcons();
+    }
+
+    public void SetLevel(int level)
+    {
+        this.level = level;
+        if (this.level > max) this.level = max;
         UpdateIcons();
     }
 
@@ -116,12 +118,5 @@ public class EnergyIndicator : MonoBehaviour
         }
 
         levelSR.color = c;
-    }
-
-    private void OnValidate()
-    {
-        if (level > max) level = max;
-
-        UpdateIcons();
     }
 }

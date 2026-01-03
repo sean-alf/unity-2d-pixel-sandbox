@@ -26,7 +26,6 @@ public class ProjectileSO : ScriptableObject
 
         if (Instantiate(template, Vector3.zero, Quaternion.identity).TryGetComponent(out BasicProjectile p))
         {
-            p.gameObject.SetActive(false);
             onNotNull(p);
         }
         else

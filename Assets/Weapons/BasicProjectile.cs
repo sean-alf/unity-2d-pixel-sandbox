@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Collider2D))]
 public class BasicProjectile : MonoBehaviour, ILogTagProvider
 {
     private static readonly ProjectileAnimationStateManager animationStateManager = new();
@@ -25,11 +27,8 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
     private SpriteRenderer sr;
     private Vector2 direction;
     private Logging.Tag logTag;
-    private bool inUse = false;
     private bool move = true;
     private int halfHeight;
-
-    public bool InUse => inUse;
 
     public Logging.Tag LogTag => logTag;
 
@@ -50,7 +49,7 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
 
     private void FixedUpdate()
     {
-        if (inUse && move)
+        if (move)
         {
             rb.MovePosition((speed * direction) + rb.position);
         }
@@ -74,18 +73,25 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
 
     public void Use(Vector2 direction, Vector3 startPosition)
     {
-        inUse = true;
+        var results = new List<Collider2D>();
+
+        if (Physics2D.OverlapCollider(GetComponent<Collider2D>(), results) > 0)
+        {
+            // Prevent using, just play dissipation animation
+            var stateName = animationStateManager.GetAnimationData(id).finishStateName;
+            animator.Play(stateName);
+            return;
+        }
+
         move = true;
 
         this.direction = direction;
         float angle = Vector2.SignedAngle(Vector2.up, direction);
         transform.SetPositionAndRotation(startPosition.Add(halfHeight * direction.normalized), Quaternion.Euler(0, 0, angle));
-        gameObject.SetActive(true);
     }
 
     public void Animator_Finish()
     {
-        inUse = false;
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

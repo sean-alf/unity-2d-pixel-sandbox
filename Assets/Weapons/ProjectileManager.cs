@@ -15,8 +15,6 @@ public class ProjectileManager : MonoBehaviour, ILogTagProvider
     [SerializeField]
     private MenusAndDisplayManager madm;
 
-    private readonly List<BasicProjectile> projectilesList = new();
-
     private ProjectileSO selectedProjectile;
     private int currentIndex = 0;
     private int count;
@@ -53,16 +51,11 @@ public class ProjectileManager : MonoBehaviour, ILogTagProvider
     {
         foreach (var s in startingPoints)
         {
-            var p = projectilesList.Find((p) => !p.InUse);
-
-            if (p != null)
+            selectedProjectile.Instantiate(p =>
             {
+                p.gameObject.layer = shootingLayer;
                 p.Use(s.direction, s.position);
-            }
-            else
-            {
-                Debug.LogWarning("all projectiles in use!!");
-            }
+            });
         }
         ;
     }
@@ -87,25 +80,6 @@ public class ProjectileManager : MonoBehaviour, ILogTagProvider
         {
             Logging.LogError(logTag, "shooting layer not set!!");
             return;
-        }
-
-        foreach (var p in projectilesList)
-        {
-            if (p != null)
-            {
-                Destroy(p.gameObject);
-            }
-        }
-
-        projectilesList.Clear();
-
-        for (int i = 0; i < selectedProjectile.MaxProjectiles; i++)
-        {
-            selectedProjectile.Instantiate(p =>
-            {
-                p.gameObject.layer = shootingLayer;
-                projectilesList.Add(p);
-            });
         }
 
         if (madm)

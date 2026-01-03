@@ -44,13 +44,11 @@ public class Globbel : MonoBehaviour
 
     public void OnActivate()
     {
-        Debug.Log("Activate");
         coroutine = StartCoroutine(RotateAndShoot());
     }
 
     public void OnDeactivate()
     {
-        Debug.Log("Deactivate");
         if (coroutine == null) return;
         StopCoroutine(coroutine);
         coroutine = null;
