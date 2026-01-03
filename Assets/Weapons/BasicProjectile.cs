@@ -16,6 +16,10 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
     [Range(1, 100)]
     private int speed = 1;
 
+    [SerializeField]
+    [Range(-16, 16)]
+    private int spawnPositionOffsetPX;
+
     [Header("Debug")]
     [Space]
 
@@ -73,21 +77,11 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
 
     public void Use(Vector2 direction, Vector3 startPosition)
     {
-        var results = new List<Collider2D>();
-
-        if (Physics2D.OverlapCollider(GetComponent<Collider2D>(), results) > 0)
-        {
-            // Prevent using, just play dissipation animation
-            var stateName = animationStateManager.GetAnimationData(id).finishStateName;
-            animator.Play(stateName);
-            return;
-        }
-
-        move = true;
+        float angle = Vector2.SignedAngle(Vector2.up, direction);
+        transform.SetPositionAndRotation(startPosition.Add((halfHeight + spawnPositionOffsetPX) * direction.normalized), Quaternion.Euler(0, 0, angle));
 
         this.direction = direction;
-        float angle = Vector2.SignedAngle(Vector2.up, direction);
-        transform.SetPositionAndRotation(startPosition.Add(halfHeight * direction.normalized), Quaternion.Euler(0, 0, angle));
+        move = true;
     }
 
     public void Animator_Finish()

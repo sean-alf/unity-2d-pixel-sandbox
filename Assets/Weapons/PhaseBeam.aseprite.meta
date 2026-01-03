@@ -332,7 +332,12 @@ ScriptedImporter:
     spriteBone: []
     spriteOutline: []
     vertices: []
-    spritePhysicsOutline: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: -3, y: -3}
+      - {x: 3, y: -3}
+      - {x: 3, y: 3}
+      - {x: -3, y: 3}
     indices: 
     edges: []
     tessellationDetail: 0

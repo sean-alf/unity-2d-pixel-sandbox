@@ -22,7 +22,10 @@ public class HealthManager : MonoBehaviour
         prevMaxHealth = maximumHealth;
         currentHealth = maximumHealth;
         prevCurrentHealth = currentHealth;
+    }
 
+    private void Start()
+    {
         if (energyIndicator == null)
         {
             energyIndicator = menusAndDisplayManager.GetTopLeftContainer().GetEnergyIndicator();

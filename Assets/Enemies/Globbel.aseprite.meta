@@ -167,18 +167,14 @@ ScriptedImporter:
     vertices: []
     spritePhysicsOutline:
     - outline:
-      - {x: 16, y: -6}
-      - {x: 16, y: 6}
-      - {x: 6, y: 6}
-      - {x: 6, y: 16}
-      - {x: -6, y: 16}
-      - {x: -6, y: 6}
-      - {x: -16, y: 5.988817}
-      - {x: -16, y: -6}
-      - {x: -6, y: -6}
-      - {x: -6, y: -16}
-      - {x: 6, y: -16}
-      - {x: 6, y: -6}
+      - {x: 16, y: -7}
+      - {x: 16, y: 7}
+      - {x: 7, y: 16}
+      - {x: -7, y: 16}
+      - {x: -16, y: 7}
+      - {x: -16, y: -7}
+      - {x: -7, y: -16}
+      - {x: 7, y: -16}
     indices: 
     edges: []
     tessellationDetail: 0
@@ -191,36 +187,24 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 44
-      width: 28
-      height: 28
+      x: 2
+      y: 42
+      width: 32
+      height: 32
     spriteID: bc9a808c4b7e74b33acdc158ab1675dc
     spriteBone: []
     spriteOutline: []
     vertices: []
     spritePhysicsOutline:
     - outline:
-      - {x: 14, y: -10}
-      - {x: 14, y: -7}
-      - {x: 8, y: 0}
-      - {x: 14, y: 6.719574}
-      - {x: 14, y: 10.23774}
-      - {x: 10, y: 14}
-      - {x: 7, y: 14}
-      - {x: 0, y: 8}
-      - {x: -6.8749895, y: 14}
-      - {x: -10, y: 14}
-      - {x: -14, y: 9.873024}
-      - {x: -14, y: 7}
-      - {x: -8, y: 0}
-      - {x: -14, y: -7.0262985}
-      - {x: -14, y: -10}
-      - {x: -10, y: -14}
-      - {x: -7, y: -14}
-      - {x: 0, y: -8}
-      - {x: 7.0262985, y: -14}
-      - {x: 10, y: -14}
+      - {x: 16, y: -7}
+      - {x: 16, y: 7}
+      - {x: 7, y: 16}
+      - {x: -7, y: 16}
+      - {x: -16, y: 7}
+      - {x: -16, y: -7}
+      - {x: -7, y: -16}
+      - {x: 7, y: -16}
     indices: 
     edges: []
     tessellationDetail: 0
