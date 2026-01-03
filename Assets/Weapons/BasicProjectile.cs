@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class BasicProjectile : MonoBehaviour, ILogTagProvider
 {
-    private static readonly int TO_EDGE_OF_EYE_PX = 4;
     private static readonly ProjectileAnimationStateManager animationStateManager = new();
 
     [SerializeField]
@@ -73,16 +72,14 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
         }
     }
 
-    public void Use(Vector2 direction, Transform transform)
+    public void Use(Vector2 direction, Vector3 startPosition)
     {
         inUse = true;
         move = true;
 
         this.direction = direction;
-
-        Vector3 position = transform.position;
         float angle = Vector2.SignedAngle(Vector2.up, direction);
-        this.transform.SetPositionAndRotation(position.Add((TO_EDGE_OF_EYE_PX + halfHeight) * direction.normalized), Quaternion.Euler(0, 0, angle));
+        transform.SetPositionAndRotation(startPosition.Add(halfHeight * direction.normalized), Quaternion.Euler(0, 0, angle));
         gameObject.SetActive(true);
     }
 

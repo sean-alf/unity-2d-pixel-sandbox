@@ -32,23 +32,18 @@ public class EnemyDamageHandler : MonoBehaviour, ILogTagProvider
         {
             Logging.LogDebug(logTag, $"has CollisionData");
 
-            if (data.receivers.Contains(CollisionData.Receiver.Enemy))
+            if (data.type == CollisionData.Type.Damage)
             {
-                Logging.LogInfo(logTag, $"receiver is Enemy");
+                Logging.LogInfo(logTag, $"type is Damage");
+                Logging.LogInfo(logTag, $"strength {data.strength}");
 
-                if (data.type == CollisionData.Type.Damage)
+                health -= data.strength;
+
+                if (health <= 0)
                 {
-                    Logging.LogInfo(logTag, $"type is Damage");
-                    Logging.LogInfo(logTag, $"strength {data.strength}");
-
-                    health -= data.strength;
-
-                    if (health <= 0)
-                    {
-                        var deathCloud = Instantiate(deathCloudTemplate, transform).GetComponent<DeathCloud>();
-                        deathCloud.onAnimationEnd += Die;
-                        deathCloud.Begin();
-                    }
+                    var deathCloud = Instantiate(deathCloudTemplate, transform).GetComponent<DeathCloud>();
+                    deathCloud.onAnimationEnd += Die;
+                    deathCloud.Begin();
                 }
             }
         }

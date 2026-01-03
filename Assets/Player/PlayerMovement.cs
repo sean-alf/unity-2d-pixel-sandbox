@@ -5,8 +5,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ProjectileManager))]
-public class PlayerMovement : MonoBehaviour, ProjectileManager.IDirectionProvider
+public class PlayerMovement : MonoBehaviour
 {
+    private static readonly int TO_EDGE_OF_EYE_PX = 4;
+
     [SerializeField]
     [Range(10, 100)]
     private int speed = 10;
@@ -42,6 +44,8 @@ public class PlayerMovement : MonoBehaviour, ProjectileManager.IDirectionProvide
         InputSystem_Actions_Names.Player.Jump(input).performed += OnJump;
         InputSystem_Actions_Names.Player.Previous(input).performed += OnPrevious;
         InputSystem_Actions_Names.Player.Next(input).performed += OnNext;
+
+        projectileManager.SetShootingLayer(LayerNames.Projectile);
     }
 
     // Update is called once per frame
@@ -86,7 +90,11 @@ public class PlayerMovement : MonoBehaviour, ProjectileManager.IDirectionProvide
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        projectileManager.Shoot();
+        projectileManager.Shoot(new ProjectileManager.StartingPoint
+        {
+            direction = LookDirection,
+            position = transform.position.Add(TO_EDGE_OF_EYE_PX * LookDirection.normalized),
+        });
     }
 
     private void OnPrevious(InputAction.CallbackContext context)
@@ -101,7 +109,15 @@ public class PlayerMovement : MonoBehaviour, ProjectileManager.IDirectionProvide
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (this.other != other.gameObject)
+        if (other.gameObject.TryGetComponent(out CollisionData data))
+        {
+            if (data.type == CollisionData.Type.Damage)
+            {
+                logger.LogWarning(Tag, $"Hit by {LayerMask.LayerToName(data.gameObject.layer)}");
+                return;
+            }
+        }
+        else if (this.other != other.gameObject)
         {
             this.other = other.gameObject;
         }

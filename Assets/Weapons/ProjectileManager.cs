@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(IDirectionProvider))]
 public class ProjectileManager : MonoBehaviour
 {
-    public interface IDirectionProvider
+    public struct StartingPoint
     {
-        public Vector2 LookDirection { get; }
+        public Vector2 direction;
+        public Vector3 position;
     }
 
     [SerializeField]
@@ -18,15 +17,13 @@ public class ProjectileManager : MonoBehaviour
 
     private readonly List<BasicProjectile> projectilesList = new();
 
-    private IDirectionProvider directionProvider;
     private ProjectileSO selectedProjectile;
     private int currentIndex = 0;
     private int count;
+    private int shootingLayer;
 
     private void Awake()
     {
-        directionProvider = GetComponent<IDirectionProvider>();
-
         if (projectiles == null || projectiles.Count == 0)
         {
             Debug.LogError("Projectile Manager: Projectiles not set!!");
@@ -37,6 +34,8 @@ public class ProjectileManager : MonoBehaviour
 
         // Automatically set the selected projectile to the first one in the list
         selectedProjectile = projectiles[currentIndex];
+
+        shootingLayer = gameObject.layer;
     }
 
     private void Start()
@@ -44,18 +43,22 @@ public class ProjectileManager : MonoBehaviour
         SetProjectiles();
     }
 
-    public void Shoot()
+    public void Shoot(params StartingPoint[] startingPoints)
     {
-        var p = projectilesList.Find((p) => !p.InUse);
+        foreach (var s in startingPoints)
+        {
+            var p = projectilesList.Find((p) => !p.InUse);
 
-        if (p != null)
-        {
-            p.Use(directionProvider.LookDirection, transform);
+            if (p != null)
+            {
+                p.Use(s.direction, s.position);
+            }
+            else
+            {
+                Debug.LogWarning("all projectiles in use!!");
+            }
         }
-        else
-        {
-            Debug.LogWarning("all projectiles in use!!");
-        }
+        ;
     }
 
     public void SelectNext()
@@ -86,9 +89,21 @@ public class ProjectileManager : MonoBehaviour
 
         for (int i = 0; i < selectedProjectile.MaxProjectiles; i++)
         {
-            selectedProjectile.Instantiate(p => projectilesList.Add(p));
+            selectedProjectile.Instantiate(p =>
+            {
+                p.gameObject.layer = shootingLayer;
+                projectilesList.Add(p);
+            });
         }
 
-        madm.UpdatePrimaryWeaponIcon(selectedProjectile.MenuIcon);
+        if (madm)
+        {
+            madm.UpdatePrimaryWeaponIcon(selectedProjectile.MenuIcon);
+        }
+    }
+
+    public void SetShootingLayer(string layer)
+    {
+        shootingLayer = LayerMask.NameToLayer(layer);
     }
 }

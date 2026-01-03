@@ -11,8 +11,11 @@ GameObject:
   - component: {fileID: 2686294511214651354}
   - component: {fileID: 1803010396746781904}
   - component: {fileID: 2929418794704468262}
-  - component: {fileID: 3829576991757216411}
   - component: {fileID: 8831731390759085525}
+  - component: {fileID: 2756273419691802104}
+  - component: {fileID: 3723320898782601728}
+  - component: {fileID: 7462578737664369393}
+  - component: {fileID: 550377087595670416}
   m_Layer: 11
   m_Name: Globbel
   m_TagString: Untagged
@@ -121,7 +124,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &3829576991757216411
+--- !u!114 &8831731390759085525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730726327980649173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0c314ce0a514d5781ae78adf36a032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
+  health: 2
+  logLevelSelector:
+    logLevel: 5
+--- !u!60 &2756273419691802104
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,7 +178,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16, y: 16}
+    oldSize: {x: 32, y: 32}
     newSize: {x: 16, y: 16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -167,16 +186,42 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 8, y: -4}
-      - {x: 8, y: 4}
-      - {x: 4, y: 8}
-      - {x: -4, y: 8}
-      - {x: -8, y: 4}
-      - {x: -8, y: -4}
-      - {x: -4, y: -8}
-      - {x: 4, y: -8}
+    - - {x: 16, y: -6}
+      - {x: 16, y: 6}
+      - {x: 6, y: 6}
+      - {x: 6, y: 16}
+      - {x: -6, y: 16}
+      - {x: -6, y: 6}
+      - {x: -16, y: 5.988817}
+      - {x: -16, y: -6}
+      - {x: -6, y: -6}
+      - {x: -6, y: -16}
+      - {x: 6, y: -16}
+      - {x: 6, y: -6}
   m_UseDelaunayMesh: 1
---- !u!114 &8831731390759085525
+--- !u!95 &3723320898782601728
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730726327980649173}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26a888e0026b543c1968aa4cf40f0e15, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7462578737664369393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,10 +230,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2730726327980649173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0c314ce0a514d5781ae78adf36a032, type: 3}
+  m_Script: {fileID: 11500000, guid: b0fdca97b43f74d4cb5535e57fd9e902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
-  health: 2
-  logLevelSelector:
-    logLevel: 5
+--- !u!114 &550377087595670416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730726327980649173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845ebb81f27e5409a9c73cec60b91fa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileManager
+  projectiles:
+  - {fileID: 11400000, guid: be13011e2b5414e2b95bea7faa3ec29d, type: 2}
+  madm: {fileID: 0}

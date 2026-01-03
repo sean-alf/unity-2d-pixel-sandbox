@@ -8,4 +8,6 @@ public static class LayerNames {
    public static readonly string Environment = "Environment";
    public static readonly string Enemy = "Enemy";
    public static readonly string Projectile = "Projectile";
+   public static readonly string EnemyProjectile = "EnemyProjectile";
+   public static readonly string CameraBounds = "CameraBounds";
 }
