@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileManager : MonoBehaviour
+public class ProjectileManager : MonoBehaviour, ILogTagProvider
 {
     public struct StartingPoint
     {
@@ -21,6 +21,14 @@ public class ProjectileManager : MonoBehaviour
     private int currentIndex = 0;
     private int count;
     private int shootingLayer;
+    private Logging.Tag logTag;
+
+    public Logging.Tag LogTag => throw new System.NotImplementedException();
+
+    private void OnEnable()
+    {
+        logTag = this.CreateLogTag();
+    }
 
     private void Awake()
     {
@@ -34,8 +42,6 @@ public class ProjectileManager : MonoBehaviour
 
         // Automatically set the selected projectile to the first one in the list
         selectedProjectile = projectiles[currentIndex];
-
-        shootingLayer = gameObject.layer;
     }
 
     private void Start()
@@ -77,6 +83,12 @@ public class ProjectileManager : MonoBehaviour
 
     private void SetProjectiles()
     {
+        if (shootingLayer == 0)
+        {
+            Logging.LogError(logTag, "shooting layer not set!!");
+            return;
+        }
+
         foreach (var p in projectilesList)
         {
             if (p != null)

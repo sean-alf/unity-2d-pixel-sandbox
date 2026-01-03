@@ -7,7 +7,7 @@ using UnityEditor.Animations;
 
 public static class AnimatorControllerStateStringGenerator
 {
-    [MenuItem("Assets/Generate State Strings")]
+    [MenuItem("Assets/Animator Controller/Generate State Strings")]
     [MenuItem("Tools/Animator Controller/Generate State Strings")]
     public static void Generate()
     {
@@ -47,7 +47,7 @@ public static class AnimatorControllerStateStringGenerator
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Assets/Generate State Strings", true)]
+    [MenuItem("Assets/Animator Controller/Generate State Strings", true)]
     [MenuItem("Tools/Animator Controller/Generate State Strings", true)]
     static bool ValidateGenerate()
     {

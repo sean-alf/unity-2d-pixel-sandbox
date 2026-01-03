@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 2929418794704468262}
   - component: {fileID: 8831731390759085525}
   - component: {fileID: 2756273419691802104}
-  - component: {fileID: 3723320898782601728}
-  - component: {fileID: 7462578737664369393}
   - component: {fileID: 550377087595670416}
+  - component: {fileID: 4472532923015666288}
+  - component: {fileID: 5589158998950041537}
+  - component: {fileID: -6718179303294631227}
+  - component: {fileID: -262022770956470715}
   m_Layer: 11
   m_Name: Globbel
   m_TagString: Untagged
@@ -199,40 +201,6 @@ PolygonCollider2D:
       - {x: 6, y: -16}
       - {x: 6, y: -6}
   m_UseDelaunayMesh: 1
---- !u!95 &3723320898782601728
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2730726327980649173}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 26a888e0026b543c1968aa4cf40f0e15, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7462578737664369393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2730726327980649173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0fdca97b43f74d4cb5535e57fd9e902, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!114 &550377087595670416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,3 +216,88 @@ MonoBehaviour:
   projectiles:
   - {fileID: 11400000, guid: be13011e2b5414e2b95bea7faa3ec29d, type: 2}
   madm: {fileID: 0}
+--- !u!114 &4472532923015666288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730726327980649173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af09edcb8d8f4ffcbd4604fae1c2cc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  toBeWatched: {fileID: 0}
+  onActivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5589158998950041537}
+        m_TargetAssemblyTypeName: Globbel, Assembly-CSharp
+        m_MethodName: OnActivate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDeactivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5589158998950041537}
+        m_TargetAssemblyTypeName: Globbel, Assembly-CSharp
+        m_MethodName: OnDeactivate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5589158998950041537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730726327980649173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59548abdd330a4af6ad445a68bc68aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &-6718179303294631227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730726327980649173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrary
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: d7429cf9f26604377ad7c8b1f3dece76, type: 3}
+--- !u!114 &-262022770956470715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730726327980649173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
+  m_CategoryHash: 0
+  m_labelHash: 0
+  m_SpriteKey: 0
+  m_SpriteHash: 373374374
