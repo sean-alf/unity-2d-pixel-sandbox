@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ProjectileManager))]
+[RequireComponent(typeof(HealthManager))]
 public class PlayerMovement : MonoBehaviour
 {
     private static readonly int TO_EDGE_OF_EYE_PX = 4;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private PlayerInput input;
     private ProjectileManager projectileManager;
+    private HealthManager healthManager;
     private Vector2 currentDirection;
     private Vector2 lastNonIdleDirection = Vector2.up;
     private GameObject other;
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         input = GetComponent<PlayerInput>();
         projectileManager = GetComponent<ProjectileManager>();
+        healthManager = GetComponent<HealthManager>();
 
         InputSystem_Actions_Names.Player.Move(input).performed += OnMove;
         InputSystem_Actions_Names.Player.Move(input).canceled += OnMove;
@@ -114,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
             if (data.type == CollisionData.Type.Damage)
             {
                 logger.LogWarning(Tag, $"Hit by {LayerMask.LayerToName(data.gameObject.layer)}");
+                healthManager.DoDamage(data.strength);
                 return;
             }
         }

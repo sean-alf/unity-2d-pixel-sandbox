@@ -98,7 +98,7 @@ public class ProjectileManager : MonoBehaviour
 
         if (madm)
         {
-            madm.UpdatePrimaryWeaponIcon(selectedProjectile.MenuIcon);
+            madm.GetTopLeftContainer().UpdatePrimaryWeaponIcon(selectedProjectile.MenuIcon);
         }
     }
 

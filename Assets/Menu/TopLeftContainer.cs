@@ -8,6 +8,9 @@ public class TopLeftContainer : MonoBehaviour
     [SerializeField]
     private SpriteRenderer primaryToolIconRenderer;
 
+    [SerializeField]
+    private EnergyIndicator energyIndicator;
+
     public void UpdatePrimaryWeaponIcon(Sprite icon)
     {
         primaryWeaponIconRenderer.sprite = icon;
@@ -17,4 +20,6 @@ public class TopLeftContainer : MonoBehaviour
     {
         primaryToolIconRenderer.sprite = icon;
     }
+
+    public EnergyIndicator GetEnergyIndicator() => energyIndicator;
 }

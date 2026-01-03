@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -6,6 +8,9 @@ public class ChildOrderer : MonoBehaviour
 {
     [SerializeField]
     private int sortingOrder;
+
+    [SerializeField]
+    private SpriteRenderer[] ignoreList;
 
     private void OnEnable()
     {
@@ -26,6 +31,7 @@ public class ChildOrderer : MonoBehaviour
         // Set sorting order for all children
         foreach (var r in GetComponentsInChildren<SpriteRenderer>())
         {
+            if (ignoreList.Contains(r)) continue;
             r.sortingOrder = sortingOrder;
         }
     }

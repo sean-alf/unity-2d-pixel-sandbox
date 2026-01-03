@@ -7,7 +7,7 @@ public class MenusAndDisplayManager : MonoBehaviour, ILogTagProvider
 
     [Header("Debug")]
     [Space]
-    
+
     [SerializeField]
     private LogLevelSelector logLevelSelector;
 
@@ -21,31 +21,5 @@ public class MenusAndDisplayManager : MonoBehaviour, ILogTagProvider
         Logging.SetLogLevel(logTag, logLevelSelector.logLevel);
     }
 
-    public void ShowTopLeftDisplay()
-    {
-        if (topLeftContainer.gameObject.activeSelf) return;
-        topLeftContainer.gameObject.SetActive(true);
-    }
-
-    public void HideTopLeftDisplay()
-    {
-        if (!topLeftContainer.gameObject.activeSelf) return;
-        topLeftContainer.gameObject.SetActive(false);
-    }
-
-    public void ToggleTopLeftDisplay()
-    {
-        Logging.LogInfo(logTag, $"activate {!topLeftContainer.gameObject.activeSelf}");
-        topLeftContainer.gameObject.SetActive(!topLeftContainer.gameObject.activeSelf);
-    }
-
-    public void UpdatePrimaryWeaponIcon(Sprite icon)
-    {
-        topLeftContainer.UpdatePrimaryWeaponIcon(icon);
-    }
-
-    public void UpdatePrimaryToolIcon(Sprite icon)
-    {
-        topLeftContainer.UpdatePrimaryToolIcon(icon);
-    }
+    public TopLeftContainer GetTopLeftContainer() => topLeftContainer;
 }
