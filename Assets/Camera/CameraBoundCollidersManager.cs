@@ -2,11 +2,31 @@ using UnityEngine;
 
 public class CameraBoundCollidersManager : MonoBehaviour
 {
-    public void Reset()
+    [SerializeField]
+    [Range(0, 128)]
+    private int pixelThickness = 32;
+
+    [SerializeField]
+    [Range(0, 128)]
+    private int pixelOffset = 32;
+
+    public void ResetBounds()
     {
         foreach (var c in GetComponentsInChildren<CameraBoundCollider>())
         {
-            c.Reset();
+            if (c.OverrideManager)
+            {
+                c.ResetBound();
+            }
+            else
+            {
+                c.ResetBound(pixelThickness, pixelOffset);
+            }
         }
+    }
+
+    private void OnValidate()
+    {
+        ResetBounds();
     }
 }

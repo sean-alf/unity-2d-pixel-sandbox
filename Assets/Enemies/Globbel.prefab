@@ -87,7 +87,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5375804601182416780, guid: fa386841d8705438f91b3ddadaeeaedf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -180,7 +180,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 32, y: 32}
+    oldSize: {x: 64, y: 64}
     newSize: {x: 16, y: 16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileManager
   projectiles:
-  - {fileID: 11400000, guid: be13011e2b5414e2b95bea7faa3ec29d, type: 2}
+  - {fileID: 11400000, guid: ccbb24bae8ef64a26b7f493d45018bd1, type: 2}
   madm: {fileID: 0}
 --- !u!114 &4472532923015666288
 MonoBehaviour:
@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   toBeWatched: {fileID: 0}
+  pixelDistance: 256
   onActivate:
     m_PersistentCalls:
       m_Calls:

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 536179666e51d4c5e80cf404edf3ed6d
+guid: 40c70345476504d35b8c47a2a9963d7a
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639025505512250820
+  platformSettingsDirtyTick: 639030758841425030
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -129,7 +129,7 @@ ScriptedImporter:
   animatedSpriteImportData: []
   spriteSheetImportData: []
   tileSetImportData:
-  - name: Ground_1
+  - name: GroundTileset_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -139,9 +139,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 16
-      height: 16
-    spriteID: 0821f4b26a5864d478c6b5ba66596c99
+      width: 32
+      height: 32
+    spriteID: 6161c7fcd4d7a453ca09b28855d6ae79
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -150,7 +150,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Ground_2
+  - name: GroundTileset_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -159,10 +159,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 28
-      width: 16
-      height: 16
-    spriteID: 0784a8b0504374347920eb3b7c0087cf
+      y: 44
+      width: 32
+      height: 32
+    spriteID: 613dc01f6d81b44458b46df46c5fe26a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -170,8 +170,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 28}
-  - name: Ground_3
+    uvTransform: {x: 4, y: 44}
+  - name: GroundTileset_3
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -180,10 +180,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 52
-      width: 16
-      height: 16
-    spriteID: 6df4186970c3f4349b492733d0ee3faf
+      y: 84
+      width: 32
+      height: 32
+    spriteID: 378bfc15d85224067844a41b9c185643
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,8 +191,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 52}
-  - name: Ground_4
+    uvTransform: {x: 4, y: 84}
+  - name: GroundTileset_4
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -200,53 +200,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 76
-      width: 16
-      height: 16
-    spriteID: 31dbb57c156bc475e935f1b26d085adf
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 76}
-  - name: Ground_5
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 100
-      width: 16
-      height: 16
-    spriteID: c8e892f80835841b1948f9ff1f5807a5
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 100}
-  - name: Ground_6
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 28
+      x: 44
       y: 4
-      width: 16
-      height: 16
-    spriteID: b3dbf2e652a964a669fd0f0e6a92ea63
+      width: 32
+      height: 32
+    spriteID: 7d9632668ae1141d58422e12c045e50c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -254,8 +212,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 28, y: 4}
-  - name: Ground_7
+    uvTransform: {x: 44, y: 4}
+  - name: GroundTileset_5
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -263,11 +221,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 28
-      y: 28
-      width: 16
-      height: 16
-    spriteID: 54f56669e7c524eb19e68f727c1d7e22
+      x: 44
+      y: 44
+      width: 32
+      height: 32
+    spriteID: 8a2950408df6042f897c362ddbef77d0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -275,8 +233,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 28, y: 28}
-  - name: Ground_8
+    uvTransform: {x: 44, y: 44}
+  - name: GroundTileset_6
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -284,11 +242,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 28
-      y: 52
-      width: 16
-      height: 16
-    spriteID: e0ca2beae6c074116bbde445ff068bda
+      x: 44
+      y: 84
+      width: 32
+      height: 32
+    spriteID: b7bcba928b6e342f485122e5ea6e7173
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -296,8 +254,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 28, y: 52}
-  - name: Ground_9
+    uvTransform: {x: 44, y: 84}
+  - name: GroundTileset_7
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -305,11 +263,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 28
-      y: 76
-      width: 16
-      height: 16
-    spriteID: 1056fd60645d443e383f9d21d6380bde
+      x: 84
+      y: 4
+      width: 32
+      height: 32
+    spriteID: 282e61e2431684b46acba081901e735e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -317,16 +275,58 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 28, y: 76}
+    uvTransform: {x: 84, y: 4}
+  - name: GroundTileset_8
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 44
+      width: 32
+      height: 32
+    spriteID: 7d7e1fbff87ee4ffb87c55e0aa8953d6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 44}
+  - name: GroundTileset_9
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 84
+      width: 32
+      height: 32
+    spriteID: 7a6b7d7381a944fd295af62dabf25e8f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 84}
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 1863472778
-      value1: 457528638
-      value2: 3606297249
-      value3: 809990244
+      value0: 1125468989
+      value1: 0
+      value2: 0
+      value3: 0
     guid: 0
-    name: Ground
+    name: GroundTilemap
     layerFlags: 3
     layerType: 2
     blendMode: 0
@@ -338,73 +338,73 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 0
-        width: 5
-        height: 2
-      tileIndices: 01000000020000000300000004000000050000000600000007000000080000000900000000000000
+        width: 4
+        height: 3
+      tileIndices: 010000000200000003000000040000000500000006000000070000000800000009000000090000000900000009000000
     tileSetIndex: 0
     parentIndex: -1
   tileSets:
   - id: 0
-    name: Ground
+    name: GroundTileset
     tileSize:
-      x: 16
-      y: 16
+      x: 32
+      y: 32
     tiles:
     - tileId: 1
       size:
-        x: 16
-        y: 16
-      name: Ground_1
-      spriteId: 0821f4b26a5864d478c6b5ba66596c99
+        x: 32
+        y: 32
+      name: GroundTileset_1
+      spriteId: 6161c7fcd4d7a453ca09b28855d6ae79
     - tileId: 2
       size:
-        x: 16
-        y: 16
-      name: Ground_2
-      spriteId: 0784a8b0504374347920eb3b7c0087cf
+        x: 32
+        y: 32
+      name: GroundTileset_2
+      spriteId: 613dc01f6d81b44458b46df46c5fe26a
     - tileId: 3
       size:
-        x: 16
-        y: 16
-      name: Ground_3
-      spriteId: 6df4186970c3f4349b492733d0ee3faf
+        x: 32
+        y: 32
+      name: GroundTileset_3
+      spriteId: 378bfc15d85224067844a41b9c185643
     - tileId: 4
       size:
-        x: 16
-        y: 16
-      name: Ground_4
-      spriteId: 31dbb57c156bc475e935f1b26d085adf
+        x: 32
+        y: 32
+      name: GroundTileset_4
+      spriteId: 7d9632668ae1141d58422e12c045e50c
     - tileId: 5
       size:
-        x: 16
-        y: 16
-      name: Ground_5
-      spriteId: c8e892f80835841b1948f9ff1f5807a5
+        x: 32
+        y: 32
+      name: GroundTileset_5
+      spriteId: 8a2950408df6042f897c362ddbef77d0
     - tileId: 6
       size:
-        x: 16
-        y: 16
-      name: Ground_6
-      spriteId: b3dbf2e652a964a669fd0f0e6a92ea63
+        x: 32
+        y: 32
+      name: GroundTileset_6
+      spriteId: b7bcba928b6e342f485122e5ea6e7173
     - tileId: 7
       size:
-        x: 16
-        y: 16
-      name: Ground_7
-      spriteId: 54f56669e7c524eb19e68f727c1d7e22
+        x: 32
+        y: 32
+      name: GroundTileset_7
+      spriteId: 282e61e2431684b46acba081901e735e
     - tileId: 8
       size:
-        x: 16
-        y: 16
-      name: Ground_8
-      spriteId: e0ca2beae6c074116bbde445ff068bda
+        x: 32
+        y: 32
+      name: GroundTileset_8
+      spriteId: 7d7e1fbff87ee4ffb87c55e0aa8953d6
     - tileId: 9
       size:
-        x: 16
-        y: 16
-      name: Ground_9
-      spriteId: 1056fd60645d443e383f9d21d6380bde
-    guid: 565138765
+        x: 32
+        y: 32
+      name: GroundTileset_9
+      spriteId: 7a6b7d7381a944fd295af62dabf25e8f
+    guid: 289705467
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -446,4 +446,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}
-  previousTextureSize: {x: 64, y: 128}
+  previousTextureSize: {x: 128, y: 128}

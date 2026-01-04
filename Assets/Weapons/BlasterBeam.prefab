@@ -163,7 +163,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 8}
+    oldSize: {x: 8, y: 16}
     newSize: {x: 4, y: 8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   id: 0
-  speed: 3
+  speed: 6
+  spawnPositionOffsetPX: 0
   logLevelSelector:
     logLevel: 5

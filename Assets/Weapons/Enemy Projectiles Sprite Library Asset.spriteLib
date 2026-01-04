@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrarySourceAsset
+  m_Library:
+  - m_Name: Default Beam
+    m_Hash: 937596546
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Default
+      m_Hash: 753088835
+      m_Sprite: {fileID: 5310342397081596427, guid: ee755864374ae45099cfc1438abb14b2, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 8625255443306544216, guid: 7551510b04dff4e889afd4e176408c97, type: 3}
+    - m_Name: Dissipate_0
+      m_Hash: 200312933
+      m_Sprite: {fileID: 794018497453465181, guid: ee755864374ae45099cfc1438abb14b2, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 5683761358251744078, guid: 7551510b04dff4e889afd4e176408c97, type: 3}
+    - m_Name: Dissipate_1
+      m_Hash: 1022867699
+      m_Sprite: {fileID: 996815303245547897, guid: ee755864374ae45099cfc1438abb14b2, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 4632596876580935611, guid: 7551510b04dff4e889afd4e176408c97, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 3
+  - m_Name: PhaseBeam
+    m_Hash: 370471083
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Default_0
+      m_Hash: 510843877
+      m_Sprite: {fileID: 8819406656770812563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 8819406656770812563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Default_1
+      m_Hash: 695593843
+      m_Sprite: {fileID: 8806215975727125558, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 8806215975727125558, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Default_2
+      m_Hash: 813480649
+      m_Sprite: {fileID: 3235122463981467377, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 3235122463981467377, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Dissipate_0
+      m_Hash: 200312933
+      m_Sprite: {fileID: 8819406656770812563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 8819406656770812563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Dissipate_1
+      m_Hash: 1022867699
+      m_Sprite: {fileID: 3235122463981467377, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 3235122463981467377, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Dissipate_2
+      m_Hash: 637462857
+      m_Sprite: {fileID: -2214568417701883563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -2214568417701883563, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    - m_Name: Dissipate_3
+      m_Hash: 318364127
+      m_Sprite: {fileID: 2438521779293102440, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 2438521779293102440, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 0
+  m_PrimaryLibraryGUID: 0d0756eecc5d949b9847ca6a6bed7443
+  m_ModificationHash: 639031274379339080
+  m_Version: 1

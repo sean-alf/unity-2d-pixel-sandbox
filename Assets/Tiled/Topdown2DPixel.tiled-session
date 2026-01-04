@@ -1,0 +1,27 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "TileSets/GreenWall.tsx": {
+            "scaleInEditor": 1.7
+        },
+        "TileSets/MuddyGround.tsx": {
+            "scaleInEditor": 1.7
+        }
+    },
+    "last.imagePath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/TileSets",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+    ],
+    "project": "Topdown2DPixel.tiled-project",
+    "recentFiles": [
+        "TileSets/GreenWall.tsx",
+        "TileSets/MuddyGround.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

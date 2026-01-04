@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -48,7 +47,7 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
 
-        halfHeight = (int)sr.size.y / 2;
+        halfHeight = (int)sr.bounds.size.y / 2;
     }
 
     private void FixedUpdate()

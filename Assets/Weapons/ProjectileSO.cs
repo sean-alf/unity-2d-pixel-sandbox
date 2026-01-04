@@ -10,11 +10,7 @@ public class ProjectileSO : ScriptableObject
     [SerializeField]
     private GameObject template;
 
-    [SerializeField]
-    private int maxProjectiles = 5;
-
     public Sprite MenuIcon => menuIcon;
-    public int MaxProjectiles => maxProjectiles;
 
     public void Instantiate(Action<BasicProjectile> onNotNull)
     {

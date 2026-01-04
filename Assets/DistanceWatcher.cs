@@ -7,6 +7,10 @@ public class DistanceWatcher : MonoBehaviour
     private GameObject toBeWatched;
 
     [SerializeField]
+    [Range(0, 512)]
+    private int pixelDistance = 256;
+
+    [SerializeField]
     private UnityEvent onActivate;
 
     [SerializeField]
@@ -32,7 +36,8 @@ public class DistanceWatcher : MonoBehaviour
         }
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         fixedPosition = transform.position;
     }
 
@@ -44,6 +49,6 @@ public class DistanceWatcher : MonoBehaviour
             return;
         }
 
-        Activated = Vector2.Distance(toBeWatched.transform.position, fixedPosition) < 128.0f;
+        Activated = Vector2.Distance(toBeWatched.transform.position, fixedPosition) < pixelDistance;
     }
 }

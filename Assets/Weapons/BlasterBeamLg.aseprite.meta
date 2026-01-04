@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fa386841d8705438f91b3ddadaeeaedf
+guid: 7551510b04dff4e889afd4e176408c97
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639031244373551830
+  platformSettingsDirtyTick: 639031273399525990
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,7 +127,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Globbel
+  - name: Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -136,10 +136,31 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
+      y: 72
       width: 16
-      height: 16
-    spriteID: bcc9e28a5839843188e22dfeff0e4668
+      height: 32
+    spriteID: d97a24d9d064c4ac381fcd72936e77d0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 72}
+  - name: Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.071428575}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 28
+      height: 28
+    spriteID: e4b5ee368ba5744729a01b8fe95b4f99
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -148,8 +169,50 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.16666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 40
+      width: 24
+      height: 24
+    spriteID: f3d9c4b77793c4319aaa89d58a1851f0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 40}
   spriteSheetImportData:
-  - name: Globbel_0
+  - name: BlasterBeamLg_0
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 72
+      width: 16
+      height: 32
+    spriteID: 0e938940efd8349acaf1d9f20dfa6f50
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: BlasterBeamLg_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -159,27 +222,18 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 64
-      height: 64
-    spriteID: 420a1082c01d04a2a9d463c38e7a896e
+      width: 28
+      height: 28
+    spriteID: 66716ceba4f8b420d849d22a94d19339
     spriteBone: []
     spriteOutline: []
     vertices: []
-    spritePhysicsOutline:
-    - outline:
-      - {x: 32, y: -15}
-      - {x: 32, y: 15}
-      - {x: 14, y: 32}
-      - {x: -15, y: 32}
-      - {x: -32, y: 15}
-      - {x: -32, y: -16}
-      - {x: -14, y: -32}
-      - {x: 15, y: -32}
+    spritePhysicsOutline: []
     indices: 
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: Globbel_1
+  - name: BlasterBeamLg_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -187,24 +241,15 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 0
-      y: 72
-      width: 64
-      height: 64
-    spriteID: 186848e6f3c164563bee7dfe9563dd52
+      x: 4
+      y: 40
+      width: 24
+      height: 24
+    spriteID: 0e51d9403e03c45d095b93a7a4d9c22a
     spriteBone: []
     spriteOutline: []
     vertices: []
-    spritePhysicsOutline:
-    - outline:
-      - {x: 32, y: -15}
-      - {x: 32, y: 15}
-      - {x: 14, y: 32}
-      - {x: -15, y: 32}
-      - {x: -32, y: 15}
-      - {x: -32, y: -16}
-      - {x: -14, y: -32}
-      - {x: 15, y: -32}
+    spritePhysicsOutline: []
     indices: 
     edges: []
     tessellationDetail: 0
@@ -213,12 +258,12 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 3878509065
+      value0: 2600673535
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: Globbel
+    name: BlasterBeamLg
     layerFlags: 0
     layerType: 0
     blendMode: 0
@@ -227,20 +272,29 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 8
         y: 0
-        width: 64
-        height: 64
-      spriteId: bcc9e28a5839843188e22dfeff0e4668
+        width: 16
+        height: 32
+      spriteId: d97a24d9d064c4ac381fcd72936e77d0
     - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
+        x: 2
+        y: 2
+        width: 28
+        height: 28
+      spriteId: e4b5ee368ba5744729a01b8fe95b4f99
+    - name: Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
         x: 4
         y: 4
-        width: 56
-        height: 56
-      spriteId: 40ff9855e9abf45b48a78b54ba9523e1
+        width: 24
+        height: 24
+      spriteId: f3d9c4b77793c4319aaa89d58a1851f0
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -283,8 +337,8 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
-  generatePhysicsShape: 1
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 64}
-  previousTextureSize: {x: 128, y: 256}
+  canvasSize: {x: 32, y: 32}
+  previousTextureSize: {x: 64, y: 128}

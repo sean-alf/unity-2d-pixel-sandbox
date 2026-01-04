@@ -10,7 +10,7 @@ public class CameraBoundColliderEditor : Editor
 
         if (GUILayout.Button("Reset"))
         {
-            ((CameraBoundCollider)target).Reset();
+            ((CameraBoundCollider)target).ResetBound();
         }
     }
 }
