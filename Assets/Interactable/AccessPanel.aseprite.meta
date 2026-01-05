@@ -193,104 +193,52 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: AccessPanel_0
     originalName: 
-    pivot: {x: 0, y: 0}
-    alignment: 0
+    pivot: {x: 0.5, y: 0.45454547}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 16
-      height: 16
+      width: 32
+      height: 22
     spriteID: c0bbc2cecb1fd48ffa604e9da4cbaf75
     spriteBone: []
     spriteOutline: []
     vertices: []
     spritePhysicsOutline:
     - outline:
-      - {x: 8, y: 8}
-      - {x: -8, y: 8}
-      - {x: -8, y: -8}
-      - {x: 8, y: -8}
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: AccessPanel_1
-    originalName: 
-    pivot: {x: 0, y: 0}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 28
-      y: 4
-      width: 16
-      height: 16
-    spriteID: 1a91db3e525e84572aeaeb31157e859e
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline:
-    - outline:
-      - {x: 8, y: 8}
-      - {x: -8, y: 8}
-      - {x: -8, y: -8}
-      - {x: 8, y: -8}
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: AccessPanel_2
-    originalName: 
-    pivot: {x: 0, y: 0}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 28
-      y: 28
-      width: 16
-      height: 16
-    spriteID: e1970ce677b9f4501a46486fe26256dc
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline:
-    - outline:
-      - {x: 8, y: 8}
-      - {x: -8, y: 8}
-      - {x: -8, y: -8}
-      - {x: 8, y: -8}
+      - {x: 16, y: 11}
+      - {x: -16, y: 11}
+      - {x: -16, y: -11}
+      - {x: 16, y: -11}
     indices: 
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   - name: AccessPanel_3
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.5, y: 0.45454547}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 4
-      y: 28
-      width: 16
-      height: 16
+      y: 29
+      width: 32
+      height: 22
     spriteID: 34cda3d9180b949b29e1fc66ad13d037
     spriteBone: []
     spriteOutline: []
     vertices: []
     spritePhysicsOutline:
     - outline:
-      - {x: 8, y: 8}
-      - {x: -8, y: 8}
-      - {x: -8, y: -8}
-      - {x: 8, y: -8}
+      - {x: 16, y: 11}
+      - {x: -16, y: 11}
+      - {x: -16, y: -11}
+      - {x: 16, y: -11}
     indices: 
     edges: []
     tessellationDetail: 0
@@ -314,9 +262,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 0
-        width: 16
-        height: 16
+        y: 5
+        width: 32
+        height: 17
       spriteId: 21f2d292aa49c4022bdc226913d3ef6b
     - name: Frame_1
       frameIndex: 1
@@ -324,27 +272,9 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 22
       spriteId: 8c51aab671d6e46028078c32708c9d50
-    - name: Frame_2
-      frameIndex: 2
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      spriteId: c0fae8a8199674816ac10b2f2192d0eb
-    - name: Frame_3
-      frameIndex: 3
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      spriteId: db5b3174c365b411cb8e7144028e851e
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -390,5 +320,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 16, y: 16}
+  canvasSize: {x: 32, y: 32}
   previousTextureSize: {x: 64, y: 64}

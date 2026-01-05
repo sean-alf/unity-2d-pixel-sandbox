@@ -13,38 +13,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrarySourceAsset
   m_Library:
-  - m_Name: WaitingForInput
-    m_Hash: 707472860
+  - m_Name: Button
+    m_Hash: 1034594571
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: 0
-      m_Hash: 886824737
-      m_Sprite: {fileID: 2316545225704609676, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
+    - m_Name: Unpressed
+      m_Hash: 496354586
+      m_Sprite: {fileID: -2515693350246299038, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 2316545225704609676, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
-    - m_Name: 1
-      m_Hash: 64810935
-      m_Sprite: {fileID: 6226999160291717903, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 6226999160291717903, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
-    - m_Name: 2
-      m_Hash: 450215437
+      m_SpriteOverride: {fileID: -2515693350246299038, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
+    - m_Name: Pressed
+      m_Hash: 350847462
       m_Sprite: {fileID: 4679500392414150153, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 4679500392414150153, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 3
-  - m_Name: Activated
-    m_Hash: 855470398
-    m_CategoryList: []
-    m_OverrideEntries:
-    - m_Name: 0
-      m_Hash: 886824737
-      m_Sprite: {fileID: -2515693350246299038, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: -2515693350246299038, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
-    m_FromMain: 0
-    m_EntryOverrideCount: 1
+    m_EntryOverrideCount: 2
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639026308249907730
+  m_ModificationHash: 639031494349165270
   m_Version: 1

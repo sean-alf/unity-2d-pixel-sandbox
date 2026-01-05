@@ -1428,11 +1428,11 @@ SpriteRenderer:
   m_SortingOrder: 99
   m_MaskInteraction: 0
   m_Sprite: {fileID: -242033472890829555, guid: 50f6445ff559e46cfa9608ecc1bdc7f1, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.30387568, a: 1}
+  m_Color: {r: 1, g: 0.36335683, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 40, y: 30}
+  m_Size: {x: 0, y: 30}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1529,7 +1529,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 5647044928779410511, guid: 50f6445ff559e46cfa9608ecc1bdc7f1, type: 3}
+  m_Sprite: {fileID: -5465090495593819777, guid: 50f6445ff559e46cfa9608ecc1bdc7f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2789,7 +2789,6 @@ GameObject:
   - component: {fileID: 1845546878}
   - component: {fileID: 1845546877}
   - component: {fileID: 1845546876}
-  - component: {fileID: 1845546875}
   - component: {fileID: 1845546874}
   - component: {fileID: 1845546880}
   - component: {fileID: 1845546879}
@@ -2813,32 +2812,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
-  m_CategoryHash: 1.5203762e-13
-  m_labelHash: 0.00000040954276
+  m_CategoryHash: 0.08333024
+  m_labelHash: 3.964377e-21
   m_SpriteKey: 0
-  m_SpriteHash: 846274437
---- !u!95 &1845546875
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1845546873}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dbab65826200f4b31a2cfaede613b048, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_SpriteHash: 316118161
 --- !u!114 &1845546876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2902,12 +2879,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2316545225704609676, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
+  m_Sprite: {fileID: -2515693350246299038, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 16, y: 16}
+  m_Size: {x: 17, y: 22}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2921,7 +2898,7 @@ Transform:
   m_GameObject: {fileID: 1845546873}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 235, y: -216, z: 0}
+  m_LocalPosition: {x: 245, y: -214, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2961,17 +2938,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16, y: 16}
-    newSize: {x: 16, y: 16}
+    pivot: {x: 0.5, y: 0.45454547}
+    oldSize: {x: 32, y: 22}
+    newSize: {x: 17, y: 22}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 16, y: 16}
+  m_Size: {x: 32, y: 22}
   m_EdgeRadius: 0
 --- !u!50 &1845546880
 Rigidbody2D:

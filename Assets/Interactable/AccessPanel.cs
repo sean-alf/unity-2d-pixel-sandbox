@@ -1,18 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteResolver))]
 public class AccessPanel : MonoBehaviour
 {
     [SerializeField]
     private List<Door> doors;
 
-    private Animator animator;
+    private SpriteResolver sr;
     private bool activated = false;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        sr = GetComponent<SpriteResolver>();
+
+        sr.SetCategoryAndLabel("Button", "Unpressed");
     }
 
     public void Activate()
@@ -24,7 +27,8 @@ public class AccessPanel : MonoBehaviour
             d.Toggle();
         }
 
-        animator.Play(AccessPanelAnimatorStates.BaseLayer.ACCESS_PANEL_ACTIVATED);
+        sr.SetCategoryAndLabel("Button", "Pressed");
+        sr.ResolveSpriteToSpriteRenderer();
 
         activated = true;
     }
