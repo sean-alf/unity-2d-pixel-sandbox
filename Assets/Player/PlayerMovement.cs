@@ -8,11 +8,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(HealthManager))]
 public class PlayerMovement : MonoBehaviour
 {
+    private static readonly float SPEED_CONSTANT = 20.0f;
     private static readonly int TO_EDGE_OF_EYE_PX = 4;
 
     [SerializeField]
-    [Range(10, 100)]
-    private int speed = 10;
+    [Range(1, 10)]
+    private int speed = 1;
 
     [Header("Debug")]
     [SerializeField]
@@ -54,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!currentDirection.IsIdle())
         {
-            Vector2 movementOffset = Time.fixedDeltaTime * speed * currentDirection;
+            Vector2 movementOffset = Time.fixedDeltaTime * speed * SPEED_CONSTANT * currentDirection;
             rb.MovePosition(movementOffset + rb.position);
         }
     }
