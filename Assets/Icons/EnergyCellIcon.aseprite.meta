@@ -216,7 +216,7 @@ ScriptedImporter:
     originalName: 
     pivot: {x: 0, y: 0.5}
     alignment: 4
-    border: {x: 26, y: 2, z: 2, w: 2}
+    border: {x: 14, y: 2, z: 12, w: 2}
     customData: 
     rect:
       serializedVersion: 2
