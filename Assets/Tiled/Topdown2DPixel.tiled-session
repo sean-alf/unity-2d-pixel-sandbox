@@ -5,9 +5,9 @@
     },
     "activeFile": "Tilemaps/TestMap.tmx",
     "expandedProjectPaths": [
-        "Tilemaps",
         "TileSets",
-        "."
+        ".",
+        "Tilemaps"
     ],
     "fileStates": {
         "TileSets/GreenWall.tsx": {
@@ -19,23 +19,24 @@
             "scaleInEditor": 1.7
         },
         "Tilemaps/TestMap.tmx": {
-            "scale": 0.7566,
+            "scale": 0.96,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 477.13454929949773,
-                "y": 477.7954004758128
+                "x": 525.5208333333333,
+                "y": 383.8541666666667
             }
         }
     },
     "last.imagePath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/TileSets",
     "map.lastUsedFormat": "tmx",
     "openFiles": [
-        "Tilemaps/TestMap.tmx"
+        "Tilemaps/TestMap.tmx",
+        "TileSets/GreenWall.tsx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "recentFiles": [
-        "Tilemaps/TestMap.tmx",
         "TileSets/GreenWall.tsx",
+        "Tilemaps/TestMap.tmx",
         "TileSets/MuddyGround.tsx"
     ],
     "tileset.lastUsedFormat": "tsx"
