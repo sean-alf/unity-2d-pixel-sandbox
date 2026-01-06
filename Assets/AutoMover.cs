@@ -40,14 +40,9 @@ public class AutoMover : MonoBehaviour, ILogTagProvider
         autoMoverTarget = GetComponent<IAutoMoverTarget>();
     }
 
-    public void MoveTo(Vector2 position)
+    public void MoveTo(Vector2 position, Action onDone)
     {
-        StartCoroutine(AutoMoveTo(position, () =>
-        {
-            // OnDone
-            // TODO: Now animate the player out and switch to next scene
-            Logging.LogDebug(logTag, "Teleport the player!!!");
-        }));
+        StartCoroutine(AutoMoveTo(position, onDone));
     }
 
     private IEnumerator AutoMoveTo(Vector2 position, Action onDone)

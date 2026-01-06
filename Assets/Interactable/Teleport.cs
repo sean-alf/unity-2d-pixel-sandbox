@@ -32,7 +32,12 @@ public class Teleport : MonoBehaviour, ILogTagProvider
 
         if (go.TryGetComponent(out AutoMover a))
         {
-            a.MoveTo(transform.position);
+            a.MoveTo(transform.position, () =>
+            {
+                // OnDone
+                // TODO: Now animate the player out and switch to next scene
+                Logging.LogDebug(logTag, "Teleport the player!!!");
+            });
         }
         else
         {
