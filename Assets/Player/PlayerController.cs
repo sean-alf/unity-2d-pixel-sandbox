@@ -8,6 +8,16 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(HealthManager))]
 public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget
 {
+    public bool IsInputReady => input != null;
+    public bool IsInputActive
+    {
+        get
+        {
+            if (input) return input.inputIsActive;
+            return false;
+        }
+    }
+
     private static readonly float SPEED_CONSTANT = 20.0f;
     private static readonly int TO_EDGE_OF_EYE_PX = 4;
 
@@ -34,6 +44,11 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget
     private Vector2 lastNonIdleDirection = Vector2.up;
     private GameObject other;
 
+    private void OnEnable()
+    {
+        input = GetComponent<PlayerInput>();
+    }
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,7 +57,12 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget
         projectileManager = GetComponent<ProjectileManager>();
         healthManager = GetComponent<HealthManager>();
 
-        EnableInput();
+        InputSystem_Actions_Names.Player.Move(input).performed += OnMove;
+        InputSystem_Actions_Names.Player.Move(input).canceled += OnMove;
+        InputSystem_Actions_Names.Player.Interact(input).performed += OnInteract;
+        InputSystem_Actions_Names.Player.Jump(input).performed += OnJump;
+        InputSystem_Actions_Names.Player.Previous(input).performed += OnPrevious;
+        InputSystem_Actions_Names.Player.Next(input).performed += OnNext;
 
         projectileManager.SetShootingLayer(LayerNames.Projectile);
     }
@@ -155,30 +175,28 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget
 
     private void OnDestroy()
     {
-        DisableInput();
-    }
-
-    public void EnableInput()
-    {
-        InputSystem_Actions_Names.Player.Move(input).performed += OnMove;
-        InputSystem_Actions_Names.Player.Move(input).canceled += OnMove;
-        InputSystem_Actions_Names.Player.Interact(input).performed += OnInteract;
-        InputSystem_Actions_Names.Player.Jump(input).performed += OnJump;
-        InputSystem_Actions_Names.Player.Previous(input).performed += OnPrevious;
-        InputSystem_Actions_Names.Player.Next(input).performed += OnNext;
-    }
-
-    public void DisableInput()
-    {
-        // Stop the movement
-        currentDirection = Vector2.zero;
-
         InputSystem_Actions_Names.Player.Move(input).performed -= OnMove;
         InputSystem_Actions_Names.Player.Move(input).canceled -= OnMove;
         InputSystem_Actions_Names.Player.Interact(input).performed -= OnInteract;
         InputSystem_Actions_Names.Player.Jump(input).performed -= OnJump;
         InputSystem_Actions_Names.Player.Previous(input).performed -= OnPrevious;
         InputSystem_Actions_Names.Player.Next(input).performed -= OnNext;
+    }
+
+    public void EnableInput()
+    {
+        if (input == null) return;
+        input.ActivateInput();
+    }
+
+    public void DisableInput()
+    {
+        if (input == null) return;
+
+        // Stop the movement
+        currentDirection = Vector2.zero;
+
+        input.DeactivateInput();
     }
 
     void AutoMover.IAutoMoverTarget.OnDirectionChanged(Vector2 direction)
