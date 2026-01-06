@@ -19,11 +19,19 @@
             "scaleInEditor": 1.7
         },
         "Tilemaps/TestMap.tmx": {
-            "scale": 0.96,
+            "scale": 1.0155,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 525.5208333333333,
-                "y": 383.8541666666667
+                "x": 504.1851304775973,
+                "y": 336.2875430822255
+            }
+        },
+        "Tilemaps/TestMap2.tmx": {
+            "scale": 1.1073437499999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480.42895442359253,
+                "y": 294.8497248483139
             }
         }
     },

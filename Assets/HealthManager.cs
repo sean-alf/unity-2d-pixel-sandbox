@@ -15,6 +15,9 @@ public class HealthManager : MonoBehaviour
     [SerializeField]
     private MenusAndDisplayManager menusAndDisplayManager;
 
+    [SerializeField]
+    private bool autoUpdateHealthIndicator = false;
+
     private EnergyIndicator energyIndicator;
 
     private void Awake()
@@ -61,6 +64,8 @@ public class HealthManager : MonoBehaviour
 
     private void OnValidate()
     {
+        if (!autoUpdateHealthIndicator) return;
+
         if (currentHealth > maximumHealth) currentHealth = maximumHealth;
 
         if (menusAndDisplayManager == null) return;

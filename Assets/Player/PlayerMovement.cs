@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(HealthManager))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, AutoMover.IAutoMoverTarget
 {
     private static readonly float SPEED_CONSTANT = 20.0f;
     private static readonly int TO_EDGE_OF_EYE_PX = 4;
@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private static readonly ILogger logger = Debug.unityLogger;
 
     private string Tag => $"Player2Movement:{name}";
+
+    public float Speed => Time.fixedDeltaTime * speed * SPEED_CONSTANT;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -40,12 +42,7 @@ public class PlayerMovement : MonoBehaviour
         projectileManager = GetComponent<ProjectileManager>();
         healthManager = GetComponent<HealthManager>();
 
-        InputSystem_Actions_Names.Player.Move(input).performed += OnMove;
-        InputSystem_Actions_Names.Player.Move(input).canceled += OnMove;
-        InputSystem_Actions_Names.Player.Interact(input).performed += OnInteract;
-        InputSystem_Actions_Names.Player.Jump(input).performed += OnJump;
-        InputSystem_Actions_Names.Player.Previous(input).performed += OnPrevious;
-        InputSystem_Actions_Names.Player.Next(input).performed += OnNext;
+        EnableInput();
 
         projectileManager.SetShootingLayer(LayerNames.Projectile);
     }
@@ -63,22 +60,26 @@ public class PlayerMovement : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         currentDirection = context.ReadValue<Vector2>().normalized;
+        OnDirectionChanged(currentDirection);
+    }
 
-        if (currentDirection.IsIdle())
+    private void OnDirectionChanged(Vector2 direction)
+    {
+        if (direction.IsIdle())
         {
             animator.Play(PlayerAnimatorStates.BaseLayer.PLAYER_DEFAULT);
         }
         else
         {
             // This is for determining which way the player is facing even when stopped
-            lastNonIdleDirection = currentDirection;
-            rb.SetRotation(Quaternion.LookRotation(Vector3.forward, currentDirection));
+            lastNonIdleDirection = direction;
+            rb.SetRotation(Quaternion.LookRotation(Vector3.forward, direction));
             animator.Play(PlayerAnimatorStates.BaseLayer.PLAYER_MOVING);
         }
 
         if (enableLogs)
         {
-            logger.Log(Tag, $"Move input = {currentDirection}");
+            logger.Log(Tag, $"Direction changed = {direction}");
         }
     }
 
@@ -144,13 +145,44 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.TryGetComponent(out Teleport t))
+        {
+            t.AnimateAndTeleportToNextScene(gameObject);
+        }
+    }
+
     private void OnDestroy()
     {
+        DisableInput();
+    }
+
+    public void EnableInput()
+    {
+        InputSystem_Actions_Names.Player.Move(input).performed += OnMove;
+        InputSystem_Actions_Names.Player.Move(input).canceled += OnMove;
+        InputSystem_Actions_Names.Player.Interact(input).performed += OnInteract;
+        InputSystem_Actions_Names.Player.Jump(input).performed += OnJump;
+        InputSystem_Actions_Names.Player.Previous(input).performed += OnPrevious;
+        InputSystem_Actions_Names.Player.Next(input).performed += OnNext;
+    }
+
+    public void DisableInput()
+    {
+        // Stop the movement
+        currentDirection = Vector2.zero;
+
         InputSystem_Actions_Names.Player.Move(input).performed -= OnMove;
         InputSystem_Actions_Names.Player.Move(input).canceled -= OnMove;
         InputSystem_Actions_Names.Player.Interact(input).performed -= OnInteract;
         InputSystem_Actions_Names.Player.Jump(input).performed -= OnJump;
         InputSystem_Actions_Names.Player.Previous(input).performed -= OnPrevious;
         InputSystem_Actions_Names.Player.Next(input).performed -= OnNext;
+    }
+
+    void AutoMover.IAutoMoverTarget.OnDirectionChanged(Vector2 direction)
+    {
+        OnDirectionChanged(direction);
     }
 }

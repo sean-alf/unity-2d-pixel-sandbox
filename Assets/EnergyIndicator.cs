@@ -102,8 +102,6 @@ public class EnergyIndicator : MonoBehaviour
         Color c = okColor;
         int levelPercent = (int)(level / (float)max * 100.0f);
 
-        Debug.Log($"Level %: {levelPercent}");
-
         if (levelPercent <= 10)
         {
             c = dangerColor;
