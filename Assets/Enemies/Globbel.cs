@@ -1,45 +1,32 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
-using StartingPoint = ProjectileManager.StartingPoint;
+using StartingPoint = ProjectileManager.StartingPointWithDirection;
 
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(SpriteResolver))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Globbel : MonoBehaviour
 {
+    private static readonly int SIMULTANEOUS_SHOTS_COUNT = 4;
     private static readonly WaitForSeconds WAIT_FOR_HALF_SECOND = new(0.5f);
-    private static readonly string CATEGORY = "Globbel";
 
-    private readonly StartingPoint[] startingPoints = new StartingPoint[4];
-    private readonly StartingPoint[] startingPointsAngled = new StartingPoint[4];
+    private readonly StartingPoint[] startingPoints = Enumerable.Repeat(new StartingPoint(), SIMULTANEOUS_SHOTS_COUNT).ToArray();
 
-    private SpriteResolver sResolver;
     private SpriteRenderer sr;
     private ProjectileManager projectileManager;
 
-    private int currentSpriteIndex = 0;
     private float positionOffset;
     private Coroutine coroutine = null;
 
     private void Awake()
     {
-        sResolver = GetComponent<SpriteResolver>();
         sr = GetComponent<SpriteRenderer>();
         projectileManager = GetComponent<ProjectileManager>();
         projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
 
         positionOffset = sr.bounds.extents.x;
-
-        for (int i = 0; i < 4; i++)
-        {
-            startingPoints[i] = CreateStartingPoint(i);
-        }
-
-        for (int i = 0; i < 4; i++)
-        {
-            startingPointsAngled[i] = CreateStartingPoint(i, Mathf.PI / 4);
-        }
     }
 
     public void OnActivate()
@@ -54,50 +41,29 @@ public class Globbel : MonoBehaviour
         coroutine = null;
     }
 
-    public void ShootDefault()
+    private void UpdateStartingPoints(float angleOffsetRads = 0)
     {
-        projectileManager.Shoot(startingPoints);
-    }
-
-    public void ShootAngle()
-    {
-        projectileManager.Shoot(startingPointsAngled);
-    }
-
-    private StartingPoint CreateStartingPoint(int factor, float angleOffsetRads = 0)
-    {
-        float angleRads = (factor * Mathf.PI / 2) + angleOffsetRads;
-        Vector2 direction = new(Mathf.Cos(angleRads), Mathf.Sin(angleRads));
-
-        return new StartingPoint
+        for (int i = 0; i < SIMULTANEOUS_SHOTS_COUNT; i++)
         {
-            direction = direction,
-            position = transform.position.Add(positionOffset * direction.normalized),
-        };
+            float angleRads = (i * Mathf.PI / 2) + angleOffsetRads;
+            Vector2 direction = new(Mathf.Cos(angleRads), Mathf.Sin(angleRads));
+            startingPoints[i].direction = direction;
+            startingPoints[i].position = transform.position.Add(positionOffset * direction.normalized);
+        }
     }
 
     private IEnumerator RotateAndShoot()
     {
         while (true)
         {
-            sResolver.SetCategoryAndLabel(CATEGORY, currentSpriteIndex.ToString());
-            sResolver.ResolveSpriteToSpriteRenderer();
+            transform.Rotate(0, 0, 45.0f);
+            UpdateStartingPoints(transform.eulerAngles.z * Mathf.Deg2Rad);
 
             yield return WAIT_FOR_HALF_SECOND;
 
-            switch (currentSpriteIndex)
-            {
-                case 0:
-                    ShootDefault();
-                    break;
-                case 1:
-                    ShootAngle();
-                    break;
-            }
+            projectileManager.Shoot(startingPoints);
 
             yield return WAIT_FOR_HALF_SECOND;
-
-            currentSpriteIndex = (currentSpriteIndex + 1) % 2;
         }
     }
 }

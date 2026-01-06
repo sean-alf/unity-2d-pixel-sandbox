@@ -24,7 +24,7 @@ ScriptedImporter:
     normalMapFilter: 0
     flipGreenChannel: 0
     swizzle: 50462976
-    isReadable: 0
+    isReadable: 1
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639030720709454100
+  platformSettingsDirtyTick: 639032125872899000
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -509,16 +509,16 @@ ScriptedImporter:
     uvTransform: {x: 44, y: 204}
   - name: GreenWall_19
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.33333334, y: 0.33333334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 44
-      y: 244
-      width: 32
-      height: 32
+      y: 484
+      width: 24
+      height: 24
     spriteID: c48a1fcba1cdb4df8a7dfffd0009f6a5
     spriteBone: []
     spriteOutline: []
@@ -527,18 +527,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 44, y: 244}
+    uvTransform: {x: 36, y: 476}
   - name: GreenWall_20
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.64, y: 0.5}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 44
-      y: 284
-      width: 32
+      x: 84
+      y: 364
+      width: 25
       height: 32
     spriteID: ea6dfe3ec77484846a310030e97ef118
     spriteBone: []
@@ -548,19 +548,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 44, y: 284}
+    uvTransform: {x: 84, y: 364}
   - name: GreenWall_21
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.6956522, y: 0.33333334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 44
-      y: 324
-      width: 32
-      height: 32
+      x: 124
+      y: 37
+      width: 23
+      height: 24
     spriteID: 67d7a14b5894b472eb6bc37db99f8e13
     spriteBone: []
     spriteOutline: []
@@ -569,19 +569,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 44, y: 324}
+    uvTransform: {x: 124, y: 29}
   - name: GreenWall_22
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.64, y: 0.64}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 44
-      y: 364
-      width: 32
-      height: 32
+      x: 84
+      y: 477
+      width: 25
+      height: 25
     spriteID: 8fe0fb7f3c446473282b906806875eaa
     spriteBone: []
     spriteOutline: []
@@ -590,19 +590,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 44, y: 364}
+    uvTransform: {x: 84, y: 477}
   - name: GreenWall_23
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.64}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 44
+      x: 84
       y: 404
       width: 32
-      height: 32
+      height: 25
     spriteID: 101a30d9db57949b0a5aa2c5f8fdaf52
     spriteBone: []
     spriteOutline: []
@@ -611,19 +611,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 44, y: 404}
+    uvTransform: {x: 84, y: 404}
   - name: GreenWall_24
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.33333334, y: 0.64}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 44
-      y: 444
-      width: 32
-      height: 32
+      x: 124
+      y: 4
+      width: 24
+      height: 25
     spriteID: 670b9b53867ab465bb4321531399bfaf
     spriteBone: []
     spriteOutline: []
@@ -632,18 +632,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 44, y: 444}
+    uvTransform: {x: 116, y: 4}
   - name: GreenWall_25
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.33333334, y: 0.5}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 84
-      y: 4
-      width: 32
+      y: 437
+      width: 24
       height: 32
     spriteID: 1a5efab87ce9c4c369c00839f74fcea8
     spriteBone: []
@@ -653,19 +653,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 84, y: 4}
+    uvTransform: {x: 76, y: 437}
   - name: GreenWall_26
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.33333334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 84
-      y: 44
+      x: 4
+      y: 484
       width: 32
-      height: 32
+      height: 24
     spriteID: 2c8f8748f5c36474283ed0ef8d58f08c
     spriteBone: []
     spriteOutline: []
@@ -674,7 +674,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 84, y: 44}
+    uvTransform: {x: 4, y: 476}
   - name: GreenWall_27
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -683,8 +683,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 84
-      y: 84
+      x: 44
+      y: 244
       width: 32
       height: 32
     spriteID: 03c7c945e27504a5e9c73028b50919a0
@@ -695,8 +695,176 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 84, y: 84}
+    uvTransform: {x: 44, y: 244}
   - name: GreenWall_28
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 284
+      width: 32
+      height: 32
+    spriteID: 68432d008758c49e9ace5d635eff84ee
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 284}
+  - name: GreenWall_29
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 324
+      width: 32
+      height: 32
+    spriteID: 6749b5aad2af0463995b24aa07eb964b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 324}
+  - name: GreenWall_30
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 364
+      width: 32
+      height: 32
+    spriteID: 6ecaa59259dd446b390d6b6d4e6f3ce9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 364}
+  - name: GreenWall_31
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 404
+      width: 32
+      height: 32
+    spriteID: 3e5b486a42bf946b3a6e09659bc0cb08
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 404}
+  - name: GreenWall_32
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 444
+      width: 32
+      height: 32
+    spriteID: 7bdd223f189b54295b0df16827fe18f3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 444}
+  - name: GreenWall_33
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 4
+      width: 32
+      height: 32
+    spriteID: b2a15ab3e12474791b41d8e91c584414
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 4}
+  - name: GreenWall_34
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 44
+      width: 32
+      height: 32
+    spriteID: c3145386a683942ab8b0c264a2c52e52
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 44}
+  - name: GreenWall_35
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 84
+      width: 32
+      height: 32
+    spriteID: 72bc172f6cb9a4f249470b3792846bb8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 84}
+  - name: GreenWall_36
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -708,7 +876,7 @@ ScriptedImporter:
       y: 124
       width: 32
       height: 32
-    spriteID: 68432d008758c49e9ace5d635eff84ee
+    spriteID: 6f45036a80fe948fa83df807727b20d9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -717,7 +885,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 84, y: 124}
-  - name: GreenWall_29
+  - name: GreenWall_37
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -729,7 +897,7 @@ ScriptedImporter:
       y: 164
       width: 32
       height: 32
-    spriteID: 6749b5aad2af0463995b24aa07eb964b
+    spriteID: 2b64341ffca3b402fac120433c9cd920
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -738,7 +906,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 84, y: 164}
-  - name: GreenWall_30
+  - name: GreenWall_38
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -750,7 +918,7 @@ ScriptedImporter:
       y: 204
       width: 32
       height: 32
-    spriteID: 6ecaa59259dd446b390d6b6d4e6f3ce9
+    spriteID: cc69ab540e8364adc8b57d9149cbd777
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -759,7 +927,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 84, y: 204}
-  - name: GreenWall_31
+  - name: GreenWall_39
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -771,7 +939,7 @@ ScriptedImporter:
       y: 244
       width: 32
       height: 32
-    spriteID: 3e5b486a42bf946b3a6e09659bc0cb08
+    spriteID: 83782f22b698e4d54a0044b273ebfcdd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -780,7 +948,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 84, y: 244}
-  - name: GreenWall_32
+  - name: GreenWall_40
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -792,7 +960,7 @@ ScriptedImporter:
       y: 284
       width: 32
       height: 32
-    spriteID: 7bdd223f189b54295b0df16827fe18f3
+    spriteID: cb628ebba023c47a6b2e507a22489efe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -801,7 +969,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 84, y: 284}
-  - name: GreenWall_33
+  - name: GreenWall_41
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -813,174 +981,6 @@ ScriptedImporter:
       y: 324
       width: 32
       height: 32
-    spriteID: b2a15ab3e12474791b41d8e91c584414
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 84, y: 324}
-  - name: GreenWall_34
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 84
-      y: 364
-      width: 32
-      height: 32
-    spriteID: c3145386a683942ab8b0c264a2c52e52
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 84, y: 364}
-  - name: GreenWall_35
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 84
-      y: 404
-      width: 32
-      height: 32
-    spriteID: 72bc172f6cb9a4f249470b3792846bb8
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 84, y: 404}
-  - name: GreenWall_36
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 84
-      y: 444
-      width: 32
-      height: 32
-    spriteID: 6f45036a80fe948fa83df807727b20d9
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 84, y: 444}
-  - name: GreenWall_37
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 124
-      y: 4
-      width: 32
-      height: 32
-    spriteID: 2b64341ffca3b402fac120433c9cd920
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 124, y: 4}
-  - name: GreenWall_38
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 124
-      y: 44
-      width: 32
-      height: 32
-    spriteID: cc69ab540e8364adc8b57d9149cbd777
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 124, y: 44}
-  - name: GreenWall_39
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 124
-      y: 84
-      width: 32
-      height: 32
-    spriteID: 83782f22b698e4d54a0044b273ebfcdd
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 124, y: 84}
-  - name: GreenWall_40
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 124
-      y: 124
-      width: 32
-      height: 32
-    spriteID: cb628ebba023c47a6b2e507a22489efe
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 124, y: 124}
-  - name: GreenWall_41
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 124
-      y: 164
-      width: 32
-      height: 32
     spriteID: 4f1c4f4fec9b0428a82e186f6852fc27
     spriteBone: []
     spriteOutline: []
@@ -989,28 +989,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 124, y: 164}
-  - name: GreenWall_42
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 124
-      y: 204
-      width: 32
-      height: 32
-    spriteID: 528e2820fadee40c5bf31174c8ed69d5
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 124, y: 204}
+    uvTransform: {x: 84, y: 324}
   asepriteLayers:
   - layerIndex: 0
     uuid:
@@ -1033,7 +1012,7 @@ ScriptedImporter:
         y: 0
         width: 15
         height: 7
-      tileIndices: 0100000002000000030000000100000007000000030000000c0000000d0000000e00000015000000130000001600000019000000020000001a00000004000000000000000400000008000000090000000a0000000f000000100000001100000011000000000000000f0000001b0000001d00000000000000050000000200000006000000050000000b00000006000000120000001300000014000000170000000d000000180000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c00000000000000000000002300000022000000210000002700000010000000280000002a000000000000000000000000000000000000000000000000000000000000000000000024000000100000001f0000001000000010000000100000000000000000000000000000000000000000000000000000000000000000000000000000001e0000002500000020000000260000001000000029000000000000000000000000000000000000000000000000000000000000000000000000000000
+      tileIndices: 2000000021000000220000002000000001000000220000000600000023000000070000000a000000240000000b0000000e000000210000000f000000250000000000000025000000020000000300000004000000260000001f000000270000002700000000000000260000001000000012000000000000002800000021000000290000002800000005000000290000000800000024000000090000000c000000230000000d0000002500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001100000000000000000000001800000017000000160000001c0000001f0000001d000000000000000000000000000000000000000000000000000000000000000000000000000000190000001f000000140000001f0000001f0000001f000000000000000000000000000000000000000000000000000000000000000000000000000000130000001a000000150000001b0000001f0000001e000000000000000000000000000000000000000000000000000000000000000000000000000000
     tileSetIndex: 0
     parentIndex: -1
   tileSets:
@@ -1289,12 +1268,6 @@ ScriptedImporter:
         y: 32
       name: GreenWall_41
       spriteId: 4f1c4f4fec9b0428a82e186f6852fc27
-    - tileId: 42
-      size:
-        x: 32
-        y: 32
-      name: GreenWall_42
-      spriteId: 528e2820fadee40c5bf31174c8ed69d5
     guid: -1135564739
   platformSettings:
   - name: DefaultTexturePlatform

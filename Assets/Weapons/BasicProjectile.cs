@@ -76,9 +76,26 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
 
     public void Use(Vector2 direction, Vector3 startPosition)
     {
-        float angle = Vector2.SignedAngle(Vector2.up, direction);
-        transform.SetPositionAndRotation(startPosition.Add((halfHeight + spawnPositionOffsetPX) * direction.normalized), Quaternion.Euler(0, 0, angle));
+        float angleDegrees = Vector2.SignedAngle(Vector2.up, direction);
+        Use(startPosition, direction, Quaternion.Euler(0, 0, angleDegrees));
+    }
 
+    public void Use(float angleDegrees, Vector3 startPosition)
+    {
+        float rads = angleDegrees * Mathf.Deg2Rad;
+        Vector2 direction = new(Mathf.Cos(rads), Mathf.Sin(rads));
+        Use(startPosition, direction, Quaternion.Euler(0, 0, angleDegrees));
+    }
+
+    public void UseRads(float angleRads, Vector3 startPosition)
+    {
+        Vector2 direction = new(Mathf.Cos(angleRads), Mathf.Sin(angleRads));
+        Use(startPosition, direction, Quaternion.Euler(0, 0, angleRads * Mathf.Rad2Deg));
+    }
+
+    private void Use(Vector3 startPosition, Vector2 direction, Quaternion rotation)
+    {
+        transform.SetPositionAndRotation(startPosition.Add((halfHeight + spawnPositionOffsetPX) * direction.normalized), rotation);
         this.direction = direction;
         move = true;
     }

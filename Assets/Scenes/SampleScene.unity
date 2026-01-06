@@ -274,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 52699970}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 409, y: -419, z: 0}
+  m_LocalPosition: {x: 539, y: -482, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -660,6 +660,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -4253537646823666446, guid: 5d097f0cd603c4bc78993615b1aeaf2f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: -3730662779012301084, guid: 5d097f0cd603c4bc78993615b1aeaf2f, type: 3}
       propertyPath: m_CompositeOperation
       value: 0
@@ -732,6 +736,10 @@ PrefabInstance:
       propertyPath: m_ChunkCullingBounds.y
       value: 31.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8142888640129586004, guid: 5d097f0cd603c4bc78993615b1aeaf2f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8142888640129586004, guid: 5d097f0cd603c4bc78993615b1aeaf2f, type: 3}
       propertyPath: m_DetectChunkCullingBounds
       value: 0
@@ -989,6 +997,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2125c8413e4d40b49568b40c8517508, type: 3}
+--- !u!1839735485 &489749338 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 7476685873368849539, guid: 5d097f0cd603c4bc78993615b1aeaf2f, type: 3}
+  m_PrefabInstance: {fileID: 390708109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,6 +1019,7 @@ GameObject:
   - component: {fileID: 519420035}
   - component: {fileID: 519420037}
   - component: {fileID: 519420036}
+  - component: {fileID: 519420038}
   m_Layer: 15
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1075,7 +1089,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.05882353, g: 0.21960784, b: 0.05882353, a: 1}
+  m_BackGroundColor: {r: 0.16168627, g: 0.04172549, b: 0.16168627, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1125,7 +1139,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 409, y: -419, z: -10}
+  m_LocalPosition: {x: 539, y: -482, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1306,6 +1320,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &519420038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1026269bde79c405789bafeb9933deb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraBackgroundColorManager
+  tilemap: {fileID: 489749338}
+  shadeAdjustment: 0.19
 --- !u!1 &568011144
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,6 +2532,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -262022770956470715, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: m_SpriteHash
+      value: 373374374
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803010396746781904, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 5375804601182416780, guid: fa386841d8705438f91b3ddadaeeaedf, type: 3}
+    - target: {fileID: 1803010396746781904, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2686294511214651354, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: m_LocalPosition.x
       value: 511
@@ -2993,6 +3033,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 7719064174497161525, guid: 98922c3d45d8c4658a60804f61c66e72, type: 3}
+    - target: {fileID: 8001708318018952790, guid: b2125c8413e4d40b49568b40c8517508, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001708318018952790, guid: b2125c8413e4d40b49568b40c8517508, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001708318018952790, guid: b2125c8413e4d40b49568b40c8517508, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9097933943853750357, guid: b2125c8413e4d40b49568b40c8517508, type: 3}
       propertyPath: m_SpriteHash
       value: 694041433

@@ -3,9 +3,21 @@ using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour, ILogTagProvider
 {
-    public struct StartingPoint
+    public struct StartingPointWithDirection
     {
         public Vector2 direction;
+        public Vector3 position;
+    }
+
+    public struct StartingPointWithAngleDegrees
+    {
+        public float angleDegrees;
+        public Vector3 position;
+    }
+
+    public struct StartingPointWithAngleRads
+    {
+        public float angleRads;
         public Vector3 position;
     }
 
@@ -47,7 +59,7 @@ public class ProjectileManager : MonoBehaviour, ILogTagProvider
         SetProjectiles();
     }
 
-    public void Shoot(params StartingPoint[] startingPoints)
+    public void Shoot(params StartingPointWithDirection[] startingPoints)
     {
         foreach (var s in startingPoints)
         {
@@ -55,6 +67,32 @@ public class ProjectileManager : MonoBehaviour, ILogTagProvider
             {
                 p.gameObject.layer = shootingLayer;
                 p.Use(s.direction, s.position);
+            });
+        }
+        ;
+    }
+
+    public void Shoot(params StartingPointWithAngleDegrees[] startingPoints)
+    {
+        foreach (var s in startingPoints)
+        {
+            selectedProjectile.Instantiate(p =>
+            {
+                p.gameObject.layer = shootingLayer;
+                p.Use(s.angleDegrees, s.position);
+            });
+        }
+        ;
+    }
+
+    public void Shoot(params StartingPointWithAngleRads[] startingPoints)
+    {
+        foreach (var s in startingPoints)
+        {
+            selectedProjectile.Instantiate(p =>
+            {
+                p.gameObject.layer = shootingLayer;
+                p.Use(s.angleRads, s.position);
             });
         }
         ;

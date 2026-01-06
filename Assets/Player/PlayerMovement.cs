@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        projectileManager.Shoot(new ProjectileManager.StartingPoint
+        projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection
         {
             direction = lastNonIdleDirection,
             position = transform.position.Add(TO_EDGE_OF_EYE_PX * lastNonIdleDirection.normalized),
