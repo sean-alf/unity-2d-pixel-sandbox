@@ -10,13 +10,25 @@ using StartingPoint = ProjectileManager.StartingPointWithDirection;
 public class Globbel : MonoBehaviour
 {
     private static readonly int SIMULTANEOUS_SHOTS_COUNT = 4;
-    private static readonly WaitForSeconds WAIT_FOR_HALF_SECOND = new(0.5f);
 
     private readonly StartingPoint[] startingPoints = Enumerable.Repeat(new StartingPoint(), SIMULTANEOUS_SHOTS_COUNT).ToArray();
 
+    [SerializeField]
+    private float rotationAngleStep = 45.0f;
+
+    [SerializeField]
+    private bool reverseShotRotation = false;
+
+    [SerializeField]
+    private float stepDurationSeconds = 2;
+
+    [SerializeField]
+    private float delayBetweenShotsSeconds = 0.0f;
+
     private SpriteRenderer sr;
     private ProjectileManager projectileManager;
-
+    private WaitForSeconds stepWait;
+    private WaitForSeconds shotWait;
     private float positionOffset;
     private Coroutine coroutine = null;
 
@@ -27,6 +39,7 @@ public class Globbel : MonoBehaviour
         projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
 
         positionOffset = sr.bounds.extents.x;
+        UpdateWaitDurations();
     }
 
     public void OnActivate()
@@ -56,14 +69,48 @@ public class Globbel : MonoBehaviour
     {
         while (true)
         {
-            transform.Rotate(0, 0, 45.0f);
+            transform.Rotate(0, 0, rotationAngleStep);
             UpdateStartingPoints(transform.eulerAngles.z * Mathf.Deg2Rad);
 
-            yield return WAIT_FOR_HALF_SECOND;
+            yield return stepWait;
 
-            projectileManager.Shoot(startingPoints);
+            if (Mathf.Approximately(delayBetweenShotsSeconds, 0.00f))
+            {
+                // Shoot simmultaneously
+                projectileManager.Shoot(startingPoints);
+            }
+            else
+            {
+                if (reverseShotRotation)
+                {
+                    for (int i = startingPoints.Count() - 1; i >= 0; i--)
+                    {
+                        projectileManager.Shoot(startingPoints[i]);
+                        yield return shotWait;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < startingPoints.Count(); i++)
+                    {
+                        projectileManager.Shoot(startingPoints[i]);
+                        yield return shotWait;
+                    }
+                }
+            }
 
-            yield return WAIT_FOR_HALF_SECOND;
+            yield return stepWait;
         }
+    }
+
+    private void OnValidate()
+    {
+        UpdateWaitDurations();
+    }
+
+    private void UpdateWaitDurations()
+    {
+        stepWait = new(stepDurationSeconds / 2);
+        shotWait = new(delayBetweenShotsSeconds);
     }
 }

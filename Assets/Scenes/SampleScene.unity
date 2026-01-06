@@ -274,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 52699970}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 539, y: -482, z: 0}
+  m_LocalPosition: {x: 126, y: -510, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1089,7 +1089,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.16168627, g: 0.04172549, b: 0.16168627, a: 1}
+  m_BackGroundColor: {r: 0.07823529, g: 0.09760785, b: 0.16541177, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1139,7 +1139,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 539, y: -482, z: -10}
+  m_LocalPosition: {x: 126, y: -510, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2546,11 +2546,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2686294511214651354, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 511
+      value: 401
       objectReference: {fileID: 0}
     - target: {fileID: 2686294511214651354, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -191
+      value: -351
       objectReference: {fileID: 0}
     - target: {fileID: 2686294511214651354, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2592,6 +2592,22 @@ PrefabInstance:
       propertyPath: toBeWatched
       value: 
       objectReference: {fileID: 52699970}
+    - target: {fileID: 5589158998950041537, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: rotationAngleStep
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5589158998950041537, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: reverseShotRotation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5589158998950041537, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: stepDurationSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5589158998950041537, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: delayBetweenShotsSeconds
+      value: 0.08
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
