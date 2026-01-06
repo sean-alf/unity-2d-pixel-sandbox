@@ -84,9 +84,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        if (other != null && other.TryGetComponent(out AccessPanel p))
+        if (other != null)
         {
-            p.Activate();
+            if (other.TryGetComponent(out AccessPanel p))
+            {
+                p.Activate();
+            }
+            else if (other.TryGetComponent(out HealthPickup h))
+            {
+                healthManager.Heal(h.HealAmount);
+                Destroy(h.gameObject);
+            }
         }
     }
 

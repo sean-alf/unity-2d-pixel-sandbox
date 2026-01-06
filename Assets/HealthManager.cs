@@ -46,6 +46,12 @@ public class HealthManager : MonoBehaviour
             Die();
         }
     }
+    public void Heal(int amount)
+    {
+        currentHealth += amount;
+        prevCurrentHealth = currentHealth;
+        energyIndicator.IncreaseLevel(amount);
+    }
 
     private void Die()
     {
