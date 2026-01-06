@@ -26,7 +26,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="3" name="Wall" width="30" height="20" locked="1" tintcolor="#d938d9">
+ <layer id="3" name="Wall" width="30" height="20" locked="1" tintcolor="#6983de">
   <properties>
    <property name="useWithCompositeCollider" type="bool" value="true"/>
   </properties>
