@@ -21,13 +21,13 @@ public class Teleport : MonoBehaviour, ILogTagProvider
     {
         Logging.LogDebug(logTag, "Teleport begin!!");
 
-        if (go.TryGetComponent(out PlayerMovement p))
+        if (go.TryGetComponent(out PlayerController p))
         {
             p.DisableInput();
         }
         else
         {
-            Logging.LogError(logTag, $"{go.name}: no {nameof(PlayerMovement)} attached!!");
+            Logging.LogError(logTag, $"{go.name}: no {nameof(PlayerController)} attached!!");
         }
 
         if (go.TryGetComponent(out AutoMover a))

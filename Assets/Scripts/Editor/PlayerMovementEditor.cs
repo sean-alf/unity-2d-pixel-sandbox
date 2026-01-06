@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(PlayerMovement))]
+[CustomEditor(typeof(PlayerController))]
 public class PlayerMovementEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -13,7 +13,7 @@ public class PlayerMovementEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Info", EditorStyles.boldLabel);
 
-        Rigidbody2D rb = ((PlayerMovement)target).GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = ((PlayerController)target).GetComponent<Rigidbody2D>();
         EditorGUILayout.LabelField("Rotation", rb.rotation.ToString("F2") + "°");
 
         if (EditorApplication.isPlaying)

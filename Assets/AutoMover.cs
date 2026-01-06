@@ -76,12 +76,7 @@ public class AutoMover : MonoBehaviour, ILogTagProvider
         while (rb.position != position)
         {
             rb.MoveTowards(position, factor);
-
-            if (rb.DistanceY(position) > 16)
-            {
-                autoMoverTarget.OnDirectionChanged(directionY);
-            }
-
+            autoMoverTarget.OnDirectionChanged(directionY);
             yield return new WaitForFixedUpdate();
         }
 

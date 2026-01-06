@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(HealthManager))]
-public class PlayerMovement : MonoBehaviour, AutoMover.IAutoMoverTarget
+public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget
 {
     private static readonly float SPEED_CONSTANT = 20.0f;
     private static readonly int TO_EDGE_OF_EYE_PX = 4;

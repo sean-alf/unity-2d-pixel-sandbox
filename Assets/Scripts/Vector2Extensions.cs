@@ -131,6 +131,6 @@ public static class Vector2Extensions
 
     public static Vector2 Direction(this Vector2 v, Vector2 other) => v.Subtract(other).normalized;
 
-    public static Vector2 DirectionX(this Vector2 v) => new(Mathf.RoundToInt(v.x), 0);
-    public static Vector2 DirectionY(this Vector2 v) => new(0, Mathf.RoundToInt(v.y));
+    public static Vector2 DirectionX(this Vector2 v) => new(Mathf.Sign(v.x), 0);
+    public static Vector2 DirectionY(this Vector2 v) => new(0, Mathf.Sign(v.y));
 }

@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 5
-  enableLogs: 1
+  enableLogs: 0
 --- !u!114 &52699982
 MonoBehaviour:
   m_ObjectHideFlags: 0
