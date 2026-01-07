@@ -140,8 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 2
-  logLevelSelector:
-    logLevel: 5
+  logger:
+    logLevel: 3
 --- !u!60 &2756273419691802104
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -212,6 +212,8 @@ MonoBehaviour:
   projectiles:
   - {fileID: 11400000, guid: ccbb24bae8ef64a26b7f493d45018bd1, type: 2}
   madm: {fileID: 0}
+  logger:
+    logLevel: 3
 --- !u!114 &4472532923015666288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,6 +270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59548abdd330a4af6ad445a68bc68aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  rotationAngleStep: 45
+  reverseShotRotation: 0
+  stepDurationSeconds: 2
+  delayBetweenShotsSeconds: 0
 --- !u!114 &-6718179303294631227
 MonoBehaviour:
   m_ObjectHideFlags: 0

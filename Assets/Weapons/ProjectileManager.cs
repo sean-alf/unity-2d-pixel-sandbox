@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileManager : MonoBehaviour, ILogTagProvider
+public class ProjectileManager : MonoBehaviour, ILoggerProvider
 {
     public struct StartingPointWithDirection
     {
@@ -27,17 +27,22 @@ public class ProjectileManager : MonoBehaviour, ILogTagProvider
     [SerializeField]
     private MenusAndDisplayManager madm;
 
+    [Space]
+    [Header("Debug")]
+
+    [SerializeField]
+    private Logger logger;
+
     private ProjectileSO selectedProjectile;
     private int currentIndex = 0;
     private int count;
     private int shootingLayer;
-    private Logging.Tag logTag;
 
-    public Logging.Tag LogTag => throw new System.NotImplementedException();
+    public Logger Logger => logger;
 
     private void OnEnable()
     {
-        logTag = this.CreateLogTag();
+        logger.CreateTag(this);
     }
 
     private void Awake()
@@ -116,7 +121,7 @@ public class ProjectileManager : MonoBehaviour, ILogTagProvider
     {
         if (shootingLayer == 0)
         {
-            Logging.LogError(logTag, "shooting layer not set!!");
+            logger.E("shooting layer not set!!");
             return;
         }
 

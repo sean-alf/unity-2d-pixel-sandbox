@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(IAutoMoverTarget))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class AutoMover : MonoBehaviour, ILogTagProvider
+public class AutoMover : MonoBehaviour, ILoggerProvider
 {
     public interface IAutoMoverTarget
     {
@@ -22,16 +22,14 @@ public class AutoMover : MonoBehaviour, ILogTagProvider
     [Header("Debug")]
 
     [SerializeField]
-    private Logger logLevelSelector;
+    private Logger logger;
 
     private IAutoMoverTarget autoMoverTarget;
-    private Logging.Tag logTag;
-    public Logging.Tag LogTag => logTag;
 
-    private void OnEnable()
-    {
-        logTag = this.CreateLogTag();
-        Logging.SetLogLevel(logTag, logLevelSelector.logLevel);
+    public Logger Logger => logger;
+
+    private void OnEnable() {
+        logger.CreateTag(this);
     }
 
     private void Awake()
@@ -53,8 +51,8 @@ public class AutoMover : MonoBehaviour, ILogTagProvider
         Vector2 directionX = direction.DirectionX();
         Vector2 directionY = direction.DirectionY();
 
-        Logging.LogDebug(logTag, $"self position {transform.position}");
-        Logging.LogDebug(logTag, $"other position {position}");
+        logger.D($"self position {transform.position}");
+        logger.D($"other position {position}");
 
         while (rb.position != xTarget)
         {

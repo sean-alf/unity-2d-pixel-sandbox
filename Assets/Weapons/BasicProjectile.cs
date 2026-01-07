@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
-public class BasicProjectile : MonoBehaviour, ILogTagProvider
+public class BasicProjectile : MonoBehaviour, ILoggerProvider
 {
     private static readonly ProjectileAnimationStateManager animationStateManager = new();
 
@@ -23,22 +23,20 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
     [Space]
 
     [SerializeField]
-    private Logger logLevelSelector;
+    private Logger logger;
 
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sr;
     private Vector2 direction;
-    private Logging.Tag logTag;
     private bool move = true;
     private int halfHeight;
 
-    public Logging.Tag LogTag => logTag;
+    public Logger Logger => logger;
 
     private void OnEnable()
     {
-        logTag = this.CreateLogTag();
-        Logging.SetLogLevel(logTag, logLevelSelector.logLevel);
+        logger.CreateTag(this);
     }
 
     private void Awake()
@@ -70,7 +68,7 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
         }
         else
         {
-            Logging.LogError(logTag, $"finish state name null!");
+            logger.E($"finish state name null!");
         }
     }
 

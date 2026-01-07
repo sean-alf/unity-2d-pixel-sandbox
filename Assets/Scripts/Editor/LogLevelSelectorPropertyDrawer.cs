@@ -29,6 +29,7 @@ public class LogLevelSelectorPropertyDrawer : PropertyDrawer
         if (newLevel != currentLevel)
         {
             logLevel.enumValueIndex = (int)newLevel;
+            property.serializedObject.ApplyModifiedProperties();
 
             if (p != null)
             {
@@ -55,7 +56,6 @@ public class LogLevelSelectorPropertyDrawer : PropertyDrawer
             EditorGUI.LabelField(valueRect, p.Logger.logTag.ToString() ?? "Unset");
         }
 
-        property.serializedObject.ApplyModifiedProperties();
         EditorGUI.EndProperty();
     }
 }

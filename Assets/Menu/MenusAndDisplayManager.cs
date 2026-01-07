@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MenusAndDisplayManager : MonoBehaviour, ILogTagProvider
+public class MenusAndDisplayManager : MonoBehaviour, ILoggerProvider
 {
     [SerializeField]
     private TopLeftContainer topLeftContainer;
@@ -9,16 +9,13 @@ public class MenusAndDisplayManager : MonoBehaviour, ILogTagProvider
     [Space]
 
     [SerializeField]
-    private Logger logLevelSelector;
+    private Logger logger;
 
-    private Logging.Tag logTag;
-
-    public Logging.Tag LogTag => logTag;
+    public Logger Logger => logger;
 
     private void OnEnable()
     {
-        logTag = this.CreateLogTag();
-        Logging.SetLogLevel(logTag, logLevelSelector.logLevel);
+        logger.CreateTag(this);
     }
 
     public TopLeftContainer GetTopLeftContainer() => topLeftContainer;

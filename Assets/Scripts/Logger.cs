@@ -1,14 +1,6 @@
 using System;
 using UnityEngine;
 
-public interface ILogTagProvider
-{
-    public Logging.Tag LogTag
-    {
-        get;
-    }
-}
-
 [Serializable]
 public class Logger
 {
@@ -19,7 +11,7 @@ public class Logger
     public void CreateTag(Component c)
     {
         logTag = c.CreateLogTag();
-        Debug.Log($"Logger: tag created {logTag}");
+        SetLogLevel();
     }
 
     public void SetLogLevel()
