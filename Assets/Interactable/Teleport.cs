@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(LinearAnimator))]
@@ -13,6 +12,9 @@ public class Teleport : MonoBehaviour, ILogTagProvider
 
     [SerializeField]
     private Sprite inactiveSprite;
+
+    [SerializeField]
+    private GameObject teleportingAnimationTemplate;
 
     [SerializeField]
     private LogLevelSelector logLevelSelector;
@@ -42,8 +44,6 @@ public class Teleport : MonoBehaviour, ILogTagProvider
 
     public void AnimateAndTeleportToNextScene(GameObject go)
     {
-        Logging.LogDebug(logTag, "Teleport begin!!");
-
         if (go.TryGetComponent(out PlayerController p))
         {
             p.DisableInput();
@@ -58,8 +58,25 @@ public class Teleport : MonoBehaviour, ILogTagProvider
             a.MoveTo(transform.position, () =>
             {
                 // OnDone
-                // TODO: Now animate the player out and switch to next scene
-                Logging.LogDebug(logTag, "Teleport the player!!!");
+                var go = Instantiate(teleportingAnimationTemplate, transform);
+
+                if (go.TryGetComponent(out TeleportingAnimator ta))
+                {
+                    ta.Animate(() =>
+                    {
+                        // On Cover
+                        // Hide the player
+                        p.gameObject.SetActive(false);
+                        animator.Stop();
+                    }, () =>
+                    {
+                        Logging.LogDebug(logTag, "TODO: Move to next scene");
+                    });
+                }
+                else
+                {
+                    Logging.LogError(logTag, $"template ({teleportingAnimationTemplate.name}): no {nameof(TeleportingAnimator)} attached!");
+                }
             });
         }
         else
