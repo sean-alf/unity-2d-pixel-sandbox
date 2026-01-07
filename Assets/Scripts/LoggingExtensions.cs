@@ -24,6 +24,8 @@ public static class Logging
         }
 
         public override string ToString() => Value;
+
+        public bool IsValid() => Value != null && Value.Length > 0;
     };
 
     public static readonly Dictionary<Tag, Level> logLevels = new();

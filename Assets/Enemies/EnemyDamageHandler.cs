@@ -12,7 +12,7 @@ public class EnemyDamageHandler : MonoBehaviour, ILogTagProvider
     [Space]
 
     [SerializeField]
-    private LogLevelSelector logLevelSelector;
+    private Logger logLevelSelector;
 
     private Logging.Tag logTag;
 

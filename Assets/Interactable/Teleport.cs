@@ -3,10 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(LinearAnimator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Teleport : MonoBehaviour, ILogTagProvider
+public class Teleport : MonoBehaviour, ILoggerProvider
 {
-    public Logging.Tag LogTag => logTag;
-
     [SerializeField]
     private bool activated = false;
 
@@ -17,16 +15,14 @@ public class Teleport : MonoBehaviour, ILogTagProvider
     private GameObject teleportingAnimationTemplate;
 
     [SerializeField]
-    private LogLevelSelector logLevelSelector;
+    private Logger logger;
 
-    private Logging.Tag logTag;
     private LinearAnimator animator;
+
+    public Logger Logger => logger;
 
     private void OnEnable()
     {
-        logTag = this.CreateLogTag();
-        Logging.SetLogLevel(logTag, logLevelSelector.logLevel);
-
         animator = GetComponent<LinearAnimator>();
     }
 
@@ -50,7 +46,7 @@ public class Teleport : MonoBehaviour, ILogTagProvider
         }
         else
         {
-            Logging.LogError(logTag, $"{go.name}: no {nameof(PlayerController)} attached!!");
+            logger.E($"{go.name}: no {nameof(PlayerController)} attached!!");
         }
 
         if (go.TryGetComponent(out AutoMover a))
@@ -70,24 +66,23 @@ public class Teleport : MonoBehaviour, ILogTagProvider
                         animator.Stop();
                     }, () =>
                     {
-                        Logging.LogDebug(logTag, "TODO: Move to next scene");
+                        logger.D("TODO: Move to next scene");
                     });
                 }
                 else
                 {
-                    Logging.LogError(logTag, $"template ({teleportingAnimationTemplate.name}): no {nameof(TeleportingAnimator)} attached!");
+                    logger.E($"template ({teleportingAnimationTemplate.name}): no {nameof(TeleportingAnimator)} attached!");
                 }
             });
         }
         else
         {
-            Logging.LogError(logTag, $"{go.name}: no {nameof(AutoMover)} attached!!");
+            logger.E($"{go.name}: no {nameof(AutoMover)} attached!!");
         }
     }
 
     private void OnValidate()
     {
-        Logging.SetLogLevel(logTag, logLevelSelector.logLevel);
         UpdateActivatedState();
     }
 

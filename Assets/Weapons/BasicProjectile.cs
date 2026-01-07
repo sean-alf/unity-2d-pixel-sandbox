@@ -23,7 +23,7 @@ public class BasicProjectile : MonoBehaviour, ILogTagProvider
     [Space]
 
     [SerializeField]
-    private LogLevelSelector logLevelSelector;
+    private Logger logLevelSelector;
 
     private Rigidbody2D rb;
     private Animator animator;

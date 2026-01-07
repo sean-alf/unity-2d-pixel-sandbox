@@ -22,7 +22,7 @@ public class AutoMover : MonoBehaviour, ILogTagProvider
     [Header("Debug")]
 
     [SerializeField]
-    private LogLevelSelector logLevelSelector;
+    private Logger logLevelSelector;
 
     private IAutoMoverTarget autoMoverTarget;
     private Logging.Tag logTag;

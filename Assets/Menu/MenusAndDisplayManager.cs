@@ -9,7 +9,7 @@ public class MenusAndDisplayManager : MonoBehaviour, ILogTagProvider
     [Space]
 
     [SerializeField]
-    private LogLevelSelector logLevelSelector;
+    private Logger logLevelSelector;
 
     private Logging.Tag logTag;
 
