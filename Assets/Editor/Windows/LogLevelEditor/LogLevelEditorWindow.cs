@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UIElements;
 using System;
+using System.IO;
 
 public class LogLevelEditorWindow : EditorWindow
 {
+    private static readonly string GLOBAL_LOG_LEVEL_KEY = "GLOBAL_LOG_LEVEL_KEY";
+
     private ListView listView;
     private EnumField globalLogLevel;
     private List<ProviderItem> items = new(); // Unified list for virtualization
@@ -54,7 +57,11 @@ public class LogLevelEditorWindow : EditorWindow
     {
         globalLogLevel = rootVisualElement.Q<EnumField>();
 
-        if (globalLogLevel.value == null || globalLogLevel.value.GetType() != typeof(Logging.Level))
+        if (EditorPrefs.HasKey(GLOBAL_LOG_LEVEL_KEY))
+        {
+            globalLogLevel.Init((Logging.Level)EditorPrefs.GetInt(GLOBAL_LOG_LEVEL_KEY));
+        }
+        else if (globalLogLevel.value == null || globalLogLevel.value.GetType() != typeof(Logging.Level))
         {
             globalLogLevel.Init(Logging.DEFAULT_LEVEL);
         }
@@ -89,6 +96,8 @@ public class LogLevelEditorWindow : EditorWindow
 
     private void UpdateAllLogLevels()
     {
+        EditorPrefs.SetInt(GLOBAL_LOG_LEVEL_KEY, Convert.ToInt16(globalLogLevel.value));
+
         foreach (var p in items)
         {
             p.UpdateLogLevel((Logging.Level)globalLogLevel.value);
@@ -114,7 +123,7 @@ public class LogLevelEditorWindow : EditorWindow
 
         items.AddRange(components);
         items.AddRange(soItems);
-        items = items.OrderBy(p => p.tag.Name).ThenBy(p => p.tag.TypeName).ToList();
+        items = items.OrderBy(p => p.tag.Name).ThenBy(p => p.GetFileExtension()).ThenBy(p => p.tag.TypeName).ToList();
 
         listView.itemsSource = items;
         listView.RefreshItems();
@@ -124,8 +133,7 @@ public class LogLevelEditorWindow : EditorWindow
 
     private void BindItem(VisualElement parent, int index)
     {
-        var p = items[index];
-        p.Bind(parent);
+        items[index].Bind(parent);
     }
 
     private ScriptableObject GetOrLoadSO(string path)
@@ -186,6 +194,11 @@ public class LogLevelEditorWindow : EditorWindow
             // Force visibility
             loadingContainer.style.display = DisplayStyle.None;
             mainContainer.style.display = DisplayStyle.Flex;
+        }
+
+        public string GetFileExtension()
+        {
+            return Path.GetExtension(path)?.Replace(".", "");
         }
 
         public void SelectInEditor()

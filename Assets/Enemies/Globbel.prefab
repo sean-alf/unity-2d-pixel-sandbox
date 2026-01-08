@@ -141,7 +141,7 @@ MonoBehaviour:
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 2
   logger:
-    logLevel: 3
+    logLevel: 5
 --- !u!60 &2756273419691802104
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ccbb24bae8ef64a26b7f493d45018bd1, type: 2}
   madm: {fileID: 0}
   logger:
-    logLevel: 3
+    logLevel: 5
 --- !u!114 &4472532923015666288
 MonoBehaviour:
   m_ObjectHideFlags: 0
