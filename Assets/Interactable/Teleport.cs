@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(LinearAnimator))]
@@ -13,6 +14,9 @@ public class Teleport : MonoBehaviour, ILoggerProvider
 
     [SerializeField]
     private GameObject teleportingAnimationTemplate;
+
+    [SerializeField]
+    private string nextSceneName;
 
     [SerializeField]
     private Logger logger;
@@ -66,9 +70,16 @@ public class Teleport : MonoBehaviour, ILoggerProvider
                         // Hide the player
                         p.gameObject.SetActive(false);
                         animator.Stop();
-                    }, () =>
+                    }, async () =>
                     {
-                        logger.D("TODO: Move to next scene");
+                        logger.D("TODO: Move to next scene, use persistent scene manager for this ultimately");
+                        if (nextSceneName == null || nextSceneName.Length == 0)
+                        {
+                            logger.E("missing next scene name!");
+                            return;
+                        }
+
+                        await SceneManager.LoadSceneAsync(nextSceneName);
                     });
                 }
                 else

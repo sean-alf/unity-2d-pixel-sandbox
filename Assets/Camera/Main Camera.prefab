@@ -209,7 +209,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.07823529, g: 0.09760785, b: 0.16541177, a: 1}
+  m_BackGroundColor: {r: 0.13588236, g: 0.16952942, b: 0.28729412, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBackgroundColorManager
   tilemap: {fileID: 0}
-  shadeAdjustment: 0.19
+  shadeAdjustment: 0.33
 --- !u!1 &3626028228604977000
 GameObject:
   m_ObjectHideFlags: 0

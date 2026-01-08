@@ -153,6 +153,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 5917398457995070116, guid: 3ca1a1bc79c8a47018a0622001ba32e2, type: 3}
+      propertyPath: logger.logLevel
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

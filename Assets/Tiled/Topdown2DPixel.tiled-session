@@ -5,9 +5,9 @@
     },
     "activeFile": "Tilemaps/TestMap.tmx",
     "expandedProjectPaths": [
+        "TileSets",
         "Tilemaps",
-        ".",
-        "TileSets"
+        "."
     ],
     "fileStates": {
         "TileSets/GreenWall.tsx": {
@@ -23,7 +23,7 @@
             "selectedLayer": 1,
             "viewCenter": {
                 "x": 788.9331107972781,
-                "y": 484.3368853511362
+                "y": 484.3368853511361
             }
         },
         "Tilemaps/TestMap2.tmx": {
@@ -31,7 +31,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 480.42895442359253,
-                "y": 294.8497248483139
+                "y": 320.1354592916608
             }
         }
     },
