@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/Windows/LogLevelEditor/LogLevelListItem.uss?fileID=7433441132597879392&amp;guid=bebab44155f2b4ecbb97a367fc7f8464&amp;type=3#LogLevelListItem"/>
+    <ui:VisualElement style="flex-grow: 0; flex-direction: column; flex-shrink: 0; margin-top: 8px; margin-right: 8px; margin-bottom: 8px; margin-left: 8px;">
+        <ui:VisualElement name="loadingContainer" enabled="true" style="flex-grow: 1; display: flex;">
+            <ui:Label text="Loading..." name="Label" style="-unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="mainContainer" style="flex-grow: 1; flex-direction: row; display: flex; visibility: visible;">
+            <ui:VisualElement style="flex-grow: 1; flex-shrink: 0; margin-right: 0; margin-left: 8px;">
+                <ui:Label text="Display Name" name="displayName" enable-rich-text="true" style="flex-direction: row; flex-grow: 1; -unity-font-style: bold; font-size: 14px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; align-items: stretch; align-self: auto; align-content: flex-start; -unity-text-align: middle-left;"/>
+                <ui:Label text="Prefab" name="prefabLabel" style="font-size: 12px; visibility: visible; display: none; -unity-font-style: normal;"/>
+            </ui:VisualElement>
+            <ui:EnumField label="Log Level" value="Right" type="UnityEditor.AdaptivePerformance.Editor.Metadata.AdaptivePerformancePackageMetadataStore+LogLevel, UnityEditor.AdaptivePerformanceModule" name="logLevels" style="flex-direction: column; font-size: 12px; -unity-font-style: normal; margin-right: 8px;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -192,8 +192,8 @@ MonoBehaviour:
   id: 1
   speed: 6
   spawnPositionOffsetPX: -6
-  logLevelSelector:
-    logLevel: 5
+  logger:
+    logLevel: 0
 --- !u!61 &-1618711439479532105
 BoxCollider2D:
   m_ObjectHideFlags: 0

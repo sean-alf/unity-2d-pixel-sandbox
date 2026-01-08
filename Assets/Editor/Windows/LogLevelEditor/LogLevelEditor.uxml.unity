@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   logger:
-    logLevel: 3
+    logLevel: 0
 --- !u!1001 &177845524
 PrefabInstance:
   m_ObjectHideFlags: 0

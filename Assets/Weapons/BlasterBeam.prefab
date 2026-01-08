@@ -252,5 +252,5 @@ MonoBehaviour:
   id: 0
   speed: 6
   spawnPositionOffsetPX: 0
-  logLevelSelector:
-    logLevel: 5
+  logger:
+    logLevel: 0

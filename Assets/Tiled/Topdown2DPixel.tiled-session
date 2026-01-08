@@ -5,9 +5,9 @@
     },
     "activeFile": "Tilemaps/TestMap.tmx",
     "expandedProjectPaths": [
-        "TileSets",
+        "Tilemaps",
         ".",
-        "Tilemaps"
+        "TileSets"
     ],
     "fileStates": {
         "TileSets/GreenWall.tsx": {
@@ -19,11 +19,11 @@
             "scaleInEditor": 1.7
         },
         "Tilemaps/TestMap.tmx": {
-            "scale": 1.0155,
+            "scale": 1.5578,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 504.1851304775973,
-                "y": 336.2875430822255
+                "x": 788.9331107972781,
+                "y": 484.3368853511362
             }
         },
         "Tilemaps/TestMap2.tmx": {
@@ -39,13 +39,14 @@
     "map.lastUsedFormat": "tmx",
     "openFiles": [
         "Tilemaps/TestMap.tmx",
-        "TileSets/GreenWall.tsx"
+        "Tilemaps/TestMap2.tmx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "TileSets/GreenWall.tsx",
+        "Tilemaps/TestMap2.tmx",
         "Tilemaps/TestMap.tmx",
+        "TileSets/GreenWall.tsx",
         "TileSets/MuddyGround.tsx"
     ],
     "tileset.lastUsedFormat": "tsx"

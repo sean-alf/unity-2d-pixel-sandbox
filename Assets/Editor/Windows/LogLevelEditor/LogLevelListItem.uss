@@ -1,0 +1,8 @@
+:root {
+}
+
+.logLevelListItemContainer {
+    flex-grow: initial;
+    flex-direction: row;
+    flex-shrink: 1;
+}

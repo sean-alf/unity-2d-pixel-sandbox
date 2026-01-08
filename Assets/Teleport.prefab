@@ -73,7 +73,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 60, y: 59}
+    oldSize: {x: 60, y: 60}
     newSize: {x: 60, y: 60}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -96,8 +96,8 @@ MonoBehaviour:
   activated: 1
   inactiveSprite: {fileID: 5232338632093696002, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   teleportingAnimationTemplate: {fileID: 3431874197721044804, guid: 368cd75e4d0734e6f96175f6b7c2e886, type: 3}
-  logLevelSelector:
-    logLevel: 1
+  logger:
+    logLevel: 3
 --- !u!212 &7565738375389648095
 SpriteRenderer:
   serializedVersion: 2
