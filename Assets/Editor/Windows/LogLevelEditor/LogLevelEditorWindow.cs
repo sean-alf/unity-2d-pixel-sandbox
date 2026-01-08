@@ -57,7 +57,7 @@ public class LogLevelEditorWindow : EditorWindow
 
         if (globalLogLevel.value == null || globalLogLevel.value.GetType() != typeof(Logging.Level))
         {
-            globalLogLevel.Init(Logging.Level.INFO);
+            globalLogLevel.Init(Logging.Level.DEFAULT);
         }
 
         var updateAllButton = rootVisualElement.Q<Button>();
@@ -138,7 +138,6 @@ public class LogLevelEditorWindow : EditorWindow
 
         listView.itemsSource = items;
         listView.RefreshItems();
-
         listView.itemsChosen -= ItemsChosen;
         listView.itemsChosen += ItemsChosen;
     }
@@ -170,7 +169,7 @@ public class LogLevelEditorWindow : EditorWindow
 
         if (logLevels.value == null || logLevels.value.GetType() != typeof(Logging.Level))
         {
-            logLevels.Init(Logging.Level.INFO);
+            logLevels.Init(Logging.Level.DEFAULT);
         }
 
         logLevels.userData = new LogLevelCallbackData()
