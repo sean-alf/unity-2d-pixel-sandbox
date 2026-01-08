@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(HealthManager))]
-public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget
+public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider
 {
     public bool IsInputReady => input != null;
     public bool IsInputActive
@@ -27,13 +27,11 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget
 
     [Header("Debug")]
     [SerializeField]
-    private bool enableLogs = false;
-
-    private static readonly ILogger logger = Debug.unityLogger;
-
-    private string Tag => $"Player2Movement:{name}";
+    private Logger logger;
 
     public float Speed => Time.fixedDeltaTime * speed * SPEED_CONSTANT;
+
+    public Logger Logger => logger;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -47,6 +45,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget
     private void OnEnable()
     {
         input = GetComponent<PlayerInput>();
+        logger.CreateTag(this);
     }
 
     void Awake()
@@ -97,10 +96,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget
             animator.Play(PlayerAnimatorStates.BaseLayer.PLAYER_MOVING);
         }
 
-        if (enableLogs)
-        {
-            logger.Log(Tag, $"Direction changed = {direction}");
-        }
+        logger.I($"Direction changed = {direction}");
     }
 
     private void OnInteract(InputAction.CallbackContext context)
@@ -146,7 +142,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget
         {
             if (data.type == CollisionData.Type.Damage)
             {
-                logger.LogWarning(Tag, $"Hit by {LayerMask.LayerToName(data.gameObject.layer)}");
+                logger.D($"Hit by {LayerMask.LayerToName(data.gameObject.layer)}");
                 healthManager.DoDamage(data.strength);
                 return;
             }

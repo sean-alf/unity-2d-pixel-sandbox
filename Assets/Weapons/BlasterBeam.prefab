@@ -253,4 +253,4 @@ MonoBehaviour:
   speed: 6
   spawnPositionOffsetPX: 0
   logger:
-    logLevel: 0
+    logLevel: 4

@@ -14,6 +14,7 @@ public class LogLevelEditorWindow : EditorWindow
     }
 
     private ListView listView;
+    private EnumField globalLogLevel;
     private List<ProviderItem> items = new(); // Unified list for virtualization
     private readonly Dictionary<string, ScriptableObject> loadedSOs = new();
 
@@ -52,6 +53,16 @@ public class LogLevelEditorWindow : EditorWindow
             return;
         }
 
+        globalLogLevel = rootVisualElement.Q<EnumField>();
+
+        if (globalLogLevel.value == null || globalLogLevel.value.GetType() != typeof(Logging.Level))
+        {
+            globalLogLevel.Init(Logging.Level.INFO);
+        }
+
+        var updateAllButton = rootVisualElement.Q<Button>();
+        updateAllButton.clicked += UpdateAllLogLevels;
+
         var refreshButton = rootVisualElement.Q<Button>("RefreshButton");
         refreshButton.clicked += RefreshProviders;
 
@@ -65,8 +76,20 @@ public class LogLevelEditorWindow : EditorWindow
         };
         listView.bindItem = BindItem;
         listView.itemsSource = items;
+        listView.viewDataKey = "LogLevelEditorListViewKey";
 
         RefreshProviders(); // Initial data load
+    }
+
+    private void UpdateAllLogLevels()
+    {
+        foreach (var p in items)
+        {
+            Logger l = (p.component as ILoggerProvider).Logger;
+            l.logLevel = (Logging.Level)globalLogLevel.value;
+            l.SetLogLevel();
+            listView.RefreshItems();
+        }
     }
 
     private void RefreshProviders()

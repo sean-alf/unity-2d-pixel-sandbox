@@ -1,6 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 1; flex-shrink: 0; height: 100%; flex-direction: column;">
-        <ui:Button text="Refresh" name="RefreshButton" style="margin-bottom: 4px; margin-top: 4px; margin-right: 4px; margin-left: 4px; font-size: 18px; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px;"/>
+        <ui:VisualElement name="" style="flex-grow: 0; flex-direction: row; margin-top: 8px; margin-right: 8px; margin-bottom: 8px; margin-left: 8px;">
+            <ui:Label text="Global Log Level" style="-unity-text-align: middle-center; -unity-font-style: bold;"/>
+            <ui:EnumField label="" value="Center" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" name="GlobalLogLevel" style="flex-shrink: 1; flex-grow: 1;"/>
+            <ui:Button text="Update All" name="UpdateAll"/>
+        </ui:VisualElement>
+        <ui:Button text="Refresh List" name="RefreshButton"/>
         <ui:ListView name="ItemsList" item-template="" virtualization-method="DynamicHeight" show-alternating-row-backgrounds="ContentOnly" fixed-item-height="50" style="flex-grow: 1; flex-shrink: 0; height: 100px;"/>
     </ui:VisualElement>
 </ui:UXML>
