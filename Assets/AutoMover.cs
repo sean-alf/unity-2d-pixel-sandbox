@@ -28,10 +28,6 @@ public class AutoMover : MonoBehaviour, ILoggerProvider
 
     public Logger Logger => logger;
 
-    private void OnEnable() {
-        logger.CreateTag(this);
-    }
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

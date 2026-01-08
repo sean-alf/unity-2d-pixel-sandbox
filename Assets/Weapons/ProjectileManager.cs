@@ -40,11 +40,6 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
 
     public Logger Logger => logger;
 
-    private void OnEnable()
-    {
-        logger.CreateTag(this);
-    }
-
     private void Awake()
     {
         if (projectiles == null || projectiles.Count == 0)

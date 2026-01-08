@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public static class Logging
@@ -12,6 +13,7 @@ public static class Logging
         WARN,
         ERROR,
         NONE,
+        DEFAULT = INFO,
     }
 
     public readonly struct Tag
@@ -30,7 +32,13 @@ public static class Logging
 
     public static readonly Dictionary<Tag, Level> logLevels = new();
 
-    public static Tag CreateLogTag(this Component c) => new($"{c.GetType().Name} ({c.name})");
+    public static Tag CreateLogTag(this Component c)
+    {
+        string postFix = EditorUtility.IsPersistent(c.gameObject) ? " (Prefab)" : "";
+        return new($"{c.GetType().Name} ({c.name}){postFix}");
+    }
+
+    public static Tag CreateLogTag(this ScriptableObject s) => new($"{s.GetType().Name} ({s.name}) (SO)");
 
     public static void SetLogLevel(Tag tag, Level level)
     {
@@ -46,7 +54,7 @@ public static class Logging
 
     public static void LogVerbose(Tag tag, object message)
     {
-        if (IsValidLevel(tag, Level.VERBOSE))
+        if (IsValid(tag, Level.VERBOSE))
         {
             Debug.unityLogger.Log($"[V] {tag}", message);
         }
@@ -54,7 +62,7 @@ public static class Logging
 
     public static void LogDebug(Tag tag, object message)
     {
-        if (IsValidLevel(tag, Level.DEBUG))
+        if (IsValid(tag, Level.DEBUG))
         {
             Debug.unityLogger.Log(Blue($"[D] {tag}"), Blue(message));
         }
@@ -62,7 +70,7 @@ public static class Logging
 
     public static void LogInfo(Tag tag, object message)
     {
-        if (IsValidLevel(tag, Level.INFO))
+        if (IsValid(tag, Level.INFO))
         {
             Debug.unityLogger.Log(Green($"[I] {tag}"), Green(message));
         }
@@ -70,7 +78,7 @@ public static class Logging
 
     public static void LogWarning(Tag tag, object message)
     {
-        if (IsValidLevel(tag, Level.WARN))
+        if (IsValid(tag, Level.WARN))
         {
             Debug.unityLogger.LogWarning($"[W] {tag}", message);
         }
@@ -78,15 +86,20 @@ public static class Logging
 
     public static void LogError(Tag tag, object message)
     {
-        if (IsValidLevel(tag, Level.ERROR))
+        if (IsValid(tag, Level.ERROR))
         {
             Debug.unityLogger.LogError($"[E] {tag}", message);
         }
     }
 
-    private static bool IsValidLevel(Tag t, Level l)
+    /// <summary>
+    /// Clears all tags, i.e., it clears the log levels dictionary.
+    /// </summary>
+    public static void ClearAllTags() => logLevels.Clear();
+
+    private static bool IsValid(Tag t, Level l)
     {
-        return !logLevels.ContainsKey(t) || logLevels[t] <= l;
+        return t.Value != null && t.Value.Length > 0 && (!logLevels.ContainsKey(t) || logLevels[t] <= l);
     }
 
     private static string Green(object text) => $"<color=green>{text}</color>";

@@ -28,8 +28,6 @@ public class Teleport : MonoBehaviour, ILoggerProvider
     private void OnEnable()
     {
         animator = GetComponent<LinearAnimator>();
-
-        logger.CreateTag(this);
     }
 
     private void Awake()

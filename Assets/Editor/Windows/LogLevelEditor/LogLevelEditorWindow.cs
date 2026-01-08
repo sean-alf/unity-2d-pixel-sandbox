@@ -95,25 +95,42 @@ public class LogLevelEditorWindow : EditorWindow
     private void RefreshProviders()
     {
         items.Clear();
+        Logging.ClearAllTags();
 
         // Add scene components
         var components = Resources.FindObjectsOfTypeAll<MonoBehaviour>()
             .Where(c => c is ILoggerProvider)
-            .Select(c => new ProviderItem
+            .Select(c =>
             {
-                isPrefab = EditorUtility.IsPersistent(c.gameObject),
-                component = c,
-                displayName = $"{c.name} ({c.GetType().Name})"
+                var logger = (c as ILoggerProvider).Logger;
+                var logTag = logger.CreateTag(c);
+                logger.SetLogLevel();
+
+                return new ProviderItem
+                {
+                    isPrefab = EditorUtility.IsPersistent(c.gameObject),
+                    component = c,
+                    displayName = logTag.ToString(),
+                };
             });
 
         // Add ScriptableObjects (lazy load later)
         string[] guids = AssetDatabase.FindAssets("t:ScriptableObject");
-        var soItems = guids.Select(guid => GetOrLoadSO(AssetDatabase.GUIDToAssetPath(guid))).Where(s => s is ILoggerProvider).Select(s => new ProviderItem
-        {
-            isPrefab = false,
-            component = s,
-            displayName = $"{s.name} (Asset)",
-        });
+        var soItems = guids.Select(guid => GetOrLoadSO(AssetDatabase.GUIDToAssetPath(guid)))
+            .Where(s => s is ILoggerProvider)
+            .Select(s =>
+                {
+                    var logger = (s as ILoggerProvider).Logger;
+                    var logTag = logger.CreateTag(s);
+                    logger.SetLogLevel();
+
+                    return new ProviderItem
+                    {
+                        isPrefab = false,
+                        component = s,
+                        displayName = logTag.ToString(),
+                    };
+                });
 
         items.AddRange(components);
         items.AddRange(soItems);

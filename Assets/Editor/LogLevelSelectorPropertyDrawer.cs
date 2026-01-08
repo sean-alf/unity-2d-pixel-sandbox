@@ -21,11 +21,6 @@ public class LogLevelSelectorPropertyDrawer : PropertyDrawer
 
         Logging.Level newLevel = (Logging.Level)EditorGUI.EnumPopup(position, new GUIContent("Log Level"), currentLevel);
 
-        if (c != null && p != null && !p.Logger.logTag.IsValid())
-        {
-            p.Logger.CreateTag(c);
-        }
-
         if (newLevel != currentLevel)
         {
             logLevel.enumValueIndex = (int)newLevel;

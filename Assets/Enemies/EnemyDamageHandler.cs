@@ -16,11 +16,6 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
     public Logger Logger => logger;
 
-    private void OnEnable()
-    {
-        logger.CreateTag(this);
-    }
-
     private void OnCollisionEnter2D(Collision2D other)
     {
         logger.D($"Collision {other.gameObject.name}");

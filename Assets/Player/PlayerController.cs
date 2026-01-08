@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private void OnEnable()
     {
         input = GetComponent<PlayerInput>();
-        logger.CreateTag(this);
     }
 
     void Awake()
