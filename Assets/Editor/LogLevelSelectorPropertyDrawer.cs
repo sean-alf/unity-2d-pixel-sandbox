@@ -48,7 +48,7 @@ public class LogLevelSelectorPropertyDrawer : PropertyDrawer
             Rect valueRect = EditorGUI.PrefixLabel(secondLine, controlID, new GUIContent("Log Tag"));
 
             // Draw the value in the correct area
-            EditorGUI.LabelField(valueRect, p.Logger.logTag.ToString() ?? "Unset");
+            EditorGUI.LabelField(valueRect, p.Logger?.logTag?.ToString() ?? "Unset");
         }
 
         EditorGUI.EndProperty();

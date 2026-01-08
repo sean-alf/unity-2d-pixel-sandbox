@@ -4,29 +4,18 @@ using UnityEngine;
 [Serializable]
 public class Logger
 {
-    public Logging.Level logLevel = Logging.Level.DEFAULT;
+    public Logging.Level logLevel = Logging.DEFAULT_LEVEL;
 
     public Logging.Tag logTag;
 
     /// <summary>
-    /// Creates and internally stores the Logging.Tag for this Component.
+    /// Creates and internally stores the Logging.Tag for this Object.
     /// </summary>
-    /// <param name="c"></param>
+    /// <param name="o"></param>
     /// <returns>The newly created Logging.Tag</returns>
-    public Logging.Tag CreateTag(Component c)
+    public Logging.Tag CreateTag(UnityEngine.Object o)
     {
-        logTag = c.CreateLogTag();
-        return logTag;
-    }
-
-    /// <summary>
-    /// Creates and internally stores the Logging.Tag for this ScriptableObject.
-    /// </summary>
-    /// <param name="s"></param>
-    /// <returns>The newly created Logging.Tag</returns>
-    public Logging.Tag CreateTag(ScriptableObject s)
-    {
-        logTag = s.CreateLogTag();
+        logTag = new(o);
         return logTag;
     }
 

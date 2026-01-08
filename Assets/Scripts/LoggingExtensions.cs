@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class Logging
 {
+    public static readonly Level DEFAULT_LEVEL = Level.INFO;
+
     public enum Level
     {
         VERBOSE,
@@ -13,32 +15,61 @@ public static class Logging
         WARN,
         ERROR,
         NONE,
-        DEFAULT = INFO,
     }
 
-    public readonly struct Tag
+    public class Tag
     {
+        /// <summary>
+        /// The full tag value.
+        /// Use this for displaying tags in the console.
+        /// </summary>
         public string Value { get; }
+        /// <summary>
+        /// The object's instance name.
+        /// </summary>
+        public string Name { get; }
+        /// <summary>
+        /// The objects type name.
+        /// </summary>
+        public string TypeName { get; }
+        public string GUID { get; }
+        public long LocalID { get; }
+        /// <summary>
+        /// Returns true if an ID was found for the object.
+        /// </summary>
+        public bool IsIDValid { get; }
 
-        public Tag(string value)
+        public Tag(UnityEngine.Object o)
         {
-            Value = value ?? throw new ArgumentNullException(nameof(value));
+            Name = o.name;
+            TypeName = o.GetType().Name;
+            Value = $"{Name} -> {TypeName}";
+            IsIDValid = AssetDatabase.TryGetGUIDAndLocalFileIdentifier(o, out string guid, out long localID);
+            GUID = guid;
+            LocalID = localID;
         }
 
         public override string ToString() => Value;
 
-        public bool IsValid() => Value != null && Value.Length > 0;
+        public bool IsValid() => IsIDValid && Value != null && Value.Length > 0;
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Tag other)
+            {
+                return GUID == other.GUID && LocalID == other.LocalID && Value == other.Value;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(GUID, LocalID, Value);
+        }
     };
 
     public static readonly Dictionary<Tag, Level> logLevels = new();
-
-    public static Tag CreateLogTag(this Component c)
-    {
-        string postFix = EditorUtility.IsPersistent(c.gameObject) ? " (Prefab)" : "";
-        return new($"{c.GetType().Name} ({c.name}){postFix}");
-    }
-
-    public static Tag CreateLogTag(this ScriptableObject s) => new($"{s.GetType().Name} ({s.name}) (SO)");
 
     public static void SetLogLevel(Tag tag, Level level)
     {
