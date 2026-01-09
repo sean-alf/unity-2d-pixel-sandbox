@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 {
     [SerializeField]
@@ -15,6 +16,13 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
     private Logger logger;
 
     public Logger Logger => logger;
+
+    private new Collider2D collider;
+
+    void Awake()
+    {
+        collider = GetComponent<Collider2D>();
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -33,6 +41,7 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
                 if (health <= 0)
                 {
+                    collider.enabled = false;
                     var deathCloud = Instantiate(deathCloudTemplate, transform).GetComponent<DeathCloud>();
                     deathCloud.onAnimationEnd += Die;
                     deathCloud.Begin();
