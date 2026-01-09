@@ -103,7 +103,7 @@ public class LinearAnimator : MonoBehaviour
             StopCoroutine(coroutine);
         }
 
-        if (inactiveSprite != null) sr.sprite = inactiveSprite;
+        if (inactiveSprite != null && sr != null) sr.sprite = inactiveSprite;
     }
 
     private IEnumerator AnimateIntern(Action onFinished)

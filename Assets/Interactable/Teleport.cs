@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(LinearAnimator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Teleport : MonoBehaviour, ILoggerProvider
+public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 {
     [SerializeField]
     private bool activated = false;
@@ -16,7 +16,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider
     private GameObject teleportingAnimationTemplate;
 
     [SerializeField]
-    private string nextSceneName;
+    private TransitionType transitionType;
 
     [SerializeField]
     private Logger logger;
@@ -24,6 +24,10 @@ public class Teleport : MonoBehaviour, ILoggerProvider
     private LinearAnimator animator;
 
     public Logger Logger => logger;
+
+    public Action<TransitionType> OnExit { get; set; }
+
+    public TransitionType Type => transitionType;
 
     private void OnEnable()
     {
@@ -42,53 +46,28 @@ public class Teleport : MonoBehaviour, ILoggerProvider
         }
     }
 
-    public void AnimateAndTeleportToNextScene(GameObject go)
+    public void AnimateAndTeleportToNextScene(GameObject target)
     {
-        if (go.TryGetComponent(out PlayerController p))
+        if (target.TryGetComponent(out PlayerController p))
         {
             p.DisableInput();
         }
         else
         {
-            logger.E($"{go.name}: no {nameof(PlayerController)} attached!!");
+            logger.E($"{target.name}: no {nameof(PlayerController)} attached!!");
         }
 
-        if (go.TryGetComponent(out AutoMover a))
+        if (target.TryGetComponent(out AutoMover a))
         {
             a.MoveTo(transform.position, () =>
             {
                 // OnDone
-                var go = Instantiate(teleportingAnimationTemplate, transform);
-
-                if (go.TryGetComponent(out TeleportingAnimator ta))
-                {
-                    ta.Animate(() =>
-                    {
-                        // On Cover
-                        // Hide the player
-                        p.gameObject.SetActive(false);
-                        animator.Stop();
-                    }, async () =>
-                    {
-                        logger.D("TODO: Move to next scene, use persistent scene manager for this ultimately");
-                        if (nextSceneName == null || nextSceneName.Length == 0)
-                        {
-                            logger.E("missing next scene name!");
-                            return;
-                        }
-
-                        await SceneManager.LoadSceneAsync(nextSceneName);
-                    });
-                }
-                else
-                {
-                    logger.E($"template ({teleportingAnimationTemplate.name}): no {nameof(TeleportingAnimator)} attached!");
-                }
+                Exit(target);
             });
         }
         else
         {
-            logger.E($"{go.name}: no {nameof(AutoMover)} attached!!");
+            logger.E($"{target.name}: no {nameof(AutoMover)} attached!!");
         }
     }
 
@@ -117,6 +96,62 @@ public class Teleport : MonoBehaviour, ILoggerProvider
         if (TryGetComponent(out Collider2D collider2D))
         {
             collider2D.enabled = activated;
+        }
+    }
+
+    public void Enter()
+    {
+        var player = FindAnyObjectByType<PlayerController>();
+
+        if (player != null)
+        {
+            player.gameObject.SetActive(false);
+            player.transform.position = transform.position;
+            RunTeleportationAnimation(player.gameObject, () =>
+            {
+                // On Cover
+                player.gameObject.SetActive(true);
+            }, null);
+        }
+        else
+        {
+            logger.E($"{nameof(PlayerController)} not found!!");
+        }
+    }
+
+    private void Exit(GameObject target)
+    {
+        RunTeleportationAnimation(target, () =>
+                {
+                    // On Cover
+                    target.SetActive(false);
+                }, () =>
+                {
+                    // On Done
+                    OnExit?.Invoke(transitionType);
+                });
+    }
+
+    private void RunTeleportationAnimation(GameObject target, Action onCover, Action onDone)
+    {
+        var go = Instantiate(teleportingAnimationTemplate, transform);
+
+        if (go.TryGetComponent(out TeleportingAnimator ta))
+        {
+            ta.Animate(() =>
+            {
+                // On Cover
+                onCover?.Invoke();
+                animator.Stop();
+            }, () =>
+            {
+                // On Done
+                onDone?.Invoke();
+            });
+        }
+        else
+        {
+            logger.E($"template ({teleportingAnimationTemplate.name}): no {nameof(TeleportingAnimator)} attached!");
         }
     }
 }

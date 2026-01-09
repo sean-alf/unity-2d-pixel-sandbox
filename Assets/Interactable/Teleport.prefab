@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1402431353552783732}
   - component: {fileID: 7565738375389648095}
   - component: {fileID: 616279935808218842}
+  - component: {fileID: 4344514883491916007}
   m_Layer: 10
   m_Name: Trigger
   m_TagString: Untagged
@@ -96,9 +97,9 @@ MonoBehaviour:
   activated: 1
   inactiveSprite: {fileID: 5232338632093696002, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   teleportingAnimationTemplate: {fileID: 3431874197721044804, guid: 368cd75e4d0734e6f96175f6b7c2e886, type: 3}
-  nextSceneName: 
+  transitionType: 1
   logger:
-    logLevel: 5
+    logLevel: 0
 --- !u!212 &7565738375389648095
 SpriteRenderer:
   serializedVersion: 2
@@ -178,6 +179,20 @@ MonoBehaviour:
   type: 1
   delayDuration: 0.5
   loop: 1
+--- !u!114 &4344514883491916007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577662834560116145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34e5f1db710d14b94b254c84f7974a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneTransitionPoint
+  logger:
+    logLevel: 0
 --- !u!1 &8604226442916662344
 GameObject:
   m_ObjectHideFlags: 0

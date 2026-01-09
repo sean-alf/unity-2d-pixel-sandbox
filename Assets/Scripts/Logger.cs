@@ -24,7 +24,7 @@ public class Logger
     /// </summary>
     public void SetLogLevel()
     {
-        if (logTag.Value == null || logTag.Value.Length == 0) return;
+        if (logTag == null || logTag.Value == null || logTag.Value.Length == 0) return;
         Logging.SetLogLevel(logTag, logLevel);
     }
 

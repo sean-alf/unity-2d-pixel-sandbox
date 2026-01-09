@@ -130,7 +130,7 @@ public static class Logging
 
     private static bool IsValid(Tag t, Level l)
     {
-        return t.Value != null && t.Value.Length > 0 && (!logLevels.ContainsKey(t) || logLevels[t] <= l);
+        return t != null && t.Value != null && t.Value.Length > 0 && (!logLevels.ContainsKey(t) || logLevels[t] <= l);
     }
 
     private static string Green(object text) => $"<color=green>{text}</color>";
