@@ -142,6 +142,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
                     {
                         // On Done
                         animator.Stop();
+
                         if (travelType == TravelType.Bidirectional)
                         {
                             StartCoroutine(WatchPlayerDistance(target));
@@ -167,12 +168,14 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
             yield return null;
         }
 
-        animator.Animate();
-        StartCoroutine(sr.FadeIn(fadeDuration, fadeSteps, () =>
+        void onDone()
         {
             // On Done
+            animator.Animate();
             Activate(true);
-        }));
+        }
+
+        StartCoroutine(sr.FadeIn(fadeDuration, fadeSteps, onDone));
     }
 
     private void Activate(bool activate)

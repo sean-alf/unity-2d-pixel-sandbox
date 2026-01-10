@@ -73,6 +73,8 @@ public class LinearAnimator : MonoBehaviour
 
     private void AnimateStart(Action onFinished = null)
     {
+        if (coroutine != null) return;
+
         if (sprites.Count() == 0)
         {
             Debug.LogError($"LinearAnimator ({gameObject.name}): sprite count must be greater than 0!");
@@ -101,6 +103,7 @@ public class LinearAnimator : MonoBehaviour
         if (coroutine != null)
         {
             StopCoroutine(coroutine);
+            coroutine = null;
         }
 
         if (inactiveSprite != null && sr != null) sr.sprite = inactiveSprite;
@@ -119,6 +122,7 @@ public class LinearAnimator : MonoBehaviour
         else
         {
             yield return AnimateThrough();
+            coroutine = null;
             onFinished?.Invoke();
         }
     }

@@ -99,7 +99,7 @@ MonoBehaviour:
   transitionType: 1
   travelType: 0
   distanceToReactivatePX: 66
-  fadeDuration: 0.25
+  fadeDuration: 0.5
   fadeSteps: 6
   logger:
     logLevel: 5
@@ -178,7 +178,7 @@ MonoBehaviour:
   - {fileID: 7859865300314599440, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   - {fileID: 5232338632093696002, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   - {fileID: 3925369369271843428, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
-  inactiveSprite: {fileID: 5232338632093696002, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
+  inactiveSprite: {fileID: 7859865300314599440, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   type: 1
   delayDuration: 0.5
   loop: 1

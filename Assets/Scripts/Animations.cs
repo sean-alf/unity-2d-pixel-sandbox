@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public static class Animations
 {
     public static IEnumerator FadeIn(this SpriteRenderer sr, float duration, float steps, Action onDone)
     {
-        if (sr == null) yield break;
-
         Color c = sr.color;
         WaitForSeconds wait = new(duration / steps);
         float stepAmount = (1.0f - sr.color.a) / steps;
@@ -30,8 +29,6 @@ public static class Animations
 
     public static IEnumerator FadeOut(this SpriteRenderer sr, float duration, float steps, Action onDone)
     {
-        if (sr == null) yield break;
-
         Color c = sr.color;
         WaitForSeconds wait = new(duration / steps);
         float stepAmount = sr.color.a / steps;

@@ -91,8 +91,6 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log($"loaded scene {scene.name}");
-
         if (scene.buildIndex == FIRST_LEVEL_SCENE_INDEX && firstLoad)
         {
             firstLoad = false;
@@ -147,8 +145,6 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
             // If it's not the first level (or below, i.e., persistent scene(s)), then unload it
             if (scene.buildIndex > FIRST_LEVEL_SCENE_INDEX)
             {
-                Debug.Log($"unloading scene {scene.name}");
-                logger.I($"unloading scene {scene.name}");
                 yield return SceneManager.UnloadSceneAsync(scene);
             }
         }
