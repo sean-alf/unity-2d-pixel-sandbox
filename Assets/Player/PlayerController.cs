@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,6 +30,14 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [SerializeField]
     private Logger logger;
 
+    [SerializeField]
+    [Tooltip("Only exposed for debugging purposes. Not intended for modification via the inspector.")]
+    private List<GameObject> others = new();
+
+    [SerializeField]
+    [Tooltip("Only exposed for debugging purposes. Not intended for modification via the inspector.")]
+    private List<GameObject> triggers = new();
+
     public float Speed => Time.fixedDeltaTime * speed * SPEED_CONSTANT;
 
     public Logger Logger => logger;
@@ -40,7 +49,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private HealthManager healthManager;
     private Vector2 currentDirection;
     private Vector2 lastNonIdleDirection = Vector2.up;
-    private GameObject other;
 
     private void OnEnable()
     {
@@ -100,16 +108,22 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        if (other != null)
+        foreach (var o in others)
         {
-            if (other.TryGetComponent(out AccessPanel p))
-            {
-                p.Activate();
-            }
-            else if (other.TryGetComponent(out HealthPickup h))
+            if (o == null) continue;
+
+            // Only handle one thing per interaction, otherwise it might be confusing
+            // Hence the "break"s
+            if (o.TryGetComponent(out HealthPickup h))
             {
                 healthManager.Heal(h.HealAmount);
                 Destroy(h.gameObject);
+                break;
+            }
+            else if (o.TryGetComponent(out AccessPanel p))
+            {
+                p.Activate();
+                break;
             }
         }
     }
@@ -146,25 +160,41 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
                 return;
             }
         }
-        else if (this.other != other.gameObject)
+        else
         {
-            this.other = other.gameObject;
+            if (!others.Contains(other.gameObject))
+            {
+                others.Add(other.gameObject);
+            }
         }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (this.other == other.gameObject)
+        if (others.Contains(other.gameObject))
         {
-            this.other = null;
+            others.Remove(other.gameObject);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!triggers.Contains(other.gameObject))
+        {
+            triggers.Add(other.gameObject);
+        }
+
         if (other.TryGetComponent(out Teleport t))
         {
             t.AnimateAndTeleportToNextScene(gameObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (triggers.Contains(other.gameObject))
+        {
+            triggers.Remove(other.gameObject);
         }
     }
 
