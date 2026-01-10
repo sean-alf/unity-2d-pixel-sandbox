@@ -98,6 +98,8 @@ MonoBehaviour:
   inactiveSprite: {fileID: 5232338632093696002, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   teleportingAnimationTemplate: {fileID: 3431874197721044804, guid: 368cd75e4d0734e6f96175f6b7c2e886, type: 3}
   transitionType: 1
+  travelType: 0
+  distanceToReactivatePX: 66
   logger:
     logLevel: 0
 --- !u!212 &7565738375389648095

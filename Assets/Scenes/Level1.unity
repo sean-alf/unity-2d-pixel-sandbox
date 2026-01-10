@@ -203,6 +203,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1402431353552783732, guid: cd6b45d9b023248c4894160de66c217d, type: 3}
+      propertyPath: travelType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402431353552783732, guid: cd6b45d9b023248c4894160de66c217d, type: 3}
       propertyPath: transitionType
       value: 0
       objectReference: {fileID: 0}

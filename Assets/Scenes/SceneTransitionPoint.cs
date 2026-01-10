@@ -9,7 +9,7 @@ public enum TransitionType
 
 public interface ISceneTransitionPoint
 {
-    public TransitionType Type { get; }
+    public TransitionType TransitionType { get; }
     public Action<TransitionType> OnExit { get; set; }
 
     public void Enter();
@@ -22,7 +22,7 @@ public class SceneTransitionPoint : MonoBehaviour, ILoggerProvider
 
     private ISceneTransitionPoint transitionPoint;
 
-    public TransitionType Type => transitionPoint.Type;
+    public TransitionType Type => transitionPoint.TransitionType;
 
     public Action<TransitionType> OnExit
     {

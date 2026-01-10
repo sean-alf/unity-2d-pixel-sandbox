@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -6,6 +7,12 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 {
+    public enum TravelType
+    {
+        Bidirectional, // Can work as an entry and exit teleport
+        Oneway, // Like the entry teleport on the first level    
+    }
+
     [SerializeField]
     private bool activated = false;
 
@@ -19,6 +26,16 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
     private TransitionType transitionType;
 
     [SerializeField]
+    private TravelType travelType;
+
+    [SerializeField]
+    [Range(32, 128)]
+    private int distanceToReactivatePX = 32;
+
+    [Space]
+    [Header("Debug")]
+
+    [SerializeField]
     private Logger logger;
 
     private LinearAnimator animator;
@@ -27,7 +44,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
     public Action<TransitionType> OnExit { get; set; }
 
-    public TransitionType Type => transitionType;
+    public TransitionType TransitionType => transitionType;
 
     private void OnEnable()
     {
@@ -101,6 +118,9 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
     public void Enter()
     {
+        activated = false;
+        UpdateActivatedState();
+
         var player = FindAnyObjectByType<PlayerController>();
 
         if (player != null)
@@ -111,7 +131,19 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
             {
                 // On Cover
                 player.gameObject.SetActive(true);
-            }, null);
+            }, () =>
+            {
+                // On Done
+                if (travelType == TravelType.Bidirectional)
+                {
+                    StartCoroutine(WatchPlayerDistance(player.gameObject));
+                }
+                else
+                {
+                    // TODO: maybe make the teleport disappear?
+                    logger.D("TODO: Make teleport disappear?");
+                }
+            });
         }
         else
         {
@@ -153,5 +185,17 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
         {
             logger.E($"template ({teleportingAnimationTemplate.name}): no {nameof(TeleportingAnimator)} attached!");
         }
+    }
+
+    private IEnumerator WatchPlayerDistance(GameObject target)
+    {
+        while (Vector2.Distance(target.transform.position, transform.position) < distanceToReactivatePX)
+        {
+            yield return null;
+        }
+
+        activated = true;
+
+        UpdateActivatedState();
     }
 }
