@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639035099794049300
+  platformSettingsDirtyTick: 639036329511970670
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -192,7 +192,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Teleport_1
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -203,27 +203,6 @@ ScriptedImporter:
       width: 60
       height: 60
     spriteID: 788ecf40df6ea4248b75199c14b590da
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: Teleport_2
-    originalName: 
-    pivot: {x: 0, y: 0}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 60
-      y: 156
-      width: 60
-      height: 60
-    spriteID: ec14f49f6be84462fbce5c17c5e6c8e0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -253,9 +232,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: Teleport_4
+  - name: Teleport_2
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -324,15 +303,6 @@ ScriptedImporter:
         width: 60
         height: 60
       spriteId: 4706fc830434f43bba8afb6438110d7f
-    - name: Frame_4
-      frameIndex: 4
-      additiveSortOrder: 0
-      cellRect:
-        x: 18
-        y: 18
-        width: 60
-        height: 60
-      spriteId: 859d7bf1196b14eeeb66e54a72d19042
     linkedCells: []
     tileCells: []
     tileSetIndex: 0

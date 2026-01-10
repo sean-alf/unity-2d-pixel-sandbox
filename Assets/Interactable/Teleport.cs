@@ -17,9 +17,6 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
     private bool activated = false;
 
     [SerializeField]
-    private Sprite inactiveSprite;
-
-    [SerializeField]
     private GameObject teleportingAnimationTemplate;
 
     [SerializeField]
@@ -32,12 +29,19 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
     [Range(32, 128)]
     private int distanceToReactivatePX = 32;
 
+    [SerializeField]
+    private float fadeDuration = 0.5f;
+
+    [SerializeField]
+    private int fadeSteps = 6;
+
     [Space]
     [Header("Debug")]
 
     [SerializeField]
     private Logger logger;
 
+    private SpriteRenderer sr;
     private LinearAnimator animator;
 
     public Logger Logger => logger;
@@ -48,19 +52,23 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
     private void OnEnable()
     {
+        sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<LinearAnimator>();
+        animator.Animate();
+        Activate(activated);
     }
 
     private void Awake()
     {
-        if (activated)
-        {
-            animator.Animate();
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().sprite = inactiveSprite;
-        }
+        sr = GetComponent<SpriteRenderer>();
+        animator = GetComponent<LinearAnimator>();
+        animator.Animate();
+        Activate(activated);
+    }
+
+    private void OnValidate()
+    {
+        Activate(activated);
     }
 
     public void AnimateAndTeleportToNextScene(GameObject target)
@@ -88,62 +96,15 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
         }
     }
 
-    private void OnValidate()
-    {
-        UpdateActivatedState();
-    }
-
-    private void UpdateActivatedState()
-    {
-        if (activated)
-        {
-            if (TryGetComponent(out animator))
-            {
-                animator.Animate();
-            }
-        }
-        else
-        {
-            if (TryGetComponent(out animator))
-            {
-                animator.Stop();
-            }
-        }
-
-        if (TryGetComponent(out Collider2D collider2D))
-        {
-            collider2D.enabled = activated;
-        }
-    }
-
     public void Enter()
     {
-        activated = false;
-        UpdateActivatedState();
+        Activate(false);
 
         var player = FindAnyObjectByType<PlayerController>();
 
         if (player != null)
         {
-            player.gameObject.SetActive(false);
-            player.transform.position = transform.position;
-            RunTeleportationAnimation(player.gameObject, () =>
-            {
-                // On Cover
-                player.gameObject.SetActive(true);
-            }, () =>
-            {
-                // On Done
-                if (travelType == TravelType.Bidirectional)
-                {
-                    StartCoroutine(WatchPlayerDistance(player.gameObject));
-                }
-                else
-                {
-                    // TODO: maybe make the teleport disappear?
-                    logger.D("TODO: Make teleport disappear?");
-                }
-            });
+            RunTeleportationAnimation(player.gameObject, true);
         }
         else
         {
@@ -153,32 +114,44 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
     private void Exit(GameObject target)
     {
-        RunTeleportationAnimation(target, () =>
-                {
-                    // On Cover
-                    target.SetActive(false);
-                }, () =>
-                {
-                    // On Done
-                    OnExit?.Invoke(transitionType);
-                });
+        RunTeleportationAnimation(target, false);
     }
 
-    private void RunTeleportationAnimation(GameObject target, Action onCover, Action onDone)
+    private void RunTeleportationAnimation(GameObject target, bool teleportIn)
     {
-        var go = Instantiate(teleportingAnimationTemplate, transform);
+        var template = Instantiate(teleportingAnimationTemplate, transform);
 
-        if (go.TryGetComponent(out TeleportingAnimator ta))
+        if (template.TryGetComponent(out TeleportingAnimator ta))
         {
+            if (teleportIn)
+            {
+                target.SetActive(false);
+                target.transform.position = transform.position;
+            }
+
             ta.Animate(() =>
             {
                 // On Cover
-                onCover?.Invoke();
-                animator.Stop();
+                target.SetActive(teleportIn);
             }, () =>
             {
                 // On Done
-                onDone?.Invoke();
+                if (teleportIn)
+                {
+                    StartCoroutine(sr.FadeOut(fadeDuration, fadeSteps, () =>
+                    {
+                        // On Done
+                        animator.Stop();
+                        if (travelType == TravelType.Bidirectional)
+                        {
+                            StartCoroutine(WatchPlayerDistance(target));
+                        }
+                    }));
+                }
+                else
+                {
+                    OnExit?.Invoke(transitionType);
+                }
             });
         }
         else
@@ -194,8 +167,21 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
             yield return null;
         }
 
-        activated = true;
+        animator.Animate();
+        StartCoroutine(sr.FadeIn(fadeDuration, fadeSteps, () =>
+        {
+            // On Done
+            Activate(true);
+        }));
+    }
 
-        UpdateActivatedState();
+    private void Activate(bool activate)
+    {
+        activated = activate;
+
+        if (TryGetComponent(out Collider2D collider2D))
+        {
+            collider2D.enabled = activate;
+        }
     }
 }

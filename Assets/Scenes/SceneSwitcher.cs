@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using IEnumerator = System.Collections.IEnumerator;
 
 public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 {
@@ -15,28 +17,39 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
     private Logger logger;
 
     private static readonly int PERSISTENT_SCENE_INDEX = 0;
-    private static readonly int STARTING_SCENE_INDEX = PERSISTENT_SCENE_INDEX + 1;
+    private static readonly int FIRST_LEVEL_SCENE_INDEX = PERSISTENT_SCENE_INDEX + 1;
 
     private TransitionType cause = TransitionType.EXIT;
     // The index of the scene that starts the levels, and isn't persistent
-    private int sceneIndex = STARTING_SCENE_INDEX;
-    private int prevSceneIndex = STARTING_SCENE_INDEX;
+    private int sceneIndex = FIRST_LEVEL_SCENE_INDEX;
+    private int prevSceneIndex = FIRST_LEVEL_SCENE_INDEX;
+    private bool firstLoad = true;
 
     public Logger Logger => logger;
 
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
     void Start()
     {
-        if (SceneManager.GetSceneByBuildIndex(sceneIndex).isLoaded)
+        StartCoroutine(UnloadUnwantedLoadedScenes(() =>
         {
-            // If the initial scene is already loaded (during testing of the scene)
-            // simply find the entry point and enter
-            FindTransitionPointsThenEnter();
-        }
-        else
-        {
-            // ... otherwise load the scene first
-            LoadUpcomingScene();
-        }
+            // On Done
+            if (SceneManager.GetSceneByBuildIndex(sceneIndex).isLoaded)
+            {
+                // If the initial scene is already loaded (during testing of the scene)
+                // simply find the entry point and enter
+                FindTransitionPointsThenEnter();
+            }
+            else
+            {
+                // ... otherwise load the scene first
+                LoadUpcomingScene();
+            }
+        }));
     }
 
     private void Switch()
@@ -54,7 +67,7 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
         }
         else
         {
-            if (--sceneIndex < STARTING_SCENE_INDEX) sceneIndex = STARTING_SCENE_INDEX;
+            if (--sceneIndex < FIRST_LEVEL_SCENE_INDEX) sceneIndex = FIRST_LEVEL_SCENE_INDEX;
         }
 
         foreach (var e in transitionPoints)
@@ -73,28 +86,31 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
     private void LoadUpcomingScene()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        UnloadExpiredScene();
-    }
+        Debug.Log($"loaded scene {scene.name}");
 
-    private void UnloadExpiredScene()
-    {
-        if (sceneIndex != prevSceneIndex)
+        if (scene.buildIndex == FIRST_LEVEL_SCENE_INDEX && firstLoad)
         {
-            var operation = SceneManager.UnloadSceneAsync(prevSceneIndex);
-            operation.completed += OnUnloadComplete;
+            firstLoad = false;
+            FindTransitionPointsThenEnter();
+        }
+        else if (sceneIndex != prevSceneIndex)
+        {
+            SceneManager.UnloadSceneAsync(prevSceneIndex);
+        }
+
+        if (scene.buildIndex >= FIRST_LEVEL_SCENE_INDEX)
+        {
+            SceneManager.SetActiveScene(scene);
         }
     }
 
-    private void OnUnloadComplete(AsyncOperation operation)
+    private void OnSceneUnloaded(Scene scene)
     {
-        operation.completed -= OnUnloadComplete;
         FindTransitionPointsThenEnter();
     }
 
@@ -120,5 +136,23 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
         {
             e.OnExit += OnExit;
         }
+    }
+
+    private IEnumerator UnloadUnwantedLoadedScenes(Action onDone)
+    {
+        for (int i = SceneManager.sceneCount - 1; i >= 0; i--)
+        {
+            var scene = SceneManager.GetSceneAt(i);
+
+            // If it's not the first level (or below, i.e., persistent scene(s)), then unload it
+            if (scene.buildIndex > FIRST_LEVEL_SCENE_INDEX)
+            {
+                Debug.Log($"unloading scene {scene.name}");
+                logger.I($"unloading scene {scene.name}");
+                yield return SceneManager.UnloadSceneAsync(scene);
+            }
+        }
+
+        onDone.Invoke();
     }
 }

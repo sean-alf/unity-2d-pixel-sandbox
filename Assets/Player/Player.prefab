@@ -289,6 +289,8 @@ MonoBehaviour:
   speed: 5
   logger:
     logLevel: 5
+  others: []
+  triggers: []
 --- !u!114 &6137301958484142071
 MonoBehaviour:
   m_ObjectHideFlags: 0

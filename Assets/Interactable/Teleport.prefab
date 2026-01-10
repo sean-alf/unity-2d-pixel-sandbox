@@ -95,13 +95,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   activated: 1
-  inactiveSprite: {fileID: 5232338632093696002, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   teleportingAnimationTemplate: {fileID: 3431874197721044804, guid: 368cd75e4d0734e6f96175f6b7c2e886, type: 3}
   transitionType: 1
   travelType: 0
   distanceToReactivatePX: 66
+  fadeDuration: 0.25
+  fadeSteps: 6
   logger:
-    logLevel: 0
+    logLevel: 5
 --- !u!212 &7565738375389648095
 SpriteRenderer:
   serializedVersion: 2
@@ -149,7 +150,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7859865300314599440, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -175,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   sprites:
   - {fileID: 7859865300314599440, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
-  - {fileID: 3401601821485891277, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
+  - {fileID: 5232338632093696002, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   - {fileID: 3925369369271843428, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   inactiveSprite: {fileID: 5232338632093696002, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
   type: 1
@@ -194,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneTransitionPoint
   logger:
-    logLevel: 0
+    logLevel: 5
 --- !u!1 &8604226442916662344
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1552931147323247146}
   - component: {fileID: 2438866695115350121}
+  - component: {fileID: 2083691524869747194}
   m_Layer: 10
   m_Name: Teleport
   m_TagString: Untagged
@@ -254,7 +256,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -275,15 +277,28 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8582357066619891904, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 64, y: 48}
+  m_Size: {x: 96, y: 96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!210 &2083691524869747194
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8604226442916662344}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
