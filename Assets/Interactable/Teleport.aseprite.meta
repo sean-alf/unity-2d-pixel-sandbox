@@ -78,7 +78,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 4
+    mosaicPadding: 0
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -93,7 +93,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 4
+    mosaicPadding: 0
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639032428837751750
+  platformSettingsDirtyTick: 639035099794049300
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -157,8 +157,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 4
+      x: 0
+      y: 0
       width: 96
       height: 96
     spriteID: bb2d6d62f3f9f43b4bb3f1db226d57a1
@@ -192,14 +192,14 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Teleport_1
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 108
-      y: 4
+      x: 60
+      y: 96
       width: 60
       height: 60
     spriteID: 788ecf40df6ea4248b75199c14b590da
@@ -213,14 +213,14 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Teleport_2
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 108
-      y: 72
+      x: 60
+      y: 156
       width: 60
       height: 60
     spriteID: ec14f49f6be84462fbce5c17c5e6c8e0
@@ -240,8 +240,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 176
+      x: 0
+      y: 156
       width: 60
       height: 60
     spriteID: 509bacedb73b841fb8c0c7ff1d4b9141
@@ -255,14 +255,14 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Teleport_4
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 108
+      x: 0
+      y: 96
       width: 60
       height: 60
     spriteID: 99ec82a458b44419488d1d85fa603168
@@ -379,4 +379,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 96, y: 96}
-  previousTextureSize: {x: 256, y: 256}
+  previousTextureSize: {x: 128, y: 256}

@@ -2,37 +2,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneSwitcher : MonoBehaviour
+public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 {
     [SerializeField]
     [Tooltip("This is exposed only for debuging purposes. Do not update in the inspector!")]
     private List<SceneTransitionPoint> transitionPoints;
 
+    [Space]
+    [Header("Debug")]
+
+    [SerializeField]
+    private Logger logger;
+
+    private static readonly int PERSISTENT_SCENE_INDEX = 0;
+    private static readonly int STARTING_SCENE_INDEX = PERSISTENT_SCENE_INDEX + 1;
+
     private TransitionType cause = TransitionType.EXIT;
-    private int sceneIndex = 0;
-    private int prevSceneIndex = 0;
+    // The index of the scene that starts the levels, and isn't persistent
+    private int sceneIndex = STARTING_SCENE_INDEX;
+    private int prevSceneIndex = STARTING_SCENE_INDEX;
+
+    public Logger Logger => logger;
 
     void Start()
     {
-        // Scene's already loaded here, so the player just need to make an entrance
-        FindTransitionPointsThenEnter();
-    }
-
-    private void GetAllEntryAndExitPoints()
-    {
-        transitionPoints.Clear();
-        transitionPoints.AddRange(FindObjectsByType<SceneTransitionPoint>(FindObjectsSortMode.None));
-
-        foreach (var e in transitionPoints)
+        if (SceneManager.GetSceneByBuildIndex(sceneIndex).isLoaded)
         {
-            e.OnExit += OnExit;
+            // If the initial scene is already loaded (during testing of the scene)
+            // simply find the entry point and enter
+            FindTransitionPointsThenEnter();
         }
-    }
-
-    private void OnExit(TransitionType type)
-    {
-        cause = type;
-        Switch();
+        else
+        {
+            // ... otherwise load the scene first
+            LoadUpcomingScene();
+        }
     }
 
     private void Switch()
@@ -41,11 +45,16 @@ public class SceneSwitcher : MonoBehaviour
 
         if (cause == TransitionType.EXIT)
         {
-            if (++sceneIndex == SceneManager.sceneCountInBuildSettings) sceneIndex = SceneManager.sceneCountInBuildSettings - 1;
+            if (++sceneIndex == SceneManager.sceneCountInBuildSettings)
+            {
+                sceneIndex = SceneManager.sceneCountInBuildSettings - 1;
+                logger.I($"No more scenes! Final scene index {sceneIndex}.");
+                return;
+            }
         }
         else
         {
-            if (--sceneIndex < 0) sceneIndex = 0;
+            if (--sceneIndex < STARTING_SCENE_INDEX) sceneIndex = STARTING_SCENE_INDEX;
         }
 
         foreach (var e in transitionPoints)
@@ -56,10 +65,22 @@ public class SceneSwitcher : MonoBehaviour
         LoadUpcomingScene();
     }
 
+    private void OnExit(TransitionType type)
+    {
+        cause = type;
+        Switch();
+    }
+
     private void LoadUpcomingScene()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        UnloadExpiredScene();
     }
 
     private void UnloadExpiredScene()
@@ -71,15 +92,15 @@ public class SceneSwitcher : MonoBehaviour
         }
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnUnloadComplete(AsyncOperation operation)
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        UnloadExpiredScene();
+        operation.completed -= OnUnloadComplete;
+        FindTransitionPointsThenEnter();
     }
 
     private void FindTransitionPointsThenEnter()
     {
-        GetAllEntryAndExitPoints();
+        GetAllTransitionPoints();
 
         foreach (var e in transitionPoints)
         {
@@ -90,9 +111,14 @@ public class SceneSwitcher : MonoBehaviour
         }
     }
 
-    private void OnUnloadComplete(AsyncOperation operation)
+    private void GetAllTransitionPoints()
     {
-        operation.completed -= OnUnloadComplete;
-        FindTransitionPointsThenEnter();
+        transitionPoints.Clear();
+        transitionPoints.AddRange(FindObjectsByType<SceneTransitionPoint>(FindObjectsSortMode.None));
+
+        foreach (var e in transitionPoints)
+        {
+            e.OnExit += OnExit;
+        }
     }
 }
