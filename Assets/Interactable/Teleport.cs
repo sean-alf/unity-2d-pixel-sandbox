@@ -50,20 +50,28 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
     public TransitionType TransitionType => transitionType;
 
-    private void OnEnable()
-    {
-        sr = GetComponent<SpriteRenderer>();
-        animator = GetComponent<LinearAnimator>();
-        animator.Animate();
-        Activate(activated);
-    }
-
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<LinearAnimator>();
-        animator.Animate();
-        Activate(activated);
+
+        switch (travelType)
+        {
+            case TravelType.Oneway:
+                {
+                    var color = sr.color;
+                    color.a = 0.0f;
+                    sr.color = color;
+                    Activate(false);
+                    break;
+                }
+            case TravelType.Bidirectional:
+                {
+                    animator.Animate();
+                    Activate(true);
+                    break;
+                }
+        }
     }
 
     public void AnimateAndTeleportToNextScene(GameObject target)
@@ -93,6 +101,10 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
     public void Enter()
     {
+        var color = sr.color;
+        color.a = 1.0f;
+        sr.color = color;
+        animator.Animate();
         Activate(false);
 
         var player = FindAnyObjectByType<PlayerController>();
@@ -180,10 +192,6 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
     private void Activate(bool activate)
     {
         activated = activate;
-
-        if (TryGetComponent(out Collider2D collider2D))
-        {
-            collider2D.enabled = activate;
-        }
+        if (TryGetComponent(out Collider2D collider2D)) collider2D.enabled = activate;
     }
 }

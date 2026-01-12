@@ -1,0 +1,27 @@
+{
+    "maps": [
+        {
+            "fileName": "../Tilemaps/TestMap2.tmx",
+            "height": 640,
+            "width": 960,
+            "x": 2048,
+            "y": 0
+        },
+        {
+            "fileName": "../Tilemaps/TestMap.tmx",
+            "height": 768,
+            "width": 1088,
+            "x": 960,
+            "y": 0
+        },
+        {
+            "fileName": "../Tilemaps/w1-l3-map.tmx",
+            "height": 3200,
+            "width": 3200,
+            "x": 3008,
+            "y": 0
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}
