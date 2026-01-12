@@ -10,6 +10,8 @@ public class AlfTmxImporter : CustomTmxImporter
 {
     public override void TmxAssetImported(TmxAssetImportedArgs args)
     {
+        Debug.Log($"PPUs {args.AssetImporter.PixelsPerUnit}");
+
         var superMap = args.ImportedSuperMap;
         SetupGrid(superMap.gameObject);
     }

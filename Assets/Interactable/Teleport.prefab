@@ -94,7 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d7a968a7d28474e9b6faf1c55bcb33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  activated: 1
   teleportingAnimationTemplate: {fileID: 3431874197721044804, guid: 368cd75e4d0734e6f96175f6b7c2e886, type: 3}
   transitionType: 1
   travelType: 0
@@ -223,7 +222,7 @@ Transform:
   m_GameObject: {fileID: 8604226442916662344}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 816, y: -496, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -280,7 +279,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8582357066619891904, guid: 77c79d673a9694e7eb8ff1c40c3c0117, type: 3}
-  m_Color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

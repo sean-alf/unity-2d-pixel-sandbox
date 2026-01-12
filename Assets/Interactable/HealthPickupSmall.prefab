@@ -10,35 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1939985941744912168, guid: 4cca6c2f0c58f4f939a22e8ac8e06ee5, type: 3}
       propertyPath: m_Name
-      value: HealthPickup
-      objectReference: {fileID: 0}
-    - target: {fileID: 6184784789046970900, guid: 4cca6c2f0c58f4f939a22e8ac8e06ee5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6184784789046970900, guid: 4cca6c2f0c58f4f939a22e8ac8e06ee5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6184784789046970900, guid: 4cca6c2f0c58f4f939a22e8ac8e06ee5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6184784789046970900, guid: 4cca6c2f0c58f4f939a22e8ac8e06ee5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6184784789046970900, guid: 4cca6c2f0c58f4f939a22e8ac8e06ee5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6184784789046970900, guid: 4cca6c2f0c58f4f939a22e8ac8e06ee5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6184784789046970900, guid: 4cca6c2f0c58f4f939a22e8ac8e06ee5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
+      value: HealthPickupSmall
       objectReference: {fileID: 0}
     - target: {fileID: 6184784789046970900, guid: 4cca6c2f0c58f4f939a22e8ac8e06ee5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

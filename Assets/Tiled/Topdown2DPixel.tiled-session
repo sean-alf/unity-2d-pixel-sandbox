@@ -43,32 +43,42 @@
             }
         },
         "Tilemaps/w1-l1-map.tmx": {
-            "scale": 0.3087,
-            "selectedLayer": 1,
+            "expandedObjectLayers": [
+                7
+            ],
+            "scale": 0.7409,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 3885.649497894396,
-                "y": 727.2432782636866
+                "x": 3890.538534215144,
+                "y": 455.5270616817384
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
-            "scale": 0.3087,
-            "selectedLayer": 1,
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.7409,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 442.1768707482993,
-                "y": 704.5675413022352
+                "x": 3658.388446484006,
+                "y": 586.448913483601
             }
         },
         "Tilemaps/w1-l3-map.tmx": {
-            "scale": 0.3087,
-            "selectedLayer": 1,
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.8155,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 202.46193715581467,
-                "y": 730.4826692581795
+                "x": -2743.715511955855,
+                "y": 600.245248313918
             }
         }
     },
     "last.externalTilesetPath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/TileSets",
     "last.imagePath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/TileSets",
+    "last.objectTypesPath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/Properties/propertytypes.xml",
     "last.worldFilePath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/Worlds",
     "loadedWorlds": [
         "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/Worlds/World1.world"
@@ -79,7 +89,7 @@
     "openFiles": [
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "bool",
+    "property.type": "TravelType",
     "recentFiles": [
         "Tilemaps/TestMap.tmx",
         "Tilemaps/TestMap2.tmx",

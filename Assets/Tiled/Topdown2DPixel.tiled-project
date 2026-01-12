@@ -9,5 +9,56 @@
     "properties": [
     ],
     "propertyTypes": [
+        {
+            "color": "#ffa024a4",
+            "drawFill": true,
+            "id": 1,
+            "members": [
+                {
+                    "name": "travelType",
+                    "propertyType": "TravelType",
+                    "type": "int",
+                    "value": 0
+                }
+            ],
+            "name": "TeleportIn",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object",
+                "project"
+            ]
+        },
+        {
+            "color": "#ff1ae455",
+            "drawFill": true,
+            "id": 2,
+            "members": [
+                {
+                    "name": "travelType",
+                    "propertyType": "TravelType",
+                    "type": "int",
+                    "value": 0
+                }
+            ],
+            "name": "TeleportOut",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object",
+                "project"
+            ]
+        },
+        {
+            "id": 5,
+            "name": "TravelType",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+                "Bidirectional",
+                "Oneway"
+            ],
+            "valuesAsFlags": false
+        }
     ]
 }

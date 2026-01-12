@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="TeleportIn" color="#a024a4">
+  <property name="travelType" type="int" propertytype="TravelType" default="0"/>
+ </objecttype>
+ <objecttype name="TeleportOut" color="#1ae455">
+  <property name="travelType" type="int" propertytype="TravelType" default="0"/>
+ </objecttype>
+</objecttypes>

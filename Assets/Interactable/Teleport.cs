@@ -14,16 +14,12 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
     }
 
     [SerializeField]
-    private bool activated = false;
-
-    [SerializeField]
     private GameObject teleportingAnimationTemplate;
 
     [SerializeField]
     private TransitionType transitionType;
 
-    [SerializeField]
-    private TravelType travelType;
+    public TravelType travelType;
 
     [SerializeField]
     [Range(32, 128)]
@@ -191,7 +187,6 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
     private void Activate(bool activate)
     {
-        activated = activate;
         if (TryGetComponent(out Collider2D collider2D)) collider2D.enabled = activate;
     }
 }

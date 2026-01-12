@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="1">
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="3">
  <tileset firstgid="1" source="../TileSets/MuddyGround.tsx"/>
  <tileset firstgid="17" source="../TileSets/Wall.tsx"/>
  <layer id="2" name="Ground" width="100" height="100" locked="1">
@@ -210,4 +210,18 @@
 55,56,27,56,27,56,27,27,27,27,27,56,56,27,56,56,27,56,27,56,56,56,27,56,56,27,27,27,56,27,56,56,56,56,27,56,27,27,56,27,27,56,27,27,27,27,27,56,56,27,27,27,27,27,56,27,27,56,27,56,27,56,56,56,27,56,56,56,56,27,56,56,56,27,56,27,56,56,56,27,56,56,27,56,27,56,56,27,56,56,56,27,27,56,27,27,27,27,27,57
 </data>
  </layer>
+ <objectgroup id="7" name="Interactables">
+  <object id="1" type="TeleportIn" x="175" y="367">
+   <properties>
+    <property name="travelType" type="int" propertytype="TravelType" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="2" type="TeleportOut" x="399" y="367">
+   <properties>
+    <property name="travelType" type="int" propertytype="TravelType" value="0"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
 </map>
