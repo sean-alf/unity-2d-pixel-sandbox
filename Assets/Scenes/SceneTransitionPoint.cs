@@ -7,6 +7,11 @@ public enum TransitionType
     EXIT
 }
 
+public static class SceneTransitionPointExtensions
+{
+    public static bool ShouldEnter(this TransitionType t, TransitionType from) => t != from;
+}
+
 public interface ISceneTransitionPoint
 {
     public TransitionType TransitionType { get; }

@@ -66,11 +66,6 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
         Activate(activated);
     }
 
-    private void OnValidate()
-    {
-        Activate(activated);
-    }
-
     public void AnimateAndTeleportToNextScene(GameObject target)
     {
         if (target.TryGetComponent(out PlayerController p))
@@ -87,7 +82,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
             a.MoveTo(transform.position, () =>
             {
                 // OnDone
-                Exit(target);
+                Exit(p);
             });
         }
         else
@@ -104,7 +99,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
         if (player != null)
         {
-            RunTeleportationAnimation(player.gameObject, true);
+            RunTeleportationAnimation(player, true);
         }
         else
         {
@@ -112,27 +107,29 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
         }
     }
 
-    private void Exit(GameObject target)
+    private void Exit(PlayerController target)
     {
         RunTeleportationAnimation(target, false);
     }
 
-    private void RunTeleportationAnimation(GameObject target, bool teleportIn)
+    private void RunTeleportationAnimation(PlayerController target, bool teleportIn)
     {
-        var template = Instantiate(teleportingAnimationTemplate, transform);
+        var template = Instantiate(teleportingAnimationTemplate);
+        template.transform.position = transform.position;
 
         if (template.TryGetComponent(out TeleportingAnimator ta))
         {
             if (teleportIn)
             {
-                target.SetActive(false);
+                target.gameObject.SetActive(false);
                 target.transform.position = transform.position;
             }
 
             ta.Animate(() =>
             {
                 // On Cover
-                target.SetActive(teleportIn);
+                target.gameObject.SetActive(teleportIn);
+                target.DisableInput();
             }, () =>
             {
                 // On Done
@@ -145,8 +142,10 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
                         if (travelType == TravelType.Bidirectional)
                         {
-                            StartCoroutine(WatchPlayerDistance(target));
+                            StartCoroutine(WatchPlayerDistance(target.gameObject));
                         }
+
+                        target.EnableInput();
                     }));
                 }
                 else

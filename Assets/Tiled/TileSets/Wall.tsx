@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.2" name="GreenWall" tilewidth="32" tileheight="32" tilecount="256" columns="16">
- <image source="GreenWallTileSet.aseprite" width="512" height="512"/>
+<tileset version="1.11" tiledversion="1.11.2" name="Wall" tilewidth="32" tileheight="32" tilecount="256" columns="16">
+ <image source="WallTileSet.aseprite" width="512" height="512"/>
  <tile id="0">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="32" height="32"/>
@@ -34,7 +34,6 @@
  <tile id="6">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="32" height="32"/>
-   <object id="2" x="0" y="0" width="32" height="32"/>
   </objectgroup>
  </tile>
  <tile id="7">
@@ -85,7 +84,6 @@
  <tile id="18">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="32" height="32"/>
-   <object id="2" x="0" y="0" width="32" height="32"/>
   </objectgroup>
  </tile>
  <tile id="19">
@@ -106,8 +104,11 @@
  <tile id="22">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="32" height="32"/>
-   <object id="2" x="0" y="0" width="32" height="32"/>
-   <object id="3" x="0" y="0" width="32" height="32"/>
+  </objectgroup>
+ </tile>
+ <tile id="23">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="32" height="32"/>
   </objectgroup>
  </tile>
  <tile id="24">
@@ -162,14 +163,12 @@
  </tile>
  <tile id="37">
   <objectgroup draworder="index" id="2">
-   <object id="2" x="0" y="0" width="32" height="32"/>
-   <object id="3" x="0" y="0" width="32" height="32"/>
+   <object id="1" x="0" y="0" width="32" height="32"/>
   </objectgroup>
  </tile>
  <tile id="38">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="32" height="32"/>
-   <object id="2" x="0" y="0" width="32" height="32"/>
   </objectgroup>
  </tile>
  <tile id="39">
@@ -208,8 +207,28 @@
   </objectgroup>
  </tile>
  <wangsets>
-  <wangset name="GreenWallThin" type="edge" tile="-1">
-   <wangcolor name="GreenWall" color="#ff0000" tile="-1" probability="1"/>
+  <wangset name="BigWall" type="corner" tile="38">
+   <wangcolor name="Wall" color="#ff0000" tile="-1" probability="1"/>
+   <wangtile tileid="6" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="7" wangid="0,0,0,1,0,1,0,0"/>
+   <wangtile tileid="8" wangid="0,0,0,0,0,1,0,0"/>
+   <wangtile tileid="9" wangid="0,1,0,0,0,1,0,1"/>
+   <wangtile tileid="10" wangid="0,1,0,0,0,0,0,1"/>
+   <wangtile tileid="11" wangid="0,1,0,1,0,0,0,1"/>
+   <wangtile tileid="22" wangid="0,1,0,1,0,0,0,0"/>
+   <wangtile tileid="23" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="24" wangid="0,0,0,0,0,1,0,1"/>
+   <wangtile tileid="25" wangid="0,0,0,0,0,1,0,1"/>
+   <wangtile tileid="27" wangid="0,1,0,1,0,0,0,0"/>
+   <wangtile tileid="38" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="39" wangid="0,1,0,0,0,0,0,1"/>
+   <wangtile tileid="40" wangid="0,0,0,0,0,0,0,1"/>
+   <wangtile tileid="41" wangid="0,0,0,1,0,1,0,1"/>
+   <wangtile tileid="42" wangid="0,0,0,1,0,1,0,0"/>
+   <wangtile tileid="43" wangid="0,1,0,1,0,1,0,0"/>
+  </wangset>
+  <wangset name="SmallWall" type="edge" tile="32">
+   <wangcolor name="" color="#ff0000" tile="-1" probability="1"/>
    <wangtile tileid="0" wangid="0,0,1,0,1,0,0,0"/>
    <wangtile tileid="1" wangid="0,0,1,0,0,0,1,0"/>
    <wangtile tileid="2" wangid="0,0,0,0,1,0,1,0"/>
@@ -234,41 +253,26 @@
    <wangtile tileid="44" wangid="1,0,0,0,1,0,0,0"/>
    <wangtile tileid="60" wangid="1,0,0,0,0,0,0,0"/>
   </wangset>
-  <wangset name="GreenWallThick" type="corner" tile="-1">
-   <wangcolor name="GreenWall" color="#ff0000" tile="-1" probability="1"/>
-   <wangtile tileid="6" wangid="0,0,0,1,0,0,0,0"/>
-   <wangtile tileid="7" wangid="0,0,0,1,0,1,0,0"/>
-   <wangtile tileid="8" wangid="0,0,0,0,0,1,0,0"/>
-   <wangtile tileid="9" wangid="0,1,0,0,0,1,0,1"/>
-   <wangtile tileid="10" wangid="0,1,0,0,0,0,0,1"/>
-   <wangtile tileid="11" wangid="0,1,0,1,0,0,0,1"/>
-   <wangtile tileid="22" wangid="0,1,0,1,0,0,0,0"/>
-   <wangtile tileid="23" wangid="0,1,0,1,0,1,0,1"/>
-   <wangtile tileid="24" wangid="0,0,0,0,0,1,0,1"/>
-   <wangtile tileid="25" wangid="0,0,0,0,0,1,0,1"/>
-   <wangtile tileid="27" wangid="0,1,0,1,0,0,0,0"/>
-   <wangtile tileid="38" wangid="0,1,0,0,0,0,0,0"/>
-   <wangtile tileid="39" wangid="0,1,0,0,0,0,0,1"/>
-   <wangtile tileid="40" wangid="0,0,0,0,0,0,0,1"/>
-   <wangtile tileid="41" wangid="0,0,0,1,0,1,0,1"/>
-   <wangtile tileid="42" wangid="0,0,0,1,0,1,0,0"/>
-   <wangtile tileid="43" wangid="0,1,0,1,0,1,0,0"/>
-  </wangset>
-  <wangset name="GreenWallBorder" type="corner" tile="-1">
+  <wangset name="Border" type="corner" tile="96">
    <wangcolor name="Border" color="#ff0000" tile="-1" probability="1"/>
-   <wangtile tileid="64" wangid="0,1,0,0,0,1,0,1"/>
-   <wangtile tileid="65" wangid="0,1,0,0,0,0,0,1"/>
-   <wangtile tileid="66" wangid="0,1,0,1,0,0,0,1"/>
-   <wangtile tileid="67" wangid="0,0,0,0,0,0,0,1"/>
-   <wangtile tileid="69" wangid="0,1,0,0,0,0,0,0"/>
-   <wangtile tileid="70" wangid="0,1,0,1,0,1,0,1"/>
-   <wangtile tileid="80" wangid="0,0,0,0,0,1,0,1"/>
-   <wangtile tileid="82" wangid="0,1,0,1,0,0,0,0"/>
-   <wangtile tileid="96" wangid="0,0,0,1,0,1,0,1"/>
-   <wangtile tileid="97" wangid="0,0,0,1,0,1,0,0"/>
-   <wangtile tileid="98" wangid="0,1,0,1,0,1,0,0"/>
-   <wangtile tileid="99" wangid="0,0,0,0,0,1,0,0"/>
-   <wangtile tileid="101" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="64" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="65" wangid="0,0,0,1,0,1,0,0"/>
+   <wangtile tileid="66" wangid="0,0,0,0,0,1,0,0"/>
+   <wangtile tileid="67" wangid="0,1,0,1,0,1,0,0"/>
+   <wangtile tileid="68" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="69" wangid="0,0,0,1,0,1,0,1"/>
+   <wangtile tileid="80" wangid="0,1,0,1,0,0,0,0"/>
+   <wangtile tileid="81" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="82" wangid="0,0,0,0,0,1,0,1"/>
+   <wangtile tileid="83" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="84" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="85" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="96" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="97" wangid="0,1,0,0,0,0,0,1"/>
+   <wangtile tileid="98" wangid="0,0,0,0,0,0,0,1"/>
+   <wangtile tileid="99" wangid="0,1,0,1,0,0,0,1"/>
+   <wangtile tileid="100" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="101" wangid="0,1,0,0,0,1,0,1"/>
   </wangset>
  </wangsets>
 </tileset>

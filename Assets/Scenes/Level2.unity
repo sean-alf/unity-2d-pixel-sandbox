@@ -189,38 +189,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -4050500759113333073, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1770117511423670849, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1770117511423670849, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1770117511423670849, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1770117511423670849, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -1770117511423670849, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1770117511423670849, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1770117511423670849, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -1770117511423670849, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
@@ -261,7 +229,7 @@ Tilemap:
   m_CorrespondingSourceObject: {fileID: 11520108984141288, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
   m_PrefabInstance: {fileID: 691526642}
   m_PrefabAsset: {fileID: 0}
---- !u!60 &768963333 stripped
+--- !u!60 &691526644 stripped
 PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 5033707633182757610, guid: 7fc99604b1f50493a9e0f28016ef2733, type: 3}
   m_PrefabInstance: {fileID: 691526642}
@@ -276,11 +244,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3482357538982561166, guid: d40f634540a4849c39d4cb52b9474dee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 167.24438
+      value: 224
       objectReference: {fileID: 0}
     - target: {fileID: 3482357538982561166, guid: d40f634540a4849c39d4cb52b9474dee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -485.6021
+      value: -480
       objectReference: {fileID: 0}
     - target: {fileID: 3482357538982561166, guid: d40f634540a4849c39d4cb52b9474dee, type: 3}
       propertyPath: m_LocalPosition.z
@@ -371,82 +339,58 @@ CompositeCollider2D:
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
-  - m_Collider: {fileID: 768963333}
+  - m_Collider: {fileID: 691526644}
     m_ColliderPaths:
-    - - X: 8960000000
-        Y: -5760000000
-      - X: 9280000000
-        Y: -5759999488
-      - X: 9280000000
-        Y: -640000000
-      - X: 8960000000
-        Y: -639999680
-      - X: 8960000000
+    - - X: 9280000000
         Y: -320000000
-      - X: 640000000
-        Y: -320000320
-      - X: 639999680
-        Y: -640000000
       - X: 320000000
-        Y: -640000320
+        Y: -320000320
       - X: 320000320
-        Y: -5760000000
-      - X: 640000000
-        Y: -5760000512
-      - X: 640000320
         Y: -6080000000
-      - X: 8960000000
+      - X: 9280000000
         Y: -6080000000
-    - - X: 960000000
-        Y: -5759999488
-      - X: 959999680
+    - - X: 1280000000
         Y: -5440000000
-      - X: 640000000
-        Y: -5440000000
-      - X: 640000320
-        Y: -960000000
+      - X: 1279999744
+        Y: -5120000000
       - X: 960000000
-        Y: -959999680
+        Y: -5119999488
       - X: 960000320
-        Y: -640000000
-      - X: 8640000000
-        Y: -640000320
-      - X: 8640000000
+        Y: -1280000000
+      - X: 1280000000
+        Y: -1279999744
+      - X: 1280000256
         Y: -960000000
-      - X: 8960000000
+      - X: 8320000000
         Y: -960000320
-      - X: 8960000000
+      - X: 8320000512
+        Y: -1280000000
+      - X: 8640000000
+        Y: -1280000256
+      - X: 8640000000
+        Y: -5120000000
+      - X: 8320000000
+        Y: -5120000512
+      - X: 8320000000
         Y: -5440000000
-      - X: 8640000000
-        Y: -5440000512
-      - X: 8640000000
-        Y: -5759999488
   m_CompositePaths:
     m_Paths:
-    - - {x: 896, y: -608}
-      - {x: 896, y: -576}
-      - {x: 928, y: -575.9999}
-      - {x: 928, y: -64}
-      - {x: 896, y: -63.999935}
-      - {x: 896, y: -32}
-      - {x: 64, y: -32.00006}
-      - {x: 63.999935, y: -64}
-      - {x: 32, y: -64.00006}
-      - {x: 32.00006, y: -576}
-      - {x: 64, y: -576.0001}
-      - {x: 64.00006, y: -608}
-    - - {x: 864, y: -575.9999}
-      - {x: 96, y: -575.9999}
-      - {x: 95.99994, y: -544}
-      - {x: 64, y: -543.99994}
-      - {x: 64.00006, y: -96}
-      - {x: 96, y: -95.99994}
-      - {x: 96.00007, y: -64}
-      - {x: 864, y: -64.00006}
-      - {x: 864, y: -96}
-      - {x: 896, y: -96.00007}
-      - {x: 896, y: -544}
-      - {x: 864, y: -544.0001}
+    - - {x: 928, y: -608}
+      - {x: 928, y: -32}
+      - {x: 32, y: -32.00006}
+      - {x: 32.00006, y: -608}
+    - - {x: 832, y: -543.99994}
+      - {x: 128, y: -543.99994}
+      - {x: 127.99995, y: -512}
+      - {x: 96, y: -511.9999}
+      - {x: 96.00007, y: -128}
+      - {x: 128, y: -127.99995}
+      - {x: 128.00005, y: -96}
+      - {x: 832, y: -96.00007}
+      - {x: 832.0001, y: -128}
+      - {x: 864, y: -128.00005}
+      - {x: 864, y: -512}
+      - {x: 832, y: -512.0001}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -650,6 +594,18 @@ PrefabInstance:
     - target: {fileID: 1941555270935437873, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_ColliderPaths.Array.data[3].m_ColliderPaths.Array.data[0].Array.data[3].X
       value: 4160000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2937775642085302455, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.21611767
+      objectReference: {fileID: 0}
+    - target: {fileID: 2937775642085302455, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.19800001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2937775642085302455, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.06858824
       objectReference: {fileID: 0}
     - target: {fileID: 2937775642085302455, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_NormalizedViewPortRect.y

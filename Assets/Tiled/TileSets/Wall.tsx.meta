@@ -12,4 +12,4 @@ ScriptedImporter:
   pixelsPerUnit: 1
   edgesPerEllipse: 32
   numberOfObjectsImported: 515
-  colliderType: 1
+  colliderType: 0

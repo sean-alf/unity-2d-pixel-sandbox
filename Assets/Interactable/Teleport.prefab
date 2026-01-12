@@ -102,7 +102,7 @@ MonoBehaviour:
   fadeDuration: 0.5
   fadeSteps: 6
   logger:
-    logLevel: 5
+    logLevel: 2
 --- !u!212 &7565738375389648095
 SpriteRenderer:
   serializedVersion: 2

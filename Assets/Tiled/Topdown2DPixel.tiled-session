@@ -5,49 +5,58 @@
     },
     "activeFile": "Tilemaps/TestMap.tmx",
     "expandedProjectPaths": [
+        ".",
         "TileSets",
-        "Tilemaps",
-        "."
+        "Tilemaps"
     ],
     "fileStates": {
         "TileSets/GreenWall.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1.7
         },
         "TileSets/MuddyGround.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1.7
         },
+        "TileSets/Wall.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "Tilemaps/TestMap.tmx": {
-            "scale": 1.5578,
+            "scale": 0.8488,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 788.9331107972781,
-                "y": 484.3368853511361
+                "x": 554.3119698397738,
+                "y": 410.57964184731384
             }
         },
         "Tilemaps/TestMap2.tmx": {
-            "scale": 1.1073437499999998,
-            "selectedLayer": 0,
+            "scale": 0.74,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 480.42895442359253,
-                "y": 320.1354592916608
+                "x": 529.0540540540541,
+                "y": 357.43243243243245
             }
         }
     },
+    "last.externalTilesetPath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/TileSets",
     "last.imagePath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/TileSets",
     "map.lastUsedFormat": "tmx",
     "openFiles": [
-        "Tilemaps/TestMap.tmx",
-        "Tilemaps/TestMap2.tmx"
+        "Tilemaps/TestMap.tmx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Tilemaps/TestMap2.tmx",
         "Tilemaps/TestMap.tmx",
+        "TileSets/Wall.tsx",
+        "Tilemaps/TestMap2.tmx",
         "TileSets/GreenWall.tsx",
         "TileSets/MuddyGround.tsx"
     ],
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx"
 }
