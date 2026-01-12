@@ -42,12 +42,28 @@
                 "y": 2735.3395061728397
             }
         },
-        "Tilemaps/w1-l3-map.tmx": {
-            "scale": 0.1296,
+        "Tilemaps/w1-l1-map.tmx": {
+            "scale": 0.3087,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": -4618.055555555557,
-                "y": 3074.8456790123455
+                "x": 3885.649497894396,
+                "y": 727.2432782636866
+            }
+        },
+        "Tilemaps/w1-l2-map.tmx": {
+            "scale": 0.3087,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 442.1768707482993,
+                "y": 704.5675413022352
+            }
+        },
+        "Tilemaps/w1-l3-map.tmx": {
+            "scale": 0.3087,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 202.46193715581467,
+                "y": 730.4826692581795
             }
         }
     },

@@ -10,13 +10,11 @@ public enum SceneIndex
     FirstLevel = 1,
 }
 
-public static class SceneSwitcherExtensions
+static class SceneSwitcherExtensions
 {
     public static int ToInt(this SceneIndex s) => Convert.ToInt32(s);
 
     public static bool IsLoaded(this SceneIndex s) => SceneManager.GetSceneByBuildIndex(s.ToInt()).isLoaded;
-
-    public static bool IsLevelScene(this Scene s) => s.buildIndex.IsLevelSceneIndex();
 
     public static bool IsLevelSceneIndex(this int sceneBuildIndex) => sceneBuildIndex >= SceneIndex.FirstLevel.ToInt();
 
