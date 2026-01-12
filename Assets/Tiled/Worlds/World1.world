@@ -1,24 +1,24 @@
 {
     "maps": [
         {
-            "fileName": "../Tilemaps/TestMap2.tmx",
-            "height": 640,
-            "width": 960,
-            "x": 2048,
+            "fileName": "../Tilemaps/w1-l1-map.tmx",
+            "height": 3200,
+            "width": 3200,
+            "x": 0,
             "y": 0
         },
         {
-            "fileName": "../Tilemaps/TestMap.tmx",
-            "height": 768,
-            "width": 1088,
-            "x": 960,
+            "fileName": "../Tilemaps/w1-l2-map.tmx",
+            "height": 3200,
+            "width": 3200,
+            "x": 3200,
             "y": 0
         },
         {
             "fileName": "../Tilemaps/w1-l3-map.tmx",
             "height": 3200,
             "width": 3200,
-            "x": 3008,
+            "x": 6400,
             "y": 0
         }
     ],

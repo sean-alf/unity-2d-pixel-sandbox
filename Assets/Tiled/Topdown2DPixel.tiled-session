@@ -3,11 +3,12 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Tilemaps/TestMap.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         ".",
         "TileSets",
-        "Tilemaps"
+        "Tilemaps",
+        "Worlds"
     ],
     "fileStates": {
         "TileSets/GreenWall.tsx": {
@@ -26,27 +27,27 @@
             "scaleInEditor": 2.32
         },
         "Tilemaps/TestMap.tmx": {
-            "scale": 0.2112,
+            "scale": 0.12,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 2691.761363636364,
-                "y": 1564.8674242424245
+                "x": 3887.5,
+                "y": 2670.8333333333335
             }
         },
         "Tilemaps/TestMap2.tmx": {
-            "scale": 0.4083,
+            "scale": 0.1296,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 840.068577026696,
-                "y": 628.2145481263778
+                "x": 4108.7962962962965,
+                "y": 2735.3395061728397
             }
         },
         "Tilemaps/w1-l3-map.tmx": {
-            "scale": 0.2112,
-            "selectedLayer": 0,
+            "scale": 0.1296,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 942.2348484848485,
-                "y": 1564.8674242424245
+                "x": -4618.055555555557,
+                "y": 3074.8456790123455
             }
         }
     },
@@ -60,14 +61,14 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 100,
     "openFiles": [
-        "Tilemaps/TestMap.tmx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "TileSets/Wall.tsx",
         "Tilemaps/TestMap.tmx",
         "Tilemaps/TestMap2.tmx",
+        "Tilemaps/w1-l3-map.tmx",
+        "TileSets/Wall.tsx",
         "TileSets/GreenWall.tsx",
         "TileSets/MuddyGround.tsx"
     ],

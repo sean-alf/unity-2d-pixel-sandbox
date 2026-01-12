@@ -20,6 +20,8 @@ public static class SceneSwitcherExtensions
 
     public static bool IsLevelSceneIndex(this int sceneBuildIndex) => sceneBuildIndex >= SceneIndex.FirstLevel.ToInt();
 
+    public static bool IsFirstLevelScene(this Scene s) => s.buildIndex == SceneIndex.FirstLevel.ToInt();
+
     public static bool IsGreaterThanFirstLevelScene(this int sceneBuildIndex) => sceneBuildIndex > SceneIndex.FirstLevel.ToInt();
 }
 
@@ -38,6 +40,7 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
     private TransitionType fromTransitionType = TransitionType.EXIT;
     // The index of the scene that starts the levels, and isn't persistent
     private int prevSceneIndex = SceneIndex.FirstLevel.ToInt();
+    private bool firstLoad = true;
 
     public Logger Logger => logger;
 
@@ -112,14 +115,15 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (!scene.buildIndex.IsLevelSceneIndex()) return;
+        if (!scene.buildIndex.IsLevelSceneIndex() || (firstLoad && !scene.IsFirstLevelScene())) return;
 
         Debug.Log($"OnSceneLoaded: scene build index {scene.buildIndex}, prev {prevSceneIndex}");
 
         SceneManager.SetActiveScene(scene);
 
-        if (IsFirstLoad(scene))
+        if (firstLoad && IsFirstLoad(scene))
         {
+            firstLoad = false;
             FindTransitionPointsThenEnter();
         }
         else
@@ -132,6 +136,8 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
     private void OnSceneUnloaded(Scene scene)
     {
+        if (firstLoad) return;
+
         FindTransitionPointsThenEnter();
     }
 
