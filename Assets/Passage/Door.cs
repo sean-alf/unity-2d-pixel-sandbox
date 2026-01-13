@@ -3,15 +3,17 @@ using UnityEngine.U2D.Animation;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(BoxCollider2D))]
-[RequireComponent(typeof(SpriteResolver))]
+[RequireComponent(typeof(RemoteInteractable))]
 public class Door : MonoBehaviour
 {
-    [SerializeField]
-    private bool startOpen = false;
+    // Exposed for ST2U prefab replacer
+    public bool startOpen = false;
+    public bool vertical = false;
+    public bool reversible = false; // Door can be re-opened once closed, and re-closed once opened
 
     private Animator animator;
     private new BoxCollider2D collider;
-    private SpriteResolver sr;
+    private RemoteInteractable interactable;
     private bool isOpen = false;
     private bool ignore = false;
 
@@ -19,8 +21,21 @@ public class Door : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
+        interactable = GetComponent<RemoteInteractable>();
 
         isOpen = startOpen;
+
+        SetInitialState();
+    }
+
+    private void OnEnable()
+    {
+        interactable.onInteract += Interact;
+    }
+
+    private void OnDisable()
+    {
+        interactable.onInteract -= Interact;
     }
 
     private void Start()
@@ -43,15 +58,7 @@ public class Door : MonoBehaviour
     public void Toggle()
     {
         if (ignore) return;
-
-        if (isOpen)
-        {
-            Close();
-        }
-        else
-        {
-            Open();
-        }
+        if (isOpen) Close(); else Open();
     }
 
     public void Animator_OnOpening()
@@ -80,20 +87,29 @@ public class Door : MonoBehaviour
 
     private void OnValidate()
     {
-        if (sr == null)
+        if (TryGetComponent(out SpriteResolver sr))
         {
-            sr = GetComponent<SpriteResolver>();
+            sr.SetCategoryAndLabel("Default", startOpen ? "Open" : "Closed");
+            sr.ResolveSpriteToSpriteRenderer();
         }
 
-        if (startOpen)
-        {
-            sr.SetCategoryAndLabel("Default", "Open");
-        }
-        else
-        {
-            sr.SetCategoryAndLabel("Default", "Closed");
-        }
+        SetInitialState();
+    }
 
-        sr.ResolveSpriteToSpriteRenderer();
+    private void SetInitialState()
+    {
+        if (vertical && TryGetComponent(out SpriteRenderer s))
+        {
+            transform.rotation = Quaternion.Euler(new(0, 0, 90));
+            s.flipX = true;
+        }
+    }
+
+    public void Interact()
+    {
+        if (reversible || startOpen == isOpen)
+        {
+            Toggle();
+        }
     }
 }

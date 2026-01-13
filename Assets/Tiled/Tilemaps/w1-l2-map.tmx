@@ -211,13 +211,13 @@
 </data>
  </layer>
  <objectgroup id="4" name="Interactables">
-  <object id="1" type="TeleportIn" x="174.857" y="367.049">
+  <object id="1" name="Teleport In" type="TeleportIn" x="174.857" y="367.049">
    <properties>
     <property name="travelType" type="int" propertytype="TravelType" value="0"/>
    </properties>
    <point/>
   </object>
-  <object id="2" type="TeleportOut" x="401.718" y="308.26">
+  <object id="2" name="Teleport Out" type="TeleportOut" x="401.718" y="308.26">
    <point/>
   </object>
  </objectgroup>

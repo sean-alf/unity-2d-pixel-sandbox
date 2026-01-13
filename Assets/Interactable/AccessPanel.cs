@@ -1,15 +1,23 @@
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 [RequireComponent(typeof(SpriteResolver))]
-public class AccessPanel : MonoBehaviour
+public class AccessPanel : MonoBehaviour, ILoggerProvider
 {
+    // Exposed for ST2U prefab replacer
+    public string targetID; // The id (gameObject.name) of the other thing to access
+
+    [Space]
+    [Header("Debug")]
+
     [SerializeField]
-    private List<Door> doors;
+    private Logger logger;
 
     private SpriteResolver sr;
     private bool activated = false;
+
+    public Logger Logger => logger;
 
     private void Awake()
     {
@@ -22,9 +30,22 @@ public class AccessPanel : MonoBehaviour
     {
         if (activated) return;
 
-        foreach (var d in doors)
+        var targets = FindObjectsByType<RemoteInteractable>(FindObjectsSortMode.None);
+
+        if (targets.Count() == 0)
         {
-            d.Toggle();
+            logger.W($"no objects with {nameof(RemoteInteractable)} attached found!");
+            return;
+        }
+
+        var targetIDs = targetID.Split(",");
+
+        foreach (var id in targetIDs)
+        {
+            foreach (var target in targets)
+            {
+                target.Interact(id);
+            }
         }
 
         sr.SetCategoryAndLabel("Button", "Pressed");

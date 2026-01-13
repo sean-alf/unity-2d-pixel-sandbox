@@ -19,6 +19,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
     [SerializeField]
     private TransitionType transitionType;
 
+    // Exposed for ST2U prefab replacer
     public TravelType travelType;
 
     [SerializeField]

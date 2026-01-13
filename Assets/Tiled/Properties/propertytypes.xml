@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
+ <objecttype name="Button" color="#b9ff00">
+  <property name="targetID" type="string" default=""/>
+ </objecttype>
+ <objecttype name="Door" color="#935000">
+  <property name="startOpen" type="bool" default="false"/>
+  <property name="vertical" type="bool" default="false"/>
+ </objecttype>
  <objecttype name="TeleportIn" color="#a024a4">
   <property name="travelType" type="int" propertytype="TravelType" default="0"/>
  </objecttype>

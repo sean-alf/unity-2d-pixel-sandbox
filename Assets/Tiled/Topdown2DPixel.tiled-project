@@ -10,6 +10,61 @@
     ],
     "propertyTypes": [
         {
+            "color": "#ffb9ff00",
+            "drawFill": true,
+            "id": 8,
+            "members": [
+                {
+                    "name": "targetID",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Button",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ff935000",
+            "drawFill": true,
+            "id": 7,
+            "members": [
+                {
+                    "name": "startOpen",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "vertical",
+                    "type": "bool",
+                    "value": false
+                }
+            ],
+            "name": "Door",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
             "color": "#ffa024a4",
             "drawFill": true,
             "id": 1,
