@@ -46,33 +46,33 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 0.3649,
-            "selectedLayer": 2,
+            "scale": 1.24,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 3566.730611126336,
-                "y": 1220.8824335434365
+                "x": 327.0161290322581,
+                "y": 397.1774193548388
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 1.998,
-            "selectedLayer": 2,
+            "scale": 1.4495,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 246.99699699699704,
-                "y": 327.0770770770771
+                "x": 739.9103139013453,
+                "y": 1218.006209037599
             }
         },
         "Tilemaps/w1-l3-map.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 0.5367,
+            "scale": 0.2514,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": -5862.6793366871625,
-                "y": 723.8680827277809
+                "x": -5387.828162291169,
+                "y": 1390.214797136038
             }
         }
     },
@@ -89,7 +89,7 @@
     "openFiles": [
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "string",
+    "property.type": "int",
     "recentFiles": [
         "Tilemaps/TestMap.tmx",
         "Tilemaps/TestMap2.tmx",

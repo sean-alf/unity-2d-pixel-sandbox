@@ -65,6 +65,25 @@
             ]
         },
         {
+            "color": "#ff00b2b3",
+            "drawFill": true,
+            "id": 9,
+            "members": [
+                {
+                    "name": "healAmount",
+                    "type": "int",
+                    "value": 5
+                }
+            ],
+            "name": "HealthPickup",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object",
+                "project"
+            ]
+        },
+        {
             "color": "#ffa024a4",
             "drawFill": true,
             "id": 1,

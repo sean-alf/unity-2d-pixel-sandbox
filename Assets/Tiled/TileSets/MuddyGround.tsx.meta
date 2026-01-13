@@ -11,5 +11,5 @@ ScriptedImporter:
   importerVersion: 23
   pixelsPerUnit: 1
   edgesPerEllipse: 32
-  numberOfObjectsImported: 35
-  colliderType: 1
+  numberOfObjectsImported: 515
+  colliderType: 0

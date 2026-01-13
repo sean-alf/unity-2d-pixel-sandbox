@@ -200,8 +200,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 44
-      y: 4
+      x: 4
+      y: 124
       width: 32
       height: 32
     spriteID: 7d9632668ae1141d58422e12c045e50c
@@ -212,7 +212,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 44, y: 4}
+    uvTransform: {x: 4, y: 124}
   - name: GroundTileset_5
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -221,8 +221,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 44
-      y: 44
+      x: 4
+      y: 164
       width: 32
       height: 32
     spriteID: 8a2950408df6042f897c362ddbef77d0
@@ -233,7 +233,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 44, y: 44}
+    uvTransform: {x: 4, y: 164}
   - name: GroundTileset_6
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -242,8 +242,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 44
-      y: 84
+      x: 4
+      y: 204
       width: 32
       height: 32
     spriteID: b7bcba928b6e342f485122e5ea6e7173
@@ -254,7 +254,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 44, y: 84}
+    uvTransform: {x: 4, y: 204}
   - name: GroundTileset_7
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -263,7 +263,7 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 84
+      x: 44
       y: 4
       width: 32
       height: 32
@@ -275,7 +275,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 84, y: 4}
+    uvTransform: {x: 44, y: 4}
   - name: GroundTileset_8
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -284,7 +284,7 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 84
+      x: 44
       y: 44
       width: 32
       height: 32
@@ -296,7 +296,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 84, y: 44}
+    uvTransform: {x: 44, y: 44}
   - name: GroundTileset_9
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -305,7 +305,7 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 84
+      x: 44
       y: 84
       width: 32
       height: 32
@@ -317,7 +317,280 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
+    uvTransform: {x: 44, y: 84}
+  - name: GroundTileset_10
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 124
+      width: 32
+      height: 32
+    spriteID: a8faef3b27e8245e7aea8da6bfcb1f4d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 124}
+  - name: GroundTileset_11
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 164
+      width: 32
+      height: 32
+    spriteID: be94cdbf2c7c048bc845be831b9cfd1d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 164}
+  - name: GroundTileset_12
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 204
+      width: 32
+      height: 32
+    spriteID: 7a7ed7eb11f9141e08f5bd8f781f6f6c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 204}
+  - name: GroundTileset_13
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 4
+      width: 32
+      height: 32
+    spriteID: fdfdb9f5fb0e045e4a0a755828a2fb08
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 4}
+  - name: GroundTileset_14
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 44
+      width: 32
+      height: 32
+    spriteID: 4cbc536bdef944a2f9566c6e9f6f5c7d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 44}
+  - name: GroundTileset_15
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 84
+      width: 32
+      height: 32
+    spriteID: 03a30c2c465b6459eb42addf5f36f5a9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
     uvTransform: {x: 84, y: 84}
+  - name: GroundTileset_16
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 124
+      width: 32
+      height: 32
+    spriteID: 9dac11ef21b5a4b6197977b4363fa34d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 124}
+  - name: GroundTileset_17
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 164
+      width: 32
+      height: 32
+    spriteID: 107004deeccdc4506b512c62e532becc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 164}
+  - name: GroundTileset_18
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 204
+      width: 32
+      height: 32
+    spriteID: c82c2f71609f34068a9dddfcbc1718d0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 204}
+  - name: GroundTileset_19
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 124
+      y: 4
+      width: 32
+      height: 32
+    spriteID: 72cd24d79c32845eabcab75f6db96922
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 124, y: 4}
+  - name: GroundTileset_20
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 124
+      y: 44
+      width: 32
+      height: 32
+    spriteID: a93c35985e7624a29b048562a921af60
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 124, y: 44}
+  - name: GroundTileset_21
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 124
+      y: 84
+      width: 32
+      height: 32
+    spriteID: ebe148b80f5e34fc8b42f12fa9c0e34f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 124, y: 84}
+  - name: GroundTileset_22
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 124
+      y: 124
+      width: 32
+      height: 32
+    spriteID: f4f082fddb24c4984b0c3ba00618c9fc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 124, y: 124}
   asepriteLayers:
   - layerIndex: 0
     uuid:
@@ -338,9 +611,9 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 0
-        width: 4
-        height: 3
-      tileIndices: 010000000200000003000000040000000500000006000000070000000800000009000000090000000900000009000000
+        width: 15
+        height: 9
+      tileIndices: 0100000002000000030000000400000000000000000000001100000013000000000000000000000000000000000000000000000000000000000000000500000006000000070000000800000000000000000000000d00000014000000160000000000000000000000000000000000000000000000000000000900000009000000090000000900000011000000120000000e0000001000000012000000130000000000000011000000120000001200000013000000000000000000000000000000000000000b0000000c0000000a0000000f0000000c00000015000000000000000d0000000f0000000a000000140000000000000000000000000000000000000000000000000000000d000000140000000000000000000000000000000d000000100000000e000000140000000000000000000000000000000000000000000000000000000b000000150000000000000000000000000000000b0000000c0000000c000000150000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001100000012000000130000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d00000016000000140000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b0000000c00000015000000
     tileSetIndex: 0
     parentIndex: -1
   tileSets:
@@ -404,6 +677,84 @@ ScriptedImporter:
         y: 32
       name: GroundTileset_9
       spriteId: 7a6b7d7381a944fd295af62dabf25e8f
+    - tileId: 10
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_10
+      spriteId: a8faef3b27e8245e7aea8da6bfcb1f4d
+    - tileId: 11
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_11
+      spriteId: be94cdbf2c7c048bc845be831b9cfd1d
+    - tileId: 12
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_12
+      spriteId: 7a7ed7eb11f9141e08f5bd8f781f6f6c
+    - tileId: 13
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_13
+      spriteId: fdfdb9f5fb0e045e4a0a755828a2fb08
+    - tileId: 14
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_14
+      spriteId: 4cbc536bdef944a2f9566c6e9f6f5c7d
+    - tileId: 15
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_15
+      spriteId: 03a30c2c465b6459eb42addf5f36f5a9
+    - tileId: 16
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_16
+      spriteId: 9dac11ef21b5a4b6197977b4363fa34d
+    - tileId: 17
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_17
+      spriteId: 107004deeccdc4506b512c62e532becc
+    - tileId: 18
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_18
+      spriteId: c82c2f71609f34068a9dddfcbc1718d0
+    - tileId: 19
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_19
+      spriteId: 72cd24d79c32845eabcab75f6db96922
+    - tileId: 20
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_20
+      spriteId: a93c35985e7624a29b048562a921af60
+    - tileId: 21
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_21
+      spriteId: ebe148b80f5e34fc8b42f12fa9c0e34f
+    - tileId: 22
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_22
+      spriteId: f4f082fddb24c4984b0c3ba00618c9fc
     guid: 289705467
   platformSettings:
   - name: DefaultTexturePlatform
@@ -445,5 +796,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 128, y: 128}
-  previousTextureSize: {x: 128, y: 128}
+  canvasSize: {x: 512, y: 512}
+  previousTextureSize: {x: 256, y: 256}
