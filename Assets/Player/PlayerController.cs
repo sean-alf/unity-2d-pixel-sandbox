@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(LinearAnimator))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(HealthManager))]
 public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider
@@ -20,11 +20,13 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     }
 
     private static readonly float SPEED_CONSTANT = 20.0f;
-    private static readonly int TO_EDGE_OF_EYE_PX = 4;
 
     [SerializeField]
     [Range(1, 10)]
     private int speed = 1;
+
+    [SerializeField]
+    private Transform projectileSpawnPoint;
 
     [Header("Debug")]
     [SerializeField]
@@ -34,16 +36,12 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [Tooltip("Only exposed for debugging purposes. Not intended for modification via the inspector.")]
     private List<GameObject> others = new();
 
-    [SerializeField]
-    [Tooltip("Only exposed for debugging purposes. Not intended for modification via the inspector.")]
-    private List<GameObject> triggers = new();
-
     public float Speed => Time.fixedDeltaTime * speed * SPEED_CONSTANT;
 
     public Logger Logger => logger;
 
     private Rigidbody2D rb;
-    private Animator animator;
+    private LinearAnimator animator;
     private PlayerInput input;
     private ProjectileManager projectileManager;
     private HealthManager healthManager;
@@ -58,7 +56,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = GetComponent<LinearAnimator>();
         input = GetComponent<PlayerInput>();
         projectileManager = GetComponent<ProjectileManager>();
         healthManager = GetComponent<HealthManager>();
@@ -93,14 +91,14 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     {
         if (direction.IsIdle())
         {
-            animator.Play(PlayerAnimatorStates.BaseLayer.PLAYER_DEFAULT);
+            animator.Stop();
         }
         else
         {
             // This is for determining which way the player is facing even when stopped
             lastNonIdleDirection = direction;
             rb.SetRotation(Quaternion.LookRotation(Vector3.forward, direction));
-            animator.Play(PlayerAnimatorStates.BaseLayer.PLAYER_MOVING);
+            animator.Animate();
         }
 
         logger.I($"Direction changed = {direction}");
@@ -133,7 +131,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection
         {
             direction = lastNonIdleDirection,
-            position = transform.position.Add(TO_EDGE_OF_EYE_PX * lastNonIdleDirection.normalized),
+            position = projectileSpawnPoint.position,
         });
     }
 
@@ -160,41 +158,25 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
                 return;
             }
         }
-        else
-        {
-            if (!others.Contains(other.gameObject))
-            {
-                others.Add(other.gameObject);
-            }
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (others.Contains(other.gameObject))
-        {
-            others.Remove(other.gameObject);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!triggers.Contains(other.gameObject))
-        {
-            triggers.Add(other.gameObject);
-        }
-
         if (other.TryGetComponent(out Teleport t))
         {
             t.AnimateAndTeleportToNextScene(gameObject);
+        }
+        else if (!others.Contains(other.gameObject))
+        {
+            others.Add(other.gameObject);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (triggers.Contains(other.gameObject))
+        if (others.Contains(other.gameObject))
         {
-            triggers.Remove(other.gameObject);
+            others.Remove(other.gameObject);
         }
     }
 
