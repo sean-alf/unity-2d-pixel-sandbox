@@ -3,12 +3,12 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
+        "Worlds",
         ".",
-        "TileSets",
         "Tilemaps",
-        "Worlds"
+        "TileSets"
     ],
     "fileStates": {
         "TileSets/GreenWall.tsx": {
@@ -18,8 +18,8 @@
         },
         "TileSets/MuddyGround.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1,
-            "scaleInEditor": 1.7
+            "scaleInDock": 1.1653,
+            "scaleInEditor": 2.25
         },
         "TileSets/Wall.tsx": {
             "dynamicWrapping": false,
@@ -46,11 +46,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 1.24,
+            "scale": 2.0391,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 327.0161290322581,
-                "y": 397.1774193548388
+                "x": 1599.9705752537884,
+                "y": 1599.9705752537884
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -60,8 +60,8 @@
             "scale": 1.4495,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 739.9103139013453,
-                "y": 1218.006209037599
+                "x": 1600.2069679199726,
+                "y": 1600.2069679199726
             }
         },
         "Tilemaps/w1-l3-map.tmx": {
@@ -71,8 +71,8 @@
             "scale": 0.2514,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": -5387.828162291169,
-                "y": 1390.214797136038
+                "x": 1601.0342084327763,
+                "y": 1601.0342084327765
             }
         }
     },
@@ -87,16 +87,22 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 100,
     "openFiles": [
+        "Tilemaps/w1-l1-map.tmx",
+        "Tilemaps/w1-l2-map.tmx",
+        "Tilemaps/w1-l3-map.tmx",
+        "TileSets/MuddyGround.tsx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "TileSets/MuddyGround.tsx",
+        "Tilemaps/w1-l3-map.tmx",
+        "Tilemaps/w1-l2-map.tmx",
+        "Tilemaps/w1-l1-map.tmx",
         "Tilemaps/TestMap.tmx",
         "Tilemaps/TestMap2.tmx",
-        "Tilemaps/w1-l3-map.tmx",
         "TileSets/Wall.tsx",
-        "TileSets/GreenWall.tsx",
-        "TileSets/MuddyGround.tsx"
+        "TileSets/GreenWall.tsx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx"

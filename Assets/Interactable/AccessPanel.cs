@@ -29,6 +29,7 @@ public class AccessPanel : MonoBehaviour, ILoggerProvider
     public void Activate()
     {
         if (activated) return;
+        activated = true;
 
         var targets = FindObjectsByType<RemoteInteractable>(FindObjectsSortMode.None);
 
@@ -38,19 +39,21 @@ public class AccessPanel : MonoBehaviour, ILoggerProvider
             return;
         }
 
-        var targetIDs = targetID.Split(",");
-
-        foreach (var id in targetIDs)
+        if (TryGetComponent(out LinearAnimator a))
         {
-            foreach (var target in targets)
+            a.Animate(() =>
             {
-                target.Interact(id);
-            }
+                // On Done
+                var targetIDs = targetID.Split(",");
+
+                foreach (var id in targetIDs)
+                {
+                    foreach (var target in targets)
+                    {
+                        target.Interact(id);
+                    }
+                }
+            });
         }
-
-        sr.SetCategoryAndLabel("Button", "Pressed");
-        sr.ResolveSpriteToSpriteRenderer();
-
-        activated = true;
     }
 }

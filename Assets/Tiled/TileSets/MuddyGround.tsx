@@ -9,6 +9,8 @@
  <tile id="17" probability="0.1"/>
  <tile id="18" probability="0.1"/>
  <tile id="19" probability="0.1"/>
+ <tile id="24" probability="0.2"/>
+ <tile id="25" probability="0.2"/>
  <wangsets>
   <wangset name="TrackCorner" type="corner" tile="-1">
    <wangcolor name="Track" color="#ff0000" tile="-1" probability="1"/>
@@ -16,6 +18,9 @@
    <wangtile tileid="7" wangid="0,0,0,0,0,1,0,0"/>
    <wangtile tileid="22" wangid="0,1,0,1,0,0,0,0"/>
    <wangtile tileid="23" wangid="0,0,0,0,0,1,0,1"/>
+   <wangtile tileid="24" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="25" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="26" wangid="0,1,0,1,0,1,0,1"/>
    <wangtile tileid="36" wangid="0,0,0,1,0,0,0,0"/>
    <wangtile tileid="37" wangid="0,0,0,1,0,1,0,0"/>
    <wangtile tileid="38" wangid="0,1,0,1,0,1,0,0"/>

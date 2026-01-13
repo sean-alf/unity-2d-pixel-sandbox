@@ -591,6 +591,216 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 124, y: 124}
+  - name: GroundTileset_23
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 124
+      y: 164
+      width: 32
+      height: 32
+    spriteID: ca9334de61c66440eac839f695707980
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 124, y: 164}
+  - name: GroundTileset_24
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 124
+      y: 204
+      width: 32
+      height: 32
+    spriteID: a32b7618417534bd88cbf084d81c8067
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 124, y: 204}
+  - name: GroundTileset_25
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 164
+      y: 4
+      width: 32
+      height: 32
+    spriteID: 4972be2b19d8948c1981f7a1e666a9c3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 164, y: 4}
+  - name: GroundTileset_26
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 164
+      y: 44
+      width: 32
+      height: 32
+    spriteID: 024f8d85d6e1d4d6c989f265c4d713b8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 164, y: 44}
+  - name: GroundTileset_27
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 164
+      y: 84
+      width: 32
+      height: 32
+    spriteID: 9b2ef8d43c9004057b846b253b30afec
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 164, y: 84}
+  - name: GroundTileset_28
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 164
+      y: 124
+      width: 32
+      height: 32
+    spriteID: ceab213a969414ecd8ad68932f248ce5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 164, y: 124}
+  - name: GroundTileset_29
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 164
+      y: 164
+      width: 32
+      height: 32
+    spriteID: bfc6a0a78080e4ff980755301247bd7d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 164, y: 164}
+  - name: GroundTileset_30
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 164
+      y: 204
+      width: 32
+      height: 32
+    spriteID: 7fc20b8e9b1a24e55b8763c634a667b9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 164, y: 204}
+  - name: GroundTileset_31
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 4
+      width: 32
+      height: 32
+    spriteID: 90611f39e55664f0a98ec1205761d15e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 4}
+  - name: GroundTileset_32
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 44
+      width: 32
+      height: 32
+    spriteID: 769d52ca1403a4c838603d8ebb264968
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 44}
   asepriteLayers:
   - layerIndex: 0
     uuid:
@@ -613,7 +823,7 @@ ScriptedImporter:
         y: 0
         width: 15
         height: 9
-      tileIndices: 0100000002000000030000000400000000000000000000001100000013000000000000000000000000000000000000000000000000000000000000000500000006000000070000000800000000000000000000000d00000014000000160000000000000000000000000000000000000000000000000000000900000009000000090000000900000011000000120000000e0000001000000012000000130000000000000011000000120000001200000013000000000000000000000000000000000000000b0000000c0000000a0000000f0000000c00000015000000000000000d0000000f0000000a000000140000000000000000000000000000000000000000000000000000000d000000140000000000000000000000000000000d000000100000000e000000140000000000000000000000000000000000000000000000000000000b000000150000000000000000000000000000000b0000000c0000000c000000150000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001100000012000000130000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d00000016000000140000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b0000000c00000015000000
+      tileIndices: 0100000002000000030000000400000000000000000000001100000013000000000000000000000000000000000000000000000000000000000000000500000006000000070000000800000000000000000000000d00000014000000160000001f00000020000000000000000000000000000000000000000900000009000000090000000900000011000000120000000e0000001000000012000000130000000000000011000000120000001200000013000000000000000000000000000000000000000b0000000c0000000a0000000f0000000c00000015000000000000000d0000000f0000000a000000140000000000000000000000000000000000000000000000000000000d000000140000000000000000000000000000000d000000100000000e000000140000000000000000000000000000000000000000000000000000000b000000150000000000000000000000000000000b0000000c0000000c00000015000000000000000000000000000000000000000000000000000000000000001800000017000000120000001c0000001b000000110000001200000013000000000000000000000000000000000000000000000000000000000000000d000000160000001600000016000000140000000d0000001600000014000000000000000000000000000000000000000000000000000000000000001d0000001e0000000c0000001a000000190000000b0000000c00000015000000
     tileSetIndex: 0
     parentIndex: -1
   tileSets:
@@ -755,6 +965,66 @@ ScriptedImporter:
         y: 32
       name: GroundTileset_22
       spriteId: f4f082fddb24c4984b0c3ba00618c9fc
+    - tileId: 23
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_23
+      spriteId: ca9334de61c66440eac839f695707980
+    - tileId: 24
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_24
+      spriteId: a32b7618417534bd88cbf084d81c8067
+    - tileId: 25
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_25
+      spriteId: 4972be2b19d8948c1981f7a1e666a9c3
+    - tileId: 26
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_26
+      spriteId: 024f8d85d6e1d4d6c989f265c4d713b8
+    - tileId: 27
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_27
+      spriteId: 9b2ef8d43c9004057b846b253b30afec
+    - tileId: 28
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_28
+      spriteId: ceab213a969414ecd8ad68932f248ce5
+    - tileId: 29
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_29
+      spriteId: bfc6a0a78080e4ff980755301247bd7d
+    - tileId: 30
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_30
+      spriteId: 7fc20b8e9b1a24e55b8763c634a667b9
+    - tileId: 31
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_31
+      spriteId: 90611f39e55664f0a98ec1205761d15e
+    - tileId: 32
+      size:
+        x: 32
+        y: 32
+      name: GroundTileset_32
+      spriteId: 769d52ca1403a4c838603d8ebb264968
     guid: 289705467
   platformSettings:
   - name: DefaultTexturePlatform
