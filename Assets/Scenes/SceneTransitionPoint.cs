@@ -18,6 +18,7 @@ public interface ISceneTransitionPoint
     public Action<TransitionType> OnExit { get; set; }
 
     public void Enter();
+    public void PrepareToEnter();
 }
 
 public class SceneTransitionPoint : MonoBehaviour, ILoggerProvider
@@ -48,5 +49,10 @@ public class SceneTransitionPoint : MonoBehaviour, ILoggerProvider
     public void Enter()
     {
         transitionPoint.Enter();
+    }
+
+    public void PrepareToEnter()
+    {
+        transitionPoint.PrepareToEnter();
     }
 }

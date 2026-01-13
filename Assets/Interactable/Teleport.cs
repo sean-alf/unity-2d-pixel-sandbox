@@ -96,19 +96,37 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
         }
     }
 
-    public void Enter()
+    /// <summary>
+    /// Gets called before Enter() within SceneSwitcher regardless of whether all 
+    /// scripts have called Start().
+    /// </summary>
+    public void PrepareToEnter()
     {
+        // Let's not assume that we know if the PlayerController will be active at this point
+        var target = FindAnyObjectByType<PlayerController>(FindObjectsInactive.Include);
+
+        target.gameObject.SetActive(false);
+        target.transform.position = transform.position;
+
         var color = sr.color;
         color.a = 1.0f;
         sr.color = color;
         animator.Animate();
         Activate(false);
+    }
 
-        var player = FindAnyObjectByType<PlayerController>();
+    /// <summary>
+    /// Gets called after PrepareToEnter(), after all other scripts have called Start(), 
+    /// and after a predefined delay set on the Synchronizer component.
+    /// </summary>
+    public void Enter()
+    {
+        // The PlayerController IS inactive at this point
+        var target = FindAnyObjectByType<PlayerController>(FindObjectsInactive.Include);
 
-        if (player != null)
+        if (target != null)
         {
-            RunTeleportationAnimation(player, true);
+            RunTeleportationAnimation(target, true);
         }
         else
         {
@@ -128,12 +146,6 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
         if (template.TryGetComponent(out TeleportingAnimator ta))
         {
-            if (teleportIn)
-            {
-                target.gameObject.SetActive(false);
-                target.transform.position = transform.position;
-            }
-
             ta.Animate(() =>
             {
                 // On Cover

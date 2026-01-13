@@ -23,6 +23,7 @@ static class SceneSwitcherExtensions
     public static bool IsGreaterThanFirstLevelScene(this int sceneBuildIndex) => sceneBuildIndex > SceneIndex.FirstLevel.ToInt();
 }
 
+[RequireComponent(typeof(Synchronizer))]
 public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 {
     [SerializeField]
@@ -35,12 +36,18 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
     [SerializeField]
     private Logger logger;
 
+    private Synchronizer sync;
     private TransitionType fromTransitionType = TransitionType.EXIT;
     // The index of the scene that starts the levels, and isn't persistent
     private int prevSceneIndex = SceneIndex.FirstLevel.ToInt();
     private bool firstLoad = true;
 
     public Logger Logger => logger;
+
+    private void Awake()
+    {
+        sync = GetComponent<Synchronizer>();
+    }
 
     private void OnEnable()
     {
@@ -144,7 +151,15 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
         UpdateAllTransitionPoints();
 
         transitionPoints.Find(p => p.Type.ShouldEnter(fromTransitionType))
-            .IfNotNull(p => p.Enter())
+            .IfNotNull(p =>
+            {
+                p.PrepareToEnter();
+                sync.WaitForSync(() =>
+                    {
+                        // On Synchronized
+                        p.Enter();
+                    });
+            })
             .IfNull(() => Debug.LogError("SceneSwitcher: no entry points found!!"));
     }
 
