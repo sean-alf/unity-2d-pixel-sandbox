@@ -250,7 +250,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   id: 0
-  speed: 15
-  spawnPositionOffsetPX: 0
+  speed: 12
   logger:
     logLevel: 5

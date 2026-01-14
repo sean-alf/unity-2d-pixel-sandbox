@@ -2,9 +2,8 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
-[RequireComponent(typeof(LinearAnimator))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(LinearAnimator))]
 public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 {
     public enum TravelType
@@ -25,6 +24,9 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
     [SerializeField]
     [Range(32, 128)]
     private int distanceToReactivatePX = 32;
+
+    [SerializeField]
+    private int pixelsPerUnit = 32;
 
     [SerializeField]
     private float fadeDuration = 0.5f;
@@ -183,7 +185,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
     private IEnumerator WatchPlayerDistance(GameObject target)
     {
-        while (Vector2.Distance(target.transform.position, transform.position) < distanceToReactivatePX)
+        while (Vector2.Distance(target.transform.position, transform.position) < (distanceToReactivatePX / (float)pixelsPerUnit))
         {
             yield return null;
         }

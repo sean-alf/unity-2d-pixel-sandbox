@@ -24,7 +24,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sr;
-    private int halfHeight;
+    private float halfHeight;
 
     public Logger Logger => logger;
 
@@ -34,7 +34,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
 
-        halfHeight = (int)sr.bounds.size.y / 2;
+        halfHeight = sr.bounds.size.y / 2.0f;
     }
 
     private void OnCollisionEnter2D(Collision2D other)

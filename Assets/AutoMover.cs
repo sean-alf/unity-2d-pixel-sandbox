@@ -41,7 +41,7 @@ public class AutoMover : MonoBehaviour, ILoggerProvider
 
     private IEnumerator AutoMoveTo(Vector2 position, Action onDone)
     {
-        float factor = autoMoverTarget.Speed;
+        float speed = autoMoverTarget.Speed;
         Vector2 xTarget = new(position.x, rb.position.y);
         Vector2 direction = transform.position.Direction(position);
         Vector2 directionX = direction.DirectionX();
@@ -49,7 +49,7 @@ public class AutoMover : MonoBehaviour, ILoggerProvider
 
         while (rb.position != xTarget)
         {
-            rb.MoveTowards(xTarget, factor);
+            rb.MoveTowards(xTarget, speed * Time.fixedDeltaTime / 2.0f);
 
             logger.D($"self position {rb.position}");
             logger.D($"other position {position}");
@@ -64,7 +64,7 @@ public class AutoMover : MonoBehaviour, ILoggerProvider
 
         while (rb.position != position)
         {
-            rb.MoveTowards(position, factor);
+            rb.MoveTowards(position, speed * Time.fixedDeltaTime / 2.0f);
             autoMoverTarget.OnDirectionChanged(directionY);
             yield return new WaitForFixedUpdate();
         }
