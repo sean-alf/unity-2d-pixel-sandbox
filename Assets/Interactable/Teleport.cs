@@ -158,18 +158,24 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
                 // On Done
                 if (teleportIn)
                 {
-                    StartCoroutine(sr.FadeOut(fadeDuration, fadeSteps, () =>
-                    {
-                        // On Done
-                        animator.Stop();
-
-                        if (travelType == TravelType.Bidirectional)
+                    this.AnimateFloat(
+                        start: 1.0f,
+                        end: 0.0f,
+                        stepCount: fadeSteps,
+                        totalDuration: fadeDuration,
+                        onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
+                        onDone: () =>
                         {
-                            StartCoroutine(WatchPlayerDistance(target.gameObject));
-                        }
+                            animator.Stop();
 
-                        target.EnableInput();
-                    }));
+                            if (travelType == TravelType.Bidirectional)
+                            {
+                                StartCoroutine(WatchPlayerDistance(target.gameObject));
+                            }
+
+                            target.EnableInput();
+                        }
+                    );
                 }
                 else
                 {
@@ -190,14 +196,18 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
             yield return null;
         }
 
-        void onDone()
-        {
-            // On Done
-            animator.Animate();
-            Activate(true);
-        }
-
-        StartCoroutine(sr.FadeIn(fadeDuration, fadeSteps, onDone));
+        this.AnimateFloat(
+            start: 0.0f,
+            end: 1.0f,
+            stepCount: fadeSteps,
+            totalDuration: fadeDuration,
+            onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
+            onDone: () =>
+            {
+                animator.Animate();
+                Activate(true);
+            }
+        );
     }
 
     private void Activate(bool activate)

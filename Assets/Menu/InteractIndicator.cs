@@ -32,7 +32,7 @@ public class InteractIndicator : MonoBehaviour
             this.StopCoroutine(coroutine);
         }
 
-        coroutine = StartCoroutine(this.AnimateFloat(
+        coroutine = this.AnimateFloat(
             start: image.color.a,
             end: 1.0f,
             stepCount: fadeStepCount,
@@ -43,13 +43,12 @@ public class InteractIndicator : MonoBehaviour
                 image.color = image.color.WithAlpha(newValue);
 
             },
-            onDone: (endValue) =>
+            onDone: () =>
             {
                 // On Done
-                image.color = image.color.WithAlpha(endValue);
                 coroutine = null;
             }
-        ));
+        );
     }
 
     public void Hide()
@@ -61,7 +60,7 @@ public class InteractIndicator : MonoBehaviour
             StopCoroutine(coroutine);
         }
 
-        coroutine = StartCoroutine(this.AnimateFloat(
+        coroutine = this.AnimateFloat(
             start: image.color.a,
             end: 0.0f,
             stepCount: fadeStepCount,
@@ -69,13 +68,11 @@ public class InteractIndicator : MonoBehaviour
             onStep: (newValue) =>
             {
                 image.color = image.color.WithAlpha(newValue);
-
             },
-            onDone: (endValue) =>
+            onDone: () =>
             {
-                image.color = image.color.WithAlpha(endValue);
                 coroutine = null;
             }
-        ));
+        );
     }
 }
