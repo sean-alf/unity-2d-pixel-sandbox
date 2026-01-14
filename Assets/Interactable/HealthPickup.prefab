@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 1537988851802559203}
   - component: {fileID: 7990847137258672875}
   - component: {fileID: 1948016009273066357}
+  - component: {fileID: -4958417473544592755}
   m_Layer: 9
   m_Name: HealthPickup
   m_TagString: Untagged
@@ -284,3 +285,30 @@ MonoBehaviour:
     greaterOrEqualToStrength: 50
   - color: {r: 1, g: 0.19400984, b: 0, a: 1}
     greaterOrEqualToStrength: 9999
+--- !u!114 &-4958417473544592755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939985941744912168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87027c63aabc843b3af74e690f8b75ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Interactable
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1948016009273066357}
+        m_TargetAssemblyTypeName: HealthPickup, Assembly-CSharp
+        m_MethodName: Interactable_Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

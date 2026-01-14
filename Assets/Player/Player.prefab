@@ -271,8 +271,8 @@ MonoBehaviour:
   speed: 5
   projectileSpawnPoint: {fileID: 2939165100773571567}
   logger:
-    logLevel: 0
-  others: []
+    logLevel: 5
+  interactables: []
 --- !u!114 &6137301958484142071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   logger:
-    logLevel: 0
+    logLevel: 5
 --- !u!210 &666998575421564706
 SortingGroup:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
     [SerializeField]
     [Tooltip("Only exposed for debugging purposes. Not intended for modification via the inspector.")]
-    private List<GameObject> others = new();
+    private List<Interactable> interactables = new();
 
     public float Speed => speed;
 
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private PlayerInput input;
     private ProjectileManager projectileManager;
     private HealthManager healthManager;
+    private InteractIndicator interactIndicator;
     private Vector2 currentDirection;
     private Vector2 lastNonIdleDirection = Vector2.up;
 
@@ -62,6 +63,11 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         InputSystem_Actions_Names.Player.Next(input).performed += OnNext;
 
         projectileManager.SetShootingLayer(LayerNames.Projectile);
+    }
+
+    private void Start()
+    {
+        interactIndicator = FindFirstObjectByType<InteractIndicator>();
     }
 
     // Update is called once per frame
@@ -99,23 +105,14 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        foreach (var o in others)
+        foreach (var i in interactables)
         {
-            if (o == null) continue;
+            if (i == null) continue;
 
             // Only handle one thing per interaction, otherwise it might be confusing
             // Hence the "break"s
-            if (o.TryGetComponent(out HealthPickup h))
-            {
-                healthManager.Heal(h.HealAmount);
-                Destroy(h.gameObject);
-                break;
-            }
-            else if (o.TryGetComponent(out AccessPanel p))
-            {
-                p.Activate();
-                break;
-            }
+            i.Interact(gameObject);
+            break;
         }
     }
 
@@ -159,18 +156,25 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         {
             t.AnimateAndTeleportToNextScene(gameObject);
         }
-        else if (!others.Contains(other.gameObject))
+        else if (other.TryGetComponent(out Interactable i))
         {
-            others.Add(other.gameObject);
+            if (!interactables.Contains(i)) interactables.Add(i);
         }
+
+        if (interactables.Count > 0) interactIndicator.Show();
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (others.Contains(other.gameObject))
+        if (other.TryGetComponent(out Interactable i))
         {
-            others.Remove(other.gameObject);
+            if (interactables.Contains(i))
+            {
+                interactables.Remove(i);
+            }
         }
+
+        if (interactables.Count == 0) interactIndicator.Hide();
     }
 
     private void OnDestroy()

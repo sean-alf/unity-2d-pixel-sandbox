@@ -15,14 +15,21 @@ public class HealthPickup : MonoBehaviour
     [Tooltip("Do not modify in the Inspector. Updated by ST2U prefab replacer")]
     public int healAmount = 5;
 
-    public int HealAmount => healAmount;
-
     [SerializeField]
     [Tooltip("Do not modify in the Inspector. Exposed for debugging purposes only")]
     private Color currentColor;
 
     [SerializeField]
     private List<ColorByStrength> colorByStrength;
+
+    public void Interactable_Interact(GameObject interactor)
+    {
+        if (interactor.TryGetComponent(out HealthManager m))
+        {
+            m.Heal(healAmount);
+            Destroy(gameObject);
+        }
+    }
 
     private void Awake()
     {

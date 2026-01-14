@@ -26,7 +26,12 @@ public class AccessPanel : MonoBehaviour, ILoggerProvider
         sr.SetCategoryAndLabel("Button", "Unpressed");
     }
 
-    public void Activate()
+    public void Interactable_Interact(GameObject _)
+    {
+        Activate();
+    }
+
+    private void Activate()
     {
         if (activated) return;
         activated = true;
