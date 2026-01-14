@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
             // This is for determining which way the player is facing even when stopped
             lastNonIdleDirection = direction;
             rb.SetRotation(Quaternion.LookRotation(Vector3.forward, direction));
-            animator.Animate();
+            animator.Animate("Default");
         }
 
         logger.I($"Direction changed = {direction}");

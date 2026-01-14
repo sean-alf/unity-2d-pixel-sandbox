@@ -12,37 +12,36 @@ public class LinearAnimator : MonoBehaviour
         TOTAL,
     }
 
-    [SerializeField]
-    private Sprite[] sprites;
+    [Serializable]
+    public class LinearAnimation
+    {
+        public Sprite[] sprites;
+
+        [Tooltip("The sprite to use when not animating")]
+        public Sprite inactiveSprite;
+
+        public DelayType type;
+
+        public float delayDuration;
+
+        public bool loop = false;
+    }
+
+    [Serializable]
+    public class LinearAnimationDictionary : SerializableDictionary<string, LinearAnimation> { }
 
     [SerializeField]
-    [Tooltip("The sprite to use when not animating")]
-    private Sprite inactiveSprite;
-
-    [SerializeField]
-    private DelayType type;
-
-    [SerializeField]
-    private float delayDuration;
-
-    [SerializeField]
-    private bool loop = false;
+    private LinearAnimationDictionary animations;
 
     private SpriteRenderer sr;
     private Coroutine coroutine;
+    private LinearAnimation currentAnimation;
     private WaitForSeconds waitForStepDelayDuration;
     private bool animateReverse = false;
-
-    private void OnEnable()
-    {
-        sr = GetComponent<SpriteRenderer>();
-    }
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-
-        SetStepDelay();
     }
 
     /// <summary>
@@ -52,10 +51,10 @@ public class LinearAnimator : MonoBehaviour
     /// Only works in play mode.
     /// </summary>
     /// <param name="onFinished"></param>
-    public void Animate(Action onFinished = null)
+    public void Animate(string animationName, Action onFinished = null)
     {
         animateReverse = false;
-        AnimateStart(onFinished);
+        AnimateStart(animationName, onFinished);
     }
 
     /// <summary>
@@ -65,15 +64,31 @@ public class LinearAnimator : MonoBehaviour
     /// Only works in play mode.
     /// </summary>
     /// <param name="onFinished"></param>
-    public void AnimateReverse(Action onFinished = null)
+    public void AnimateReverse(string animationName, Action onFinished = null)
     {
         animateReverse = true;
-        AnimateStart(onFinished);
+        AnimateStart(animationName, onFinished);
     }
 
-    private void AnimateStart(Action onFinished = null)
+    private void AnimateStart(string animationName, Action onFinished = null)
     {
         if (coroutine != null) return;
+
+        if (animations.Count == 0)
+        {
+            Debug.LogError($"LinearAnimator ({gameObject.name}): animation count is 0!");
+        }
+
+        if (!animations.ContainsKey(animationName))
+        {
+            Debug.LogError($"LinearAnimator ({gameObject.name}): invalid animation name {animationName}!");
+            return;
+        }
+
+        currentAnimation = animations[animationName];
+        var sprites = currentAnimation.sprites;
+
+        SetStepDelay(currentAnimation);
 
         if (sprites.Count() == 0)
         {
@@ -95,7 +110,7 @@ public class LinearAnimator : MonoBehaviour
 
         if (sr == null) return;
 
-        coroutine = StartCoroutine(AnimateIntern(onFinished));
+        coroutine = StartCoroutine(AnimateIntern(currentAnimation, onFinished));
     }
 
     public void Stop()
@@ -106,29 +121,31 @@ public class LinearAnimator : MonoBehaviour
             coroutine = null;
         }
 
-        if (inactiveSprite != null && sr != null) sr.sprite = inactiveSprite;
+        if (currentAnimation.inactiveSprite != null && sr != null) sr.sprite = currentAnimation.inactiveSprite;
     }
 
-    private IEnumerator AnimateIntern(Action onFinished)
+    private IEnumerator AnimateIntern(LinearAnimation animation, Action onFinished)
     {
-        if (loop)
+        if (animation.loop)
         {
             while (true)
             {
-                yield return AnimateThrough();
+                yield return AnimateThrough(animation);
                 onFinished?.Invoke();
             }
         }
         else
         {
-            yield return AnimateThrough();
+            yield return AnimateThrough(animation);
             coroutine = null;
             onFinished?.Invoke();
         }
     }
 
-    private IEnumerator AnimateThrough()
+    private IEnumerator AnimateThrough(LinearAnimation animation)
     {
+        var sprites = animation.sprites;
+
         if (animateReverse)
         {
             for (int i = sprites.Count() - 1; i >= 0; i--)
@@ -149,14 +166,15 @@ public class LinearAnimator : MonoBehaviour
 
     private void OnValidate()
     {
-        SetStepDelay();
+        if (currentAnimation == null) return;
+        SetStepDelay(currentAnimation);
     }
 
-    private void SetStepDelay()
+    private void SetStepDelay(LinearAnimation animation)
     {
-        float stepDelay = delayDuration;
+        float stepDelay = animation.delayDuration;
 
-        if (type == DelayType.TOTAL) stepDelay = delayDuration / sprites.Count();
+        if (animation.type == DelayType.TOTAL) stepDelay = animation.delayDuration / animation.sprites.Count();
 
         waitForStepDelayDuration = new(stepDelay);
     }

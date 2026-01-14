@@ -326,14 +326,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e8bc5df205b4e7eab3af5c42e7b79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
-  sprites:
-  - {fileID: 5291213999521112917, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
-  - {fileID: -83815371281610533, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
-  - {fileID: -5975419622963624644, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
-  inactiveSprite: {fileID: 0}
-  type: 1
-  delayDuration: 0.25
-  loop: 1
+  animations:
+    kvpList:
+    - key: Default
+      value:
+        sprites:
+        - {fileID: 5291213999521112917, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
+        - {fileID: -83815371281610533, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
+        - {fileID: -5975419622963624644, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
+        inactiveSprite: {fileID: 0}
+        type: 1
+        delayDuration: 0.3
+        loop: 1
 --- !u!61 &-3137722125030512224
 BoxCollider2D:
   m_ObjectHideFlags: 0

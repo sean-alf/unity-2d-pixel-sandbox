@@ -228,14 +228,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e8bc5df205b4e7eab3af5c42e7b79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
-  sprites:
-  - {fileID: 7691975477250719847, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
-  - {fileID: -2515693350246299038, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
-  - {fileID: -9176650075401482233, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
-  inactiveSprite: {fileID: 0}
-  type: 1
-  delayDuration: 0.5
-  loop: 0
+  animations:
+    kvpList:
+    - key: Default
+      value:
+        sprites:
+        - {fileID: 7691975477250719847, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
+        - {fileID: -2515693350246299038, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
+        - {fileID: -9176650075401482233, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
+        inactiveSprite: {fileID: 0}
+        type: 1
+        delayDuration: 0.5
+        loop: 0
 --- !u!114 &-5514785961956932392
 MonoBehaviour:
   m_ObjectHideFlags: 0

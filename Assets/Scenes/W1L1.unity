@@ -1209,6 +1209,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3058580506951309369, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: siDic.keys.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058580506951309369, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: siDic.values.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058580506951309369, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: 'siDic.keys.Array.data[0]'
+      value: Hello
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058580506951309369, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: 'siDic.keys.Array.data[1]'
+      value: String
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058580506951309369, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: 'siDic.keys.Array.data[2]'
+      value: String
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058580506951309369, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: 'siDic.keys.Array.data[3]'
+      value: String
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058580506951309369, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: 'siDic.keys.Array.data[4]'
+      value: String
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058580506951309369, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: siDic.kvpList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058580506951309369, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: 'siDic.values.Array.data[0]'
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3234188135806968123, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: madm
       value: 

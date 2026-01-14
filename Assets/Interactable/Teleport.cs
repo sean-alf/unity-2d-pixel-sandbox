@@ -66,7 +66,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
                 }
             case TravelType.Bidirectional:
                 {
-                    animator.Animate();
+                    animator.Animate("Default");
                     Activate(true);
                     break;
                 }
@@ -113,7 +113,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
         var color = sr.color;
         color.a = 1.0f;
         sr.color = color;
-        animator.Animate();
+        animator.Animate("Default");
         Activate(false);
     }
 
@@ -204,7 +204,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
             onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
             onDone: () =>
             {
-                animator.Animate();
+                animator.Animate("Default");
                 Activate(true);
             }
         );

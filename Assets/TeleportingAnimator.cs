@@ -13,10 +13,10 @@ public class TeleportingAnimator : MonoBehaviour
 
     public void Animate(Action onCover, Action onDone)
     {
-        animator.Animate(() =>
+        animator.Animate("Default", () =>
         {
             onCover?.Invoke();
-            animator.AnimateReverse(() =>
+            animator.AnimateReverse("Default", () =>
             {
                 onDone?.Invoke();
                 Destroy(gameObject);
