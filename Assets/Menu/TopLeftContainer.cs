@@ -1,24 +1,25 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TopLeftContainer : MonoBehaviour
 {
     [SerializeField]
-    private SpriteRenderer primaryWeaponIconRenderer;
+    private Image primaryWeaponIconImage;
 
     [SerializeField]
-    private SpriteRenderer primaryToolIconRenderer;
+    private Image primaryToolIconImage;
 
     [SerializeField]
     private EnergyIndicator energyIndicator;
 
     public void UpdatePrimaryWeaponIcon(Sprite icon)
     {
-        primaryWeaponIconRenderer.sprite = icon;
+        primaryWeaponIconImage.sprite = icon;
     }
 
     public void UpdatePrimaryToolIcon(Sprite icon)
     {
-        primaryToolIconRenderer.sprite = icon;
+        primaryToolIconImage.sprite = icon;
     }
 
     public EnergyIndicator GetEnergyIndicator() => energyIndicator;

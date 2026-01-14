@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 [ExecuteAlways]
 public class EnergyIndicator : MonoBehaviour
@@ -7,13 +8,13 @@ public class EnergyIndicator : MonoBehaviour
     private static readonly int PIXEL_PER_LEVEL_UNIT = 2;
 
     [SerializeField]
-    private SpriteRenderer borderSR;
+    private Image borderSR;
 
     [SerializeField]
-    private SpriteRenderer backgroundSR;
+    private Image backgroundSR;
 
     [SerializeField]
-    private SpriteRenderer levelSR;
+    private Image levelSR;
 
     [SerializeField]
     private Sprite borderSprite;
@@ -146,10 +147,11 @@ public class EnergyIndicator : MonoBehaviour
         if (borderSR == null || backgroundSR == null || levelSR == null) return;
 
         int levelWidth = level * PIXEL_PER_LEVEL_UNIT;
-        int maxWidth = (max * PIXEL_PER_LEVEL_UNIT) + 2;
-        borderSR.size = new(maxWidth, borderSR.size.y);
-        backgroundSR.size = new(maxWidth, backgroundSR.size.y);
-        levelSR.size = new(levelWidth, levelSR.size.y);
+        int backgroundWidth = (max * PIXEL_PER_LEVEL_UNIT) + 2;
+        int borderWidth = backgroundWidth + 2;
+        borderSR.rectTransform.sizeDelta = new(borderWidth, borderSR.rectTransform.sizeDelta.y);
+        backgroundSR.rectTransform.sizeDelta = new(backgroundWidth, backgroundSR.rectTransform.sizeDelta.y);
+        levelSR.rectTransform.sizeDelta = new(levelWidth, levelSR.rectTransform.sizeDelta.y);
 
         if (level > 0)
         {
