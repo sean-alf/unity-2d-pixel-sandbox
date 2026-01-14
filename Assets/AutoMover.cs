@@ -47,14 +47,14 @@ public class AutoMover : MonoBehaviour, ILoggerProvider
         Vector2 directionX = direction.DirectionX();
         Vector2 directionY = direction.DirectionY();
 
-        logger.D($"self position {transform.position}");
-        logger.D($"other position {position}");
-
         while (rb.position != xTarget)
         {
             rb.MoveTowards(xTarget, factor);
 
-            if (rb.DistanceX(position) > 16)
+            logger.D($"self position {rb.position}");
+            logger.D($"other position {position}");
+
+            if (rb.DistanceX(position) > 0.5)
             {
                 autoMoverTarget.OnDirectionChanged(directionX);
             }

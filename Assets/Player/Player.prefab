@@ -271,7 +271,7 @@ MonoBehaviour:
   speed: 5
   projectileSpawnPoint: {fileID: 2939165100773571567}
   logger:
-    logLevel: 5
+    logLevel: 0
   others: []
 --- !u!114 &6137301958484142071
 MonoBehaviour:
@@ -287,8 +287,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   maximumHealth: 20
   currentHealth: 20
-  menusAndDisplayManager: {fileID: 0}
-  autoUpdateHealthIndicator: 0
 --- !u!114 &2985162039943200917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   logger:
-    logLevel: 5
+    logLevel: 0
 --- !u!210 &666998575421564706
 SortingGroup:
   m_ObjectHideFlags: 0

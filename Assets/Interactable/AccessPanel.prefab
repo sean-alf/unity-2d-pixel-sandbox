@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   targetID: 
   logger:
-    logLevel: 2
+    logLevel: 5
 --- !u!114 &7909049771416424253
 MonoBehaviour:
   m_ObjectHideFlags: 0
