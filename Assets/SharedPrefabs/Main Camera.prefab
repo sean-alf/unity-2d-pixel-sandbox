@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 168149547597679393}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 216, y: -494, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -54,7 +54,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.13588236, g: 0.16952942, b: 0.28729412, a: 1}
+  m_BackGroundColor: {r: 0.06858824, g: 0.19800001, b: 0.21611767, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -79,7 +79,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 180
+  orthographic size: 5.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.PixelPerfectCamera
   m_ComponentVersion: 1
-  m_AssetsPPU: 1
+  m_AssetsPPU: 32
   m_RefResolutionX: 640
   m_RefResolutionY: 360
   m_CropFrame: 4
@@ -266,54 +266,54 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 1010564786927050616}
     m_ColliderPaths:
-    - - X: 4160000000
-        Y: 2760000000
-      - X: -4160000000
-        Y: 2760000000
-      - X: -4160000000
-        Y: 2120000000
-      - X: 4160000000
-        Y: 2120000000
+    - - X: 130000000
+        Y: 86250000
+      - X: -130000000
+        Y: 86250000
+      - X: -130000000
+        Y: 66250000
+      - X: 130000000
+        Y: 66250000
   - m_Collider: {fileID: 5257731431368699763}
     m_ColliderPaths:
-    - - X: 4160000000
-        Y: -2120000000
-      - X: -4160000000
-        Y: -2120000000
-      - X: -4160000000
-        Y: -2760000000
-      - X: 4160000000
-        Y: -2760000000
+    - - X: 130000000
+        Y: -66250000
+      - X: -130000000
+        Y: -66250000
+      - X: -130000000
+        Y: -86250000
+      - X: 130000000
+        Y: -86250000
   - m_Collider: {fileID: 8300206505989511060}
     m_ColliderPaths:
-    - - X: -3520000000
-        Y: 2760000000
-      - X: -4160000000
-        Y: 2760000000
-      - X: -4160000000
-        Y: -2760000000
-      - X: -3520000000
-        Y: -2760000000
+    - - X: -110000000
+        Y: 86250000
+      - X: -130000000
+        Y: 86250000
+      - X: -130000000
+        Y: -86250000
+      - X: -110000000
+        Y: -86250000
   - m_Collider: {fileID: 3421554276291230482}
     m_ColliderPaths:
-    - - X: 4160000000
-        Y: 2760000000
-      - X: 3520000000
-        Y: 2760000000
-      - X: 3520000000
-        Y: -2760000000
-      - X: 4160000000
-        Y: -2760000000
+    - - X: 130000000
+        Y: 86250000
+      - X: 110000000
+        Y: 86250000
+      - X: 110000000
+        Y: -86250000
+      - X: 130000000
+        Y: -86250000
   m_CompositePaths:
     m_Paths:
-    - - {x: 415.99997, y: -276}
-      - {x: 415.99997, y: 276}
-      - {x: -416, y: 275.99997}
-      - {x: -415.99997, y: -276}
-    - - {x: 352, y: -211.99997}
-      - {x: -352, y: -211.99997}
-      - {x: -351.99997, y: 212}
-      - {x: 352, y: 211.99997}
+    - - {x: 12.99997, y: -8.625}
+      - {x: 12.99997, y: 8.625}
+      - {x: -13, y: 8.62497}
+      - {x: -12.99997, y: -8.625}
+    - - {x: 11, y: -6.6249704}
+      - {x: -11, y: -6.6249704}
+      - {x: -10.99997, y: 6.625}
+      - {x: 11, y: 6.6249704}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -360,7 +360,7 @@ Transform:
   m_GameObject: {fileID: 623380238098495605}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -384, y: 0, z: 0}
+  m_LocalPosition: {x: -12, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -410,7 +410,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 64, y: 552}
+  m_Size: {x: 2, y: 17.25}
   m_EdgeRadius: 0
 --- !u!114 &5893580724459861643
 MonoBehaviour:
@@ -515,7 +515,7 @@ Transform:
   m_GameObject: {fileID: 1834728111370638549}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 244, z: 0}
+  m_LocalPosition: {x: 0, y: 7.625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -565,7 +565,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 832, y: 64}
+  m_Size: {x: 26, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &7516059320317233408
 MonoBehaviour:
@@ -670,7 +670,7 @@ Transform:
   m_GameObject: {fileID: 6168973993949087571}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -244, z: 0}
+  m_LocalPosition: {x: 0, y: -7.625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -720,7 +720,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 832, y: 64}
+  m_Size: {x: 26, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &6686422810540402249
 MonoBehaviour:
@@ -825,7 +825,7 @@ Transform:
   m_GameObject: {fileID: 7990820272149273418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 384, y: 0, z: 0}
+  m_LocalPosition: {x: 12, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -875,7 +875,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 64, y: 552}
+  m_Size: {x: 2, y: 17.25}
   m_EdgeRadius: 0
 --- !u!114 &8502618074239946325
 MonoBehaviour:

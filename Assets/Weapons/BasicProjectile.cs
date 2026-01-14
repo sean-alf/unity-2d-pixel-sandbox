@@ -12,12 +12,8 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     private ProjectileAnimationStateManager.ProjectileID id = ProjectileAnimationStateManager.ProjectileID.UNSET;
 
     [SerializeField]
-    [Range(1, 100)]
+    [Range(1, 40)]
     private int speed = 1;
-
-    [SerializeField]
-    [Range(-16, 16)]
-    private int spawnPositionOffsetPX;
 
     [Header("Debug")]
     [Space]
@@ -28,8 +24,6 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sr;
-    private Vector2 direction;
-    private bool move = true;
     private int halfHeight;
 
     public Logger Logger => logger;
@@ -43,17 +37,9 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
         halfHeight = (int)sr.bounds.size.y / 2;
     }
 
-    private void FixedUpdate()
-    {
-        if (move)
-        {
-            rb.MovePosition((speed * direction) + rb.position);
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D other)
     {
-        move = false;
+        rb.linearVelocity = Vector2.zero;
 
         var stateName = animationStateManager.GetAnimationData(id).finishStateName;
 
@@ -88,9 +74,8 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
 
     private void Use(Vector3 startPosition, Vector2 direction, Quaternion rotation)
     {
-        transform.SetPositionAndRotation(startPosition.Add((halfHeight + spawnPositionOffsetPX) * direction.normalized), rotation);
-        this.direction = direction;
-        move = true;
+        transform.SetPositionAndRotation(startPosition.Add(halfHeight * direction.normalized), rotation);
+        rb.linearVelocity = speed * direction;
     }
 
     public void Animator_Finish()

@@ -1,3 +1,5 @@
+using System;
+using UnityEditor;
 using UnityEngine;
 
 public class HealthManager : MonoBehaviour
@@ -5,86 +7,94 @@ public class HealthManager : MonoBehaviour
     [SerializeField]
     [Range(10, 50)]
     private int maximumHealth;
-    private int prevMaxHealth;
 
     [SerializeField]
     [Range(0, 50)]
     private int currentHealth;
-    private int prevCurrentHealth;
 
-    [SerializeField]
-    private MenusAndDisplayManager menusAndDisplayManager;
+    public enum EventType
+    {
+        Init,
+        Heal,
+        Damage,
+        Dead,
+        EditorUpdate
+    }
 
-    [SerializeField]
-    private bool autoUpdateHealthIndicator = false;
+    public readonly struct EventData
+    {
+        public readonly EventType type;
+        public readonly int currentHealth;
+        public readonly int maxHealth;
 
-    private EnergyIndicator energyIndicator;
+        public EventData(EventType type, int currentHealth, int maxHealth)
+        {
+            this.type = type;
+            this.currentHealth = currentHealth;
+            this.maxHealth = maxHealth;
+        }
+    }
+
+    public Action<EventData> onHealthChange;
 
     private void Awake()
     {
-        prevMaxHealth = maximumHealth;
         currentHealth = maximumHealth;
-        prevCurrentHealth = currentHealth;
     }
 
     private void Start()
     {
-        if (energyIndicator == null)
-        {
-            energyIndicator = menusAndDisplayManager.GetTopLeftContainer().GetEnergyIndicator();
-        }
-
-        energyIndicator.SetMaximumAndFill(maximumHealth);
+        onHealthChange?.Invoke(new(
+            type: EventType.Init,
+            currentHealth,
+            maximumHealth
+        ));
     }
 
     public void DoDamage(int strength)
     {
-        currentHealth -= strength;
-        prevCurrentHealth = currentHealth;
-
-        energyIndicator.DecreaseLevel(strength);
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        currentHealth = Mathf.Max(currentHealth - strength, 0);
+        onHealthChange?.Invoke(new(
+            type: EventType.Damage,
+             currentHealth,
+             maximumHealth
+        ));
+        if (currentHealth <= 0) Die();
     }
     public void Heal(int amount)
     {
-        currentHealth += amount;
-        prevCurrentHealth = currentHealth;
-        energyIndicator.IncreaseLevel(amount);
+        currentHealth = Mathf.Min(currentHealth + amount, maximumHealth);
+        onHealthChange?.Invoke(new(
+            type: EventType.Heal,
+             currentHealth,
+             maximumHealth
+        ));
     }
 
     private void Die()
     {
         Debug.Log("I got dead again!!");
+        onHealthChange?.Invoke(new(
+            type: EventType.Dead,
+            currentHealth,
+            maximumHealth
+        ));
         gameObject.SetActive(false);
     }
 
+#if UNITY_EDITOR
     private void OnValidate()
     {
-        if (!autoUpdateHealthIndicator) return;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maximumHealth);
 
-        if (currentHealth > maximumHealth) currentHealth = maximumHealth;
-
-        if (menusAndDisplayManager == null) return;
-
-        if (energyIndicator == null)
+        EditorApplication.delayCall += () =>
         {
-            energyIndicator = menusAndDisplayManager.GetTopLeftContainer().GetEnergyIndicator();
-        }
-
-        if (currentHealth != prevCurrentHealth)
-        {
-            prevCurrentHealth = currentHealth;
-            energyIndicator.SetLevel(currentHealth);
-        }
-
-        if (maximumHealth != prevMaxHealth)
-        {
-            prevMaxHealth = maximumHealth;
-            energyIndicator.SetMaximum(maximumHealth);
-        }
+            onHealthChange?.Invoke(new(
+                type: EventType.EditorUpdate,
+                currentHealth,
+                maximumHealth)
+            );
+        };
     }
+#endif
 }

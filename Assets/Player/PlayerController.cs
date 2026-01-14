@@ -19,8 +19,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
     }
 
-    private static readonly float SPEED_CONSTANT = 20.0f;
-
     [SerializeField]
     [Range(1, 10)]
     private int speed = 1;
@@ -36,7 +34,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [Tooltip("Only exposed for debugging purposes. Not intended for modification via the inspector.")]
     private List<GameObject> others = new();
 
-    public float Speed => Time.fixedDeltaTime * speed * SPEED_CONSTANT;
+    public float Speed => actualSpeed;
 
     public Logger Logger => logger;
 
@@ -47,14 +45,12 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private HealthManager healthManager;
     private Vector2 currentDirection;
     private Vector2 lastNonIdleDirection = Vector2.up;
-
-    private void OnEnable()
-    {
-        input = GetComponent<PlayerInput>();
-    }
+    private float actualSpeed;
 
     void Awake()
     {
+        actualSpeed = speed * Time.fixedDeltaTime;
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<LinearAnimator>();
         input = GetComponent<PlayerInput>();
@@ -76,7 +72,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     {
         if (!currentDirection.IsIdle())
         {
-            Vector2 movementOffset = Time.fixedDeltaTime * speed * SPEED_CONSTANT * currentDirection;
+            Vector2 movementOffset = actualSpeed * currentDirection;
             rb.MovePosition(movementOffset + rb.position);
         }
     }

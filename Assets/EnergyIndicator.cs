@@ -1,5 +1,7 @@
+using System.Linq;
 using UnityEngine;
 
+[ExecuteAlways]
 public class EnergyIndicator : MonoBehaviour
 {
     private static readonly int PIXEL_PER_LEVEL_UNIT = 2;
@@ -33,6 +35,29 @@ public class EnergyIndicator : MonoBehaviour
 
     [SerializeField]
     private Color dangerColor;
+
+    private HealthManager playerHealthManager;
+
+    private void Awake()
+    {
+        playerHealthManager = FindObjectsByType<HealthManager>(FindObjectsSortMode.None).First(m => m.gameObject.name == "Player");
+    }
+
+    private void OnEnable()
+    {
+        playerHealthManager.IfNotNull(m =>
+        {
+            m.onHealthChange += OnPlayerHealthChange;
+        });
+    }
+
+    private void OnDisable()
+    {
+        playerHealthManager.IfNotNull(m =>
+        {
+            m.onHealthChange -= OnPlayerHealthChange;
+        });
+    }
 
     public void SetMaximum(int max)
     {
@@ -78,6 +103,42 @@ public class EnergyIndicator : MonoBehaviour
     {
         level = max;
         UpdateIcons();
+    }
+
+    private void OnPlayerHealthChange(HealthManager.EventData data)
+    {
+        switch (data.type)
+        {
+            case HealthManager.EventType.Init:
+                {
+                    SetMaximum(data.maxHealth);
+                    SetLevel(data.currentHealth);
+                    break;
+                }
+            case HealthManager.EventType.Heal:
+                {
+                    // TODO: add heal feedback
+                    SetLevel(data.currentHealth);
+                    break;
+                }
+            case HealthManager.EventType.Damage:
+                {
+                    // TODO: add damage feedback
+                    SetLevel(data.currentHealth);
+                    break;
+                }
+            case HealthManager.EventType.Dead:
+                {
+                    // TODO: do stuff on dead
+                    break;
+                }
+            case HealthManager.EventType.EditorUpdate:
+                {
+                    SetMaximum(data.maxHealth);
+                    SetLevel(data.currentHealth);
+                    break;
+                }
+        }
     }
 
     private void UpdateIcons()

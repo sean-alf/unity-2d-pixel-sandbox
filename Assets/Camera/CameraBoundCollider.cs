@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 [ExecuteAlways]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -29,19 +30,15 @@ public class CameraBoundCollider : MonoBehaviour
     private int pixelOffset = 32;
 
     private Camera c;
+    private PixelPerfectCamera ppc;
     private BoxCollider2D bc;
     private Vector2 size = new();
-
-    private void OnEnable()
-    {
-        if (bc == null) bc = GetComponent<BoxCollider2D>();
-    }
+    private float _pixelThickness;
+    private float _pixelOffset;
 
     private void Awake()
     {
-        c = GetComponentInParent<Camera>();
-
-        if (bc == null) bc = GetComponent<BoxCollider2D>();
+        bc = GetComponent<BoxCollider2D>();
 
         // Make sure to clear out any offset
         bc.offset = new(0, 0);
@@ -49,9 +46,28 @@ public class CameraBoundCollider : MonoBehaviour
         transform.localScale = new(1, 1);
     }
 
+    private void Start()
+    {
+        c = GetComponentInParent<Camera>();
+        ppc = GetComponentInParent<PixelPerfectCamera>();
+
+        UpdateDimensProperties();
+    }
+
+    private void OnValidate()
+    {
+        ResetBound();
+    }
+
     public void ResetBound()
     {
-        if ((!Application.isPlaying && !Application.isEditor) || c == null) return;
+        c = GetComponentInParent<Camera>();
+        ppc = GetComponentInParent<PixelPerfectCamera>();
+        bc = GetComponent<BoxCollider2D>();
+
+        if ((!Application.isPlaying && !Application.isEditor) || c == null || ppc == null) return;
+
+        UpdateDimensProperties();
 
         float halfWidth = c.orthographicSize * c.aspect;
         float halfHeight = c.orthographicSize;
@@ -62,10 +78,13 @@ public class CameraBoundCollider : MonoBehaviour
 
     public void ResetBound(int thickness, int offset)
     {
-        if ((!Application.isPlaying && !Application.isEditor) || c == null) return;
+        c = GetComponentInParent<Camera>();
+        ppc = GetComponentInParent<PixelPerfectCamera>();
+        bc = GetComponent<BoxCollider2D>();
 
-        pixelThickness = thickness;
-        pixelOffset = offset;
+        if ((!Application.isPlaying && !Application.isEditor) || c == null || ppc == null) return;
+
+        UpdateDimensProperties(thickness, offset);
 
         float halfWidth = c.orthographicSize * c.aspect;
         float halfHeight = c.orthographicSize;
@@ -76,21 +95,21 @@ public class CameraBoundCollider : MonoBehaviour
 
     private void SetSize(float halfWidth, float halfHeight)
     {
-        size.x = pixelThickness;
-        size.y = pixelThickness;
+        size.x = _pixelThickness;
+        size.y = _pixelThickness;
 
         switch (position)
         {
             case Position.TOP:
             case Position.BOTTOM:
                 {
-                    size.x = (size.x + pixelOffset + halfWidth) * 2;
+                    size.x = (size.x + _pixelOffset + halfWidth) * 2;
                     break;
                 }
             case Position.LEFT:
             case Position.RIGHT:
                 {
-                    size.y = (size.y + pixelOffset + halfHeight) * 2;
+                    size.y = (size.y + _pixelOffset + halfHeight) * 2;
                     break;
                 }
         }
@@ -107,24 +126,34 @@ public class CameraBoundCollider : MonoBehaviour
         switch (position)
         {
             case Position.LEFT:
-                x += -(halfWidth + (bc.size.x / 2) + pixelOffset);
+                x += -(halfWidth + (bc.size.x / 2) + _pixelOffset);
                 break;
             case Position.RIGHT:
-                x += halfWidth + (bc.size.x / 2) + pixelOffset;
+                x += halfWidth + (bc.size.x / 2) + _pixelOffset;
                 break;
             case Position.TOP:
-                y += halfHeight + (bc.size.y / 2) + pixelOffset;
+                y += halfHeight + (bc.size.y / 2) + _pixelOffset;
                 break;
             case Position.BOTTOM:
-                y += -(halfHeight + (bc.size.y / 2) + pixelOffset);
+                y += -(halfHeight + (bc.size.y / 2) + _pixelOffset);
                 break;
         }
 
         transform.position = new(x, y, transform.position.z);
     }
 
-    private void OnValidate()
+    private void UpdateDimensProperties()
     {
-        ResetBound();
+        _pixelThickness = pixelThickness / (float)ppc.assetsPPU;
+        _pixelOffset = pixelOffset / (float)ppc.assetsPPU;
+    }
+
+    private void UpdateDimensProperties(int thickness, int offset)
+    {
+        pixelThickness = thickness;
+        pixelOffset = offset;
+
+        _pixelThickness = pixelThickness / (float)ppc.assetsPPU;
+        _pixelOffset = pixelOffset / (float)ppc.assetsPPU;
     }
 }

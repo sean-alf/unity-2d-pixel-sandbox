@@ -11,12 +11,16 @@ public class DistanceWatcher : MonoBehaviour
     private int pixelDistance = 256;
 
     [SerializeField]
+    private int pixelsPerUnit = 32;
+
+    [SerializeField]
     private UnityEvent onActivate;
 
     [SerializeField]
     private UnityEvent onDeactivate;
 
     private Vector2 fixedPosition;
+    private float scaledPixels;
     private bool _isActivated = false;
     private bool Activated
     {
@@ -36,9 +40,10 @@ public class DistanceWatcher : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Awake()
     {
         fixedPosition = transform.position;
+        scaledPixels = pixelDistance / (float)pixelsPerUnit;
     }
 
     private void Update()
@@ -49,6 +54,6 @@ public class DistanceWatcher : MonoBehaviour
             return;
         }
 
-        Activated = Vector2.Distance(toBeWatched.transform.position, fixedPosition) < pixelDistance;
+        Activated = Vector2.Distance(toBeWatched.transform.position, fixedPosition) < scaledPixels;
     }
 }

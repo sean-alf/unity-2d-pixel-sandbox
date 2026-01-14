@@ -6,9 +6,9 @@
     "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
         "Worlds",
-        ".",
+        "TileSets",
         "Tilemaps",
-        "TileSets"
+        "."
     ],
     "fileStates": {
         "TileSets/GreenWall.tsx": {
@@ -46,11 +46,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 2.0391,
-            "selectedLayer": 0,
+            "scale": 6.0955,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1599.9705752537884,
-                "y": 1599.9705752537884
+                "x": 216.30711180378967,
+                "y": 91.46091378886062
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
