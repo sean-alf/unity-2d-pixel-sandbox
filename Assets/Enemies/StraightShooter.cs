@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(LinearAnimator))]
 [RequireComponent(typeof(ProjectileManager))]
@@ -42,6 +44,11 @@ public class StraightShooter : MonoBehaviour
         ChangeDirection(initialDirection.ToVector2());
     }
 
+    private void Start()
+    {
+        StartCoroutine(ShootTimer());
+    }
+
     private void OnValidate()
     {
         transform.rotation = Quaternion.LookRotation(Vector3.forward, initialDirection.ToVector2());
@@ -69,29 +76,37 @@ public class StraightShooter : MonoBehaviour
         }
     }
 
-    // IEnumerator MoveThenShoot(bool startWithRandomDir = true)
-    // {
-    //     if (startWithRandomDir) ChangeDirection(NewDirection());
+    IEnumerator ShootTimer()
+    {
+        Vector2 savedDirection;
 
-    //     yield return new WaitForSeconds(3 + (2 * Random.value));
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(2, 5));
 
-    //     currentDirection = Vector2.zero;
+            // Halt movement
+            savedDirection = currentDirection;
+            currentDirection = Vector2.zero;
 
-    //     yield return new WaitForSeconds(0.25f + (0.25f * Random.value));
+            yield return new WaitForSeconds(0.25f + (0.25f * Random.value));
 
-    //     for (int i = 0; i < Random.Range(1, 3); i++)
-    //     {
-    //         projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection()
-    //         {
-    //             direction = lookDirection,
-    //             position = transform.position
-    //         });
-    //         yield return _waitForSeconds0_5;
-    //     }
+            // Shoot 1 to 3 times
+            for (int i = 0; i < Random.Range(1, 3); i++)
+            {
+                projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection()
+                {
+                    direction = lookDirection,
+                    position = transform.position
+                });
+                yield return _waitForSeconds0_5;
+            }
 
-    //     yield return _waitForSeconds0_5;
-    //     yield return StartCoroutine(MoveThenShoot());
-    // }
+            yield return _waitForSeconds0_5;
+
+            // Resume movement
+            currentDirection = savedDirection;
+        }
+    }
 
     private void ChangeDirection(Vector2 direction)
     {
