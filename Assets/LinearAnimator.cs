@@ -115,13 +115,19 @@ public class LinearAnimator : MonoBehaviour
 
     public void Stop()
     {
-        if (coroutine != null)
+        coroutine.WhenNotNullClass(_ =>
         {
             StopCoroutine(coroutine);
             coroutine = null;
-        }
+        });
 
-        if (currentAnimation.inactiveSprite != null && sr != null) sr.sprite = currentAnimation.inactiveSprite;
+        currentAnimation.WhenNotNullClass(
+            a => sr.WhenNotNull(
+                sr => a.inactiveSprite.WhenNotNull(
+                    s => sr.sprite = s
+                )
+            )
+        );
     }
 
     private IEnumerator AnimateIntern(LinearAnimation animation, Action onFinished)
