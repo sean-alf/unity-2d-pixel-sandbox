@@ -138,8 +138,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b0c314ce0a514d5781ae78adf36a032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  onDeathPreAnimate:
+    m_PersistentCalls:
+      m_Calls: []
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 2
+  onlyDamagableBy: []
   logger:
     logLevel: 5
 --- !u!60 &2756273419691802104

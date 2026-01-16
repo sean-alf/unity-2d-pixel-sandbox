@@ -141,10 +141,10 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
         if (other.gameObject.TryGetComponent(out CollisionData data))
         {
-            if (data.type == CollisionData.Type.Damage)
+            if (data.Type == CollisionData.CollisionType.Damage)
             {
                 logger.D($"Hit by {LayerMask.LayerToName(data.gameObject.layer)}");
-                healthManager.DoDamage(data.strength);
+                healthManager.DoDamage(data.Strength);
                 return;
             }
         }

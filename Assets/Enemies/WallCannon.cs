@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 [RequireComponent(typeof(ProjectileManager))]
@@ -39,7 +38,6 @@ public class WallCannon : MonoBehaviour
 
         while (true)
         {
-            Debug.Log("WallCannon: Shoot");
             projectileManager.ShootPreserveRotation(new ProjectileManager.StartingPointWithDirection()
             {
                 direction = projectileSpawnDirection,

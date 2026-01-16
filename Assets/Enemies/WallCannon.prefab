@@ -280,7 +280,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bdbdf2253b56642c68f69b24d7e1264a, type: 2}
   madm: {fileID: 0}
   logger:
-    logLevel: 2
+    logLevel: 5
 --- !u!114 &574804052815560789
 MonoBehaviour:
   m_ObjectHideFlags: 0

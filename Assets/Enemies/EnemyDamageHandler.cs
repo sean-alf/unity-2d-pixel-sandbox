@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +12,9 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
     [SerializeField]
     private int health = 1;
+
+    [SerializeField]
+    private List<CollisionData> onlyDamagableBy;
 
     [Header("Debug")]
     [Space]
@@ -35,20 +39,23 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
         {
             logger.D($"has CollisionData");
 
-            if (data.type == CollisionData.Type.Damage)
+            if (onlyDamagableBy == null || onlyDamagableBy.Count == 0 || onlyDamagableBy.Find(d => d.ID == data.ID))
             {
-                logger.I($"type is Damage");
-                logger.I($"strength {data.strength}");
-
-                health -= data.strength;
-
-                if (health <= 0)
+                if (data.Type == CollisionData.CollisionType.Damage)
                 {
-                    onDeathPreAnimate?.Invoke();
-                    collider.enabled = false;
-                    var deathCloud = Instantiate(deathCloudTemplate, transform).GetComponent<DeathCloud>();
-                    deathCloud.onAnimationEnd += Die;
-                    deathCloud.Begin();
+                    logger.D($"type is Damage");
+                    logger.D($"strength {data.Strength}");
+
+                    health -= data.Strength;
+
+                    if (health <= 0)
+                    {
+                        onDeathPreAnimate?.Invoke();
+                        collider.enabled = false;
+                        var deathCloud = Instantiate(deathCloudTemplate, transform).GetComponent<DeathCloud>();
+                        deathCloud.onAnimationEnd += Die;
+                        deathCloud.Begin();
+                    }
                 }
             }
         }
