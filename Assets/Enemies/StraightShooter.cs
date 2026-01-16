@@ -23,7 +23,7 @@ public class StraightShooter : MonoBehaviour
     private LinearAnimator animator;
     private ProjectileManager projectileManager;
     private Vector2 currentDirection;
-
+    private int layerMask;
     private bool autoTurnCorner = false;
 
     [SerializeField]
@@ -37,6 +37,8 @@ public class StraightShooter : MonoBehaviour
         projectileManager = GetComponent<ProjectileManager>();
 
         projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
+        layerMask = Physics2D.GetLayerCollisionMask(gameObject.layer)
+            & ~((1 << LayerMask.NameToLayer(LayerNames.Player)) | (1 << LayerMask.NameToLayer(LayerNames.Projectile)));
 
         ChangeDirection(initialDirection.ToVector2());
     }
@@ -116,11 +118,11 @@ public class StraightShooter : MonoBehaviour
 
         newDirection = perp;
 
-        if (IsClearToTurn(newDirection, PERIPHERAL_PATH_DISTANCE)) return true;
+        if (IsPathOpen(newDirection, PERIPHERAL_PATH_DISTANCE)) return true;
 
         newDirection = oppositePerp;
 
-        if (IsClearToTurn(newDirection, PERIPHERAL_PATH_DISTANCE)) return true;
+        if (IsPathOpen(newDirection, PERIPHERAL_PATH_DISTANCE)) return true;
 
         return false;
     }
@@ -130,15 +132,10 @@ public class StraightShooter : MonoBehaviour
     private bool IsPathBlocked(Vector2 direction, float distance)
     {
         var raycastPosition = transform.position.Add(collider.bounds.extents * direction);
-        var hits = Physics2D.RaycastAll(raycastPosition, direction, distance, Physics2D.GetLayerCollisionMask(gameObject.layer));
+        Vector2 size = new(collider.bounds.size.x - 1f / 16f, distance);
+        var angle = Vector2.SignedAngle(Vector2.up, direction);
+        var hits = Physics2D.BoxCastAll(raycastPosition, size, angle, direction, 0, layerMask);
         return gameObject.HasHits(hits);
-    }
-
-    private bool IsClearToTurn(Vector2 direction, float distance)
-    {
-        var raycastPosition = transform.position.Add(collider.bounds.extents * direction);
-        var hits = Physics2D.BoxCastAll(raycastPosition, collider.bounds.size, 0, direction, distance, Physics2D.GetLayerCollisionMask(gameObject.layer));
-        return !gameObject.HasHits(hits);
     }
 
     IEnumerator AutoTurnCornersTimer()
