@@ -23,11 +23,8 @@ public class StraightShooter : MonoBehaviour
     private LinearAnimator animator;
     private ProjectileManager projectileManager;
     private Vector2 currentDirection;
-    private Vector2 lookDirection = Vector2.up;
 
-    private Vector2 raycastPosition;
-    private Vector2 raycastDirection;
-    private float raycastDistance;
+    private bool autoTurnCorner = false;
 
     [SerializeField]
     private CardinalDirections initialDirection;
@@ -47,6 +44,7 @@ public class StraightShooter : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ShootTimer());
+        StartCoroutine(AutoTurnCornersTimer());
     }
 
     private void OnValidate()
@@ -71,8 +69,85 @@ public class StraightShooter : MonoBehaviour
             {
                 ChangeDirection(NewDirection());
             }
+            else if (autoTurnCorner && LookForNextOpenCorner(out var newDirection))
+            {
+                autoTurnCorner = false;
+                ChangeDirection(newDirection);
+            }
+
             animator.Animate("Default");
             rb.MovePosition(rb.position + speed * Time.fixedDeltaTime * currentDirection);
+        }
+    }
+
+    private void ChangeDirection(Vector2 direction)
+    {
+        currentDirection = direction;
+        rb.SetRotation(Quaternion.LookRotation(Vector3.forward, currentDirection));
+    }
+
+    private Vector2 NewDirection()
+    {
+        var randomSign = CollectionsExtensions.SelectRandom(signs);
+        var perp = randomSign * Vector2.Perpendicular(currentDirection);
+        var oppositePerp = -perp;
+        var retreat = -currentDirection;
+
+        // First check the randomly selected perpendicular direction
+        // Return it if it's not blocked
+        if (IsPathOpen(perp, PERIPHERAL_PATH_DISTANCE)) return perp;
+        // Next, check the opposite perpendicular direction
+        // Return it if it's not blocked
+        if (IsPathOpen(oppositePerp, PERIPHERAL_PATH_DISTANCE)) return oppositePerp;
+        // If neither of the perpendicular directions are open, then check to the rear
+        // Return it if it's not blocked
+        if (IsPathOpen(-currentDirection, FORWARD_PATH_DISTANCE)) return retreat;
+        // At this point, if the forward direction is not blocked, return it
+        if (IsPathOpen(currentDirection, FORWARD_PATH_DISTANCE)) return currentDirection;
+        // Otherwise, just stop
+        return Vector2.zero;
+    }
+
+    private bool LookForNextOpenCorner(out Vector2 newDirection)
+    {
+        var randomSign = CollectionsExtensions.SelectRandom(signs);
+        var perp = randomSign * Vector2.Perpendicular(currentDirection);
+        var oppositePerp = -perp;
+
+        newDirection = perp;
+
+        if (IsClearToTurn(newDirection, PERIPHERAL_PATH_DISTANCE)) return true;
+
+        newDirection = oppositePerp;
+
+        if (IsClearToTurn(newDirection, PERIPHERAL_PATH_DISTANCE)) return true;
+
+        return false;
+    }
+
+    private bool IsPathOpen(Vector2 direction, float distance) => !IsPathBlocked(direction, distance);
+
+    private bool IsPathBlocked(Vector2 direction, float distance)
+    {
+        var raycastPosition = transform.position.Add(collider.bounds.extents * direction);
+        var hits = Physics2D.RaycastAll(raycastPosition, direction, distance, Physics2D.GetLayerCollisionMask(gameObject.layer));
+        return gameObject.HasHits(hits);
+    }
+
+    private bool IsClearToTurn(Vector2 direction, float distance)
+    {
+        var raycastPosition = transform.position.Add(collider.bounds.extents * direction);
+        var hits = Physics2D.BoxCastAll(raycastPosition, collider.bounds.size, 0, direction, distance, Physics2D.GetLayerCollisionMask(gameObject.layer));
+        return !gameObject.HasHits(hits);
+    }
+
+    IEnumerator AutoTurnCornersTimer()
+    {
+        while (true)
+        {
+            yield return new WaitWhile(() => autoTurnCorner);
+            yield return new WaitForSeconds(Random.Range(5, 10));
+            autoTurnCorner = true;
         }
     }
 
@@ -95,7 +170,7 @@ public class StraightShooter : MonoBehaviour
             {
                 projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection()
                 {
-                    direction = lookDirection,
+                    direction = transform.rotation * Vector2.up,
                     position = transform.position
                 });
                 yield return _waitForSeconds0_5;
@@ -106,55 +181,5 @@ public class StraightShooter : MonoBehaviour
             // Resume movement
             currentDirection = savedDirection;
         }
-    }
-
-    private void ChangeDirection(Vector2 direction)
-    {
-        currentDirection = direction;
-        if (currentDirection != Vector2.zero) lookDirection = currentDirection;
-        rb.SetRotation(Quaternion.LookRotation(Vector3.forward, currentDirection));
-    }
-
-    private Vector2 NewDirection()
-    {
-        var randomSign = CollectionsExtensions.SelectRandom(signs);
-        var perp = randomSign * Vector2.Perpendicular(currentDirection);
-        var oppositePerp = -perp;
-        var retreat = -currentDirection;
-
-        // First check the randomly selected perpendicular direction
-        // Return it if it's not blocked
-        if (!IsPathBlocked(perp, PERIPHERAL_PATH_DISTANCE)) return perp;
-        // Next, check the opposite perpendicular direction
-        // Return it if it's not blocked
-        if (!IsPathBlocked(oppositePerp, PERIPHERAL_PATH_DISTANCE)) return oppositePerp;
-        // If neither of the perpendicular directions are open, then check to the rear
-        // Return it if it's not blocked
-        if (!IsPathBlocked(-currentDirection, FORWARD_PATH_DISTANCE)) return retreat;
-        // At this point, if the forward direction is not blocked, return it
-        if (!IsPathBlocked(currentDirection, FORWARD_PATH_DISTANCE)) return currentDirection;
-        // Otherwise, just stop
-        return Vector2.zero;
-    }
-
-    private bool IsPathBlocked(Vector2 direction, float distance)
-    {
-        raycastDirection = direction;
-        raycastPosition = transform.position.Add(collider.bounds.extents * raycastDirection);
-        raycastDistance = distance;
-
-        var hits = Physics2D.RaycastAll(raycastPosition, raycastDirection, raycastDistance, Physics2D.GetLayerCollisionMask(gameObject.layer));
-        foreach (var hit in hits)
-        {
-            if (hit.collider.name == gameObject.name) continue;
-            // Debug.Log($"StraightShooter: Raycast hit {hit.collider.name}");
-        }
-
-        return gameObject.HasHits(hits);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(raycastPosition, raycastPosition + (raycastDirection * raycastDistance));
     }
 }
