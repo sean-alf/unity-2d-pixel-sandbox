@@ -82,6 +82,8 @@ public class StraightShooter : MonoBehaviour
         }
     }
 
+    public void EnemyDamageHandler_OnDeathPreAnimate() => Stop();
+
     private void ChangeDirection(Vector2 direction)
     {
         currentDirection = direction;
@@ -138,6 +140,8 @@ public class StraightShooter : MonoBehaviour
         return gameObject.HasHits(hits);
     }
 
+    private void Stop() => currentDirection = Vector2.zero;
+
     IEnumerator AutoTurnCornersTimer()
     {
         while (true)
@@ -158,7 +162,7 @@ public class StraightShooter : MonoBehaviour
 
             // Halt movement
             savedDirection = currentDirection;
-            currentDirection = Vector2.zero;
+            Stop();
 
             yield return new WaitForSeconds(0.25f + (0.25f * Random.value));
 

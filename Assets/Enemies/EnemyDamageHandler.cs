@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider2D))]
 public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 {
+    public UnityEvent onDeathPreAnimate;
+
     [SerializeField]
     private GameObject deathCloudTemplate;
 
@@ -41,6 +44,7 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
                 if (health <= 0)
                 {
+                    onDeathPreAnimate?.Invoke();
                     collider.enabled = false;
                     var deathCloud = Instantiate(deathCloudTemplate, transform).GetComponent<DeathCloud>();
                     deathCloud.onAnimationEnd += Die;
