@@ -1,7 +1,6 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
 public class BasicProjectile : MonoBehaviour, ILoggerProvider
@@ -31,7 +30,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        TryGetComponent(out animator);
         sr = GetComponent<SpriteRenderer>();
 
         halfHeight = sr.bounds.size.y / 2.0f;
@@ -40,6 +39,12 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     private void OnCollisionEnter2D(Collision2D other)
     {
         rb.linearVelocity = Vector2.zero;
+
+        if (animator == null)
+        {
+            Animator_Finish();
+            return;
+        }
 
         var stateName = animationStateManager.GetAnimationData(id).finishStateName;
 

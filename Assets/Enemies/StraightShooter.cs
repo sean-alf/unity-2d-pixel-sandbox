@@ -27,7 +27,7 @@ public class StraightShooter : MonoBehaviour
     private bool autoTurnCorner = false;
 
     [SerializeField]
-    private CardinalDirections initialDirection;
+    private CardinalDirection initialDirection;
 
     private void Awake()
     {
