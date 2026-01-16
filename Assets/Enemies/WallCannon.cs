@@ -40,7 +40,7 @@ public class WallCannon : MonoBehaviour
         while (true)
         {
             Debug.Log("WallCannon: Shoot");
-            projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection()
+            projectileManager.ShootPreserveRotation(new ProjectileManager.StartingPointWithDirection()
             {
                 direction = projectileSpawnDirection,
                 position = projectileSpawnPosition

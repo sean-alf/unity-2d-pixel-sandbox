@@ -77,6 +77,11 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
         Use(startPosition, direction, Quaternion.Euler(0, 0, angleRads * Mathf.Rad2Deg));
     }
 
+    public void UsePreserveRotation(Vector2 direction, Vector3 startPosition)
+    {
+        Use(startPosition, direction, Quaternion.identity);
+    }
+
     private void Use(Vector3 startPosition, Vector2 direction, Quaternion rotation)
     {
         transform.SetPositionAndRotation(startPosition.Add(halfHeight * direction.normalized), rotation);
