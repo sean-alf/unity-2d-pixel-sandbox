@@ -63,6 +63,8 @@ public class AlfTmxImporter : CustomTmxImporter
         {
             foreach (var collider in colliders) collider.compositeOperation = Collider2D.CompositeOperation.Merge;
         }
+
+        if (layer.m_TiledName == "NPC Barrier" && tilemap.TryGetComponent(out TilemapRenderer r)) r.enabled = false;
     }
 
     private bool TryGetProperties(Component target, out SuperCustomProperties props, bool log)

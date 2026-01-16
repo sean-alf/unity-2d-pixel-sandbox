@@ -93,7 +93,7 @@
         "TileSets/MuddyGround.tsx"
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "int",
+    "property.type": "string",
     "recentFiles": [
         "TileSets/MuddyGround.tsx",
         "Tilemaps/w1-l3-map.tmx",
