@@ -191,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   id: 1
   speed: 12
+  canReflect: 0
   logger:
     logLevel: 5
 --- !u!61 &-1618711439479532105
@@ -253,3 +254,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CollisionData
   strength: 2
   type: 0
+  id: 

@@ -237,6 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   strength: 1
   type: 0
+  id: 
 --- !u!114 &-7308262779197194342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,5 +252,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   id: 0
   speed: 12
+  canReflect: 0
   logger:
     logLevel: 5

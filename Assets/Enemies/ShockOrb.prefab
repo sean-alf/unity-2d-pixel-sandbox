@@ -117,9 +117,9 @@ MonoBehaviour:
         - {fileID: -7137472753127587558, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
         - {fileID: 7278158322998898790, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
         - {fileID: -2265241128969917600, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
+        - {fileID: -2690916703434168688, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
+        - {fileID: 5802812199442768257, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
         - {fileID: -3304954038401248989, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
-        - {fileID: -2980149040000895350, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
-        - {fileID: -3256977298790451101, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
         inactiveSprite: {fileID: 0}
         type: 1
         delayDuration: 0.75
@@ -169,7 +169,7 @@ CircleCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -187,7 +187,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.63
 --- !u!50 &3971028382154437742
 Rigidbody2D:
   serializedVersion: 5
@@ -229,10 +229,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamageHandler
   onDeathPreAnimate:
     m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4622234208660013523}
+        m_TargetAssemblyTypeName: ShockOrb, Assembly-CSharp
+        m_MethodName: StopRotation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDeath:
+    m_PersistentCalls:
       m_Calls: []
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 1
   onlyDamagableBy:
   - {fileID: 2287008782070608329, guid: 5cf7ae7dc79ea48bdadd20f89932bdf3, type: 3}
   logger:
-    logLevel: 0
+    logLevel: 5

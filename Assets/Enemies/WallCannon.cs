@@ -11,6 +11,9 @@ public class WallCannon : MonoBehaviour
     private float initialShotDelay = 0f;
 
     [SerializeField]
+    private bool autoStart = true;
+
+    [SerializeField]
     private CardinalDirection direction;
 
     private ProjectileManager projectileManager;
@@ -18,6 +21,7 @@ public class WallCannon : MonoBehaviour
     private WaitForSeconds wait;
     private Vector2 projectileSpawnPosition;
     private Vector2 projectileSpawnDirection;
+    private Coroutine coroutine;
 
     private void Awake()
     {
@@ -28,9 +32,22 @@ public class WallCannon : MonoBehaviour
         UpdateValues();
     }
 
-    private void Start() => StartCoroutine(AutoShoot());
+    private void Start()
+    {
+        if (autoStart) StartAutoShooting();
+    }
 
     private void OnValidate() => UpdateValues();
+
+    public void StopAutoShooting() => coroutine.WhenNotNullClass(c => StopCoroutine(c));
+
+    public void StartAutoShooting() => coroutine.WhenNullClass(() => coroutine = StartCoroutine(AutoShoot()));
+
+    public void ShootOnce() => projectileManager.ShootPreserveRotation(new ProjectileManager.StartingPointWithDirection()
+    {
+        direction = projectileSpawnDirection,
+        position = projectileSpawnPosition
+    });
 
     private IEnumerator AutoShoot()
     {
@@ -38,11 +55,7 @@ public class WallCannon : MonoBehaviour
 
         while (true)
         {
-            projectileManager.ShootPreserveRotation(new ProjectileManager.StartingPointWithDirection()
-            {
-                direction = projectileSpawnDirection,
-                position = projectileSpawnPosition
-            });
+            ShootOnce();
             yield return wait;
         }
     }

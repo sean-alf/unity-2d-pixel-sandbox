@@ -7,6 +7,8 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 {
     public UnityEvent onDeathPreAnimate;
 
+    public UnityEvent onDeath;
+
     [SerializeField]
     private GameObject deathCloudTemplate;
 
@@ -63,6 +65,7 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
     private void Die()
     {
+        onDeath?.Invoke();
         Destroy(gameObject);
     }
 }

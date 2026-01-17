@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   transitionPoints: []
   logger:
-    logLevel: 2
+    logLevel: 5
 --- !u!4 &1654408609
 Transform:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(LinearAnimator))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(HealthManager))]
-public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider
+public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider, ITriggerer
 {
     public bool IsInputReady => input != null;
     public bool IsInputActive

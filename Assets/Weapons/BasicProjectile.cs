@@ -14,6 +14,9 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     [Range(1, 40)]
     private int speed = 1;
 
+    [SerializeField]
+    private bool canReflect = false;
+
     [Header("Debug")]
     [Space]
 
@@ -38,6 +41,12 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (canReflect && other.gameObject.TryGetComponent(out ReflectingBlock r))
+        {
+            r.HandleReflect(other);
+            return;
+        }
+
         rb.linearVelocity = Vector2.zero;
 
         if (animator == null)
