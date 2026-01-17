@@ -15,7 +15,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     private int speed = 1;
 
     [SerializeField]
-    private bool canReflect = false;
+    private bool allowRotation = true;
 
     [Header("Debug")]
     [Space]
@@ -41,12 +41,6 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (canReflect && other.gameObject.TryGetComponent(out ReflectingBlock r))
-        {
-            r.HandleReflect(other);
-            return;
-        }
-
         rb.linearVelocity = Vector2.zero;
 
         if (animator == null)
@@ -65,6 +59,12 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
         {
             logger.E($"finish state name null!");
         }
+    }
+
+    public void UpdateRotation()
+    {
+        if (!allowRotation) return;
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, rb.linearVelocity);
     }
 
     public void Use(Vector2 direction, Vector3 startPosition)
@@ -86,13 +86,9 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
         Use(startPosition, direction, Quaternion.Euler(0, 0, angleRads * Mathf.Rad2Deg));
     }
 
-    public void UsePreserveRotation(Vector2 direction, Vector3 startPosition)
-    {
-        Use(startPosition, direction, Quaternion.identity);
-    }
-
     private void Use(Vector3 startPosition, Vector2 direction, Quaternion rotation)
     {
+        if (!allowRotation) rotation = Quaternion.identity;
         transform.SetPositionAndRotation(startPosition.Add(halfHeight * direction.normalized), rotation);
         rb.linearVelocity = speed * direction;
     }

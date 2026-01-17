@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   id: -1
   speed: 6
-  canReflect: 1
+  allowRotation: 0
   logger:
     logLevel: 5
 --- !u!114 &2287008782070608329

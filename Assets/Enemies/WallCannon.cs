@@ -43,7 +43,7 @@ public class WallCannon : MonoBehaviour
 
     public void StartAutoShooting() => coroutine.WhenNullClass(() => coroutine = StartCoroutine(AutoShoot()));
 
-    public void ShootOnce() => projectileManager.ShootPreserveRotation(new ProjectileManager.StartingPointWithDirection()
+    public void ShootOnce() => projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection()
     {
         direction = projectileSpawnDirection,
         position = projectileSpawnPosition

@@ -72,19 +72,6 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         ;
     }
 
-    public void ShootPreserveRotation(params StartingPointWithDirection[] startingPoints)
-    {
-        foreach (var s in startingPoints)
-        {
-            selectedProjectile.Instantiate(p =>
-            {
-                p.gameObject.layer = shootingLayer;
-                p.UsePreserveRotation(s.direction, s.position);
-            });
-        }
-        ;
-    }
-
     public void Shoot(params StartingPointWithAngleDegrees[] startingPoints)
     {
         foreach (var s in startingPoints)

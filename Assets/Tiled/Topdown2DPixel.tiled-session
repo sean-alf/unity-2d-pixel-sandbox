@@ -46,11 +46,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 1.4114,
+            "scale": 0.78,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1600.1842142553492,
-                "y": 1599.4756978886212
+                "x": 496.79487179487177,
+                "y": 1173.7179487179487
             }
         },
         "Tilemaps/w1-l2-map.tmx": {

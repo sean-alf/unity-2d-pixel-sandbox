@@ -238,84 +238,6 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: ReflectingBlockAngle_1
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 76
-      width: 64
-      height: 64
-    spriteID: f572b1c644d754059962c934d0935d61
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline:
-    - outline:
-      - {x: 32, y: -30}
-      - {x: 32, y: 32}
-      - {x: -32, y: -32}
-      - {x: 30, y: -32}
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: ReflectingBlockAngle_2
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 148
-      width: 64
-      height: 64
-    spriteID: fa6110a0ac5c04dbe8eeed23d3111d5d
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline:
-    - outline:
-      - {x: 32, y: 30}
-      - {x: 30, y: 32}
-      - {x: -32, y: 32}
-      - {x: 32, y: -32}
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: ReflectingBlockAngle_3
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 76
-      y: 4
-      width: 64
-      height: 64
-    spriteID: 708bc3022b7e048df877d3ad56bc9dc2
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline:
-    - outline:
-      - {x: 32, y: 32}
-      - {x: -30, y: 32}
-      - {x: -32, y: 30}
-      - {x: -32, y: -32}
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
   tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -330,7 +252,7 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: Frame_0
+    - name: ReflectingBlockAngle
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -339,33 +261,6 @@ ScriptedImporter:
         width: 64
         height: 64
       spriteId: 063e2f2ecc1de42a1b3c1e8df6614d6b
-    - name: Frame_1
-      frameIndex: 1
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 64
-        height: 64
-      spriteId: 029a77800c35e43c6af3f214697ad3d2
-    - name: Frame_2
-      frameIndex: 2
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 64
-        height: 64
-      spriteId: 66e803563ec4746b8a35375d27258216
-    - name: Frame_3
-      frameIndex: 3
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 64
-        height: 64
-      spriteId: 6f7bc8fccfebd43ffa72d2ec63fcc928
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -412,4 +307,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 64, y: 64}
-  previousTextureSize: {x: 256, y: 256}
+  previousTextureSize: {x: 128, y: 128}
