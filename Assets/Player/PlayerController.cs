@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(LinearAnimator))]
-[RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(HealthManager))]
+[RequireComponent(typeof(LinearAnimator))]
+[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(ProjectileManager))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider, ITriggerer
 {
     public bool IsInputReady => input != null;
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     }
 
     [SerializeField]
-    [Range(1, 10)]
+    [Range(1, 20)]
     private int speed = 1;
 
     [SerializeField]
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private PlayerInput input;
     private ProjectileManager projectileManager;
     private HealthManager healthManager;
+    private ExternalForceReceiver efr;
     private InteractIndicator interactIndicator;
     private Vector2 currentDirection;
     private Vector2 lastNonIdleDirection = Vector2.up;
@@ -54,6 +55,8 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         input = GetComponent<PlayerInput>();
         projectileManager = GetComponent<ProjectileManager>();
         healthManager = GetComponent<HealthManager>();
+
+        efr = GetComponentInChildren<ExternalForceReceiver>();
 
         InputSystem_Actions_Names.Player.Move(input).performed += OnMove;
         InputSystem_Actions_Names.Player.Move(input).canceled += OnMove;
@@ -73,11 +76,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!currentDirection.IsIdle())
-        {
-            Vector2 movementOffset = speed * Time.fixedDeltaTime * currentDirection;
-            rb.MovePosition(movementOffset + rb.position);
-        }
+        rb.linearVelocity = efr.AppliedForce + speed * currentDirection;
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -203,8 +202,5 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         input.DeactivateInput();
     }
 
-    void AutoMover.IAutoMoverTarget.OnDirectionChanged(Vector2 direction)
-    {
-        OnDirectionChanged(direction);
-    }
+    void AutoMover.IAutoMoverTarget.OnDirectionChanged(Vector2 direction) => OnDirectionChanged(direction);
 }

@@ -121,9 +121,9 @@ MonoBehaviour:
         - {fileID: 5802812199442768257, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
         - {fileID: -3304954038401248989, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
         inactiveSprite: {fileID: 0}
-        type: 1
-        delayDuration: 0.75
+        duration: 0.25
         loop: 1
+  currentDuration: 0
 --- !u!114 &4622234208660013523
 MonoBehaviour:
   m_ObjectHideFlags: 0

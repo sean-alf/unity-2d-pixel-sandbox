@@ -119,9 +119,9 @@ MonoBehaviour:
         - {fileID: -1403417745425262354, guid: eb83abf1e5e5940adbd513342277008e, type: 3}
         - {fileID: -8548495380155617751, guid: eb83abf1e5e5940adbd513342277008e, type: 3}
         inactiveSprite: {fileID: -1403417745425262354, guid: eb83abf1e5e5940adbd513342277008e, type: 3}
-        type: 1
-        delayDuration: 0.3
+        duration: 0.35
         loop: 1
+  currentDuration: 0
 --- !u!114 &7743796823536458332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +243,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 1
   onlyDamagableBy: []

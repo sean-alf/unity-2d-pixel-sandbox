@@ -6,25 +6,39 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class LinearAnimator : MonoBehaviour
 {
-    public enum DelayType
-    {
-        STEP,
-        TOTAL,
-    }
-
     [Serializable]
     public class LinearAnimation
     {
-        public Sprite[] sprites;
+        [SerializeField]
+        private Sprite[] sprites;
 
+        [SerializeField]
         [Tooltip("The sprite to use when not animating")]
-        public Sprite inactiveSprite;
+        private Sprite inactiveSprite;
 
-        public DelayType type;
+        [SerializeField]
+        private float duration;
 
-        public float delayDuration;
+        [SerializeField]
+        private bool loop = false;
 
-        public bool loop = false;
+        private WaitForSeconds stepWait;
+
+        public Sprite[] Sprites => sprites;
+        public Sprite InactiveSprite => inactiveSprite;
+        public bool Loop => loop;
+
+        public WaitForSeconds GetStepWait()
+        {
+            stepWait ??= new(duration / sprites.Length);
+            return stepWait;
+        }
+
+        public void UpdateDuration(float duration)
+        {
+            this.duration = duration;
+            stepWait = new(duration / sprites.Length);
+        }
     }
 
     [Serializable]
@@ -36,7 +50,6 @@ public class LinearAnimator : MonoBehaviour
     private SpriteRenderer sr;
     private Coroutine coroutine;
     private LinearAnimation currentAnimation;
-    private WaitForSeconds waitForStepDelayDuration;
     private bool animateReverse = false;
 
     private void Awake()
@@ -86,9 +99,7 @@ public class LinearAnimator : MonoBehaviour
         }
 
         currentAnimation = animations[animationName];
-        var sprites = currentAnimation.sprites;
-
-        SetStepDelay(currentAnimation);
+        var sprites = currentAnimation.Sprites;
 
         if (sprites.Count() == 0)
         {
@@ -123,16 +134,28 @@ public class LinearAnimator : MonoBehaviour
 
         currentAnimation.WhenNotNullClass(
             a => sr.WhenNotNull(
-                sr => a.inactiveSprite.WhenNotNull(
+                sr => a.InactiveSprite.WhenNotNull(
                     s => sr.sprite = s
                 )
             )
         );
     }
 
+    public void SetDuration(string key, float duration)
+    {
+        if (animations.ContainsKey(key))
+        {
+            animations[key].UpdateDuration(duration);
+        }
+        else
+        {
+            Debug.LogError($"LinearAnimator ({gameObject.name}): no animation with key {key}!");
+        }
+    }
+
     private IEnumerator AnimateIntern(LinearAnimation animation, Action onFinished)
     {
-        if (animation.loop)
+        if (animation.Loop)
         {
             while (true)
             {
@@ -150,14 +173,14 @@ public class LinearAnimator : MonoBehaviour
 
     private IEnumerator AnimateThrough(LinearAnimation animation)
     {
-        var sprites = animation.sprites;
+        var sprites = animation.Sprites;
 
         if (animateReverse)
         {
             for (int i = sprites.Count() - 1; i >= 0; i--)
             {
                 sr.sprite = sprites[i];
-                yield return waitForStepDelayDuration;
+                yield return animation.GetStepWait();
             }
         }
         else
@@ -165,23 +188,8 @@ public class LinearAnimator : MonoBehaviour
             for (int i = 0; i < sprites.Count(); i++)
             {
                 sr.sprite = sprites[i];
-                yield return waitForStepDelayDuration;
+                yield return animation.GetStepWait();
             }
         }
-    }
-
-    private void OnValidate()
-    {
-        if (currentAnimation == null) return;
-        SetStepDelay(currentAnimation);
-    }
-
-    private void SetStepDelay(LinearAnimation animation)
-    {
-        float stepDelay = animation.delayDuration;
-
-        if (animation.type == DelayType.TOTAL) stepDelay = animation.delayDuration / animation.sprites.Count();
-
-        waitForStepDelayDuration = new(stepDelay);
     }
 }

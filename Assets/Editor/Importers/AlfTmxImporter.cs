@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using SuperTiled2Unity;
 using SuperTiled2Unity.Editor;
@@ -59,69 +58,7 @@ public class AlfTmxImporter : CustomTmxImporter
         var layer = tilemap.GetComponent<SuperTileLayer>();
         var colliders = tilemap.GetComponentsInChildren<Collider2D>();
 
-        if (layer.m_TiledName == "Wall")
-        {
-            foreach (var collider in colliders) collider.compositeOperation = Collider2D.CompositeOperation.Merge;
-        }
-
+        if (layer.m_TiledName == "Wall") foreach (var collider in colliders) collider.compositeOperation = Collider2D.CompositeOperation.Merge;
         if (layer.m_TiledName == "NPC Barrier" && tilemap.TryGetComponent(out TilemapRenderer r)) r.enabled = false;
-    }
-
-    private bool TryGetProperties(Component target, out SuperCustomProperties props, bool log)
-    {
-        if (target.TryGetComponent(out props))
-        {
-            Debug.Log($"{target.name}: Custom properties count is {props.m_Properties.Count}");
-
-            if (props.m_Properties.Count == 0)
-            {
-                // Not worth trying to get properties if there are none...
-                return false;
-            }
-
-            if (log)
-            {
-                foreach (var p in props.m_Properties)
-                {
-                    Debug.Log($"\tName: {p.m_Name}\n\tType: {p.m_Type}\n\tValue: {p.m_Value}\n");
-                }
-            }
-
-            return true;
-        }
-        else
-        {
-            Debug.LogError($"No {nameof(SuperCustomProperties)} attached to {target.name}");
-        }
-
-        return false;
-    }
-
-    private void LogAllChildren(TmxAssetImportedArgs args)
-    {
-        var t = args.ImportedSuperMap.gameObject.transform;
-        var children = GetAllDescendants(t);
-
-        foreach (var child in children)
-        {
-            Debug.Log($"child found {child.name}");
-        }
-    }
-
-    private List<GameObject> GetAllDescendants(Transform transform)
-    {
-        List<GameObject> children = new();
-        CollectDescendants(children, transform);
-        return children;
-    }
-
-    private void CollectDescendants(List<GameObject> children, Transform transform)
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            var t = transform.GetChild(i);
-            children.Add(t.gameObject);
-            CollectDescendants(children, t);
-        }
     }
 }

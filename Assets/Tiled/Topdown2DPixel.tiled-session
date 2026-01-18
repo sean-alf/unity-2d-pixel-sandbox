@@ -6,11 +6,15 @@
     "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
         "Worlds",
-        "Tilemaps",
+        ".",
         "TileSets",
-        "."
+        "Tilemaps"
     ],
     "fileStates": {
+        "TileSets/Conveyer.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2.19
+        },
         "TileSets/GreenWall.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
@@ -46,11 +50,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 0.78,
-            "selectedLayer": 1,
+            "scale": 1.41,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 496.79487179487177,
-                "y": 1173.7179487179487
+                "x": 1600,
+                "y": 1599.645390070922
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -60,7 +64,7 @@
             "scale": 1.4495,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1600.2069679199726,
+                "x": 1599.8620213866852,
                 "y": 1600.2069679199726
             }
         },
@@ -68,11 +72,11 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 0.2514,
+            "scale": 0.7855,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1601.0342084327763,
-                "y": 1601.0342084327765
+                "x": 1600.2546148949714,
+                "y": 1599.618077657543
             }
         }
     },
@@ -89,19 +93,19 @@
     "openFiles": [
         "Tilemaps/w1-l1-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
-        "Tilemaps/w1-l3-map.tmx",
-        "TileSets/MuddyGround.tsx"
+        "Tilemaps/w1-l3-map.tmx"
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "string",
+    "property.type": "float",
     "recentFiles": [
-        "TileSets/MuddyGround.tsx",
         "Tilemaps/w1-l3-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
+        "TileSets/Conveyer.tsx",
+        "TileSets/MuddyGround.tsx",
+        "TileSets/Wall.tsx",
         "Tilemaps/TestMap.tmx",
         "Tilemaps/TestMap2.tmx",
-        "TileSets/Wall.tsx",
         "TileSets/GreenWall.tsx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
