@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2231414648554708074}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.5, y: 0, z: 0}
+  m_LocalPosition: {x: 2.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -117,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 5235899187864961843}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.5, y: 0, z: 0}
+  m_LocalPosition: {x: -2.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -172,11 +172,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1868477392693486748, guid: f2fd055cf9cc24369b0d667320a000ff, type: 3}
+  m_Sprite: {fileID: -7540729239879756255, guid: f2fd055cf9cc24369b0d667320a000ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 2740229986740589471}
   - component: {fileID: 5336262537572243147}
   m_Layer: 10
-  m_Name: ConveyerNormal
+  m_Name: Conveyer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,7 +210,7 @@ Transform:
   m_GameObject: {fileID: 6606491841747149594}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 26.59375, y: -22.03125, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -244,13 +244,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7adc43a82aa34c58b255ba965208ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  length: 10
+  length: 4
+  width: 2
   direction: 2
   autoStart: 1
-  speed: 4
+  speed: 5
   showStartEdge: 1
   showEndEdge: 1
-  active: 0
+  animateInEditor: 0
 --- !u!50 &5336262537572243147
 Rigidbody2D:
   serializedVersion: 5
@@ -289,7 +290,6 @@ GameObject:
   - component: {fileID: 2866290185216631846}
   - component: {fileID: 7083810828244672925}
   - component: {fileID: 3932510986777964680}
-  - component: {fileID: 3342069175171808365}
   m_Layer: 10
   m_Name: Track
   m_TagString: Untagged
@@ -338,7 +338,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 972df9b1dd58249fdbcd830a960581f5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -361,12 +361,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2121206385975962636, guid: f2fd055cf9cc24369b0d667320a000ff, type: 3}
+  m_Sprite: {fileID: -2580436430710659493, guid: e2683c2d0fc6a4d43b19e46b0f4c214a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 2
-  m_Size: {x: 10, y: 2}
+  m_Size: {x: 4, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -407,37 +407,13 @@ BoxCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0, y: 0.40625, z: 0, w: 0.40625}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 2}
-    newSize: {x: 10, y: 2}
+    newSize: {x: 4, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 1
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &3342069175171808365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7464576250248904320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4e8bc5df205b4e7eab3af5c42e7b79e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
-  animations:
-    kvpList:
-    - key: Default
-      value:
-        sprites:
-        - {fileID: -2121206385975962636, guid: f2fd055cf9cc24369b0d667320a000ff, type: 3}
-        - {fileID: 6829834167213514304, guid: f2fd055cf9cc24369b0d667320a000ff, type: 3}
-        - {fileID: 5671293778910835889, guid: f2fd055cf9cc24369b0d667320a000ff, type: 3}
-        - {fileID: 26159109241669560, guid: f2fd055cf9cc24369b0d667320a000ff, type: 3}
-        inactiveSprite: {fileID: 0}
-        duration: 0
-        loop: 1

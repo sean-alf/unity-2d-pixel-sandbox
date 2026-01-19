@@ -5,10 +5,10 @@
     },
     "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
-        "Worlds",
         ".",
-        "TileSets",
-        "Tilemaps"
+        "Tilemaps",
+        "Worlds",
+        "TileSets"
     ],
     "fileStates": {
         "TileSets/Conveyer.tsx": {
@@ -51,10 +51,10 @@
                 7
             ],
             "scale": 1.41,
-            "selectedLayer": 3,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 1600,
-                "y": 1599.645390070922
+                "x": 1002.127659574468,
+                "y": 747.1631205673759
             }
         },
         "Tilemaps/w1-l2-map.tmx": {

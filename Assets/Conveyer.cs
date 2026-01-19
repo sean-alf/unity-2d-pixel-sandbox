@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Conveyer : MonoBehaviour
@@ -5,6 +6,10 @@ public class Conveyer : MonoBehaviour
     [SerializeField]
     [Range(1, 100)]
     private int length = 1;
+
+    [SerializeField]
+    [Range(2, 50)]
+    private int width = 2;
 
     [SerializeField]
     private CardinalDirection direction;
@@ -21,28 +26,28 @@ public class Conveyer : MonoBehaviour
     [SerializeField]
     private bool showEndEdge = true;
 
-    [Space]
-    [Header("Debug")]
-
     [SerializeField]
-    private bool active = false;
+    private bool animateInEditor = false;
 
-    private LinearAnimator animator;
     private Transform startEdge;
     private Transform track;
     private Transform endEdge;
+    private MaterialPropertyBlock materialPropertyBlock;
+
+    private static readonly int SpeedID = Shader.PropertyToID("_Speed");
 
     private void Awake()
     {
+        startEdge = transform.Find("StartEdge");
+        track = transform.Find("Track");
+        endEdge = transform.Find("EndEdge");
+        materialPropertyBlock = new();
         UpdatePositionAndRotation();
     }
 
     private void Start()
     {
-        animator = GetComponentInChildren<LinearAnimator>();
-
         UpdateAnimationSpeed();
-
         if (autoStart) Activate();
     }
 
@@ -56,51 +61,65 @@ public class Conveyer : MonoBehaviour
 
     private void OnValidate()
     {
+        startEdge = transform.Find("StartEdge");
+        track = transform.Find("Track");
+        endEdge = transform.Find("EndEdge");
+
+        materialPropertyBlock ??= new();
+
+#if UNITY_EDITOR
+        EditorApplication.delayCall += () =>
+        {
+            if (this == null) return;
+            UpdatePositionAndRotation();
+            if (animateInEditor || Application.isPlaying)
+            {
+                UpdateAnimationSpeed();
+            }
+            else
+            {
+                track.WhenFound<SpriteRenderer>(trackSR => StopTrackAnimation(trackSR));
+            }
+        };
+#else
         UpdatePositionAndRotation();
         UpdateAnimationSpeed();
+#endif
     }
 
     public void Activate()
     {
-        if (active || animator == null) return;
-        active = true;
-
-        if (direction == CardinalDirection.Right || direction == CardinalDirection.Down)
-        {
-            animator.Animate("Default");
-        }
-        else
-        {
-            animator.AnimateReverse("Default");
-        }
-
+        UpdateAnimationSpeed();
         track.WhenFound<Collider2D>(c => c.enabled = true);
     }
 
     public void Stop()
     {
-        if (!active || animator == null) return;
-        active = false;
-        animator.Stop();
+        track.WhenFound<SpriteRenderer>(trackSR => StopTrackAnimation(trackSR));
         track.WhenFound<Collider2D>(c => c.enabled = false);
     }
 
     private void UpdateAnimationSpeed()
     {
-        if (animator != null)
+        if (track != null && track.TryGetComponent(out SpriteRenderer trackSR))
         {
-            float duration = 1f / speed;
-            animator.SetDuration("Default", duration);
+            var sign = direction == CardinalDirection.Right || direction == CardinalDirection.Down ? -1 : 1;
+
+            trackSR.GetPropertyBlock(materialPropertyBlock);
+            materialPropertyBlock.SetVector(SpeedID, new(sign * speed, 0));
+            trackSR.SetPropertyBlock(materialPropertyBlock);
         }
     }
 
+    private void StopTrackAnimation(SpriteRenderer trackSR)
+    {
+        trackSR.GetPropertyBlock(materialPropertyBlock);
+        materialPropertyBlock.SetVector(SpeedID, Vector2.zero);
+        trackSR.SetPropertyBlock(materialPropertyBlock);
+    }
 
     private void UpdatePositionAndRotation()
     {
-        startEdge = transform.Find("StartEdge");
-        track = transform.Find("Track");
-        endEdge = transform.Find("EndEdge");
-
         if (track.TryGetComponent(out SpriteRenderer trackSR)
             && startEdge.TryGetComponent(out SpriteRenderer startSR)
             && endEdge.TryGetComponent(out SpriteRenderer endSR))
@@ -108,8 +127,9 @@ public class Conveyer : MonoBehaviour
             startSR.flipX = direction == CardinalDirection.Left || direction == CardinalDirection.Up;
             trackSR.flipY = direction == CardinalDirection.Up || direction == CardinalDirection.Down;
             endSR.flipX = direction == CardinalDirection.Left || direction == CardinalDirection.Up;
-
-            trackSR.size = new(length, trackSR.size.y);
+            startSR.size = new(startSR.size.x, width);
+            trackSR.size = new(length, width);
+            endSR.size = startSR.size;
 
             if (direction == CardinalDirection.Right || direction == CardinalDirection.Left)
             {
@@ -120,18 +140,12 @@ public class Conveyer : MonoBehaviour
                 transform.rotation = Quaternion.FromToRotation(CardinalDirection.Right.ToVector2(), CardinalDirection.Down.ToVector2());
             }
 
-
             startEdge.localPosition = new(trackSR.localBounds.min.x - startSR.sprite.bounds.extents.x, trackSR.localBounds.center.y);
             endEdge.localPosition = new(trackSR.localBounds.max.x + endSR.sprite.bounds.extents.x, trackSR.localBounds.center.y);
         }
 
         startEdge.gameObject.SetActive(showStartEdge);
         endEdge.gameObject.SetActive(showEndEdge);
-
-        if (Application.isPlaying)
-        {
-            active = false;
-            Activate();
-        }
+        Activate();
     }
 }

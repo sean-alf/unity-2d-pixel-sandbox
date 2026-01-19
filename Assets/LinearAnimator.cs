@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -26,6 +24,7 @@ public class LinearAnimator : MonoBehaviour
 
         public Sprite[] Sprites => sprites;
         public Sprite InactiveSprite => inactiveSprite;
+        public float Duration => duration;
         public bool Loop => loop;
 
         public WaitForSeconds GetStepWait()
@@ -48,13 +47,37 @@ public class LinearAnimator : MonoBehaviour
     private LinearAnimationDictionary animations;
 
     private SpriteRenderer sr;
-    private Coroutine coroutine;
     private LinearAnimation currentAnimation;
     private bool animateReverse = false;
+
+    private float timer;
+    private int currentFrame;
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (currentAnimation == null) return;
+
+        timer += Time.deltaTime;
+        float frameDuration = currentAnimation.Duration / currentAnimation.Sprites.Length;
+        if (timer >= frameDuration)
+        {
+            if (animateReverse)
+            {
+                currentFrame = (currentAnimation.Sprites.Length + currentFrame - 1) % currentAnimation.Sprites.Length;
+            }
+            else
+            {
+                currentFrame = (currentFrame + 1) % currentAnimation.Sprites.Length;
+            }
+
+            sr.sprite = currentAnimation.Sprites[currentFrame];
+            timer = 0;
+        }
     }
 
     /// <summary>
@@ -67,7 +90,8 @@ public class LinearAnimator : MonoBehaviour
     public void Animate(string animationName, Action onFinished = null)
     {
         animateReverse = false;
-        AnimateStart(animationName, onFinished);
+        currentAnimation = animations[animationName];
+        // AnimateStart(animationName, onFinished);
     }
 
     /// <summary>
@@ -80,58 +104,12 @@ public class LinearAnimator : MonoBehaviour
     public void AnimateReverse(string animationName, Action onFinished = null)
     {
         animateReverse = true;
-        AnimateStart(animationName, onFinished);
-    }
-
-    private void AnimateStart(string animationName, Action onFinished = null)
-    {
-        if (coroutine != null) return;
-
-        if (animations.Count == 0)
-        {
-            Debug.LogError($"LinearAnimator ({gameObject.name}): animation count is 0!");
-        }
-
-        if (!animations.ContainsKey(animationName))
-        {
-            Debug.LogError($"LinearAnimator ({gameObject.name}): invalid animation name {animationName}!");
-            return;
-        }
-
         currentAnimation = animations[animationName];
-        var sprites = currentAnimation.Sprites;
-
-        if (sprites.Count() == 0)
-        {
-            Debug.LogError($"LinearAnimator ({gameObject.name}): sprite count must be greater than 0!");
-            return;
-        }
-
-        if (!Application.isPlaying)
-        {
-            // Simply set the first sprite of the animation
-            if (sr == null)
-            {
-                sr = GetComponent<SpriteRenderer>();
-            }
-
-            sr.sprite = sprites[0];
-            return;
-        }
-
-        if (sr == null) return;
-
-        coroutine = StartCoroutine(AnimateIntern(currentAnimation, onFinished));
+        // AnimateStart(animationName, onFinished);
     }
 
     public void Stop()
     {
-        coroutine.WhenNotNullClass(_ =>
-        {
-            StopCoroutine(coroutine);
-            coroutine = null;
-        });
-
         currentAnimation.WhenNotNullClass(
             a => sr.WhenNotNull(
                 sr => a.InactiveSprite.WhenNotNull(
@@ -139,6 +117,8 @@ public class LinearAnimator : MonoBehaviour
                 )
             )
         );
+
+        currentAnimation = null;
     }
 
     public void SetDuration(string key, float duration)
@@ -150,46 +130,6 @@ public class LinearAnimator : MonoBehaviour
         else
         {
             Debug.LogError($"LinearAnimator ({gameObject.name}): no animation with key {key}!");
-        }
-    }
-
-    private IEnumerator AnimateIntern(LinearAnimation animation, Action onFinished)
-    {
-        if (animation.Loop)
-        {
-            while (true)
-            {
-                yield return AnimateThrough(animation);
-                onFinished?.Invoke();
-            }
-        }
-        else
-        {
-            yield return AnimateThrough(animation);
-            coroutine = null;
-            onFinished?.Invoke();
-        }
-    }
-
-    private IEnumerator AnimateThrough(LinearAnimation animation)
-    {
-        var sprites = animation.Sprites;
-
-        if (animateReverse)
-        {
-            for (int i = sprites.Count() - 1; i >= 0; i--)
-            {
-                sr.sprite = sprites[i];
-                yield return animation.GetStepWait();
-            }
-        }
-        else
-        {
-            for (int i = 0; i < sprites.Count(); i++)
-            {
-                sr.sprite = sprites[i];
-                yield return animation.GetStepWait();
-            }
         }
     }
 }
