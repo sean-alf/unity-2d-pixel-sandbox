@@ -47,11 +47,11 @@ public class Conveyer : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) => other.WhenFound<ExternalForceReceiver>(
-        efr => efr.AddForce(direction.ToVector2() * speed)
+        efr => efr.AddForce(this, direction.ToVector2() * speed)
     );
 
     private void OnTriggerExit2D(Collider2D other) => other.WhenFound<ExternalForceReceiver>(
-        efr => efr.RemoveForce(direction.ToVector2() * speed)
+        efr => efr.RemoveForce(this)
     );
 
     private void OnValidate()
