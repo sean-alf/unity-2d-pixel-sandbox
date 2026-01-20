@@ -25,6 +25,10 @@
             "scaleInDock": 1.1653,
             "scaleInEditor": 2.25
         },
+        "TileSets/PlatformTracks.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 5.21
+        },
         "TileSets/Wall.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
@@ -50,11 +54,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 1.41,
+            "scale": 1.0128,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1002.127659574468,
-                "y": 747.1631205673759
+                "x": 1161.137440758294,
+                "y": 1183.3530805687205
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -96,14 +100,15 @@
         "Tilemaps/w1-l3-map.tmx"
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "float",
+    "property.type": "TrackType",
     "recentFiles": [
+        "TileSets/Wall.tsx",
+        "TileSets/PlatformTracks.tsx",
+        "TileSets/MuddyGround.tsx",
         "Tilemaps/w1-l3-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
         "TileSets/Conveyer.tsx",
-        "TileSets/MuddyGround.tsx",
-        "TileSets/Wall.tsx",
         "Tilemaps/TestMap.tmx",
         "Tilemaps/TestMap2.tmx",
         "TileSets/GreenWall.tsx"

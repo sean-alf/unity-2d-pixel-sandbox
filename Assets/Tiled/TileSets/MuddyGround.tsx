@@ -12,8 +12,8 @@
  <tile id="24" probability="0.2"/>
  <tile id="25" probability="0.2"/>
  <wangsets>
-  <wangset name="GrayPathCorner" type="corner" tile="-1">
-   <wangcolor name="GrayPath" color="#ff0000" tile="-1" probability="1"/>
+  <wangset name="GrayPathCorner" type="corner" tile="46">
+   <wangcolor name="GrayPath" color="#ff0000" tile="46" probability="1"/>
    <wangtile tileid="6" wangid="0,0,0,1,0,0,0,0"/>
    <wangtile tileid="7" wangid="0,0,0,0,0,1,0,0"/>
    <wangtile tileid="22" wangid="0,1,0,1,0,0,0,0"/>

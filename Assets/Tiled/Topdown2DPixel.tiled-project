@@ -35,39 +35,6 @@
             ]
         },
         {
-            "id": 12,
-            "name": "ConveyerDirection",
-            "storageType": "string",
-            "type": "enum",
-            "values": [
-                "Up",
-                "Right",
-                "Down",
-                "Left"
-            ],
-            "valuesAsFlags": false
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 11,
-            "members": [
-                {
-                    "name": "direction",
-                    "propertyType": "ConveyerDirection",
-                    "type": "string",
-                    "value": "Up"
-                }
-            ],
-            "name": "ConveyerTrack",
-            "type": "class",
-            "useAs": [
-                "property",
-                "tile",
-                "project"
-            ]
-        },
-        {
             "color": "#ff935000",
             "drawFill": true,
             "id": 7,
@@ -155,6 +122,39 @@
                 "object",
                 "project"
             ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 13,
+            "members": [
+                {
+                    "name": "type",
+                    "propertyType": "TrackType",
+                    "type": "int",
+                    "value": 0
+                }
+            ],
+            "name": "Track",
+            "type": "class",
+            "useAs": [
+                "property",
+                "tile",
+                "project"
+            ]
+        },
+        {
+            "id": 14,
+            "name": "TrackType",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+                "None",
+                "Terminal",
+                "Intersection",
+                "Broken"
+            ],
+            "valuesAsFlags": false
         },
         {
             "id": 5,
