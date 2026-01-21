@@ -5,201 +5,131 @@
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="2"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="7" y="7" width="25" height="25"/>
-  </objectgroup>
  </tile>
  <tile id="1" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="7" width="32" height="18"/>
-  </objectgroup>
  </tile>
  <tile id="2" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="2"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="7" width="32" height="25"/>
-  </objectgroup>
  </tile>
  <tile id="3" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="7" width="32" height="18"/>
-  </objectgroup>
  </tile>
  <tile id="4" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="2"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="7" width="25" height="25"/>
-  </objectgroup>
  </tile>
  <tile id="5" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="1"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="7" width="32" height="25"/>
-  </objectgroup>
  </tile>
  <tile id="6" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="1"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="32" height="25"/>
-  </objectgroup>
  </tile>
  <tile id="16" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="7" y="0" width="18" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="18" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="7" y="0" width="18" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="20" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="7" y="0" width="18" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="21" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="1"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="25" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="22" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="1"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="7" y="0" width="25" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="32" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="2"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="7" y="0" width="25" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="33" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="7" width="32" height="18"/>
-  </objectgroup>
  </tile>
  <tile id="34" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="2"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="32" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="35" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="7" width="32" height="18"/>
-  </objectgroup>
  </tile>
  <tile id="36" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="2"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="25" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="48" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="7" y="0" width="18" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="50" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="7" y="0" width="18" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="52" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="7" y="0" width="18" height="32"/>
-  </objectgroup>
+ </tile>
+ <tile id="53" type="Track">
+  <properties>
+   <property name="type" type="int" propertytype="TrackType" value="0"/>
+  </properties>
  </tile>
  <tile id="64" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="2"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="7" y="0" width="25" height="25"/>
-  </objectgroup>
  </tile>
  <tile id="65" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="7" width="32" height="18"/>
-  </objectgroup>
  </tile>
  <tile id="66" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="2"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="32" height="25"/>
-  </objectgroup>
  </tile>
  <tile id="67" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="0"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="7" width="32" height="18"/>
-  </objectgroup>
  </tile>
  <tile id="68" type="Track">
   <properties>
    <property name="type" type="int" propertytype="TrackType" value="2"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="25" height="25"/>
-  </objectgroup>
  </tile>
  <wangsets>
   <wangset name="Tracks" type="edge" tile="4">

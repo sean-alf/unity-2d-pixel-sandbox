@@ -27,7 +27,7 @@
         },
         "TileSets/PlatformTracks.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 5.21
+            "scaleInEditor": 2.98
         },
         "TileSets/Wall.tsx": {
             "dynamicWrapping": false,
@@ -51,14 +51,17 @@
             }
         },
         "Tilemaps/w1-l1-map.tmx": {
+            "expandedGroupLayers": [
+                11
+            ],
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 1.0128,
-            "selectedLayer": 1,
+            "scale": 1.4558,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 1161.137440758294,
-                "y": 1183.3530805687205
+                "x": 1454.5267207033935,
+                "y": 1286.234372853414
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -79,8 +82,8 @@
             "scale": 0.7855,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1600.2546148949714,
-                "y": 1599.618077657543
+                "x": 1457.0337364735838,
+                "y": 1563.9719923615535
             }
         }
     },
@@ -102,9 +105,9 @@
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "TrackType",
     "recentFiles": [
-        "TileSets/Wall.tsx",
-        "TileSets/PlatformTracks.tsx",
         "TileSets/MuddyGround.tsx",
+        "TileSets/PlatformTracks.tsx",
+        "TileSets/Wall.tsx",
         "Tilemaps/w1-l3-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
