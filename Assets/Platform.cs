@@ -100,7 +100,7 @@ public class Platform : MonoBehaviour
 
         if (collision.TryGetComponent(out AutoMover mover))
         {
-            if (collision.TryGetComponent(out playerController)) playerController.DisableInput();
+            if (collision.TryGetComponent(out playerController)) playerController.UpdateInputType(PlayerController.InputType.AutoMoving);
 
             mover.MoveTo(rb.position, onDone: () =>
             {
@@ -108,6 +108,7 @@ public class Platform : MonoBehaviour
                 {
                     rb.bodyType = RigidbodyType2D.Kinematic;
                 }
+                playerController.UpdateInputType(PlayerController.InputType.Riding);
                 collision.gameObject.transform.SetParent(transform);
                 ResetAndStart();
             });
@@ -172,10 +173,11 @@ public class Platform : MonoBehaviour
                         {
                             if (playerController)
                             {
-                                playerController.EnableInput();
+                                playerController.UpdateInputType(PlayerController.InputType.Full);
                                 if (playerController.TryGetComponent(out Rigidbody2D rb))
                                 {
                                     rb.bodyType = RigidbodyType2D.Dynamic;
+                                    rb.WakeUp();
                                 }
                             }
                             Stop();

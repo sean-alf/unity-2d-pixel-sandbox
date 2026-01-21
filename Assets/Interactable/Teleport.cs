@@ -77,7 +77,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
     {
         if (target.TryGetComponent(out PlayerController p))
         {
-            p.DisableInput();
+            p.UpdateInputType(PlayerController.InputType.AutoMoving);
         }
         else
         {
@@ -152,7 +152,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
             {
                 // On Cover
                 target.gameObject.SetActive(teleportIn);
-                target.DisableInput();
+                target.UpdateInputType(PlayerController.InputType.AutoMoving);
             }, () =>
             {
                 // On Done
@@ -173,7 +173,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
                                 StartCoroutine(WatchPlayerDistance(target.gameObject));
                             }
 
-                            target.EnableInput();
+                            target.UpdateInputType(PlayerController.InputType.Full);
                         }
                     );
                 }

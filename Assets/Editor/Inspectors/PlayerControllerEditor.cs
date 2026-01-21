@@ -17,18 +17,9 @@ public class PlayerMovementEditor : Editor
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Input", EditorStyles.boldLabel);
 
-            string buttonText = controller.IsInputActive ? "Disable" : "Enable";
-            if (GUILayout.Button($"{buttonText} Input"))
-            {
-                if (controller.IsInputActive)
-                {
-                    controller.DisableInput();
-                }
-                else
-                {
-                    controller.EnableInput();
-                }
-            }
+            PlayerController.InputType inputType = (PlayerController.InputType)EditorGUILayout.EnumPopup("Input Type", controller.CurrentInputType);
+
+            if (inputType != controller.CurrentInputType) controller.UpdateInputType(inputType);
         }
 
         EditorGUILayout.Space();

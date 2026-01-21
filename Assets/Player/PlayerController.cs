@@ -9,6 +9,15 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider, ITriggerer
 {
+    public enum InputType
+    {
+        Full,
+        Riding,
+        AutoMoving,
+        None,
+    }
+
+    public InputType CurrentInputType => inputType;
     public bool IsInputReady => input != null;
     public bool IsInputActive
     {
@@ -19,6 +28,8 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
     }
 
+    private bool ShouldAnimate => inputType == InputType.Full || inputType == InputType.AutoMoving;
+
     [SerializeField]
     [Range(1, 20)]
     private int speed = 1;
@@ -26,13 +37,11 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [SerializeField]
     private Transform projectileSpawnPoint;
 
+    [Space]
     [Header("Debug")]
-    [SerializeField]
-    private Logger logger;
 
-    [SerializeField]
-    [Tooltip("Only exposed for debugging purposes. Not intended for modification via the inspector.")]
-    private List<Interactable> interactables = new();
+    [SerializeField] private Logger logger;
+    [SerializeField] private List<Interactable> interactables = new();
 
     public float Speed => speed;
 
@@ -46,6 +55,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private ExternalForceReceiver efr;
     private InteractIndicator interactIndicator;
     private Vector2 currentDirection;
+    private InputType inputType;
 
     void Awake()
     {
@@ -80,8 +90,9 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
     private void OnMove(InputAction.CallbackContext context)
     {
-        currentDirection = context.ReadValue<Vector2>().normalized;
-        OnDirectionChanged(currentDirection);
+        var direction = context.ReadValue<Vector2>().normalized;
+        if (inputType == InputType.Full) currentDirection = direction;
+        OnDirectionChanged(direction);
     }
 
     private void OnDirectionChanged(Vector2 direction)
@@ -92,8 +103,18 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
         else
         {
-            rb.SetRotation(Quaternion.LookRotation(Vector3.forward, direction));
-            animator.Animate("Default");
+            var lookRotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+            if (inputType == InputType.Riding)
+            {
+                transform.localRotation = lookRotation;
+            }
+            else
+            {
+                rb.SetRotation(lookRotation);
+            }
+
+            if (ShouldAnimate) animator.Animate("Default");
         }
 
         logger.I($"Direction changed = {direction}");
@@ -183,20 +204,34 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         InputSystem_Actions_Names.Player.Next(input).performed -= OnNext;
     }
 
-    public void EnableInput()
+    public void UpdateInputType(InputType type)
     {
-        if (input == null) return;
-        input.ActivateInput();
-    }
+        inputType = type;
 
-    public void DisableInput()
-    {
         if (input == null) return;
 
-        // Stop the movement
-        currentDirection = Vector2.zero;
+        switch (inputType)
+        {
+            case InputType.Full:
+                input.ActivateInput();
+                break;
 
-        input.DeactivateInput();
+            case InputType.Riding:
+                // Just make sure that input is enabled
+                // All we do with this type is stop movement
+                // But still allow rotation, shooting, etc.
+                currentDirection = Vector2.zero;
+                input.ActivateInput();
+                break;
+
+            case InputType.AutoMoving:
+            case InputType.None:
+                // Stop the movement
+                currentDirection = Vector2.zero;
+                input.DeactivateInput();
+                break;
+
+        }
     }
 
     void AutoMover.IAutoMoverTarget.OnDirectionChanged(Vector2 direction) => OnDirectionChanged(direction);
