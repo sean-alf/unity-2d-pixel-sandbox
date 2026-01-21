@@ -5,8 +5,8 @@
     },
     "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
-        ".",
         "Tilemaps",
+        ".",
         "Worlds",
         "TileSets"
     ],
@@ -57,11 +57,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 1.4558,
-            "selectedLayer": 0,
+            "scale": 0.4439,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 1454.5267207033935,
-                "y": 1286.234372853414
+                "x": 1163.5503491777429,
+                "y": 1136.5172336111737
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -100,17 +100,18 @@
     "openFiles": [
         "Tilemaps/w1-l1-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
-        "Tilemaps/w1-l3-map.tmx"
+        "Tilemaps/w1-l3-map.tmx",
+        "TileSets/PlatformTracks.tsx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "TrackType",
     "recentFiles": [
-        "TileSets/MuddyGround.tsx",
         "TileSets/PlatformTracks.tsx",
-        "TileSets/Wall.tsx",
         "Tilemaps/w1-l3-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
+        "TileSets/MuddyGround.tsx",
+        "TileSets/Wall.tsx",
         "TileSets/Conveyer.tsx",
         "Tilemaps/TestMap.tmx",
         "Tilemaps/TestMap2.tmx",
