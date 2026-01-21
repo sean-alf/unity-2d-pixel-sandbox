@@ -10,6 +10,11 @@ public enum CardinalDirection
 
 public static class CardinalDirectionsExtensions
 {
+    public static bool IsCardinal(this Vector2 v) => v == Vector2.up ||
+        v == Vector2.right ||
+        v == Vector2.down ||
+        v == Vector2.left;
+
     public static Vector2 ToVector2(this CardinalDirection c) => c switch
     {
         CardinalDirection.Up => Vector2.up,

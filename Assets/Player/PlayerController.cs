@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -43,8 +44,8 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [SerializeField] private Logger logger;
     [SerializeField] private List<Interactable> interactables = new();
 
+    public Action<Vector2> OnDirectionChange;
     public float Speed => speed;
-
     public Logger Logger => logger;
 
     private Rigidbody2D rb;
@@ -85,13 +86,16 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (inputType != InputType.Full) return;
+
         rb.linearVelocity = efr.AppliedForce + speed * currentDirection;
     }
 
     private void OnMove(InputAction.CallbackContext context)
     {
         var direction = context.ReadValue<Vector2>().normalized;
-        if (inputType == InputType.Full) currentDirection = direction;
+        currentDirection = direction;
+        OnDirectionChange?.Invoke(direction);
         OnDirectionChanged(direction);
     }
 
@@ -217,20 +221,27 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
                 break;
 
             case InputType.Riding:
-                // Just make sure that input is enabled
-                // All we do with this type is stop movement
-                // But still allow rotation, shooting, etc.
-                currentDirection = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
                 input.ActivateInput();
                 break;
 
             case InputType.AutoMoving:
             case InputType.None:
                 // Stop the movement
+                rb.linearVelocity = Vector2.zero;
                 currentDirection = Vector2.zero;
                 input.DeactivateInput();
                 break;
 
+        }
+
+        if (ShouldAnimate && !currentDirection.IsIdle())
+        {
+            animator.Animate("Default");
+        }
+        else
+        {
+            animator.Stop();
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Platform : MonoBehaviour
+public class Platform : MonoBehaviour, ILoggerProvider
 {
     // This must stay in sync with Tiled
     enum TrackType
@@ -29,12 +29,16 @@ public class Platform : MonoBehaviour
         public bool IsValid => Tile != null;
     }
 
+    public Logger Logger => logger;
+
     [Header("Movement")]
     [SerializeField] private float speed = 2f;
     [SerializeField] private bool randomizeTurns = false;
 
     [Space]
     [Header("Debug")]
+
+    [SerializeField] private Logger logger;
     [SerializeField] private bool isStopped = true;
     [SerializeField] private bool ignoreTerminals = false;
     [SerializeField] private bool autoAdjustSpeed = false;
@@ -47,6 +51,7 @@ public class Platform : MonoBehaviour
     private Vector3Int lastProcessedCellPosition;
     private TileAndDirection nextTarget;
     private PlayerController playerController;
+    private Vector2 playerDirection;
 
     private void Awake()
     {
@@ -55,7 +60,7 @@ public class Platform : MonoBehaviour
 
         if (trackTilemap == null)
         {
-            Debug.LogError("Platform cannot find track Tilemap!", this);
+            logger.E("cannot find track Tilemap!");
             enabled = false;
         }
     }
@@ -73,12 +78,13 @@ public class Platform : MonoBehaviour
 
         if (nextTarget.IsValid && ShouldTrackToCenter(nextTarget.Tile.type))
         {
-            // Debug.Log($"Platform ({name}): next cell {nextTarget.Tile.cellPosition} → {nextTarget.Tile.type}");
+            logger.D($"next cell {nextTarget.Tile.cellPosition} → {nextTarget.Tile.type}");
 
             rb.MoveTowards(nextTarget.Tile.worldCenter, speed * Time.fixedDeltaTime);
             var distance = Vector2.Distance(nextTarget.Tile.worldCenter, rb.position);
 
-            // Debug.Log($"Platform distance {distance}");
+            logger.V($"distance {distance}");
+
             if (distance <= 0.005f)
             {
                 rb.MovePosition(nextTarget.Tile.worldCenter);
@@ -96,8 +102,6 @@ public class Platform : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"Platform OnTriggerEnter2D {collision.name}", this);
-
         if (collision.TryGetComponent(out AutoMover mover))
         {
             if (collision.TryGetComponent(out playerController)) playerController.UpdateInputType(PlayerController.InputType.AutoMoving);
@@ -108,6 +112,7 @@ public class Platform : MonoBehaviour
                 {
                     rb.bodyType = RigidbodyType2D.Kinematic;
                 }
+                playerController.OnDirectionChange += PlayerDirectionChange;
                 playerController.UpdateInputType(PlayerController.InputType.Riding);
                 collision.gameObject.transform.SetParent(transform);
                 ResetAndStart();
@@ -117,8 +122,6 @@ public class Platform : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log($"Platform OnTriggerExit2D {collision.name}", this);
-
         if (collision.TryGetComponent(out PlayerController pc) && pc == playerController)
         {
             collision.gameObject.transform.SetParent(null);
@@ -157,7 +160,7 @@ public class Platform : MonoBehaviour
 
         lastProcessedCellPosition = currentTile.cellPosition;
 
-        // Debug.Log($"Platform ({name}): entered cell {currentTile.cellPosition} → {currentTile.type}");
+        logger.D($"entered cell {currentTile.cellPosition} → {currentTile.type}");
 
         switch (currentTile.type)
         {
@@ -173,6 +176,7 @@ public class Platform : MonoBehaviour
                         {
                             if (playerController)
                             {
+                                playerController.OnDirectionChange -= PlayerDirectionChange;
                                 playerController.UpdateInputType(PlayerController.InputType.Full);
                                 if (playerController.TryGetComponent(out Rigidbody2D rb))
                                 {
@@ -222,7 +226,7 @@ public class Platform : MonoBehaviour
             }
         }
 
-        Debug.LogWarning("Platform could not find any initial track direction!", this);
+        logger.W("could not find any initial track direction!");
         Stop();
     }
 
@@ -230,8 +234,19 @@ public class Platform : MonoBehaviour
     {
         var candidates = new List<TileAndDirection>(3);
 
-        // Prefer continuing straight
-        var tileInDirection = GetTileInDirection(currentDirection);
+        TileAndDirection tileInDirection;
+        // Player direction must be cardinal and it cannot be reverse
+        bool playerHasDirection = playerDirection.IsCardinal() && playerDirection != -currentDirection;
+
+        // First, prefer current player direction
+        if (playerHasDirection)
+        {
+            tileInDirection = GetTileInDirection(playerDirection);
+            if (tileInDirection.IsValid) candidates.Add(tileInDirection);
+        }
+
+        // Second, prefer continuing straight
+        tileInDirection = GetTileInDirection(currentDirection);
         if (tileInDirection.IsValid) candidates.Add(tileInDirection);
 
         // Left
@@ -248,7 +263,7 @@ public class Platform : MonoBehaviour
             return;
         }
 
-        if (randomizeTurns)
+        if (randomizeTurns && !playerHasDirection)
         {
             nextTarget = candidates[Random.Range(0, candidates.Count)];
         }
@@ -282,6 +297,8 @@ public class Platform : MonoBehaviour
             Stop();
         }
     }
+
+    public void PlayerDirectionChange(Vector2 direction) => playerDirection = direction;
 
     // ──────────────────────────────────────────────────────────────
     // Helpers
