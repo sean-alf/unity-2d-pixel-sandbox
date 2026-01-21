@@ -46,7 +46,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private ExternalForceReceiver efr;
     private InteractIndicator interactIndicator;
     private Vector2 currentDirection;
-    private Vector2 lastNonIdleDirection = Vector2.up;
 
     void Awake()
     {
@@ -93,8 +92,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
         else
         {
-            // This is for determining which way the player is facing even when stopped
-            lastNonIdleDirection = direction;
             rb.SetRotation(Quaternion.LookRotation(Vector3.forward, direction));
             animator.Animate("Default");
         }
@@ -119,7 +116,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     {
         projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection
         {
-            direction = lastNonIdleDirection,
+            direction = transform.rotation * Vector2.up,
             position = projectileSpawnPoint.position,
         });
     }
