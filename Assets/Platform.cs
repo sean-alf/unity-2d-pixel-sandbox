@@ -35,7 +35,7 @@ public class Platform : MonoBehaviour
 
     [Space]
     [Header("Debug")]
-    [SerializeField] private bool isStopped = false;
+    [SerializeField] private bool isStopped = true;
     [SerializeField] private bool ignoreTerminals = false;
     [SerializeField] private bool autoAdjustSpeed = false;
     [SerializeField] private int autoSpeedAdjustTiming = 30;
@@ -46,6 +46,7 @@ public class Platform : MonoBehaviour
     private Vector2 currentDirection = Vector2.zero;
     private Vector3Int lastProcessedCellPosition;
     private TileAndDirection nextTarget;
+    private PlayerController playerController;
 
     private void Awake()
     {
@@ -62,7 +63,6 @@ public class Platform : MonoBehaviour
     private void Start()
     {
         if (autoAdjustSpeed) StartCoroutine(TestAutoAdjustSpeed());
-        ResetAndStart();
     }
 
     private void FixedUpdate()
@@ -92,6 +92,37 @@ public class Platform : MonoBehaviour
         }
 
         rb.linearVelocity = rb.position - oldPos;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log($"Platform OnTriggerEnter2D {collision.name}", this);
+
+        if (collision.TryGetComponent(out AutoMover mover))
+        {
+            if (collision.TryGetComponent(out playerController)) playerController.DisableInput();
+
+            mover.MoveTo(rb.position, onDone: () =>
+            {
+                if (mover.TryGetComponent(out Rigidbody2D rb))
+                {
+                    rb.bodyType = RigidbodyType2D.Kinematic;
+                }
+                collision.gameObject.transform.SetParent(transform);
+                ResetAndStart();
+            });
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log($"Platform OnTriggerExit2D {collision.name}", this);
+
+        if (collision.TryGetComponent(out PlayerController pc) && pc == playerController)
+        {
+            collision.gameObject.transform.SetParent(null);
+            playerController = null;
+        }
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -139,6 +170,14 @@ public class Platform : MonoBehaviour
                         }
                         else
                         {
+                            if (playerController)
+                            {
+                                playerController.EnableInput();
+                                if (playerController.TryGetComponent(out Rigidbody2D rb))
+                                {
+                                    rb.bodyType = RigidbodyType2D.Dynamic;
+                                }
+                            }
                             Stop();
                         }
                     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ExternalForceReceiver : MonoBehaviour
 {
-    private Dictionary<Component, Vector2> externalForces = new();
+    private readonly Dictionary<Component, Vector2> externalForces = new();
 
     public Vector2 AppliedForce => appliedForce;
 
