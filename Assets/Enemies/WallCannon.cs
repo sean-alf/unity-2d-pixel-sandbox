@@ -1,20 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(ProjectileManager))]
 public class WallCannon : MonoBehaviour
 {
-    [SerializeField]
-    private float shotSpacingSeconds = 5f;
-
-    [SerializeField]
-    private float initialShotDelay = 0f;
-
-    [SerializeField]
-    private bool autoStart = true;
-
-    [SerializeField]
-    private CardinalDirection direction;
+    [SerializeField] private float shotSpacingSeconds = 5f;
+    [SerializeField] private float initialShotDelay = 0f;
+    [SerializeField] private bool autoStart = true;
+    [SerializeField] private bool limitShots = false;
+    [SerializeField][Range(1, 100)] private int maxShotCount = 1;
+    [SerializeField] private CardinalDirection direction;
+    [SerializeField] private UnityEvent onReady;
 
     private ProjectileManager projectileManager;
     private WaitForSeconds initialWait;
@@ -22,6 +19,8 @@ public class WallCannon : MonoBehaviour
     private Vector2 projectileSpawnPosition;
     private Vector2 projectileSpawnDirection;
     private Coroutine coroutine;
+
+    private bool IsReady => !limitShots || projectileManager.ActiveProjectiles < maxShotCount;
 
     private void Awake()
     {
@@ -43,11 +42,31 @@ public class WallCannon : MonoBehaviour
 
     public void StartAutoShooting() => coroutine.WhenNullClass(() => coroutine = StartCoroutine(AutoShoot()));
 
-    public void ShootOnce() => projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection()
+    public void ShootOnce()
     {
-        direction = projectileSpawnDirection,
-        position = projectileSpawnPosition
-    });
+        if (!IsReady) return;
+
+        projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection()
+        {
+            direction = projectileSpawnDirection,
+            position = projectileSpawnPosition
+        });
+
+        // If we've just become not ready, start waiting for projectiles to be destroyed
+        if (!IsReady)
+        {
+            StartCoroutine(InvokeOnReadyWhenReady());
+        }
+    }
+
+    private void UpdateValues()
+    {
+        initialWait = new(initialShotDelay);
+        wait = new(shotSpacingSeconds);
+        transform.rotation = direction.ToRotation();
+        projectileSpawnDirection = transform.rotation * Vector2.up;
+        projectileSpawnPosition = transform.GetChild(0).transform.position;
+    }
 
     private IEnumerator AutoShoot()
     {
@@ -60,12 +79,9 @@ public class WallCannon : MonoBehaviour
         }
     }
 
-    private void UpdateValues()
+    private IEnumerator InvokeOnReadyWhenReady()
     {
-        initialWait = new(initialShotDelay);
-        wait = new(shotSpacingSeconds);
-        transform.rotation = direction.ToRotation();
-        projectileSpawnDirection = transform.rotation * Vector2.up;
-        projectileSpawnPosition = transform.GetChild(0).transform.position;
+        yield return new WaitUntil(() => IsReady);
+        onReady?.Invoke();
     }
 }

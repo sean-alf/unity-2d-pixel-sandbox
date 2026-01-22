@@ -35,10 +35,14 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
 
     private ProjectileSO selectedProjectile;
     private int currentIndex = 0;
-    private int count;
     private int shootingLayer;
+    private int activeProjectiles = 0;
 
     public Logger Logger => logger;
+    /// <summary>
+    /// The number of projectiles currently in use.
+    /// </summary>
+    public int ActiveProjectiles => activeProjectiles;
 
     private void Awake()
     {
@@ -47,8 +51,6 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
             Debug.LogError("Projectile Manager: Projectiles not set!!");
             return;
         }
-
-        count = projectiles.Count;
 
         // Automatically set the selected projectile to the first one in the list
         selectedProjectile = projectiles[currentIndex];
@@ -66,7 +68,9 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
             selectedProjectile.Instantiate(p =>
             {
                 p.gameObject.layer = shootingLayer;
+                p.onDestroyed += OnProjectileDestroyed;
                 p.Use(s.direction, s.position);
+                ++activeProjectiles;
             });
         }
         ;
@@ -79,7 +83,9 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
             selectedProjectile.Instantiate(p =>
             {
                 p.gameObject.layer = shootingLayer;
+                p.onDestroyed += OnProjectileDestroyed;
                 p.Use(s.angleDegrees, s.position);
+                ++activeProjectiles;
             });
         }
         ;
@@ -92,7 +98,9 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
             selectedProjectile.Instantiate(p =>
             {
                 p.gameObject.layer = shootingLayer;
+                p.onDestroyed += OnProjectileDestroyed;
                 p.Use(s.angleRads, s.position);
+                ++activeProjectiles;
             });
         }
         ;
@@ -100,14 +108,14 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
 
     public void SelectNext()
     {
-        currentIndex = (currentIndex + 1) % count;
+        currentIndex = (currentIndex + 1) % projectiles.Count;
         selectedProjectile = projectiles[currentIndex];
         SetProjectiles();
     }
 
     public void SelectPrevious()
     {
-        currentIndex = (currentIndex - 1 + count) % count;
+        currentIndex = (currentIndex - 1 + projectiles.Count) % projectiles.Count;
         selectedProjectile = projectiles[currentIndex];
         SetProjectiles();
     }
@@ -129,5 +137,13 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
     public void SetShootingLayer(string layer)
     {
         shootingLayer = LayerMask.NameToLayer(layer);
+    }
+
+    private void OnProjectileDestroyed()
+    {
+        --activeProjectiles;
+
+        // This means that the activeProjectiles count is off, or too many onDestroyed subscribed somehow
+        if (activeProjectiles < 0) logger.E("OnProjectileDestroyed called when activeProjectiles == 0!");
     }
 }

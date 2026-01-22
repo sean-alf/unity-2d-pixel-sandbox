@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -27,6 +28,8 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     private Animator animator;
     private SpriteRenderer sr;
     private float halfHeight;
+
+    public Action onDestroyed;
 
     public Logger Logger => logger;
 
@@ -96,5 +99,10 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     public void Animator_Finish()
     {
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        onDestroyed?.Invoke();
     }
 }
