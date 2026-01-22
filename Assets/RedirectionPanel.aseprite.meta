@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639041713466788220
+  platformSettingsDirtyTick: 639046852596652560
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -212,7 +212,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 44, y: 4}
   spriteSheetImportData:
-  - name: ReflectingBlockAngle_0
+  - name: RedirectionPanel_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -224,16 +224,32 @@ ScriptedImporter:
       y: 4
       width: 64
       height: 64
-    spriteID: b4bdd80bb9a6c4e7b92fead061cf604f
+    spriteID: 12eedd7a828de495293467c29bc34874
     spriteBone: []
     spriteOutline: []
     vertices: []
-    spritePhysicsOutline:
-    - outline:
-      - {x: -32, y: 32}
-      - {x: -32, y: -30}
-      - {x: -30, y: -32}
-      - {x: 32, y: -32}
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: RedirectionPanel_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 76
+      width: 64
+      height: 64
+    spriteID: 622aad9f98c124214ab7178990ef9189
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
     indices: 
     edges: []
     tessellationDetail: 0
@@ -252,7 +268,7 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: ReflectingBlockAngle
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -261,6 +277,15 @@ ScriptedImporter:
         width: 64
         height: 64
       spriteId: 063e2f2ecc1de42a1b3c1e8df6614d6b
+    - name: Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      spriteId: b13d0e9d904d442c1896e538163532fd
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -307,4 +332,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 64, y: 64}
-  previousTextureSize: {x: 128, y: 128}
+  previousTextureSize: {x: 128, y: 256}

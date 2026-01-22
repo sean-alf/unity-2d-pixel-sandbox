@@ -37,9 +37,6 @@ public class ArtificialWall : MonoBehaviour
         var list = new List<Vector3Int>();
         var initialPos = artificialWall.WorldToCell(transform.position);
         GetAllNeighbors(initialPos, list);
-
-        Debug.Log($"ArtificialWall: tile count {list.Count}");
-
         StartCoroutine(FadeOut(list));
     }
 
@@ -75,9 +72,6 @@ public class ArtificialWall : MonoBehaviour
         } while (alpha > 0.05);
 
         foreach (var pos in list) artificialWall.SetTile(pos, null);
-
-        Debug.Log($"ArtificialWall: on fade done");
-
         onDone?.Invoke();
     }
 }
