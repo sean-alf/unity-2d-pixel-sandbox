@@ -253,26 +253,5 @@
    <wangtile tileid="44" wangid="1,0,0,0,1,0,0,0"/>
    <wangtile tileid="60" wangid="1,0,0,0,0,0,0,0"/>
   </wangset>
-  <wangset name="Border" type="corner" tile="96">
-   <wangcolor name="Border" color="#ff0000" tile="-1" probability="1"/>
-   <wangtile tileid="64" wangid="0,0,0,1,0,0,0,0"/>
-   <wangtile tileid="65" wangid="0,0,0,1,0,1,0,0"/>
-   <wangtile tileid="66" wangid="0,0,0,0,0,1,0,0"/>
-   <wangtile tileid="67" wangid="0,1,0,1,0,1,0,0"/>
-   <wangtile tileid="68" wangid="0,1,0,1,0,1,0,1"/>
-   <wangtile tileid="69" wangid="0,0,0,1,0,1,0,1"/>
-   <wangtile tileid="80" wangid="0,1,0,1,0,0,0,0"/>
-   <wangtile tileid="81" wangid="0,1,0,1,0,1,0,1"/>
-   <wangtile tileid="82" wangid="0,0,0,0,0,1,0,1"/>
-   <wangtile tileid="83" wangid="0,1,0,1,0,1,0,1"/>
-   <wangtile tileid="84" wangid="0,1,0,1,0,1,0,1"/>
-   <wangtile tileid="85" wangid="0,1,0,1,0,1,0,1"/>
-   <wangtile tileid="96" wangid="0,1,0,0,0,0,0,0"/>
-   <wangtile tileid="97" wangid="0,1,0,0,0,0,0,1"/>
-   <wangtile tileid="98" wangid="0,0,0,0,0,0,0,1"/>
-   <wangtile tileid="99" wangid="0,1,0,1,0,0,0,1"/>
-   <wangtile tileid="100" wangid="0,1,0,1,0,1,0,1"/>
-   <wangtile tileid="101" wangid="0,1,0,0,0,1,0,1"/>
-  </wangset>
  </wangsets>
 </tileset>

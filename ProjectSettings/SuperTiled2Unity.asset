@@ -17,7 +17,7 @@ MonoBehaviour:
   m_AnimationFramerate: 20
   m_DefaultMaterial: {fileID: 0}
   m_MaterialMatchings: []
-  m_ObjectTypesXml: {fileID: 4900000, guid: 2856751ea0f9548aa93638644dc5e8ac, type: 3}
+  m_ObjectTypesXml: {fileID: 0}
   m_ParseXmlError: 
   m_CollisionGeometryType: 1
   m_LayerColors:
@@ -53,40 +53,7 @@ MonoBehaviour:
   - {r: 1, g: 0.64705884, b: 0, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
   - {r: 0.7372549, g: 0.56078434, b: 0.56078434, a: 1}
-  m_CustomObjectTypes:
-  - m_Name: Button
-    m_Color: {r: 0.7254902, g: 1, b: 0, a: 1}
-    m_CustomProperties:
-    - m_Name: targetID
-      m_Type: string
-      m_Value: 
-  - m_Name: Door
-    m_Color: {r: 0.5764706, g: 0.3137255, b: 0, a: 1}
-    m_CustomProperties:
-    - m_Name: startOpen
-      m_Type: bool
-      m_Value: false
-    - m_Name: vertical
-      m_Type: bool
-      m_Value: false
-  - m_Name: HealthPickup
-    m_Color: {r: 0, g: 0.69803923, b: 0.7019608, a: 1}
-    m_CustomProperties:
-    - m_Name: healAmount
-      m_Type: int
-      m_Value: 5
-  - m_Name: TeleportIn
-    m_Color: {r: 0.627451, g: 0.14117648, b: 0.6431373, a: 1}
-    m_CustomProperties:
-    - m_Name: travelType
-      m_Type: int
-      m_Value: 0
-  - m_Name: TeleportOut
-    m_Color: {r: 0.101960786, g: 0.89411765, b: 0.33333334, a: 1}
-    m_CustomProperties:
-    - m_Name: travelType
-      m_Type: int
-      m_Value: 0
+  m_CustomObjectTypes: []
   m_PrefabReplacements:
   - m_TypeName: TeleportIn
     m_Prefab: {fileID: 5960115265259701228, guid: d40f634540a4849c39d4cb52b9474dee, type: 3}

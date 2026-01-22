@@ -23,9 +23,13 @@ public class BasicTrigger : MonoBehaviour
     [SerializeField]
     private Strategy strategy;
 
+    private GameObject triggerer;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.TryGetComponent(out ITriggerer _)) return;
+        if (!other.gameObject.TryGetComponent(out ITriggerer _) || other.gameObject == triggerer) return;
+
+        triggerer = other.gameObject;
 
         onTriggerEnter?.Invoke();
 
@@ -45,7 +49,14 @@ public class BasicTrigger : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.gameObject.TryGetComponent(out ITriggerer _)) return;
+        if (!other.gameObject.TryGetComponent(out ITriggerer _) ||
+            other.gameObject != triggerer ||
+            triggerer == null)
+        {
+            return;
+        }
+
+        triggerer = null;
 
         onTriggerExit?.Invoke();
 

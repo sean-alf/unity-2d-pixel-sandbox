@@ -5,12 +5,24 @@
     },
     "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
+        "TileSets",
+        "Worlds",
         "Tilemaps",
         ".",
-        "Worlds",
-        "TileSets"
+        "Tilemaps/Rules"
     ],
     "fileStates": {
+        "Rules/wall_rules.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 1.0346,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 190.4117533346221,
+                "y": 18.847863908757006
+            }
+        },
         "TileSets/Conveyer.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 2.19
@@ -23,16 +35,16 @@
         "TileSets/MuddyGround.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1.1653,
-            "scaleInEditor": 2.25
+            "scaleInEditor": 2.84
         },
         "TileSets/PlatformTracks.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 2.98
+            "scaleInEditor": 2.84
         },
         "TileSets/Wall.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
-            "scaleInEditor": 2.32
+            "scaleInEditor": 1.88
         },
         "Tilemaps/TestMap.tmx": {
             "scale": 0.12,
@@ -57,11 +69,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 0.4439,
-            "selectedLayer": 1,
+            "scale": 0.99,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1163.5503491777429,
-                "y": 1136.5172336111737
+                "x": 300.00000000000006,
+                "y": 1460.1010101010102
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -71,7 +83,7 @@
             "scale": 1.4495,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1599.8620213866852,
+                "x": 1600.2069679199726,
                 "y": 1600.2069679199726
             }
         },
@@ -80,10 +92,10 @@
                 3
             ],
             "scale": 0.7855,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 1457.0337364735838,
-                "y": 1563.9719923615535
+                "x": 1599.6180776575432,
+                "y": 1599.6180776575434
             }
         }
     },
@@ -101,17 +113,17 @@
         "Tilemaps/w1-l1-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l3-map.tmx",
-        "TileSets/PlatformTracks.tsx"
+        "TileSets/Wall.tsx"
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "TrackType",
+    "property.type": "string",
     "recentFiles": [
-        "TileSets/PlatformTracks.tsx",
+        "TileSets/MuddyGround.tsx",
+        "TileSets/Wall.tsx",
         "Tilemaps/w1-l3-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
-        "TileSets/MuddyGround.tsx",
-        "TileSets/Wall.tsx",
+        "TileSets/PlatformTracks.tsx",
         "TileSets/Conveyer.tsx",
         "Tilemaps/TestMap.tmx",
         "Tilemaps/TestMap2.tmx",

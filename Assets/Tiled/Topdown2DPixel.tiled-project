@@ -1,5 +1,5 @@
 {
-    "automappingRulesFile": "",
+    "automappingRulesFile": "Rules/rules.txt",
     "commands": [
     ],
     "extensionsPath": "extensions",
