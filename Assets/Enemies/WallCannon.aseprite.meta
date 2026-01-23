@@ -151,8 +151,8 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: WallCannon_0
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
@@ -160,7 +160,7 @@ ScriptedImporter:
       x: 32
       y: 32
       width: 64
-      height: 64
+      height: 60
     spriteID: 2b8292f37f7b54380804face6d2a5d38
     spriteBone: []
     spriteOutline: []
@@ -178,10 +178,10 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 17
-      y: 105
-      width: 64
-      height: 64
+      x: 32
+      y: 155
+      width: 34
+      height: 14
     spriteID: 28d91caac5bf845839db6b08c7c56c4c
     spriteBone: []
     spriteOutline: []

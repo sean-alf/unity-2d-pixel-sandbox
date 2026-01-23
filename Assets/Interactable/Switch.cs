@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,6 +24,9 @@ public class Switch : MonoBehaviour
 
     [SerializeField]
     private SwitchEvent[] events;
+
+    [SerializeField]
+    private UnityEvent onToggleImmediateEvent;
 
     private LinearAnimator animator;
 
@@ -73,6 +75,7 @@ public class Switch : MonoBehaviour
         if (!isPlayer || playerCanToggleFrom.Contains(switchPosition))
         {
             isLocked = true;
+            onToggleImmediateEvent?.Invoke();
             StartPositionBasedAnimation();
         }
     }

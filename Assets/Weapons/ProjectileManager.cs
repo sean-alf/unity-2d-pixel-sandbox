@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ProjectileManager : MonoBehaviour, ILoggerProvider
 {
@@ -21,17 +22,14 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         public Vector3 position;
     }
 
-    [SerializeField]
-    private List<ProjectileSO> projectiles;
-
-    [SerializeField]
-    private MenusAndDisplayManager madm;
+    [SerializeField] private List<ProjectileSO> projectiles;
+    [SerializeField] private MenusAndDisplayManager madm;
+    [SerializeField] private UnityEvent<BasicProjectile> onProjectileInstantiated;
 
     [Space]
     [Header("Debug")]
 
-    [SerializeField]
-    private Logger logger;
+    [SerializeField] private Logger logger;
 
     private ProjectileSO selectedProjectile;
     private int currentIndex = 0;
@@ -69,6 +67,7 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
             {
                 p.gameObject.layer = shootingLayer;
                 p.onDestroyed += OnProjectileDestroyed;
+                onProjectileInstantiated?.Invoke(p);
                 p.Use(s.direction, s.position);
                 ++activeProjectiles;
             });
@@ -84,6 +83,7 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
             {
                 p.gameObject.layer = shootingLayer;
                 p.onDestroyed += OnProjectileDestroyed;
+                onProjectileInstantiated?.Invoke(p);
                 p.Use(s.angleDegrees, s.position);
                 ++activeProjectiles;
             });
@@ -99,6 +99,7 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
             {
                 p.gameObject.layer = shootingLayer;
                 p.onDestroyed += OnProjectileDestroyed;
+                onProjectileInstantiated?.Invoke(p);
                 p.Use(s.angleRads, s.position);
                 ++activeProjectiles;
             });
