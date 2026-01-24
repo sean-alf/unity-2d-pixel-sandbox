@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(LinearAnimator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Switch : MonoBehaviour
+[RequireComponent(typeof(Interactable))]
+public class Switch : MonoBehaviour, Interactable.IOverride
 {
     private static readonly string AnimationKey = "Default";
 
@@ -29,10 +30,14 @@ public class Switch : MonoBehaviour
     private UnityEvent onToggleImmediateEvent;
 
     private LinearAnimator animator;
+    private Interactable interactable;
+
+    public bool IsInteractable => !isLocked && playerCanToggleFrom.Contains(switchPosition);
 
     private void Awake()
     {
         animator = GetComponent<LinearAnimator>();
+        interactable = GetComponent<Interactable>();
         Init();
     }
 
@@ -58,9 +63,19 @@ public class Switch : MonoBehaviour
 
     public void Interactable_Toggle() => ToggleInternal(true);
 
-    public void Lock() => isLocked = true;
+    public void Lock()
+    {
+        if (isLocked) return;
+        isLocked = true;
+        interactable.NotifyStateChanged(gameObject);
+    }
 
-    public void Unlock() => isLocked = false;
+    public void Unlock()
+    {
+        if (!isLocked) return;
+        isLocked = false;
+        interactable.NotifyStateChanged(gameObject);
+    }
 
     private void Init()
     {
@@ -94,16 +109,12 @@ public class Switch : MonoBehaviour
 
     private void OnAnimationFinished()
     {
-        UpdatePosition();
-        isLocked = false;
-        foreach (var e in events.Where(e => e.forPosition == switchPosition)) e.whenSelected?.Invoke();
-    }
-
-    private void UpdatePosition()
-    {
         int pos = (int)switchPosition;
         pos = (pos + 1) % Enum.GetValues(typeof(Position)).Length;
         switchPosition = (Position)pos;
+        isLocked = false;
+        interactable.NotifyStateChanged(gameObject);
+        foreach (var e in events.Where(e => e.forPosition == switchPosition)) e.whenSelected?.Invoke();
     }
 
     public enum Position

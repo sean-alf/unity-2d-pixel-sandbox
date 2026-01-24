@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -175,10 +176,20 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
         else if (other.TryGetComponent(out Interactable i))
         {
-            if (!interactables.Contains(i)) interactables.Add(i);
+            if (!interactables.Contains(i))
+            {
+                interactables.Add(i);
+                i.onInteractableStateChange += OnInteractableStateChange;
+            }
         }
 
-        if (interactables.Count > 0) interactIndicator.Show();
+        if (interactIndicator)
+        {
+            // If at least one Interactable that is currently interactable
+            // Then show the interact indicator
+            var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
+            if (found) interactIndicator.Show();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -188,10 +199,17 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
             if (interactables.Contains(i))
             {
                 interactables.Remove(i);
+                i.onInteractableStateChange += OnInteractableStateChange;
             }
         }
 
-        if (interactIndicator && interactables.Count == 0) interactIndicator.Hide();
+        if (interactIndicator)
+        {
+            // If NOT at least one Interactable that is currently interactable
+            // Then hide the interact indicator
+            var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
+            if (!found) interactIndicator.Hide();
+        }
     }
 
     private void OnDestroy()
@@ -246,4 +264,20 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     }
 
     void AutoMover.IAutoMoverTarget.OnDirectionChanged(Vector2 direction) => OnDirectionChanged(direction);
+
+    private void OnInteractableStateChange(Interactable i)
+    {
+        if (!interactables.Contains(i)) return;
+
+        var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
+
+        if (found)
+        {
+            interactIndicator.Show();
+        }
+        else
+        {
+            interactIndicator.Hide();
+        }
+    }
 }
