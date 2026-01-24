@@ -37,6 +37,26 @@ public class LinearAnimator : MonoBehaviour
     }
 
     /// <summary>
+    /// Animates the animation that was running before calling Stop() on it, if there is one,
+    /// otherwise no-op.
+    /// <br/>
+    /// onDone is called when the sprite array is animated through.
+    /// If "loop" is enabled then onDone gets called everytime the animation loops.
+    /// If "loop" is not enabled then onDone gets called once after animation is finished.
+    /// Only works in play mode.
+    /// </summary>
+    /// <param name="onFinished"></param>
+    public void Animate(Action onFinished = null)
+    {
+        // Return early here since we don't want to log an error if the current key is null
+        // Which is what happens in AnimateStart().
+        // Having a null currentAnimationkey is a valid state.
+        if (!IsKeyValid(currentAnimationKey)) return;
+        animateReverse = false;
+        AnimateStart(currentAnimationKey, onFinished);
+    }
+
+    /// <summary>
     /// onDone is called when the sprite array is animated through.
     /// If "loop" is enabled then onDone gets called everytime the animation loops.
     /// If "loop" is not enabled then onDone gets called once after animation is finished.
@@ -49,23 +69,25 @@ public class LinearAnimator : MonoBehaviour
         AnimateStart(animationName, onFinished);
     }
 
-    private void AnimateStart(string animationName, Action onFinished = null)
+    private void AnimateStart(string animationKey, Action onFinished = null)
     {
-        if (currentAnimationKey == animationName && coroutine != null) return;
+        // Ignore request to start an animation that is currently running
+        if (currentAnimationKey == animationKey && coroutine != null) return;
+
+        if (!IsKeyValid(animationKey))
+        {
+            Debug.LogError($"LinearAnimator ({gameObject.name}): animation key {animationKey} is not valid!");
+            return;
+        }
 
         if (animations.Count == 0)
         {
             Debug.LogError($"LinearAnimator ({gameObject.name}): animation count is 0!");
-        }
-
-        if (!animations.ContainsKey(animationName))
-        {
-            Debug.LogError($"LinearAnimator ({gameObject.name}): invalid animation name {animationName}!");
             return;
         }
 
-        currentAnimation = animations[animationName];
-        currentAnimationKey = animationName;
+        currentAnimation = animations[animationKey];
+        currentAnimationKey = animationKey;
         var sprites = currentAnimation.Sprites;
 
         if (sprites.Count() == 0)
@@ -92,7 +114,7 @@ public class LinearAnimator : MonoBehaviour
         coroutine = StartCoroutine(AnimateIntern(currentAnimation, onFinished));
     }
 
-    public void Stop()
+    public void Stop(bool clearSprite = false)
     {
         coroutine.WhenNotNullClass(_ =>
         {
@@ -100,28 +122,46 @@ public class LinearAnimator : MonoBehaviour
             coroutine = null;
         });
 
-        currentAnimation.WhenNotNullClass(
-            a => sr.WhenNotNull(
-                sr => a.InactiveSprite.WhenNotNull(
-                    s => sr.sprite = s
+        if (clearSprite)
+        {
+            sr.WhenNotNull(sr => sr.sprite = null);
+        }
+        else
+        {
+            currentAnimation.WhenNotNullClass(
+                a => sr.WhenNotNull(
+                    sr => a.InactiveSprite.WhenNotNull(
+                        s => sr.sprite = s
+                    )
                 )
-            )
-        );
+            );
+        }
     }
 
-    public void SetDuration(string key, float duration)
+    public void UpdateDuration(string key, float duration)
     {
-        if (animations.ContainsKey(key))
+        if (IsKeyValid(key))
         {
             animations[key].UpdateDuration(duration);
         }
         else
         {
-            Debug.LogError($"LinearAnimator ({gameObject.name}): no animation with key {key}!");
+            Debug.LogError($"LinearAnimator ({gameObject.name}): attempting to update duration with invalid key {key}!");
         }
     }
 
-    public bool IsKeyValid(string key) => key != null && key.Trim().Length > 0;
+    /// <summary>
+    /// The key is valid if it is not null, non-zero length, and exists withing the animations dictionary.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public bool IsKeyValid(string key) => key != null && key.Trim().Length > 0 && animations.ContainsKey(key);
+
+    public void ClearCurrentAnimation()
+    {
+        currentAnimation = null;
+        currentAnimationKey = null;
+    }
 
     private IEnumerator AnimateIntern(LinearAnimation animation, Action onFinished)
     {

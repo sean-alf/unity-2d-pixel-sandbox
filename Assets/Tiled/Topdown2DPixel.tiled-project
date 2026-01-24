@@ -124,6 +124,16 @@
             ]
         },
         {
+            "id": 15,
+            "name": "TileType",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "DeepMud"
+            ],
+            "valuesAsFlags": false
+        },
+        {
             "color": "#ffa0a0a4",
             "drawFill": true,
             "id": 13,

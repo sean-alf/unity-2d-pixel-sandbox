@@ -74,11 +74,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 0.3551,
-            "selectedLayer": 2,
+            "scale": 1.8096,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 1599.5494226978315,
-                "y": 1598.1413686285553
+                "x": 340.40671971706456,
+                "y": 1250.8289124668436
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -99,7 +99,7 @@
             "scale": 0.7855,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1600.2546148949714,
+                "x": 1413.1126670910248,
                 "y": 1599.618077657543
             }
         }
@@ -122,10 +122,10 @@
         "Rules/wall_rules.tmx"
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "string",
+    "property.type": "TileType",
     "recentFiles": [
-        "Rules/wall_rules.tmx",
         "TileSets/Wall.tsx",
+        "Rules/wall_rules.tmx",
         "Tilemaps/w1-l3-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",

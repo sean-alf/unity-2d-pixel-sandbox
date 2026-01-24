@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,8 +31,9 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
     private bool ShouldAnimate => inputType == InputType.Full || inputType == InputType.AutoMoving;
 
-    [SerializeField][Range(1, 20)] private int speed = 1;
+    [SerializeField][Range(1, 20)] private float speed = 1;
     [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] private LinearAnimator effectAnimator;
 
     [Space]
     [Header("Debug")]
@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private InteractIndicator interactIndicator;
     private Vector2 currentDirection;
     private InputType inputType;
+    private float speedFactor = 1f;
 
     void Awake()
     {
@@ -84,8 +85,8 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     void FixedUpdate()
     {
         if (inputType != InputType.Full) return;
-
-        rb.linearVelocity = efr.AppliedForce + speed * currentDirection;
+        var scaledSpeed = speedFactor * speed;
+        rb.linearVelocity = efr.AppliedForce + scaledSpeed * currentDirection;
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -101,6 +102,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         if (direction.IsIdle())
         {
             animator.Stop();
+            effectAnimator.Stop();
         }
         else
         {
@@ -115,7 +117,11 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
                 rb.SetRotation(lookRotation);
             }
 
-            if (ShouldAnimate) animator.Animate("Default");
+            if (ShouldAnimate)
+            {
+                animator.Animate("Default");
+                effectAnimator.Animate();
+            }
         }
 
         logger.I($"Direction changed = {direction}");
@@ -256,10 +262,35 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         if (ShouldAnimate && !currentDirection.IsIdle())
         {
             animator.Animate("Default");
+            effectAnimator.Animate();
         }
         else
         {
             animator.Stop();
+            effectAnimator.Stop();
+        }
+    }
+
+    public void TileTracker_OnTileChanged(Vector3Int cell)
+    {
+        logger.D($"new tile cell {cell}");
+    }
+
+    public void TileTracker_OnTileTypeChanged(Vector3Int cell, TileTracker.TileType type)
+    {
+        logger.D($"new tile cell {cell} type {type}");
+
+        switch (type)
+        {
+            case TileTracker.TileType.None:
+                speedFactor = 1f;
+                effectAnimator.Stop(clearSprite: true);
+                effectAnimator.ClearCurrentAnimation();
+                break;
+            case TileTracker.TileType.DeepMud:
+                speedFactor = 0.5f;
+                effectAnimator.Animate("Mud");
+                break;
         }
     }
 

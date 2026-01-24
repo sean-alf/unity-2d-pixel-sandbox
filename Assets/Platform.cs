@@ -56,7 +56,7 @@ public class Platform : MonoBehaviour, ILoggerProvider
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        trackTilemap = GameObject.Find("Above Ground Trigger Layer").GetComponent<Tilemap>();
+        trackTilemap = GameObject.Find("Above Ground").GetComponent<Tilemap>();
 
         if (trackTilemap == null)
         {
