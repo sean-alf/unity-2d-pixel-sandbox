@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -6,63 +7,66 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class BasicProjectile : MonoBehaviour, ILoggerProvider
 {
-    private static readonly ProjectileAnimationStateManager animationStateManager = new();
-
-    [SerializeField]
-    private ProjectileAnimationStateManager.ProjectileID id = ProjectileAnimationStateManager.ProjectileID.UNSET;
-
-    [SerializeField]
-    [Range(1, 40)]
-    private int speed = 1;
-
-    [SerializeField]
-    private bool allowRotation = true;
+    [SerializeField][Range(1, 40)] private int speed = 1;
+    [SerializeField] private float destructionDelay = 0f;
+    [SerializeField] private bool allowRotation = true;
+    [SerializeField] private string defaultAnimationKey = "Default";
+    [SerializeField] private string impactAnimationKey = "Impact";
 
     [Header("Debug")]
     [Space]
 
-    [SerializeField]
-    private Logger logger;
+    [SerializeField] private Logger logger;
 
     private Rigidbody2D rb;
-    private Animator animator;
+    private LinearAnimator linearAnimator;
     private SpriteRenderer sr;
+    private WaitForSeconds wait;
     private float halfHeight;
 
     public Action onDestroyed;
 
     public Logger Logger => logger;
 
+    // ──────────────────────────────────────────────────────────────
+    // GameObject Lifecycle
+    // ──────────────────────────────────────────────────────────────
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        TryGetComponent(out animator);
+        TryGetComponent(out linearAnimator);
         sr = GetComponent<SpriteRenderer>();
 
         halfHeight = sr.bounds.size.y / 2.0f;
+        wait = new(destructionDelay);
     }
+
+    private void Start()
+    {
+        if (ShouldAnimate(defaultAnimationKey)) linearAnimator.Animate(defaultAnimationKey);
+    }
+
+    private void OnDestroy()
+    {
+        onDestroyed?.Invoke();
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        wait = new(destructionDelay);
+    }
+#endif
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        rb.linearVelocity = Vector2.zero;
-
-        if (animator == null)
-        {
-            Animator_Finish();
-            return;
-        }
-
-        var stateName = animationStateManager.GetAnimationData(id).finishStateName;
-
-        if (stateName != null)
-        {
-            animator.Play(stateName);
-        }
-        else
-        {
-            logger.E($"finish state name null!");
-        }
+        StartCoroutine(DelayDestroy());
     }
+
+    // ──────────────────────────────────────────────────────────────
+    // Public Control Methods
+    // ──────────────────────────────────────────────────────────────
 
     public void UpdateRotation()
     {
@@ -96,13 +100,36 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
         rb.linearVelocity = speed * direction;
     }
 
-    public void Animator_Finish()
+    // ──────────────────────────────────────────────────────────────
+    // Coroutines
+    // ──────────────────────────────────────────────────────────────
+
+    private IEnumerator DelayDestroy()
     {
-        Destroy(gameObject);
+        yield return wait;
+
+        rb.linearVelocity = Vector2.zero;
+
+        if (linearAnimator == null)
+        {
+            Destroy(gameObject);
+            yield return null;
+        }
+
+        if (ShouldAnimate(impactAnimationKey)) linearAnimator.Animate(impactAnimationKey,
+            onFinished: () => Destroy(gameObject)
+        );
     }
 
-    private void OnDestroy()
-    {
-        onDestroyed?.Invoke();
-    }
+    // ──────────────────────────────────────────────────────────────
+    // Helpers
+    // ──────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// Not all projectiles will necessarily have animations.
+    /// Only animate if there is an animator attached and the key is valid.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public bool ShouldAnimate(string key) => linearAnimator && linearAnimator.IsKeyValid(key);
 }

@@ -56,6 +56,14 @@ PrefabInstance:
       propertyPath: m_SpriteLibraryAsset
       value: 
       objectReference: {fileID: 7108339969198208228, guid: 1e2d8dae165e34f489a4470efb534679, type: 3}
+    - target: {fileID: 6643108539801083361, guid: 8a992e71a6103471a9df61027c9c4e6d, type: 3}
+      propertyPath: 'animations.kvpList.Array.data[0].value.sprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5683761358251744078, guid: 7551510b04dff4e889afd4e176408c97, type: 3}
+    - target: {fileID: 6643108539801083361, guid: 8a992e71a6103471a9df61027c9c4e6d, type: 3}
+      propertyPath: 'animations.kvpList.Array.data[0].value.sprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 4632596876580935611, guid: 7551510b04dff4e889afd4e176408c97, type: 3}
     - target: {fileID: 7669642251165378132, guid: 8a992e71a6103471a9df61027c9c4e6d, type: 3}
       propertyPath: m_Sprite
       value: 

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2980929853935689749}
   - component: {fileID: 7316056706519138146}
   - component: {fileID: 2287008782070608329}
+  - component: {fileID: -8389180165419869349}
   m_Layer: 13
   m_Name: CannonBall
   m_TagString: Untagged
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: -6704587624714765548, guid: 1dca702536bc94d4d909acbd9900048a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -130,7 +131,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!50 &2980929853935689749
 Rigidbody2D:
   serializedVersion: 5
@@ -170,9 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45689d3fda364abda5009a7df11773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
-  id: -1
   speed: 6
+  destructionDelay: 0.15
   allowRotation: 0
+  defaultAnimationKey: 
+  impactAnimationKey: Impact
   logger:
     logLevel: 5
 --- !u!114 &2287008782070608329
@@ -190,3 +193,29 @@ MonoBehaviour:
   strength: 5
   type: 0
   id: CannonBall
+--- !u!114 &-8389180165419869349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216335514995580992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e8bc5df205b4e7eab3af5c42e7b79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
+  animations:
+    kvpList:
+    - key: Impact
+      value:
+        sprites:
+        - {fileID: 7872062682794580214, guid: 15f62855297b9406898cbae88af5a66f, type: 3}
+        - {fileID: -5488849276753507242, guid: 15f62855297b9406898cbae88af5a66f, type: 3}
+        - {fileID: -3079105513586424954, guid: 15f62855297b9406898cbae88af5a66f, type: 3}
+        - {fileID: -3533660655402468863, guid: 15f62855297b9406898cbae88af5a66f, type: 3}
+        - {fileID: -584544632499951048, guid: 15f62855297b9406898cbae88af5a66f, type: 3}
+        - {fileID: 3263370860362981526, guid: 15f62855297b9406898cbae88af5a66f, type: 3}
+        inactiveSprite: {fileID: 0}
+        duration: 0.25
+        loop: 0

@@ -7,41 +7,6 @@ using UnityEngine;
 public class LinearAnimator : MonoBehaviour
 {
     [Serializable]
-    public class LinearAnimation
-    {
-        [SerializeField]
-        private Sprite[] sprites;
-
-        [SerializeField]
-        [Tooltip("The sprite to use when not animating")]
-        private Sprite inactiveSprite;
-
-        [SerializeField]
-        private float duration;
-
-        [SerializeField]
-        private bool loop = false;
-
-        private WaitForSeconds stepWait;
-
-        public Sprite[] Sprites => sprites;
-        public Sprite InactiveSprite => inactiveSprite;
-        public bool Loop => loop;
-
-        public WaitForSeconds GetStepWait()
-        {
-            stepWait ??= new(duration / sprites.Length);
-            return stepWait;
-        }
-
-        public void UpdateDuration(float duration)
-        {
-            this.duration = duration;
-            stepWait = new(duration / sprites.Length);
-        }
-    }
-
-    [Serializable]
     public class LinearAnimationDictionary : SerializableDictionary<string, LinearAnimation> { }
 
     [SerializeField]
@@ -50,6 +15,7 @@ public class LinearAnimator : MonoBehaviour
     private SpriteRenderer sr;
     private Coroutine coroutine;
     private LinearAnimation currentAnimation;
+    private string currentAnimationKey;
     private bool animateReverse = false;
 
     private void Awake()
@@ -85,7 +51,7 @@ public class LinearAnimator : MonoBehaviour
 
     private void AnimateStart(string animationName, Action onFinished = null)
     {
-        if (coroutine != null) return;
+        if (currentAnimationKey == animationName && coroutine != null) return;
 
         if (animations.Count == 0)
         {
@@ -99,6 +65,7 @@ public class LinearAnimator : MonoBehaviour
         }
 
         currentAnimation = animations[animationName];
+        currentAnimationKey = animationName;
         var sprites = currentAnimation.Sprites;
 
         if (sprites.Count() == 0)
@@ -121,6 +88,7 @@ public class LinearAnimator : MonoBehaviour
 
         if (sr == null) return;
 
+        if (coroutine != null) StopCoroutine(coroutine);
         coroutine = StartCoroutine(AnimateIntern(currentAnimation, onFinished));
     }
 
@@ -152,6 +120,8 @@ public class LinearAnimator : MonoBehaviour
             Debug.LogError($"LinearAnimator ({gameObject.name}): no animation with key {key}!");
         }
     }
+
+    public bool IsKeyValid(string key) => key != null && key.Trim().Length > 0;
 
     private IEnumerator AnimateIntern(LinearAnimation animation, Action onFinished)
     {
@@ -190,6 +160,41 @@ public class LinearAnimator : MonoBehaviour
                 sr.sprite = sprites[i];
                 yield return animation.GetStepWait();
             }
+        }
+    }
+
+    [Serializable]
+    public class LinearAnimation
+    {
+        [SerializeField]
+        private Sprite[] sprites;
+
+        [SerializeField]
+        [Tooltip("The sprite to use when not animating")]
+        private Sprite inactiveSprite;
+
+        [SerializeField]
+        private float duration;
+
+        [SerializeField]
+        private bool loop = false;
+
+        private WaitForSeconds stepWait;
+
+        public Sprite[] Sprites => sprites;
+        public Sprite InactiveSprite => inactiveSprite;
+        public bool Loop => loop;
+
+        public WaitForSeconds GetStepWait()
+        {
+            stepWait ??= new(duration / sprites.Length);
+            return stepWait;
+        }
+
+        public void UpdateDuration(float duration)
+        {
+            this.duration = duration;
+            stepWait = new(duration / sprites.Length);
         }
     }
 }

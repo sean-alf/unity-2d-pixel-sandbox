@@ -5,13 +5,13 @@
     },
     "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
+        ".",
         "Tilemaps/Rules",
         "Properties",
         "TileSets",
-        ".",
-        "Worlds",
         "Tilemaps",
-        "Rules"
+        "Rules",
+        "Worlds"
     ],
     "fileStates": {
         ":/automap-tiles.tsx": {
@@ -74,11 +74,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 1.3685,
-            "selectedLayer": 3,
+            "scale": 0.3551,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1600.2922908293751,
-                "y": 1599.9269272926563
+                "x": 1599.5494226978315,
+                "y": 1598.1413686285553
             }
         },
         "Tilemaps/w1-l2-map.tmx": {

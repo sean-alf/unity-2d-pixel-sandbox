@@ -31,12 +31,8 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
     private bool ShouldAnimate => inputType == InputType.Full || inputType == InputType.AutoMoving;
 
-    [SerializeField]
-    [Range(1, 20)]
-    private int speed = 1;
-
-    [SerializeField]
-    private Transform projectileSpawnPoint;
+    [SerializeField][Range(1, 20)] private int speed = 1;
+    [SerializeField] private Transform projectileSpawnPoint;
 
     [Space]
     [Header("Debug")]
@@ -195,7 +191,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
             }
         }
 
-        if (interactables.Count == 0) interactIndicator.Hide();
+        if (interactIndicator && interactables.Count == 0) interactIndicator.Hide();
     }
 
     private void OnDestroy()

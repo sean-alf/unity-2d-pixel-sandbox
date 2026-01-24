@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8197104023100154912}
   - component: {fileID: 4825024968469069743}
   - component: {fileID: 530477613101860035}
-  - component: {fileID: 5310670241795578127}
   - component: {fileID: 3699801290001444725}
   - component: {fileID: -7308262779197194342}
+  - component: {fileID: 6643108539801083361}
   m_Layer: 12
   m_Name: BlasterBeam
   m_TagString: Untagged
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 6
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5310342397081596427, guid: ee755864374ae45099cfc1438abb14b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -201,28 +201,6 @@ MonoBehaviour:
   m_labelHash: 6.4580854e-12
   m_SpriteKey: 0
   m_SpriteHash: 220252032
---- !u!95 &5310670241795578127
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1765677281592612409}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cdf4f2c19f2f2484ab006c2522a342cf, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3699801290001444725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,8 +228,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45689d3fda364abda5009a7df11773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
-  id: 0
   speed: 12
-  canReflect: 0
+  destructionDelay: 0
+  allowRotation: 1
+  defaultAnimationKey: 
+  impactAnimationKey: Impact
   logger:
     logLevel: 5
+--- !u!114 &6643108539801083361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765677281592612409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e8bc5df205b4e7eab3af5c42e7b79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
+  animations:
+    kvpList:
+    - key: Impact
+      value:
+        sprites:
+        - {fileID: 794018497453465181, guid: ee755864374ae45099cfc1438abb14b2, type: 3}
+        - {fileID: 996815303245547897, guid: ee755864374ae45099cfc1438abb14b2, type: 3}
+        inactiveSprite: {fileID: 0}
+        duration: 0.2
+        loop: 0
