@@ -5,13 +5,13 @@
     },
     "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
-        ".",
-        "Tilemaps/Rules",
+        "Worlds",
         "Properties",
-        "TileSets",
-        "Tilemaps",
+        ".",
         "Rules",
-        "Worlds"
+        "TileSets",
+        "Tilemaps/Rules",
+        "Tilemaps"
     ],
     "fileStates": {
         ":/automap-tiles.tsx": {
@@ -40,7 +40,7 @@
         "TileSets/MuddyGround.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 2.0835,
-            "scaleInEditor": 2.84
+            "scaleInEditor": 2.6951
         },
         "TileSets/PlatformTracks.tsx": {
             "scaleInDock": 1,
@@ -74,11 +74,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 1.8096,
-            "selectedLayer": 3,
+            "scale": 1.5295,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 340.40671971706456,
-                "y": 1250.8289124668436
+                "x": 967.6364825106243,
+                "y": 1345.8646616541353
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -96,11 +96,11 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 0.7855,
+            "scale": 0.2231,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1413.1126670910248,
-                "y": 1599.618077657543
+                "x": -4769.161810847154,
+                "y": 1687.5840430300314
             }
         }
     },
@@ -117,19 +117,17 @@
     "openFiles": [
         "Tilemaps/w1-l1-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
-        "Tilemaps/w1-l3-map.tmx",
-        "TileSets/Wall.tsx",
-        "Rules/wall_rules.tmx"
+        "Tilemaps/w1-l3-map.tmx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "TileType",
     "recentFiles": [
-        "TileSets/Wall.tsx",
-        "Rules/wall_rules.tmx",
         "Tilemaps/w1-l3-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
         "TileSets/MuddyGround.tsx",
+        "TileSets/Wall.tsx",
+        "Rules/wall_rules.tmx",
         "TileSets/PlatformTracks.tsx",
         "TileSets/Conveyer.tsx",
         "Tilemaps/TestMap.tmx",

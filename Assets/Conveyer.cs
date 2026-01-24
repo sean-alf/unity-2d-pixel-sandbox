@@ -26,8 +26,10 @@ public class Conveyer : MonoBehaviour
     [SerializeField]
     private bool showEndEdge = true;
 
+#if UNITY_EDITOR
     [SerializeField]
     private bool animateInEditor = false;
+#endif
 
     private Transform startEdge;
     private Transform track;

@@ -86,7 +86,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7691975477250719847, guid: ede809ae1e44e40bbaa7eb263a75f4f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -239,7 +239,6 @@ MonoBehaviour:
         inactiveSprite: {fileID: 0}
         duration: 0.35
         loop: 0
-  currentDuration: 0
 --- !u!114 &-5514785961956932392
 MonoBehaviour:
   m_ObjectHideFlags: 0

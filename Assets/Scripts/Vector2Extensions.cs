@@ -127,7 +127,11 @@ public static class Vector2Extensions
 
     public static Vector2 Add(this Vector2 v, Vector2 other) => v + other;
 
+    public static Vector2 AddY(this Vector2 v, float y) => new(v.x, v.y + y);
+
     public static Vector2 Subtract(this Vector2 v, Vector3 other) => new(v.x - other.x, v.y - other.y);
+
+    public static Vector2 SubtractY(this Vector2 v, float y) => new(v.x, v.y - y);
 
     public static Vector2 Direction(this Vector2 v, Vector2 other) => v.Subtract(other).normalized;
 

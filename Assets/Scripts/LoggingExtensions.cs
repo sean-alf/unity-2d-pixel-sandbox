@@ -32,32 +32,38 @@ public static class Logging
         /// The objects type name.
         /// </summary>
         public string TypeName { get; }
+#if UNITY_EDITOR
         public string GUID { get; }
         public long LocalID { get; }
         /// <summary>
         /// Returns true if an ID was found for the object.
         /// </summary>
         public bool IsIDValid { get; }
+#endif
 
         public Tag(UnityEngine.Object o)
         {
             Name = o.name;
             TypeName = o.GetType().Name;
             Value = $"{Name} -> {TypeName}";
+#if UNITY_EDITOR
             IsIDValid = AssetDatabase.TryGetGUIDAndLocalFileIdentifier(o, out string guid, out long localID);
             GUID = guid;
             LocalID = localID;
+#endif
         }
 
         public override string ToString() => Value;
-
-        public bool IsValid() => IsIDValid && Value != null && Value.Length > 0;
 
         public override bool Equals(object obj)
         {
             if (obj is Tag other)
             {
+#if UNITY_EDITOR
                 return GUID == other.GUID && LocalID == other.LocalID && Value == other.Value;
+#else
+                return Value == other.Value;
+#endif
             }
 
             return false;
@@ -65,7 +71,11 @@ public static class Logging
 
         public override int GetHashCode()
         {
+#if UNITY_EDITOR
             return HashCode.Combine(GUID, LocalID, Value);
+#else
+            return HashCode.Combine(Value);
+#endif
         }
     };
 
