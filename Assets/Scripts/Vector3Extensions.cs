@@ -21,4 +21,12 @@ public static class Vector3Extensions
     public static Vector3 Subtract(this Vector3 v, Vector3 other) => v - other;
 
     public static Vector3 Direction(this Vector3 v, Vector3 other) => other.Subtract(v).normalized;
+
+    public static Vector3 Round(this Vector3 v) => new(Mathf.Round(v.x), Mathf.Round(v.y), Mathf.Round(v.z));
+
+    public static Vector3 SnapXYToHalfInteger(this Vector3 v)
+    {
+        var v2 = new Vector2(Mathf.Round(v.x * 2f), Mathf.Round(v.y * 2f)) / 2f;
+        return new(v2.x, v2.y, v.z);
+    }
 }

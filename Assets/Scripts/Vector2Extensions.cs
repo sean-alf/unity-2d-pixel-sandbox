@@ -106,6 +106,8 @@ public static class Vector2Extensions
     /// <returns></returns>
     public static Vector2 Round(this Vector2 v) => new(Mathf.RoundToInt(v.x), Mathf.RoundToInt(v.y));
 
+    public static Vector2 SnapToHalf(this Vector2 v) => new(Mathf.RoundToInt(v.x * 2f) / 2f, Mathf.RoundToInt(v.y * 2f) / 2f);
+
     /// <summary>
     /// Clamps the Vector2 x and y values towards 0.<br/>
     /// Example:
