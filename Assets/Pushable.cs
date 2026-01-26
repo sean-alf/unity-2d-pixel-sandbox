@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -7,6 +8,14 @@ public class Pushable : MonoBehaviour
     [SerializeField] private bool isPushable = true;
     [SerializeField] private float pushSpeed = 1f;
     [SerializeField][Range(0, 50)][Tooltip("0 is considered infinite")] private int maxPushCount = 1;
+    [SerializeField]
+    private CardinalDirection[] allowedPushingDirections =
+    {
+        CardinalDirection.Up,
+        CardinalDirection.Right,
+        CardinalDirection.Down,
+        CardinalDirection.Left
+    };
 
     [Space]
     [Header("Debug")]
@@ -64,7 +73,7 @@ public class Pushable : MonoBehaviour
         {
             direction = other.relativeVelocity.normalized;
 
-            if (!direction.IsCardinal()) return;
+            if (!direction.IsCardinal() || allowedPushingDirections.Count(d => d.ToVector2() == direction) == 0) return;
 
             DetermineNextPosition(direction);
 
