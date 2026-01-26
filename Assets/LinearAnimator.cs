@@ -17,6 +17,7 @@ public class LinearAnimator : MonoBehaviour
     private LinearAnimation currentAnimation;
     private string currentAnimationKey;
     private bool animateReverse = false;
+    private bool useUnscaledTime = false;
 
     private void Awake()
     {
@@ -33,6 +34,14 @@ public class LinearAnimator : MonoBehaviour
     public void Animate(string animationName, Action onFinished = null)
     {
         animateReverse = false;
+        useUnscaledTime = false;
+        AnimateStart(animationName, onFinished);
+    }
+
+    public void AnimateRealtime(string animationName, Action onFinished = null)
+    {
+        animateReverse = false;
+        useUnscaledTime = true;
         AnimateStart(animationName, onFinished);
     }
 
@@ -53,6 +62,7 @@ public class LinearAnimator : MonoBehaviour
         // Having a null currentAnimationkey is a valid state.
         if (!IsKeyValid(currentAnimationKey)) return;
         animateReverse = false;
+        useUnscaledTime = false;
         AnimateStart(currentAnimationKey, onFinished);
     }
 
@@ -66,6 +76,7 @@ public class LinearAnimator : MonoBehaviour
     public void AnimateReverse(string animationName, Action onFinished = null)
     {
         animateReverse = true;
+        useUnscaledTime = false;
         AnimateStart(animationName, onFinished);
     }
 
@@ -190,7 +201,7 @@ public class LinearAnimator : MonoBehaviour
             for (int i = sprites.Count() - 1; i >= 0; i--)
             {
                 sr.sprite = sprites[i];
-                yield return animation.GetStepWait();
+                yield return useUnscaledTime ? animation.GetStepWaitRealtime() : animation.GetStepWait();
             }
         }
         else
@@ -198,7 +209,7 @@ public class LinearAnimator : MonoBehaviour
             for (int i = 0; i < sprites.Count(); i++)
             {
                 sr.sprite = sprites[i];
-                yield return animation.GetStepWait();
+                yield return useUnscaledTime ? animation.GetStepWaitRealtime() : animation.GetStepWait();
             }
         }
     }
@@ -220,6 +231,7 @@ public class LinearAnimator : MonoBehaviour
         private bool loop = false;
 
         private WaitForSeconds stepWait;
+        private WaitForSecondsRealtime stepWaitRealtime;
 
         public Sprite[] Sprites => sprites;
         public Sprite InactiveSprite => inactiveSprite;
@@ -231,10 +243,17 @@ public class LinearAnimator : MonoBehaviour
             return stepWait;
         }
 
+        public WaitForSecondsRealtime GetStepWaitRealtime()
+        {
+            stepWaitRealtime ??= new(duration / sprites.Length);
+            return stepWaitRealtime;
+        }
+
         public void UpdateDuration(float duration)
         {
             this.duration = duration;
             stepWait = new(duration / sprites.Length);
+            stepWaitRealtime = new(duration / sprites.Length);
         }
     }
 }

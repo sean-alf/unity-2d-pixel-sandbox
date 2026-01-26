@@ -9,7 +9,7 @@ public class EventTimer : MonoBehaviour
 
     public UnityEvent onTimerExpire;
 
-    private WaitForSeconds wait;
+    private WaitForSecondsRealtime wait;
     private Coroutine coroutine;
 
     private bool IsRunning => coroutine != null;
