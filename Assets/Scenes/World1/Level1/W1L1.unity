@@ -295,9 +295,6 @@ GameObject:
   - component: {fileID: 83138618}
   - component: {fileID: 83138617}
   - component: {fileID: 83138616}
-  - component: {fileID: 83138619}
-  - component: {fileID: 83138620}
-  - component: {fileID: 83138621}
   - component: {fileID: 83138622}
   m_Layer: 10
   m_Name: RemovableBarrier
@@ -381,19 +378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   onRemoved:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 83138621}
-        m_TargetAssemblyTypeName: EventTimer, Assembly-CSharp
-        m_MethodName: StartTimer
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onPutBack:
     m_PersistentCalls:
       m_Calls: []
@@ -456,76 +441,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &83138619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83138614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96cf5dad0b8034bf0addde627ad3082c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraTargetSwitcher
-  camera: {fileID: 1051936497}
-  maxSpeed: 20
---- !u!114 &83138620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83138614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d257c64b1e7e04eae846a52ac4af274e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EventTimer
-  duration: 0.5
-  onTimerExpire:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 83138617}
-        m_TargetAssemblyTypeName: RemovableBarrier, Assembly-CSharp
-        m_MethodName: Remove
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &83138621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83138614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d257c64b1e7e04eae846a52ac4af274e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EventTimer
-  duration: 0.5
-  onTimerExpire:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 83138619}
-        m_TargetAssemblyTypeName: CameraTargetSwitcher, Assembly-CSharp
-        m_MethodName: SwitchBack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &83138622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1452,8 +1367,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 265614213}
-  - component: {fileID: 265614214}
   - component: {fileID: 265614215}
+  - component: {fileID: 265614216}
   m_Layer: 0
   m_Name: MovingPlatformPuzzle
   m_TagString: Untagged
@@ -1483,85 +1398,6 @@ Transform:
   - {fileID: 83138615}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &265614214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265614212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98f76d2839008452980aa1c9a73db621, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  triggerCount: 3
-  onTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 83138619}
-        m_TargetAssemblyTypeName: CameraTargetSwitcher, Assembly-CSharp
-        m_MethodName: SwitchTo
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 265614215}
-        m_TargetAssemblyTypeName: GamePauser, Assembly-CSharp
-        m_MethodName: PauseGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1921966108}
-        m_TargetAssemblyTypeName: CrystalSwitch, Assembly-CSharp
-        m_MethodName: Lock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1272319894}
-        m_TargetAssemblyTypeName: CrystalSwitch, Assembly-CSharp
-        m_MethodName: Lock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 870135365}
-        m_TargetAssemblyTypeName: CrystalSwitch, Assembly-CSharp
-        m_MethodName: Lock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onUntrigger:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &265614215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1574,6 +1410,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592864bdc46b84659a75e48c5b79f1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &265614216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265614212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d436f9e75f2224554b2deb35cd5f5fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::W1L1_MovingPlatformCrystalSwitchPuzzleSequencer
+  followerCamera: {fileID: 1051936497}
+  maxCameraSwitchSpeed: 20
+  dramaticPause: 0.5
+  cs1: {fileID: 1921966108}
+  cs2: {fileID: 1272319894}
+  cs3: {fileID: 870135365}
+  barrier: {fileID: 83138617}
 --- !u!1001 &271881621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1628,11 +1483,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateB.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -1645,11 +1500,11 @@ PrefabInstance:
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 265614214}
+      objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateB.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 265614214}
+      objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -8275,11 +8130,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateB.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -8292,11 +8147,11 @@ PrefabInstance:
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 265614214}
+      objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateB.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 265614214}
+      objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -12269,11 +12124,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.0625
+      value: 37.625
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -50.46875
+      value: -38.8125
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12386,11 +12241,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateB.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -12403,11 +12258,11 @@ PrefabInstance:
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 265614214}
+      objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateB.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 265614214}
+      objectReference: {fileID: 0}
     - target: {fileID: 8611538709652084281, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
       propertyPath: onStateA.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -13131,11 +12986,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4758762970756930301, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -200.9375
+      value: -178.375
       objectReference: {fileID: 0}
     - target: {fileID: 4758762970756930301, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 443.53125
+      value: 455.1875
       objectReference: {fileID: 0}
     - target: {fileID: 6125731054299193077, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.x

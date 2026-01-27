@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
+public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
     [SerializeField] private BasicTrigger gameStartTrigger;

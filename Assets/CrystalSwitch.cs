@@ -79,6 +79,8 @@ public class CrystalSwitch : MonoBehaviour
         isChangingState = true;
     }
 
+    public void SetState(State state) => this.state = state;
+
     public void Lock() => isLocked = true;
 
     public void Unlock() => isLocked = false;
