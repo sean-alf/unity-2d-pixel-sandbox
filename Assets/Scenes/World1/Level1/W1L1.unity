@@ -13215,6 +13215,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 9183641034903580541, guid: 8022af2d0811e4805941477b9de8100c, type: 3}
+    - target: {fileID: 6657911261987201972, guid: 76d724e5a97a144eab23f118f8489555, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657911261987201972, guid: 76d724e5a97a144eab23f118f8489555, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Toggle
+      objectReference: {fileID: 0}
     - target: {fileID: 7134907149901184700, guid: 76d724e5a97a144eab23f118f8489555, type: 3}
       propertyPath: m_Name
       value: WallCannonSwitch
