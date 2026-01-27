@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,16 +16,22 @@ public class StraightShooter : MonoBehaviour
     private static readonly ReadOnlyCollection<int> signs = Array.AsReadOnly(new[] { -1, 1 });
     private static readonly WaitForSeconds _waitForSeconds0_5 = new(0.5f);
 
-    [SerializeField]
-    private float speed = 1;
+    [SerializeField] private float speed = 1;
+    [SerializeField] private float mainCastDistance = 10;
+    [SerializeField] private float reverseCastDistance = 4;
+    [SerializeField] private LayerMask castLayerMask;
 
     private Rigidbody2D rb;
     private new Collider2D collider;
     private LinearAnimator animator;
     private ProjectileManager projectileManager;
     private Vector2 currentDirection;
-    private int layerMask;
+    private Vector2 hitPosition;
+    private int navigationLayerMask;
+    private Coroutine autoTurnCoroutine;
+    private Coroutine autoShootCoroutine;
     private bool autoTurnCorner = false;
+    private bool isShootingAtPlayer = false;
 
     [SerializeField]
     private CardinalDirection initialDirection;
@@ -37,7 +44,7 @@ public class StraightShooter : MonoBehaviour
         projectileManager = GetComponent<ProjectileManager>();
 
         projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
-        layerMask = Physics2D.GetLayerCollisionMask(gameObject.layer)
+        navigationLayerMask = Physics2D.GetLayerCollisionMask(gameObject.layer)
             & ~((1 << LayerMask.NameToLayer(LayerNames.Player)) | (1 << LayerMask.NameToLayer(LayerNames.Projectile)));
 
         ChangeDirection(initialDirection.ToVector2());
@@ -45,8 +52,7 @@ public class StraightShooter : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ShootTimer());
-        StartCoroutine(AutoTurnCornersTimer());
+        StartTimers();
     }
 
     private void OnValidate()
@@ -61,12 +67,44 @@ public class StraightShooter : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isShootingAtPlayer) return;
+
         if (currentDirection == Vector2.zero)
         {
             animator.Stop();
         }
         else
         {
+            hitPosition = Vector2.zero;
+
+            // Check if player is in line-of-sight
+            // Shoot if true
+            var hit = Physics2D.Raycast(transform.position, currentDirection, mainCastDistance, castLayerMask);
+            if (hit.collider)
+            {
+                hitPosition = hit.collider.transform.position;
+            }
+
+            if (hit.collider && hit.collider.gameObject.IsOnLayer(LayerNames.Player))
+            {
+                isShootingAtPlayer = true;
+                StopTimers();
+                StartCoroutine(SequencingUtilities.Delay(0.25f, onRun: () =>
+                {
+                    Shoot();
+                    StartCoroutine(SequencingUtilities.Delay(0.25f, onRun: () =>
+                    {
+                        isShootingAtPlayer = false;
+                        StartTimers();
+                    }));
+                }));
+            }
+            else
+            {
+                CheckForPlayerBehind();
+            }
+
+            // Now check if self is blocked and needs to change directions
             if (IsPathBlocked(currentDirection, FORWARD_PATH_DISTANCE))
             {
                 ChangeDirection(NewDirection());
@@ -84,10 +122,45 @@ public class StraightShooter : MonoBehaviour
 
     public void EnemyDamageHandler_OnDeathPreAnimate() => Stop();
 
+    private void CheckForPlayerBehind()
+    {
+        var reverse = -currentDirection;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, reverse, reverseCastDistance, castLayerMask);
+
+        if (hit.collider && hit.collider.gameObject.IsOnLayer(LayerNames.Player))
+        {
+            StopTimers();
+            ChangeDirection(reverse);
+            StartTimers();
+            return;
+        }
+    }
+
     private void ChangeDirection(Vector2 direction)
     {
         currentDirection = direction;
         rb.SetRotation(Quaternion.LookRotation(Vector3.forward, currentDirection));
+    }
+
+    private void StopTimers()
+    {
+        if (autoShootCoroutine != null)
+        {
+            StopCoroutine(autoShootCoroutine);
+            autoShootCoroutine = null;
+        }
+        if (autoTurnCoroutine != null)
+        {
+            StopCoroutine(autoTurnCoroutine);
+            autoTurnCoroutine = null;
+        }
+    }
+
+    private void StartTimers()
+    {
+        autoShootCoroutine ??= StartCoroutine(ShootTimer());
+        autoTurnCoroutine ??= StartCoroutine(AutoTurnCornersTimer());
     }
 
     private Vector2 NewDirection()
@@ -136,11 +209,20 @@ public class StraightShooter : MonoBehaviour
         var raycastPosition = transform.position.Add(collider.bounds.extents * direction);
         Vector2 size = new(collider.bounds.size.x - 1f / 16f, distance);
         var angle = Vector2.SignedAngle(Vector2.up, direction);
-        var hits = Physics2D.BoxCastAll(raycastPosition, size, angle, direction, 0, layerMask);
+        var hits = Physics2D.BoxCastAll(raycastPosition, size, angle, direction, 0, navigationLayerMask);
         return gameObject.HasHits(hits);
     }
 
     private void Stop() => currentDirection = Vector2.zero;
+
+    private void Shoot()
+    {
+        projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection()
+        {
+            direction = transform.rotation * Vector2.up,
+            position = transform.position
+        });
+    }
 
     IEnumerator AutoTurnCornersTimer()
     {
@@ -169,11 +251,7 @@ public class StraightShooter : MonoBehaviour
             // Shoot 1 to 3 times
             for (int i = 0; i < Random.Range(1, 3); i++)
             {
-                projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection()
-                {
-                    direction = transform.rotation * Vector2.up,
-                    position = transform.position
-                });
+                Shoot();
                 yield return _waitForSeconds0_5;
             }
 
@@ -181,6 +259,21 @@ public class StraightShooter : MonoBehaviour
 
             // Resume movement
             currentDirection = savedDirection;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellowGreen;
+        Gizmos.DrawRay(transform.position, mainCastDistance * currentDirection);
+
+        Gizmos.color = Color.chartreuse;
+        Gizmos.DrawRay(transform.position, reverseCastDistance * -currentDirection);
+
+        if (hitPosition != Vector2.zero)
+        {
+            Gizmos.color = Color.violetRed;
+            Gizmos.DrawWireSphere(hitPosition, 1f);
         }
     }
 }

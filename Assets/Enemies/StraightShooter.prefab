@@ -121,7 +121,6 @@ MonoBehaviour:
         inactiveSprite: {fileID: -1403417745425262354, guid: eb83abf1e5e5940adbd513342277008e, type: 3}
         duration: 0.35
         loop: 1
-  currentDuration: 0
 --- !u!114 &7743796823536458332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +151,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   speed: 2
+  mainCastDistance: 10
+  reverseCastDistance: 4
+  castLayerMask:
+    serializedVersion: 2
+    m_Bits: 33920
   initialDirection: 2
 --- !u!50 &8409569574095883400
 Rigidbody2D:
@@ -161,9 +165,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2749789457448764704}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
