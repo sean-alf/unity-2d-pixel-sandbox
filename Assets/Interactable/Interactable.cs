@@ -4,6 +4,14 @@ using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
+    public interface IInteractor
+    {
+        public GameObject GameObject { get; }
+
+        public void EnableInput();
+        public void DisableInput();
+    }
+
     public interface IOverride
     {
         public bool IsInteractable { get; }
@@ -15,9 +23,9 @@ public class Interactable : MonoBehaviour
     public Action<Interactable> onInteractableStateChange;
 
     [SerializeField]
-    private UnityEvent<GameObject> OnInteract;
+    private UnityEvent<IInteractor> OnInteract;
 
-    public void Interact(GameObject interactor)
+    public void Interact(IInteractor interactor)
     {
         if (!TryGetComponent(out IOverride o) || o.IsInteractable) OnInteract?.Invoke(interactor);
     }

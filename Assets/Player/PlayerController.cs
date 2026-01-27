@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider, ITriggerer
+public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider, ITriggerer, Interactable.IInteractor
 {
     public enum InputType
     {
@@ -38,12 +38,17 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [Space]
     [Header("Debug")]
 
-    [SerializeField] private Logger logger;
+    [SerializeField] private InputType inputType;
+    [SerializeField] private Vector2 currentDirection;
+    [SerializeField] private float speedFactor = 1f;
     [SerializeField] private List<Interactable> interactables = new();
+    [SerializeField] private Logger logger;
 
     public Action<Vector2> OnDirectionChange;
     public float Speed => speed;
     public Logger Logger => logger;
+
+    public GameObject GameObject => gameObject;
 
     private Rigidbody2D rb;
     private LinearAnimator animator;
@@ -52,9 +57,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private HealthManager healthManager;
     private ExternalForceReceiver efr;
     private InteractIndicator interactIndicator;
-    private Vector2 currentDirection;
-    private InputType inputType;
-    private float speedFactor = 1f;
 
     void Awake()
     {
@@ -134,8 +136,8 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
             if (i == null) continue;
 
             // Only handle one thing per interaction, otherwise it might be confusing
-            // Hence the "break"s
-            i.Interact(gameObject);
+            // Hence the "break" below
+            i.Interact(this);
             break;
         }
     }

@@ -177,6 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc72978e00a724feda56679356ac33d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  onToggleImmediateEvent:
+    m_PersistentCalls:
+      m_Calls: []
   switchPosition: 0
   isLocked: 0
   playerCanToggleFrom: 0000000001000000
@@ -185,7 +188,16 @@ MonoBehaviour:
     sprite: {fileID: 3660650854414092634, guid: 8022af2d0811e4805941477b9de8100c, type: 3}
   - forPosition: 1
     sprite: {fileID: 9183641034903580541, guid: 8022af2d0811e4805941477b9de8100c, type: 3}
-  events: []
+  positionAEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  positionBEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  stateChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  isAnimating: 0
 --- !u!50 &1394054812706553877
 Rigidbody2D:
   serializedVersion: 5
@@ -231,7 +243,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1676443266850016143}
         m_TargetAssemblyTypeName: Switch, Assembly-CSharp
         m_MethodName: Interactable_Toggle
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

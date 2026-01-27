@@ -24,6 +24,7 @@ public class Switch : MonoBehaviour, Interactable.IOverride
     [Space]
     [Header("Debug")]
     [SerializeField] private bool isAnimating = false;
+    [SerializeField] private Interactable.IInteractor interactor;
 
 
     private LinearAnimator animator;
@@ -57,9 +58,17 @@ public class Switch : MonoBehaviour, Interactable.IOverride
     }
 #endif
 
-    public void Toggle() => ToggleInternal(false);
+    public void Toggle()
+    {
+        interactor = null;
+        ToggleInternal();
+    }
 
-    public void Interactable_Toggle() => ToggleInternal(true);
+    public void Interactable_Toggle(Interactable.IInteractor interactor)
+    {
+        this.interactor = interactor;
+        ToggleInternal();
+    }
 
     public void AddStateChangeListener(UnityAction<Switch, Position> a) => stateChangeEvent.AddListener(a);
     public void RemoveStateChangeListener(UnityAction<Switch, Position> a) => stateChangeEvent.RemoveListener(a);
@@ -130,13 +139,14 @@ public class Switch : MonoBehaviour, Interactable.IOverride
         if (ps.sprite) GetComponent<SpriteRenderer>().sprite = ps.sprite;
     }
 
-    private void ToggleInternal(bool isPlayer)
+    private void ToggleInternal()
     {
         if (isLocked) return;
 
-        if (!isPlayer || playerCanToggleFrom.Contains(switchPosition))
+        if (interactor == null || playerCanToggleFrom.Contains(switchPosition))
         {
             isAnimating = true;
+            interactor?.DisableInput();
             onToggleImmediateEvent?.Invoke();
             StartPositionBasedAnimation();
         }
@@ -161,6 +171,8 @@ public class Switch : MonoBehaviour, Interactable.IOverride
         isAnimating = false;
         interactable.NotifyStateChanged(gameObject);
         InvokeEvents(switchPosition);
+        interactor?.EnableInput();
+        interactor = null;
     }
 
     private void InvokeEvents(Position p)

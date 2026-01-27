@@ -22,9 +22,9 @@ public class HealthPickup : MonoBehaviour
     [SerializeField]
     private List<ColorByStrength> colorByStrength;
 
-    public void Interactable_Interact(GameObject interactor)
+    public void Interactable_Interact(Interactable.IInteractor interactor)
     {
-        if (interactor.TryGetComponent(out HealthManager m))
+        if (interactor.GameObject.TryGetComponent(out HealthManager m))
         {
             m.Heal(healAmount);
             Destroy(gameObject);
