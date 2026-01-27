@@ -151,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 7647631529967740655}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000004371139}
-  m_LocalPosition: {x: 47.5, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -279,9 +279,6 @@ MonoBehaviour:
   projectiles:
   - {fileID: 11400000, guid: bdbdf2253b56642c68f69b24d7e1264a, type: 2}
   madm: {fileID: 0}
-  onProjectileInstantiated:
-    m_PersistentCalls:
-      m_Calls: []
   logger:
     logLevel: 5
 --- !u!114 &574804052815560789

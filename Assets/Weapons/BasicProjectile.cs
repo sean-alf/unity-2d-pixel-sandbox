@@ -10,6 +10,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     [SerializeField][Range(1, 40)] private int speed = 1;
     [SerializeField] private float destructionDelay = 0f;
     [SerializeField] private bool allowRotation = true;
+    [SerializeField] private bool offsetForHalfHeight = true;
     [SerializeField] private string defaultAnimationKey = "Default";
     [SerializeField] private string impactAnimationKey = "Impact";
 
@@ -23,8 +24,6 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     private SpriteRenderer sr;
     private WaitForSeconds wait;
     private float halfHeight;
-
-    public Action onDestroyed;
 
     public Logger Logger => logger;
 
@@ -47,11 +46,6 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
         if (ShouldAnimate(defaultAnimationKey)) linearAnimator.Animate(defaultAnimationKey);
     }
 
-    private void OnDestroy()
-    {
-        onDestroyed?.Invoke();
-    }
-
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -68,6 +62,8 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     // Public Control Methods
     // ──────────────────────────────────────────────────────────────
 
+    public void ClearVelocity() => rb.linearVelocity = Vector2.zero;
+
     public void UpdateRotation()
     {
         if (!allowRotation) return;
@@ -80,23 +76,14 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
         Use(startPosition, direction, Quaternion.Euler(0, 0, angleDegrees));
     }
 
-    public void Use(float angleDegrees, Vector3 startPosition)
-    {
-        float rads = angleDegrees * Mathf.Deg2Rad;
-        Vector2 direction = new(Mathf.Cos(rads), Mathf.Sin(rads));
-        Use(startPosition, direction, Quaternion.Euler(0, 0, angleDegrees));
-    }
-
-    public void UseRads(float angleRads, Vector3 startPosition)
-    {
-        Vector2 direction = new(Mathf.Cos(angleRads), Mathf.Sin(angleRads));
-        Use(startPosition, direction, Quaternion.Euler(0, 0, angleRads * Mathf.Rad2Deg));
-    }
-
     private void Use(Vector3 startPosition, Vector2 direction, Quaternion rotation)
     {
         if (!allowRotation) rotation = Quaternion.identity;
-        transform.SetPositionAndRotation(startPosition.Add(halfHeight * direction.normalized), rotation);
+
+        if (offsetForHalfHeight) startPosition = startPosition.Add(halfHeight * direction.normalized);
+
+        transform.SetPositionAndRotation(startPosition, rotation);
+        gameObject.SetActive(true);
         rb.linearVelocity = speed * direction;
     }
 

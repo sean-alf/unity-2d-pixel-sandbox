@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,14 +15,10 @@ public class BasicTrigger : MonoBehaviour
         DestroyAfterExit,
     }
 
-    [SerializeField]
-    private UnityEvent onTriggerEnter;
+    public Action onTriggerEnter;
+    public Action onTriggerExit;
 
-    [SerializeField]
-    private UnityEvent onTriggerExit;
-
-    [SerializeField]
-    private Strategy strategy;
+    [SerializeField] private Strategy strategy;
 
     private GameObject triggerer;
 

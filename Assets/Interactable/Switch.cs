@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -11,26 +12,18 @@ public class Switch : MonoBehaviour, Interactable.IOverride
 {
     private static readonly string AnimationKey = "Default";
 
-    [SerializeField]
-    private Position switchPosition;
+    public Action onToggleImmediateEvent;
 
-    [SerializeField]
-    private bool isLocked = false;
+    [SerializeField] private Position switchPosition;
+    [SerializeField] private bool isLocked = false;
+    [SerializeField] private Position[] playerCanToggleFrom;
+    [SerializeField] private PositionSprite[] positionSprites;
 
-    [SerializeField]
-    private Position[] playerCanToggleFrom;
-
-    [SerializeField]
-    private PositionSprite[] positionSprites;
-
-    [SerializeField]
-    private SwitchEvent[] events;
-
-    [SerializeField]
-    private UnityEvent onToggleImmediateEvent;
 
     private LinearAnimator animator;
     private Interactable interactable;
+
+    private readonly List<SwitchEvent> events = new();
 
     public bool IsInteractable => !isLocked && playerCanToggleFrom.Contains(switchPosition);
 
@@ -62,6 +55,23 @@ public class Switch : MonoBehaviour, Interactable.IOverride
     public void Toggle() => ToggleInternal(false);
 
     public void Interactable_Toggle() => ToggleInternal(true);
+
+    public void AddEvent(SwitchEvent e) => events.Add(e);
+
+    public void RemoveEvent(SwitchEvent e)
+    {
+        e.ClearListeners();
+        events.Remove(e);
+    }
+
+    public void ClearEvents()
+    {
+        foreach (var e in events)
+        {
+            e.ClearListeners();
+        }
+        events.Clear();
+    }
 
     public void Lock()
     {
@@ -127,7 +137,9 @@ public class Switch : MonoBehaviour, Interactable.IOverride
     public struct SwitchEvent
     {
         public Position forPosition;
-        public UnityEvent whenSelected;
+        public Action whenSelected;
+
+        public void ClearListeners() => whenSelected = null;
     }
 
     [Serializable]

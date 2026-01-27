@@ -6,12 +6,12 @@
     "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
         "Tilemaps",
-        ".",
-        "Properties",
-        "Rules",
         "Worlds",
+        "Rules",
+        ".",
+        "Tilemaps/Rules",
         "TileSets",
-        "Tilemaps/Rules"
+        "Properties"
     ],
     "fileStates": {
         ":/automap-tiles.tsx": {
@@ -74,11 +74,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 0.5001,
-            "selectedLayer": 1,
+            "scale": 0.5282,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1599.6800639872026,
-                "y": 1598.6802639472107
+                "x": 1599.7728133282849,
+                "y": 1598.826202196138
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -117,18 +117,19 @@
     "openFiles": [
         "Tilemaps/w1-l1-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
-        "Tilemaps/w1-l3-map.tmx"
+        "Tilemaps/w1-l3-map.tmx",
+        "TileSets/PlatformTracks.tsx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "TileType",
     "recentFiles": [
+        "TileSets/PlatformTracks.tsx",
         "Tilemaps/w1-l3-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
         "TileSets/Wall.tsx",
         "TileSets/MuddyGround.tsx",
         "Rules/wall_rules.tmx",
-        "TileSets/PlatformTracks.tsx",
         "TileSets/Conveyer.tsx",
         "Tilemaps/TestMap.tmx",
         "Tilemaps/TestMap2.tmx",

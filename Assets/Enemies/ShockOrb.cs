@@ -3,7 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(LinearAnimator))]
 public class ShockOrb : MonoBehaviour
 {
-    [SerializeField]
     private LinearAnimator animator;
 
     private float rotationFactor = 1;

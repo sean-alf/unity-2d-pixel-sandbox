@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,9 +23,10 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         public Vector3 position;
     }
 
+    public Action<Transform> onProjectileInstantiated;
+
     [SerializeField] private List<ProjectileSO> projectiles;
     [SerializeField] private MenusAndDisplayManager madm;
-    [SerializeField] private UnityEvent<BasicProjectile> onProjectileInstantiated;
 
     [Space]
     [Header("Debug")]
@@ -59,52 +61,37 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         SetProjectiles();
     }
 
-    public void Shoot(params StartingPointWithDirection[] startingPoints)
-    {
-        foreach (var s in startingPoints)
-        {
-            selectedProjectile.Instantiate(p =>
-            {
-                p.gameObject.layer = shootingLayer;
-                p.onDestroyed += OnProjectileDestroyed;
-                onProjectileInstantiated?.Invoke(p);
-                p.Use(s.direction, s.position);
-                ++activeProjectiles;
-            });
-        }
-        ;
-    }
+    public void Shoot(params StartingPointWithDirection[] startingPoints) => ShootDelayed(0f, startingPoints);
 
-    public void Shoot(params StartingPointWithAngleDegrees[] startingPoints)
+    public void ShootDelayed(float delayDuration, params StartingPointWithDirection[] startingPoints)
     {
         foreach (var s in startingPoints)
         {
             selectedProjectile.Instantiate(p =>
             {
+                p.gameObject.SetActive(false);
+                p.ClearVelocity();
+                p.transform.position = s.position;
                 p.gameObject.layer = shootingLayer;
-                p.onDestroyed += OnProjectileDestroyed;
-                onProjectileInstantiated?.Invoke(p);
-                p.Use(s.angleDegrees, s.position);
-                ++activeProjectiles;
-            });
-        }
-        ;
-    }
 
-    public void Shoot(params StartingPointWithAngleRads[] startingPoints)
-    {
-        foreach (var s in startingPoints)
-        {
-            selectedProjectile.Instantiate(p =>
-            {
-                p.gameObject.layer = shootingLayer;
-                p.onDestroyed += OnProjectileDestroyed;
-                onProjectileInstantiated?.Invoke(p);
-                p.Use(s.angleRads, s.position);
+                if (p.TryGetComponent(out Destroyable d))
+                {
+                    d.onDestroyed += OnProjectileDestroyed;
+                }
+
+                onProjectileInstantiated?.Invoke(p.transform);
                 ++activeProjectiles;
+
+                if (delayDuration > 0)
+                {
+                    StartCoroutine(SequencingUtilities.Delay(delayDuration, onRun: () => p.Use(s.direction, s.position)));
+                }
+                else
+                {
+                    p.Use(s.direction, s.position);
+                }
             });
         }
-        ;
     }
 
     public void SelectNext()

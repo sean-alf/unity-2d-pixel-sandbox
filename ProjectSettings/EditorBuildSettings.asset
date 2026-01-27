@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Persistent.unity
     guid: eb5bfb256ca534216b77f7bc919352a9
   - enabled: 1
-    path: Assets/Scenes/W1L1.unity
+    path: Assets/Scenes/World1/Level1/W1L1.unity
     guid: ca2bfbc5475174bf0870084147568c69
   - enabled: 1
-    path: Assets/Scenes/W1L2.unity
+    path: Assets/Scenes/World1/Level2/W1L2.unity
     guid: 3c151abe1be52499c84eb59a28997d54
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

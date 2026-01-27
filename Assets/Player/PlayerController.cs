@@ -228,9 +228,9 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         InputSystem_Actions_Names.Player.Next(input).performed -= OnNext;
     }
 
-    public void UnityEvent_EnableInput() => UpdateInputType(InputType.Full);
+    public void EnableInput() => UpdateInputType(InputType.Full);
 
-    public void UnityEvent_DisableInput() => UpdateInputType(InputType.None);
+    public void DisableInput() => UpdateInputType(InputType.None);
 
     public void UpdateInputType(InputType type)
     {

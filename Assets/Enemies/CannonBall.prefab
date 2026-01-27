@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7316056706519138146}
   - component: {fileID: 2287008782070608329}
   - component: {fileID: -8389180165419869349}
+  - component: {fileID: -7474831894834942694}
   m_Layer: 13
   m_Name: CannonBall
   m_TagString: Untagged
@@ -174,6 +175,7 @@ MonoBehaviour:
   speed: 6
   destructionDelay: 0.15
   allowRotation: 0
+  offsetForHalfHeight: 0
   defaultAnimationKey: 
   impactAnimationKey: Impact
   logger:
@@ -219,3 +221,15 @@ MonoBehaviour:
         inactiveSprite: {fileID: 0}
         duration: 0.25
         loop: 0
+--- !u!114 &-7474831894834942694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216335514995580992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807e4904b909d4a6db4a09d3e3763afc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Destroyable
