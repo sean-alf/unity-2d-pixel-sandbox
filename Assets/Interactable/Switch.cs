@@ -9,11 +9,18 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Interactable))]
 public class Switch : MonoBehaviour, Interactable.IOverride
 {
+    public enum Orientation
+    {
+        Vertical,
+        Horizontal,
+    }
+
     private static readonly string AnimationKey = "Default";
 
     public UnityEvent onToggleImmediateEvent;
 
     [SerializeField] private Position switchPosition;
+    [SerializeField] private Orientation orientation = Orientation.Vertical;
     [SerializeField] private bool isLocked = false;
     [SerializeField] private Position[] playerCanToggleFrom;
     [SerializeField] private PositionSprite[] positionSprites;
@@ -137,6 +144,7 @@ public class Switch : MonoBehaviour, Interactable.IOverride
     {
         var ps = positionSprites.FirstOrDefault(ps => ps.forPosition == switchPosition);
         if (ps.sprite) GetComponent<SpriteRenderer>().sprite = ps.sprite;
+        UpdateAppearanceBasedOnOrientation();
     }
 
     private void ToggleInternal()
@@ -187,6 +195,24 @@ public class Switch : MonoBehaviour, Interactable.IOverride
                 break;
         }
         stateChangeEvent?.Invoke(this, p);
+    }
+
+    private void UpdateAppearanceBasedOnOrientation()
+    {
+        if (TryGetComponent(out SpriteRenderer sr))
+        {
+            switch (orientation)
+            {
+                case Orientation.Vertical:
+                    sr.flipY = true;
+                    transform.rotation = Quaternion.Euler(0, 0, -90f);
+                    break;
+                case Orientation.Horizontal:
+                    sr.flipY = false;
+                    transform.rotation = Quaternion.identity;
+                    break;
+            }
+        }
     }
 
     public enum Position

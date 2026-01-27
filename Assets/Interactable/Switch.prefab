@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7134907149901184700}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 3660650854414092634, guid: 8022af2d0811e4805941477b9de8100c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
@@ -181,6 +181,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   switchPosition: 0
+  orientation: 0
   isLocked: 0
   playerCanToggleFrom: 0000000001000000
   positionSprites:
