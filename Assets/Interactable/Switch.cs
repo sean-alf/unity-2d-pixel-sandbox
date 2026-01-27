@@ -65,14 +65,25 @@ public class Switch : MonoBehaviour, Interactable.IOverride
     }
 #endif
 
+    /// <summary>
+    /// Use when automatic player input enabling/disabling is NOT desired.
+    /// Preferrable for use when complex sequencing (involving this switch) is required.
+    /// </summary>
     public void Toggle()
     {
+        // Setting this null will make it ignore automatic input enabling and disabling during the toggle animation
         interactor = null;
         ToggleInternal();
     }
 
+    /// <summary>
+    /// Use when automatic player input enabling/disable IS desired.
+    /// Great for use with ordinary switches that are not involed in complex sequencing.
+    /// </summary>
+    /// <param name="interactor"></param>
     public void Interactable_Toggle(Interactable.IInteractor interactor)
     {
+        // Setting this here will make it use automatic input enabling and disabling during the toggle animation
         this.interactor = interactor;
         ToggleInternal();
     }
