@@ -15,20 +15,27 @@ public class CrystalSwitch : MonoBehaviour
     [SerializeField] private Sprite aStateSprite;
     [SerializeField] private Sprite bStateSprite;
     [SerializeField] private State state;
+    [SerializeField] private float totalRotation = 180f;
 
     public UnityEvent<State> onStateChange;
     public UnityEvent onStateA;
     public UnityEvent onStateB;
 
+    [Space]
+    [Header("Debug")]
+
+    [SerializeField] private bool isChangingState = false;
+    [SerializeField] private float remainingAngle;
+    [SerializeField] private bool isLocked = false;
+
     private SpriteRenderer sr;
-    private bool isChangingState = false;
-    private float remainingAngle = 360f;
-    private bool isLocked = false;
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         UpdateSprite();
+
+        remainingAngle = totalRotation;
     }
 
 #if UNITY_EDITOR
@@ -63,7 +70,7 @@ public class CrystalSwitch : MonoBehaviour
         {
             isChangingState = false;
             transform.rotation = Quaternion.identity;
-            remainingAngle = 360f;
+            remainingAngle = totalRotation;
             state = (State)(((int)state + 1) % Enum.GetValues(typeof(State)).Length);
             UpdateSprite();
 

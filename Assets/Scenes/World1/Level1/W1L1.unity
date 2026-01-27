@@ -379,9 +379,6 @@ MonoBehaviour:
   onRemoved:
     m_PersistentCalls:
       m_Calls: []
-  onPutBack:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!212 &83138618
 SpriteRenderer:
   serializedVersion: 2
@@ -1422,6 +1419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d436f9e75f2224554b2deb35cd5f5fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::W1L1_MovingPlatformCrystalSwitchPuzzleSequencer
+  playerController: {fileID: 52699979}
   followerCamera: {fileID: 1051936497}
   maxCameraSwitchSpeed: 20
   dramaticPause: 0.5

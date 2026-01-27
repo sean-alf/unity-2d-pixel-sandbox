@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(GamePauser))]
 public class W1L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour
 {
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private TargetFollowingCamera followerCamera;
     [SerializeField] private float maxCameraSwitchSpeed = 20f;
     [SerializeField] private float dramaticPause = 0.5f;
@@ -48,9 +49,13 @@ public class W1L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour
         if (currentSwitched == MaxSwitches)
         {
             gamePauser.PauseGame();
-            followerCamera.SetNewTarget(barrier.transform, maxCameraSwitchSpeed, onCentered: () =>
-                StartCoroutine(SequencingUtilities.DelayRealtime(dramaticPause, () => barrier.Remove()))
-            );
+            playerController.UpdateInputType(PlayerController.InputType.None);
+
+            StartCoroutine(SequencingUtilities.DelayRealtime(dramaticPause, () =>
+                followerCamera.SetNewTarget(barrier.transform, maxCameraSwitchSpeed, onCentered: () =>
+                    StartCoroutine(SequencingUtilities.DelayRealtime(dramaticPause, () => barrier.Remove()))
+                )
+            ));
         }
     }
 
@@ -60,6 +65,7 @@ public class W1L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour
 
     private void PuzzleFinished()
     {
+        playerController.UpdateInputType(PlayerController.InputType.Riding);
         gamePauser.UnpauseGame();
         cs1.Lock();
         cs2.Lock();
