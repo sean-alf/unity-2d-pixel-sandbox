@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
@@ -15,17 +15,6 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
 
     private ProjectileManager wallCannonProjectileManager;
     private CameraTarget cameraTarget;
-    private Switch.SwitchEvent eventA = new()
-    {
-        forPosition = Switch.Position.A
-    };
-    private Switch.SwitchEvent eventB = new()
-    {
-        forPosition = Switch.Position.B
-    };
-
-    private readonly Dictionary<PanelSwitchCombo, Switch.SwitchEvent> aEvents = new();
-    private readonly Dictionary<PanelSwitchCombo, Switch.SwitchEvent> bEvents = new();
 
     private bool isFinished = false;
 
@@ -40,58 +29,11 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
         gameStartTrigger.onTriggerEnter += OnPuzzleStart;
         cameraTarget.onSwitchedBack += CameraBackOnPlayer;
         wallCannonProjectileManager.onProjectileInstantiated += OnCannonBallShot;
-        wallCannonSwitch.onToggleImmediateEvent += OnPlayerInteractedWithSwitch;
+        wallCannonSwitch.onToggleImmediateEvent.AddListener(OnPlayerInteractedWithSwitch);
         finalShockOrbDamageHandler.onDeath.AddListener(OnFinalShockOrbDeath);
-
-        eventA.whenSelected += WhenSwitchedToA;
-        wallCannonSwitch.AddEvent(eventA);
-        eventB.whenSelected += WhenSwitchedToB;
-        wallCannonSwitch.AddEvent(eventB);
-
-        AddSwitchEventsForPositionA();
-        AddSwitchEventsForPositionB();
-    }
-
-    private void AddSwitchEventsForPositionA()
-    {
-        foreach (var combo in panelSwitchCombos)
-        {
-            Switch.SwitchEvent e;
-
-            if (aEvents.ContainsKey(combo))
-            {
-                e = aEvents[combo];
-            }
-            else
-            {
-                e = new Switch.SwitchEvent() { forPosition = Switch.Position.A };
-                aEvents.Add(combo, e);
-            }
-
-            e.whenSelected += () => OnPlayerHitPanelSwitch(combo.panelSwitch, combo.panel, combo.onDuration);
-            combo.panelSwitch.AddEvent(e);
-        }
-    }
-
-    private void AddSwitchEventsForPositionB()
-    {
-        foreach (var combo in panelSwitchCombos)
-        {
-            Switch.SwitchEvent e;
-
-            if (bEvents.ContainsKey(combo))
-            {
-                e = bEvents[combo];
-            }
-            else
-            {
-                e = new Switch.SwitchEvent() { forPosition = Switch.Position.B };
-                bEvents.Add(combo, e);
-            }
-
-            e.whenSelected += () => combo.panel.DeactivatePanel();
-            combo.panelSwitch.AddEvent(e);
-        }
+        wallCannonSwitch.AddListener(Switch.Position.A, WhenWallCannonSwitchSwitchedToA);
+        wallCannonSwitch.AddListener(Switch.Position.B, WhenWallCannonSwitchSwitchedToB);
+        AddSwitchListeners();
     }
 
     private void OnDisable()
@@ -99,13 +41,25 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
         gameStartTrigger.onTriggerEnter -= OnPuzzleStart;
         cameraTarget.onSwitchedBack -= CameraBackOnPlayer;
         wallCannonProjectileManager.onProjectileInstantiated -= OnCannonBallShot;
-        wallCannonSwitch.onToggleImmediateEvent -= OnPlayerInteractedWithSwitch;
+        wallCannonSwitch.onToggleImmediateEvent.RemoveAllListeners();
         finalShockOrbDamageHandler.onDeath.RemoveListener(OnFinalShockOrbDeath);
-        wallCannonSwitch.ClearEvents();
+        wallCannonSwitch.RemoveAllListeners();
+        RemoveSwitchListeners();
+    }
 
+    private void AddSwitchListeners()
+    {
         foreach (var combo in panelSwitchCombos)
         {
-            combo.panelSwitch.ClearEvents();
+            combo.panelSwitch.AddStateChangeListener(OnPlayerHitPanelSwitch);
+        }
+    }
+
+    private void RemoveSwitchListeners()
+    {
+        foreach (var combo in panelSwitchCombos)
+        {
+            combo.panelSwitch.RemoveStateChangeListener(OnPlayerHitPanelSwitch);
         }
     }
 
@@ -141,21 +95,31 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
         playerController.DisableInput();
     }
 
-    private void WhenSwitchedToA()
+    private void WhenWallCannonSwitchSwitchedToA(Switch s)
     {
-        if (isFinished) wallCannonSwitch.Lock();
+        if (isFinished) s.Lock();
         playerController.EnableInput();
     }
 
-    private void WhenSwitchedToB()
+    private void WhenWallCannonSwitchSwitchedToB(Switch _)
     {
         wallCannon.ShootOnce(wallCannonShotDelay);
     }
 
-    private void OnPlayerHitPanelSwitch(Switch s, RedirectionPanel p, float onDuration)
+    private void OnPlayerHitPanelSwitch(Switch s, Switch.Position p)
     {
-        p.ActivatePanel();
-        StartCoroutine(SequencingUtilities.Delay(onDuration, onRun: () => s.Toggle()));
+        var combo = panelSwitchCombos.FirstOrDefault(p => p.panelSwitch == s);
+
+        switch (p)
+        {
+            case Switch.Position.A:
+                combo.panel.ActivatePanel();
+                StartCoroutine(SequencingUtilities.Delay(combo.onDuration, onRun: () => combo.panelSwitch.Toggle()));
+                break;
+            case Switch.Position.B:
+                combo.panel.DeactivatePanel();
+                break;
+        }
     }
 
     private void OnFinalShockOrbDeath()

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -12,20 +11,26 @@ public class Switch : MonoBehaviour, Interactable.IOverride
 {
     private static readonly string AnimationKey = "Default";
 
-    public Action onToggleImmediateEvent;
+    public UnityEvent onToggleImmediateEvent;
 
     [SerializeField] private Position switchPosition;
     [SerializeField] private bool isLocked = false;
     [SerializeField] private Position[] playerCanToggleFrom;
     [SerializeField] private PositionSprite[] positionSprites;
+    [SerializeField] private UnityEvent<Switch> positionAEvent = new();
+    [SerializeField] private UnityEvent<Switch> positionBEvent = new();
+    [SerializeField] private UnityEvent<Switch, Position> stateChangeEvent = new();
+
+    [Space]
+    [Header("Debug")]
+    [SerializeField] private bool isAnimating = false;
 
 
     private LinearAnimator animator;
     private Interactable interactable;
 
-    private readonly List<SwitchEvent> events = new();
 
-    public bool IsInteractable => !isLocked && playerCanToggleFrom.Contains(switchPosition);
+    public bool IsInteractable => !isLocked && !isAnimating && playerCanToggleFrom.Contains(switchPosition);
 
     private void Awake()
     {
@@ -56,21 +61,53 @@ public class Switch : MonoBehaviour, Interactable.IOverride
 
     public void Interactable_Toggle() => ToggleInternal(true);
 
-    public void AddEvent(SwitchEvent e) => events.Add(e);
+    public void AddStateChangeListener(UnityAction<Switch, Position> a) => stateChangeEvent.AddListener(a);
+    public void RemoveStateChangeListener(UnityAction<Switch, Position> a) => stateChangeEvent.RemoveListener(a);
+    public void RemoveAllStateChangeListeners() => stateChangeEvent.RemoveAllListeners();
 
-    public void RemoveEvent(SwitchEvent e)
+    public void AddListener(Position p, UnityAction<Switch> a)
     {
-        e.ClearListeners();
-        events.Remove(e);
+        switch (p)
+        {
+            case Position.A:
+                positionAEvent.AddListener(a);
+                break;
+            case Position.B:
+                positionBEvent.AddListener(a);
+                break;
+        }
     }
 
-    public void ClearEvents()
+    public void RemoveListener(Position p, UnityAction<Switch> a)
     {
-        foreach (var e in events)
+        switch (p)
         {
-            e.ClearListeners();
+            case Position.A:
+                positionAEvent.RemoveListener(a);
+                break;
+            case Position.B:
+                positionBEvent.RemoveListener(a);
+                break;
         }
-        events.Clear();
+    }
+
+    public void RemoveAllListeners()
+    {
+        RemoveListeners(Position.A);
+        RemoveListeners(Position.B);
+    }
+
+    public void RemoveListeners(Position p)
+    {
+        switch (p)
+        {
+            case Position.A:
+                positionAEvent.RemoveAllListeners();
+                break;
+            case Position.B:
+                positionBEvent.RemoveAllListeners();
+                break;
+        }
     }
 
     public void Lock()
@@ -99,7 +136,7 @@ public class Switch : MonoBehaviour, Interactable.IOverride
 
         if (!isPlayer || playerCanToggleFrom.Contains(switchPosition))
         {
-            isLocked = true;
+            isAnimating = true;
             onToggleImmediateEvent?.Invoke();
             StartPositionBasedAnimation();
         }
@@ -119,27 +156,31 @@ public class Switch : MonoBehaviour, Interactable.IOverride
 
     private void OnAnimationFinished()
     {
-        int pos = (int)switchPosition;
-        pos = (pos + 1) % Enum.GetValues(typeof(Position)).Length;
+        int pos = ((int)switchPosition + 1) % Enum.GetValues(typeof(Position)).Length;
         switchPosition = (Position)pos;
-        isLocked = false;
+        isAnimating = false;
         interactable.NotifyStateChanged(gameObject);
-        foreach (var e in events.Where(e => e.forPosition == switchPosition)) e.whenSelected?.Invoke();
+        InvokeEvents(switchPosition);
+    }
+
+    private void InvokeEvents(Position p)
+    {
+        switch (p)
+        {
+            case Position.A:
+                positionAEvent?.Invoke(this);
+                break;
+            case Position.B:
+                positionBEvent?.Invoke(this);
+                break;
+        }
+        stateChangeEvent?.Invoke(this, p);
     }
 
     public enum Position
     {
         A,
         B,
-    }
-
-    [Serializable]
-    public struct SwitchEvent
-    {
-        public Position forPosition;
-        public Action whenSelected;
-
-        public void ClearListeners() => whenSelected = null;
     }
 
     [Serializable]

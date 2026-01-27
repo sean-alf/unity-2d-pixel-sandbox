@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.11" tiledversion="1.11.2" name="MuddyGround" tilewidth="32" tileheight="32" tilecount="256" columns="16">
  <image source="Ground.aseprite" width="512" height="512"/>
- <tile id="0" probability="0.02"/>
- <tile id="1" probability="0.2"/>
- <tile id="2" probability="0.2"/>
- <tile id="3" probability="0.2"/>
- <tile id="16" probability="0.1"/>
- <tile id="17" probability="0.1"/>
- <tile id="18" probability="0.1"/>
- <tile id="19" probability="0.1"/>
+ <tile id="0" probability="0.1"/>
+ <tile id="1" probability="0.1"/>
+ <tile id="2" probability="0.1"/>
+ <tile id="3" probability="0.1"/>
+ <tile id="16" probability="0.08"/>
+ <tile id="17" probability="0.08"/>
+ <tile id="18" probability="0.08"/>
+ <tile id="19" probability="0.08"/>
  <tile id="24" probability="0.2"/>
  <tile id="25" probability="0.2"/>
  <tile id="64">
