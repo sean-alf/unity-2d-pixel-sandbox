@@ -55,11 +55,13 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.TryGetComponent(out RedirectionPanel _)) return;
         StartCoroutine(DelayDestroy());
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.TryGetComponent(out RedirectionPanel _)) return;
         StartCoroutine(DelayDestroy());
     }
 

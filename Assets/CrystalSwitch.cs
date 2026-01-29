@@ -86,6 +86,12 @@ public class CrystalSwitch : MonoBehaviour
         isChangingState = true;
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (isChangingState) return;
+        isChangingState = true;
+    }
+
     public void SetState(State state) => this.state = state;
 
     public void Lock() => isLocked = true;
