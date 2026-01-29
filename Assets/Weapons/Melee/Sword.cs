@@ -19,6 +19,7 @@ public class Sword : MonoBehaviour
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+    private SpriteRenderer arcFlashSr;
     private Collider2D damageCollider;
     private ISwordUser user;
     private bool swingingForward = true;
@@ -33,8 +34,11 @@ public class Sword : MonoBehaviour
         damageCollider = GetComponent<Collider2D>();
         damageCollider.enabled = false;
 
-        // Optional: start invisible or small
-        if (arcFlash != null) arcFlash.gameObject.SetActive(false);
+        if (arcFlash != null)
+        {
+            arcFlashSr = arcFlash.GetComponent<SpriteRenderer>();
+            arcFlash.gameObject.SetActive(false);
+        }
         gameObject.SetActive(false);
     }
 
@@ -68,9 +72,12 @@ public class Sword : MonoBehaviour
 
         if (arcFlash != null)
         {
-            arcFlash.gameObject.SetActive(true);
             arcFlash.transform.localScale = Vector3.zero;
             arcFlash.color = Color.white;
+            float x = forwardSwing ? -Mathf.Abs(arcFlash.transform.localPosition.x) : Mathf.Abs(arcFlash.transform.localPosition.x);
+            arcFlash.transform.localPosition = new(x, arcFlash.transform.localPosition.y);
+            arcFlashSr.flipX = forwardSwing;
+            arcFlash.gameObject.SetActive(true);
         }
 
         gameObject.SetActive(true);
