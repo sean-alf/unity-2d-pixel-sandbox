@@ -58,6 +58,11 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
         StartCoroutine(DelayDestroy());
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        StartCoroutine(DelayDestroy());
+    }
+
     // ──────────────────────────────────────────────────────────────
     // Public Control Methods
     // ──────────────────────────────────────────────────────────────

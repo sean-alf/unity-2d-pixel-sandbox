@@ -189,16 +189,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private void OnCollisionEnter2D(Collision2D other)
     {
         rb.linearVelocity = Vector2.zero;
-
-        if (other.gameObject.TryGetComponent(out CollisionData data))
-        {
-            if (data.Type == CollisionData.CollisionType.Damage)
-            {
-                logger.D($"Hit by {LayerMask.LayerToName(data.gameObject.layer)}");
-                healthManager.DoDamage(data.Strength);
-                return;
-            }
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -213,6 +203,15 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
             {
                 interactables.Add(i);
                 i.onInteractableStateChange += OnInteractableStateChange;
+            }
+        }
+        else if (other.gameObject.TryGetComponent(out CollisionData data))
+        {
+            if (data.Type == CollisionData.CollisionType.Damage)
+            {
+                logger.D($"Hit by {LayerMask.LayerToName(data.gameObject.layer)}");
+                healthManager.DoDamage(data.Strength);
+                return;
             }
         }
 
