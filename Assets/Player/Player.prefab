@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 3506734746355078395}
   - component: {fileID: 6137301958484142071}
   - component: {fileID: 2985162039943200917}
-  - component: {fileID: 666998575421564706}
   - component: {fileID: 3058580506951309369}
   - component: {fileID: -3137722125030512224}
   - component: {fileID: 1621889299709325777}
@@ -275,6 +274,8 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 2939165100773571567}
   effectAnimator: {fileID: 5897339515335483366}
   sword: {fileID: 0}
+  spear: {fileID: 0}
+  useSword: 0
   inputType: 0
   storedInputType: 0
   currentDirection: {x: 0, y: 0}
@@ -310,19 +311,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   logger:
     logLevel: 5
---- !u!210 &666998575421564706
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1828709081556262573}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_SortAtRoot: 0
-  m_Sort3DAs2D: 0
 --- !u!114 &3058580506951309369
 MonoBehaviour:
   m_ObjectHideFlags: 0

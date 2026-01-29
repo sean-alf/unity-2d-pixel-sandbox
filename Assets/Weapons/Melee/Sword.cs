@@ -5,11 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Sword : MonoBehaviour
 {
-    public interface ISwordUser : IInputController
-    {
-        public Transform Transform { get; }
-    }
-
     [Header("Swing Settings")]
     [SerializeField] private float swingDuration = 0.3f;      // total time for 180° swing
     [SerializeField] private float swordRadius = 0.8f;        // distance from player center to sword tip
@@ -21,7 +16,7 @@ public class Sword : MonoBehaviour
     private SpriteRenderer sr;
     private SpriteRenderer arcFlashSr;
     private Collider2D damageCollider;
-    private ISwordUser user;
+    private IMeleeWeaponWielder wielder;
     private bool swingingForward = true;
     private float swingProgress = 0f;
     private bool isSwinging = false;
@@ -48,25 +43,25 @@ public class Sword : MonoBehaviour
     }
 
     // Called by player when attack button is pressed
-    public void StartSwing(ISwordUser user, bool forwardSwing)
+    public void StartSwing(IMeleeWeaponWielder wielder, bool forwardSwing)
     {
         if (isSwinging) return;
 
-        user.DisableInput(gameObject);
+        wielder.DisableInput(gameObject);
 
         isSwinging = true;
-        this.user = user;
+        this.wielder = wielder;
         swingingForward = forwardSwing;
         swingProgress = 0f;
 
         sr.flipX = forwardSwing; // Ensure sword sprite facing correct direction
 
         // Start at left or right edge of player
-        startAngle = this.user.Transform.rotation.eulerAngles.z + (swingingForward ? 90f : -90f);  // 90° = up, -90° = down (relative to right)
+        startAngle = this.wielder.Transform.rotation.eulerAngles.z + (swingingForward ? 90f : -90f);  // 90° = up, -90° = down (relative to right)
 
         // Snap initial position & rotation
         Vector2 startDir = Quaternion.Euler(0, 0, startAngle) * Vector2.up;
-        transform.SetPositionAndRotation(this.user.Transform.position.Add(startDir * swordRadius), Quaternion.Euler(0, 0, startAngle));
+        transform.SetPositionAndRotation(this.wielder.Transform.position.Add(startDir * swordRadius), Quaternion.Euler(0, 0, startAngle));
 
         damageCollider.enabled = true;
 
@@ -85,19 +80,19 @@ public class Sword : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isSwinging || user == null || user.Transform == null) return;
+        if (!isSwinging || wielder == null || wielder.Transform == null) return;
 
         // Progress 0 → 1
         swingProgress += Time.fixedDeltaTime / swingDuration;
         swingProgress = Mathf.Clamp01(swingProgress);
 
         // Swing angle: 90° → -90° or -90° → 90°
-        float targetAngle = user.Transform.rotation.eulerAngles.z + (swingingForward ? -90f : 90f);
+        float targetAngle = wielder.Transform.rotation.eulerAngles.z + (swingingForward ? -90f : 90f);
         float currentAngle = Mathf.Lerp(startAngle, targetAngle, swingProgress);
 
         // Position sword tip on arc around player center
         Vector2 direction = Quaternion.Euler(0, 0, currentAngle) * Vector2.up;
-        Vector2 tipPosition = (Vector2)user.Transform.position + direction * swordRadius;
+        Vector2 tipPosition = (Vector2)wielder.Transform.position + direction * swordRadius;
 
         // Apply physics movement
         rb.MovePosition(tipPosition);
@@ -124,6 +119,6 @@ public class Sword : MonoBehaviour
         if (arcFlash != null) arcFlash.gameObject.SetActive(false);
         isSwinging = false;
         gameObject.SetActive(false);
-        user.RestoreInput(gameObject);
+        wielder.RestoreInput(gameObject);
     }
 }

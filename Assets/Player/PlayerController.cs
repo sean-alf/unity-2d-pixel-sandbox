@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider, ITriggerer, Interactable.IInteractor, Sword.ISwordUser
+public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider, ITriggerer, Interactable.IInteractor, IMeleeWeaponWielder
 {
     public enum InputType
     {
@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
     [SerializeField] private Sword sword;
+    [SerializeField] private Spear spear;
+    [SerializeField] private bool useSword = false;
 
     [Space]
     [Header("Debug")]
@@ -150,8 +152,15 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        sword.StartSwing(this, swingForward);
-        swingForward = !swingForward;
+        if (useSword)
+        {
+            sword.StartSwing(this, swingForward);
+            swingForward = !swingForward;
+        }
+        else
+        {
+            spear.StartJab(this);
+        }
     }
 
     private void OnInteract(InputAction.CallbackContext context)
