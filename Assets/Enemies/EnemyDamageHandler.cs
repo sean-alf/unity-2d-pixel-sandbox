@@ -9,20 +9,14 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
     public UnityEvent onDeath;
 
-    [SerializeField]
-    private GameObject deathCloudTemplate;
-
-    [SerializeField]
-    private int health = 1;
-
-    [SerializeField]
-    private List<CollisionData> onlyDamagableBy;
+    [SerializeField] private GameObject deathCloudTemplate;
+    [SerializeField] private int health = 1;
+    [SerializeField] private List<CollisionData> onlyDamagableBy;
 
     [Header("Debug")]
     [Space]
 
-    [SerializeField]
-    private Logger logger;
+    [SerializeField] private Logger logger;
 
     public Logger Logger => logger;
 
@@ -35,9 +29,19 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        logger.D($"Collision {other.gameObject.name}");
+        logger.D($"{name} ({gameObject.name}): OnCollisionEnter2D {other.gameObject.name}");
+        HandleCollisionData(other.gameObject);
+    }
 
-        if (other.gameObject.TryGetComponent(out CollisionData data))
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        logger.D($"{name} ({gameObject.name}): OnTriggerEnter2D {other.gameObject.name}");
+        HandleCollisionData(other.gameObject);
+    }
+
+    private void HandleCollisionData(GameObject target)
+    {
+        if (target.TryGetComponent(out CollisionData data))
         {
             logger.D($"has CollisionData");
 

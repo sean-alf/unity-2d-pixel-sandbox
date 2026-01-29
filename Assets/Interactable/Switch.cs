@@ -190,7 +190,7 @@ public class Switch : MonoBehaviour, Interactable.IOverride
         isAnimating = false;
         interactable.NotifyStateChanged(gameObject);
         InvokeEvents(switchPosition);
-        interactor?.EnableInput();
+        interactor?.RestoreInput();
         interactor = null;
     }
 

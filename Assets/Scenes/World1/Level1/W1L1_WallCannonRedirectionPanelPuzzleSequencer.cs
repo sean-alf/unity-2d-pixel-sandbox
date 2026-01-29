@@ -98,7 +98,7 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
     private void WhenWallCannonSwitchSwitchedToA(Switch s)
     {
         if (isFinished) s.Lock();
-        playerController.EnableInput();
+        playerController.RestoreInput();
     }
 
     private void WhenWallCannonSwitchSwitchedToB(Switch _)

@@ -8,7 +8,7 @@ public class Interactable : MonoBehaviour
     {
         public GameObject GameObject { get; }
 
-        public void EnableInput();
+        public void RestoreInput();
         public void DisableInput();
     }
 

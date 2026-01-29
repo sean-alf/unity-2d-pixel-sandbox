@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider, ITriggerer, Interactable.IInteractor
+public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider, ITriggerer, Interactable.IInteractor, Sword.ISwordUser
 {
     public enum InputType
     {
@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [SerializeField][Range(1, 20)] private float speed = 1;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
+    [SerializeField] private Sword sword;
 
     [Space]
     [Header("Debug")]
@@ -45,10 +46,11 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [SerializeField] private Logger logger;
 
     public Action<Vector2> OnDirectionChange;
+
     public float Speed => speed;
     public Logger Logger => logger;
-
     public GameObject GameObject => gameObject;
+    public Transform Transform => transform;
 
     private Rigidbody2D rb;
     private LinearAnimator animator;
@@ -57,6 +59,8 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private HealthManager healthManager;
     private ExternalForceReceiver efr;
     private InteractIndicator interactIndicator;
+    private InputType storedInputType = InputType.Full;
+    private bool swingForward = true;
 
     void Awake()
     {
@@ -68,14 +72,29 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
         efr = GetComponentInChildren<ExternalForceReceiver>();
 
+        projectileManager.SetShootingLayer(LayerNames.Projectile);
+    }
+
+    private void OnEnable()
+    {
         InputSystem_Actions_Names.Player.Move(input).performed += OnMove;
         InputSystem_Actions_Names.Player.Move(input).canceled += OnMove;
+        InputSystem_Actions_Names.Player.Attack(input).performed += OnAttack;
         InputSystem_Actions_Names.Player.Interact(input).performed += OnInteract;
         InputSystem_Actions_Names.Player.Jump(input).performed += OnJump;
         InputSystem_Actions_Names.Player.Previous(input).performed += OnPrevious;
         InputSystem_Actions_Names.Player.Next(input).performed += OnNext;
+    }
 
-        projectileManager.SetShootingLayer(LayerNames.Projectile);
+    private void OnDisable()
+    {
+        InputSystem_Actions_Names.Player.Move(input).performed -= OnMove;
+        InputSystem_Actions_Names.Player.Move(input).canceled -= OnMove;
+        InputSystem_Actions_Names.Player.Attack(input).performed -= OnAttack;
+        InputSystem_Actions_Names.Player.Interact(input).performed -= OnInteract;
+        InputSystem_Actions_Names.Player.Jump(input).performed -= OnJump;
+        InputSystem_Actions_Names.Player.Previous(input).performed -= OnPrevious;
+        InputSystem_Actions_Names.Player.Next(input).performed -= OnNext;
     }
 
     private void Start()
@@ -127,6 +146,12 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
 
         logger.I($"Direction changed = {direction}");
+    }
+
+    private void OnAttack(InputAction.CallbackContext context)
+    {
+        sword.StartSwing(this, swingForward);
+        swingForward = !swingForward;
     }
 
     private void OnInteract(InputAction.CallbackContext context)
@@ -220,19 +245,13 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
     }
 
-    private void OnDestroy()
+    public void RestoreInput() => UpdateInputType(storedInputType);
+
+    public void DisableInput()
     {
-        InputSystem_Actions_Names.Player.Move(input).performed -= OnMove;
-        InputSystem_Actions_Names.Player.Move(input).canceled -= OnMove;
-        InputSystem_Actions_Names.Player.Interact(input).performed -= OnInteract;
-        InputSystem_Actions_Names.Player.Jump(input).performed -= OnJump;
-        InputSystem_Actions_Names.Player.Previous(input).performed -= OnPrevious;
-        InputSystem_Actions_Names.Player.Next(input).performed -= OnNext;
+        storedInputType = inputType;
+        UpdateInputType(InputType.None);
     }
-
-    public void EnableInput() => UpdateInputType(InputType.Full);
-
-    public void DisableInput() => UpdateInputType(InputType.None);
 
     public void UpdateInputType(InputType type)
     {
