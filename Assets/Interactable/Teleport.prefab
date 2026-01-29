@@ -139,7 +139,6 @@ MonoBehaviour:
         inactiveSprite: {fileID: 0}
         duration: 0.5
         loop: 1
-  currentDuration: 0
 --- !u!114 &4344514883491916007
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -227,9 +227,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be13011e2b5414e2b95bea7faa3ec29d, type: 2}
   - {fileID: 11400000, guid: ff070e1858bb447bc940df4cf678b0d5, type: 2}
   madm: {fileID: 0}
-  onProjectileInstantiated:
-    m_PersistentCalls:
-      m_Calls: []
   logger:
     logLevel: 5
 --- !u!114 &6440799228650472467
@@ -277,9 +274,14 @@ MonoBehaviour:
   speed: 5
   projectileSpawnPoint: {fileID: 2939165100773571567}
   effectAnimator: {fileID: 5897339515335483366}
+  sword: {fileID: 0}
+  inputType: 0
+  storedInputType: 0
+  currentDirection: {x: 0, y: 0}
+  speedFactor: 1
+  interactables: []
   logger:
     logLevel: 5
-  interactables: []
 --- !u!114 &6137301958484142071
 MonoBehaviour:
   m_ObjectHideFlags: 0

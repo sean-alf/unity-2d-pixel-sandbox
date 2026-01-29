@@ -170,6 +170,7 @@ MonoBehaviour:
   speed: 12
   destructionDelay: 0
   allowRotation: 1
+  offsetForHalfHeight: 1
   defaultAnimationKey: Default
   impactAnimationKey: Impact
   logger:

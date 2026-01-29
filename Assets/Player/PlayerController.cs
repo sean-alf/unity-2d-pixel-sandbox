@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [Space]
     [Header("Debug")]
 
-    [SerializeField] private InputType inputType;
+    [SerializeField] private InputType inputType = InputType.Full;
+    [SerializeField] private InputType storedInputType = InputType.Full;
     [SerializeField] private Vector2 currentDirection;
     [SerializeField] private float speedFactor = 1f;
     [SerializeField] private List<Interactable> interactables = new();
@@ -59,7 +60,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     private HealthManager healthManager;
     private ExternalForceReceiver efr;
     private InteractIndicator interactIndicator;
-    private InputType storedInputType = InputType.Full;
     private bool swingForward = true;
 
     void Awake()
@@ -245,19 +245,20 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
     }
 
-    public void RestoreInput() => UpdateInputType(storedInputType);
+    public void RestoreInput(GameObject from) => UpdateInputType(storedInputType);
 
-    public void DisableInput()
+    public void DisableInput(GameObject from)
     {
-        storedInputType = inputType;
+        if (inputType == InputType.None) return;
         UpdateInputType(InputType.None);
     }
 
     public void UpdateInputType(InputType type)
     {
-        inputType = type;
+        if (input == null || inputType == type) return;
 
-        if (input == null) return;
+        storedInputType = inputType;
+        inputType = type;
 
         switch (inputType)
         {

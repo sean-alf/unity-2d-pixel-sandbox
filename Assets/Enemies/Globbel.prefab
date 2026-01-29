@@ -141,6 +141,9 @@ MonoBehaviour:
   onDeathPreAnimate:
     m_PersistentCalls:
       m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 2
   onlyDamagableBy: []

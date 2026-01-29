@@ -13024,11 +13024,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.84375
+      value: 14.84375
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.53125
+      value: -51.3125
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13074,6 +13074,10 @@ PrefabInstance:
       propertyPath: sword
       value: 
       objectReference: {fileID: 1907341837}
+    - target: {fileID: 3506734746355078395, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: logger.logLevel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6440799228650472467, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_Camera
       value: 
@@ -13902,11 +13906,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4758762970756930301, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -177.15625
+      value: -201.15625
       objectReference: {fileID: 0}
     - target: {fileID: 4758762970756930301, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 480.46875
+      value: 442.6875
       objectReference: {fileID: 0}
     - target: {fileID: 6125731054299193077, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.x

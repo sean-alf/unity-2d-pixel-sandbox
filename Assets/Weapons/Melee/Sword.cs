@@ -5,12 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Sword : MonoBehaviour
 {
-    public interface ISwordUser
+    public interface ISwordUser : IInputController
     {
         public Transform Transform { get; }
-
-        public void RestoreInput();
-        public void DisableInput();
     }
 
     [Header("Swing Settings")]
@@ -51,7 +48,7 @@ public class Sword : MonoBehaviour
     {
         if (isSwinging) return;
 
-        user.DisableInput();
+        user.DisableInput(gameObject);
 
         isSwinging = true;
         this.user = user;
@@ -120,6 +117,6 @@ public class Sword : MonoBehaviour
         if (arcFlash != null) arcFlash.gameObject.SetActive(false);
         isSwinging = false;
         gameObject.SetActive(false);
-        user.RestoreInput();
+        user.RestoreInput(gameObject);
     }
 }

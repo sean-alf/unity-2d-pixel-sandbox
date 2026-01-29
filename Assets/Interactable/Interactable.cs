@@ -4,12 +4,9 @@ using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
-    public interface IInteractor
+    public interface IInteractor : IInputController
     {
         public GameObject GameObject { get; }
-
-        public void RestoreInput();
-        public void DisableInput();
     }
 
     public interface IOverride

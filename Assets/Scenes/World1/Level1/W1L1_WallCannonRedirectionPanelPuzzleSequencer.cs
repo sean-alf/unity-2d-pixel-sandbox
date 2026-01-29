@@ -65,7 +65,7 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
 
     private void OnPuzzleStart()
     {
-        playerController.DisableInput();
+        playerController.DisableInput(gameObject);
         StartCoroutine(SequencingUtilities.Delay(initialGameStartDelay, onRun: () =>
         {
             wallCannon.ShootOnce(wallCannonShotDelay);
@@ -92,13 +92,13 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
 
     private void OnPlayerInteractedWithSwitch()
     {
-        playerController.DisableInput();
+        playerController.DisableInput(gameObject);
     }
 
     private void WhenWallCannonSwitchSwitchedToA(Switch s)
     {
         if (isFinished) s.Lock();
-        playerController.RestoreInput();
+        playerController.RestoreInput(gameObject);
     }
 
     private void WhenWallCannonSwitchSwitchedToB(Switch _)
