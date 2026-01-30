@@ -5,9 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
-public class BasicProjectile : MonoBehaviour, ILoggerProvider
+public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IReflectable
 {
     [SerializeField][Range(1, 40)] private int speed = 1;
+    [SerializeField][Range(0, 40)] private int maxReflectionCount = 5;
     [SerializeField] private float destructionDelay = 0f;
     [SerializeField] private bool allowRotation = true;
     [SerializeField] private bool offsetForHalfHeight = true;
@@ -24,6 +25,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     private SpriteRenderer sr;
     private WaitForSeconds wait;
     private float halfHeight;
+    private int currentReflectionCount = 0;
 
     public Logger Logger => logger;
 
@@ -55,15 +57,11 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.TryGetComponent(out RedirectionPanel _)) return;
+        if (ShouldIgnore(other.gameObject)) return;
         StartCoroutine(DelayDestroy());
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.TryGetComponent(out RedirectionPanel _)) return;
-        StartCoroutine(DelayDestroy());
-    }
+    private bool ShouldIgnore(GameObject other) => other.TryGetComponent(out RedirectionPanel _) || other.TryGetComponent(out ReflectingWall _);
 
     // ──────────────────────────────────────────────────────────────
     // Public Control Methods
@@ -81,6 +79,17 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider
     {
         float angleDegrees = Vector2.SignedAngle(Vector2.up, direction);
         Use(startPosition, direction, Quaternion.Euler(0, 0, angleDegrees));
+    }
+
+    public bool Reflect(Vector2 reflect)
+    {
+        if (currentReflectionCount == maxReflectionCount) StartCoroutine(DelayDestroy());
+
+        rb.linearVelocity = reflect;
+        float angleDegrees = Vector2.SignedAngle(Vector2.up, reflect);
+        rb.SetRotation(angleDegrees);
+
+        return currentReflectionCount++ < maxReflectionCount;
     }
 
     private void Use(Vector3 startPosition, Vector2 direction, Quaternion rotation)

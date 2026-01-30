@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="HealthPickup" color="#00b2b3">
+  <property name="healAmount" type="int" default="5"/>
+ </objecttype>
+ <objecttype name="TeleportIn" color="#a024a4">
+  <property name="travelType" type="int" propertytype="TravelType" default="0"/>
+ </objecttype>
+ <objecttype name="TeleportOut" color="#1ae455">
+  <property name="travelType" type="int" propertytype="TravelType" default="0"/>
+ </objecttype>
+ <objecttype name="Track" color="#a0a0a4">
+  <property name="type" type="int" propertytype="TrackType" default="0"/>
+ </objecttype>
+</objecttypes>

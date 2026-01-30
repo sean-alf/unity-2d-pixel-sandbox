@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   speed: 6
+  maxReflectionCount: 5
   destructionDelay: 0.15
   allowRotation: 0
   offsetForHalfHeight: 0

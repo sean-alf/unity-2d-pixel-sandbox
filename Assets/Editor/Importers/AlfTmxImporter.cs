@@ -29,15 +29,6 @@ public class AlfTmxImporter : CustomTmxImporter
             {
                 Debug.LogError($"{grid.name}: No children with {nameof(Tilemap)} attached!");
             }
-
-            // Add RigidBody2D, which is a dependency of CompositeCollider2D
-            // Set it's body type to Static since it's just a tilemap
-            var rb = grid.gameObject.AddComponent<Rigidbody2D>();
-            rb.bodyType = RigidbodyType2D.Static;
-
-            // Now add the composite collider
-            grid.gameObject.AddComponent<CompositeCollider2D>();
-            grid.gameObject.layer = LayerMask.NameToLayer(LayerNames.Environment);
         }
         else
         {
@@ -56,9 +47,15 @@ public class AlfTmxImporter : CustomTmxImporter
     private void SetupTilemap(Tilemap tilemap)
     {
         var layer = tilemap.GetComponent<SuperTileLayer>();
-        var colliders = tilemap.GetComponentsInChildren<Collider2D>();
+        if (layer.m_TiledName == "Reflecting Wall")
+        {
+            var reflectingWall = tilemap.transform.GetChild(0).gameObject.AddComponent<ReflectingWall>();
+            var allCellPositions = tilemap.cellBounds.allPositionsWithin;
+            allCellPositions.Reset();
 
-        if (layer.m_TiledName == "Wall") foreach (var collider in colliders) collider.compositeOperation = Collider2D.CompositeOperation.Merge;
+            reflectingWall.tilemap = tilemap;
+            reflectingWall.defaultTileColor = tilemap.GetColor(allCellPositions.Current);
+        }
         if (layer.m_TiledName == "NPC Barrier" && tilemap.TryGetComponent(out TilemapRenderer r)) r.enabled = false;
     }
 }

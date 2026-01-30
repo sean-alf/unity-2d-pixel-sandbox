@@ -121,7 +121,7 @@
         "TileSets/PlatformTracks.tsx"
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "TileType",
+    "property.type": "string",
     "recentFiles": [
         "TileSets/PlatformTracks.tsx",
         "Tilemaps/w1-l3-map.tmx",

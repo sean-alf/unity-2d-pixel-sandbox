@@ -155,7 +155,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -229,13 +229,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   speed: 12
+  maxReflectionCount: 4
   destructionDelay: 0
   allowRotation: 1
   offsetForHalfHeight: 1
   defaultAnimationKey: 
   impactAnimationKey: Impact
   logger:
-    logLevel: 5
+    logLevel: 1
 --- !u!114 &6643108539801083361
 MonoBehaviour:
   m_ObjectHideFlags: 0

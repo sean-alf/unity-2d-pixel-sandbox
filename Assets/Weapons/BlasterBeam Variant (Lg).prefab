@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7308262779197194342, guid: 8a992e71a6103471a9df61027c9c4e6d, type: 3}
+      propertyPath: logger.logLevel
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1765677281592612409, guid: 8a992e71a6103471a9df61027c9c4e6d, type: 3}
       propertyPath: m_Name
       value: BlasterBeam Variant (Lg)
