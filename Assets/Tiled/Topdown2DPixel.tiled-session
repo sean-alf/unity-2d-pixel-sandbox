@@ -32,6 +32,9 @@
             "scaleInDock": 1,
             "scaleInEditor": 2.19
         },
+        "TileSets/ForestGround.tsx": {
+            "scaleInEditor": 2.1849
+        },
         "TileSets/GreenWall.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
@@ -123,6 +126,7 @@
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "TileSets/ForestGround.tsx",
         "TileSets/MuddyGround.tsx",
         "TileSets/PlatformTracks.tsx",
         "Tilemaps/w1-l3-map.tmx",
