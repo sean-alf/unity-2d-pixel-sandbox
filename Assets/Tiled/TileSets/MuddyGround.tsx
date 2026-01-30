@@ -263,8 +263,8 @@
    <wangtile tileid="86" wangid="0,1,0,0,0,0,0,0"/>
    <wangtile tileid="87" wangid="0,0,0,0,0,0,0,1"/>
   </wangset>
-  <wangset name="DeepMud" type="corner" tile="68">
-   <wangcolor name="DeepMud" color="#ff0000" tile="68" probability="1"/>
+  <wangset name="DeepMud" type="corner" tile="84">
+   <wangcolor name="DeepMud" color="#ff0000" tile="84" probability="1"/>
    <wangtile tileid="81" wangid="0,0,0,1,0,0,0,0"/>
    <wangtile tileid="82" wangid="0,0,0,1,0,1,0,0"/>
    <wangtile tileid="83" wangid="0,0,0,1,0,1,0,0"/>
