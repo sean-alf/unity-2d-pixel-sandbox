@@ -208,7 +208,8 @@
  </tile>
  <wangsets>
   <wangset name="BigWall" type="corner" tile="38">
-   <wangcolor name="Wall" color="#ff0000" tile="-1" probability="1"/>
+   <wangcolor name="Wall" color="#ff0000" tile="38" probability="1"/>
+   <wangcolor name="Angle" color="#00ff00" tile="46" probability="1"/>
    <wangtile tileid="6" wangid="0,0,0,1,0,0,0,0"/>
    <wangtile tileid="7" wangid="0,0,0,1,0,1,0,0"/>
    <wangtile tileid="8" wangid="0,0,0,0,0,1,0,0"/>
@@ -226,6 +227,10 @@
    <wangtile tileid="41" wangid="0,0,0,1,0,1,0,1"/>
    <wangtile tileid="42" wangid="0,0,0,1,0,1,0,0"/>
    <wangtile tileid="43" wangid="0,1,0,1,0,1,0,0"/>
+   <wangtile tileid="45" wangid="0,0,0,2,0,0,0,0"/>
+   <wangtile tileid="46" wangid="0,0,0,0,0,2,0,0"/>
+   <wangtile tileid="61" wangid="0,2,0,0,0,0,0,0"/>
+   <wangtile tileid="62" wangid="0,0,0,0,0,0,0,2"/>
   </wangset>
   <wangset name="SmallWall" type="edge" tile="32">
    <wangcolor name="" color="#ff0000" tile="-1" probability="1"/>

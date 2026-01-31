@@ -5,10 +5,50 @@
  <tile id="1" probability="0.1"/>
  <tile id="2" probability="0.1"/>
  <tile id="3" probability="0.1"/>
+ <tile id="4">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+  <objectgroup draworder="index" id="4">
+   <object id="3" x="32" y="32">
+    <polygon points="0,0 0,-32 -4.73929,-32 -11.9461,-30.0416 -15.8629,-28.0832 -18.918,-25.8898 -26.2032,-18.918 -27.9266,-15.8629 -30.0416,-11.9461 -31.9217,-5.05263 -32,0"/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="5">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0">
+    <polygon points="0,0 0,32 32,32 32.0392,27.104 30.0808,20.1322 27.9657,16.0588 25.694,12.847 19.0355,5.95349 15.9021,4.07344 11.8286,2.03672 4.85679,-0.0783354 0,0"/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="16" probability="0.08"/>
  <tile id="17" probability="0.08"/>
  <tile id="18" probability="0.08"/>
  <tile id="19" probability="0.08"/>
+ <tile id="20">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="32" y="0">
+    <polygon points="0,0 -32,0 -32,4.85679 -29.9633,11.907 -28.0832,15.9804 -25.8898,19.1922 -18.8397,26.164 -15.7846,27.9657 -11.9461,30.0024 -5.05263,31.9608 0,32"/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="21">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="32" y="0">
+    <polygon points="0,0 -32,0 -32,32 -27.0649,32.0392 -20.0147,29.8458 -16.0196,27.7307 -13.0428,25.7723 -5.99266,18.7222 -4.03427,15.9021 -2.07589,11.7503 -0.900857,8.69523 0.0391677,5.01346"/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="24" probability="0.2"/>
  <tile id="25" probability="0.2"/>
  <tile id="64">
@@ -301,6 +341,13 @@
    <wangtile tileid="211" wangid="0,0,0,0,0,1,0,1"/>
    <wangtile tileid="226" wangid="0,1,0,0,0,0,0,0"/>
    <wangtile tileid="227" wangid="0,0,0,0,0,0,0,1"/>
+  </wangset>
+  <wangset name="MudMound" type="corner" tile="5">
+   <wangcolor name="MudMound" color="#ff0000" tile="5" probability="1"/>
+   <wangtile tileid="4" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="5" wangid="0,0,0,0,0,1,0,0"/>
+   <wangtile tileid="20" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="21" wangid="0,0,0,0,0,0,0,1"/>
   </wangset>
  </wangsets>
 </tileset>

@@ -1263,6 +1263,30 @@ ScriptedImporter:
         y: 32
       name: GreenWall_31
       spriteId: 3e5b486a42bf946b3a6e09659bc0cb08
+    - tileId: 32
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_32
+      spriteId: 9e23deb2a28494c82a93001b70bf501d
+    - tileId: 33
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_33
+      spriteId: acc2bd24203444f1b8cd681c2c8f7777
+    - tileId: 34
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_34
+      spriteId: 5eb1d176d10b048fd8b98b6f34adae88
+    - tileId: 35
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_35
+      spriteId: f0acb63de888a480bb94badebe693f94
     guid: -1135564739
   platformSettings:
   - name: DefaultTexturePlatform
