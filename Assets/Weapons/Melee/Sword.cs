@@ -37,11 +37,6 @@ public class Sword : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log($"OnTriggerEnter2D: {other.name}");
-    }
-
     // Called by player when attack button is pressed
     public void StartSwing(IMeleeWeaponWielder wielder, bool forwardSwing)
     {

@@ -10,6 +10,16 @@
     ],
     "propertyTypes": [
         {
+            "id": 16,
+            "name": "DestroyableType",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "Bush"
+            ],
+            "valuesAsFlags": false
+        },
+        {
             "color": "#ff00b2b3",
             "drawFill": true,
             "id": 9,

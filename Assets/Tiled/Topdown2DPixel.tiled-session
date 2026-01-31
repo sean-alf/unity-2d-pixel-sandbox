@@ -35,6 +35,9 @@
         "TileSets/ForestGround.tsx": {
             "scaleInEditor": 2.1849
         },
+        "TileSets/GeneralFloorAndGround.tsx": {
+            "scaleInEditor": 1.8107
+        },
         "TileSets/GreenWall.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
@@ -77,11 +80,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 0.5282,
-            "selectedLayer": 3,
+            "scale": 0.98,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 1599.7728133282849,
-                "y": 1598.826202196138
+                "x": 363.265306122449,
+                "y": 2937.2448979591836
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -124,9 +127,10 @@
         "TileSets/PlatformTracks.tsx"
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "string",
+    "property.type": "DestroyableType",
     "recentFiles": [
         "TileSets/ForestGround.tsx",
+        "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/MuddyGround.tsx",
         "TileSets/PlatformTracks.tsx",
         "Tilemaps/w1-l3-map.tmx",
@@ -136,8 +140,7 @@
         "Rules/wall_rules.tmx",
         "TileSets/Conveyer.tsx",
         "Tilemaps/TestMap.tmx",
-        "Tilemaps/TestMap2.tmx",
-        "TileSets/GreenWall.tsx"
+        "Tilemaps/TestMap2.tmx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx"

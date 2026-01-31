@@ -2,6 +2,10 @@
 <tileset version="1.11" tiledversion="1.11.2" name="ForestGround" tilewidth="32" tileheight="32" tilecount="256" columns="16">
  <image source="ForestGround.aseprite" width="512" height="512"/>
  <tile id="5">
+  <properties>
+   <property name="destroyableType" propertytype="DestroyableType" value="Bush"/>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="32" height="32"/>
   </objectgroup>
