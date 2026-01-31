@@ -82,11 +82,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 0.96,
+            "scale": 1.1747,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 1465.625,
-                "y": 2150.5208333333335
+                "x": 1433.131863454499,
+                "y": 2487.8692432110324
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -104,11 +104,11 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 0.4958,
+            "scale": 1.424,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1599.435256151674,
-                "y": 1600.443727309399
+                "x": -6014.396067415731,
+                "y": 2889.3960674157306
             }
         }
     },
@@ -131,11 +131,11 @@
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "TileSets/MuddyGround.tsx",
         "TileSets/Wall.tsx",
         "Tilemaps/w1-l3-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
-        "TileSets/MuddyGround.tsx",
         "TileSets/ForestGround.tsx",
         "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/PlatformTracks.tsx",

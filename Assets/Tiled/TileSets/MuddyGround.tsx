@@ -342,12 +342,5 @@
    <wangtile tileid="226" wangid="0,1,0,0,0,0,0,0"/>
    <wangtile tileid="227" wangid="0,0,0,0,0,0,0,1"/>
   </wangset>
-  <wangset name="MudMound" type="corner" tile="5">
-   <wangcolor name="MudMound" color="#ff0000" tile="5" probability="1"/>
-   <wangtile tileid="4" wangid="0,0,0,1,0,0,0,0"/>
-   <wangtile tileid="5" wangid="0,0,0,0,0,1,0,0"/>
-   <wangtile tileid="20" wangid="0,1,0,0,0,0,0,0"/>
-   <wangtile tileid="21" wangid="0,0,0,0,0,0,0,1"/>
-  </wangset>
  </wangsets>
 </tileset>

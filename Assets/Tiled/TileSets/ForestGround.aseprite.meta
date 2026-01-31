@@ -446,7 +446,7 @@ ScriptedImporter:
     uvTransform: {x: 84, y: 84}
   - name: ForesetGround_16
     originalName: 
-    pivot: {x: 0.53846157, y: 0.5}
+    pivot: {x: 0.6086957, y: 0.64705884}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -454,8 +454,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 84
       y: 124
-      width: 26
-      height: 28
+      width: 23
+      height: 17
     spriteID: 745496c5966824b4ab878d84cd5f278d
     spriteBone: []
     spriteOutline: []
@@ -464,7 +464,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 82, y: 122}
+    uvTransform: {x: 82, y: 119}
   asepriteLayers:
   - layerIndex: 0
     uuid:

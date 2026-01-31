@@ -7,6 +7,7 @@ public class AboveGroundTilemapManager : MonoBehaviour
     public Tilemap tilemap;
 
     [SerializeField] private TileBase bushChoppedTile;
+    [SerializeField] private GameObject bushChoppedAnimationTemplate;
 
     private void Awake()
     {
@@ -32,6 +33,11 @@ public class AboveGroundTilemapManager : MonoBehaviour
 
                 if (type == "Bush")
                 {
+                    var worldSpace = tilemap.CellToWorld(cell);
+                    var tileCenterInWorld = worldSpace + new Vector3(0.5f, 0.5f, worldSpace.z);
+                    var template = Instantiate(bushChoppedAnimationTemplate, tileCenterInWorld, Quaternion.identity);
+                    var animator = template.GetComponent<LinearAnimator>();
+                    animator.Animate("Default");
                     tilemap.SetTile(cell, bushChoppedTile);
                 }
             }
