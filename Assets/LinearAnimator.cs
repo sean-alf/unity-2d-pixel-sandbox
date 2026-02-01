@@ -190,6 +190,8 @@ public class LinearAnimator : MonoBehaviour
             coroutine = null;
             onFinished?.Invoke();
         }
+
+        if (animation.ClearSpriteOnCompletion) sr.sprite = null;
     }
 
     private IEnumerator AnimateThrough(LinearAnimation animation)
@@ -217,15 +219,10 @@ public class LinearAnimator : MonoBehaviour
     [Serializable]
     public class LinearAnimation
     {
-        [SerializeField]
-        private Sprite[] sprites;
-
-        [SerializeField]
-        [Tooltip("The sprite to use when not animating")]
-        private Sprite inactiveSprite;
-
-        [SerializeField]
-        private float duration;
+        [SerializeField] private Sprite[] sprites;
+        [SerializeField][Tooltip("The sprite to use when not animating")] private Sprite inactiveSprite;
+        [SerializeField] private float duration;
+        [SerializeField] private bool clearSpriteOnCompletion = false;
 
         [SerializeField]
         private bool loop = false;
@@ -236,6 +233,7 @@ public class LinearAnimator : MonoBehaviour
         public Sprite[] Sprites => sprites;
         public Sprite InactiveSprite => inactiveSprite;
         public bool Loop => loop;
+        public bool ClearSpriteOnCompletion => clearSpriteOnCompletion;
 
         public WaitForSeconds GetStepWait()
         {
