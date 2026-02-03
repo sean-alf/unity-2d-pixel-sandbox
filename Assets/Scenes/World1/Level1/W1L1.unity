@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74afd4d6f15574209a5010e0b430dcfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  inputChangeRequestPriority: 20
   jabSpeed: 6
   offset: 0.3
   jabDistance: 1
@@ -39295,6 +39296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec62f150f61f47839606c6781e5a1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sword
+  inputChangeRequestPriority: 20
   swingDuration: 0.2
   swordRadius: 0.5
   arcFlash: {fileID: 1356509135}

@@ -3,8 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Sword : MonoBehaviour
+public class Sword : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 {
+    [SerializeField][Range(0, 100)] int inputChangeRequestPriority;
+
     [Header("Swing Settings")]
     [SerializeField] private float swingDuration = 0.3f;      // total time for 180° swing
     [SerializeField] private float swordRadius = 0.8f;        // distance from player center to sword tip
@@ -21,6 +23,10 @@ public class Sword : MonoBehaviour
     private float swingProgress = 0f;
     private bool isSwinging = false;
     private float startAngle;
+
+    public int Priority => inputChangeRequestPriority;
+    public string Name => $"{name} ({GetType().Name})";
+    public BetterInputManager.InputType InputType => BetterInputManager.InputType.None;
 
     void Awake()
     {
@@ -42,7 +48,7 @@ public class Sword : MonoBehaviour
     {
         if (isSwinging) return;
 
-        wielder.DisableInput(gameObject);
+        wielder.InputManager.AddInputChangeRequest(this);
 
         isSwinging = true;
         this.wielder = wielder;
@@ -114,6 +120,6 @@ public class Sword : MonoBehaviour
         if (arcFlash != null) arcFlash.gameObject.SetActive(false);
         isSwinging = false;
         gameObject.SetActive(false);
-        wielder.RestoreInput(gameObject);
+        wielder.InputManager.RemoveInputChangeRequest(this);
     }
 }

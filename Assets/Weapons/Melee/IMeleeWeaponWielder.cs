@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public interface IMeleeWeaponWielder : IInputController
+public interface IMeleeWeaponWielder
 {
     public Transform Transform { get; }
+    public BetterInputManager InputManager { get; }
 }

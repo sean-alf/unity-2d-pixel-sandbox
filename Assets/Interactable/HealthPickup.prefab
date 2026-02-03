@@ -297,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87027c63aabc843b3af74e690f8b75ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interactable
+  inputChangeRequestPriority: 0
   OnInteract:
     m_PersistentCalls:
       m_Calls:

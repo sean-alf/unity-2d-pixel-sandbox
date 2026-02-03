@@ -2,8 +2,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class Spear : MonoBehaviour
+public class Spear : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 {
+    [SerializeField][Range(0, 100)] int inputChangeRequestPriority;
     [SerializeField] private float jabSpeed = 1f;
     [SerializeField] private float offset = 0.25f;
     [SerializeField] private float jabDistance = 0.5f;
@@ -15,6 +16,10 @@ public class Spear : MonoBehaviour
     [SerializeField] private Vector2 targetPos;
     [SerializeField] private bool isAttacking = false;
     [SerializeField] private bool isForward = false;
+
+    public int Priority => inputChangeRequestPriority;
+    public string Name => $"{name} ({GetType().Name})";
+    public BetterInputManager.InputType InputType => BetterInputManager.InputType.None;
 
     private Rigidbody2D rb;
     private Collider2D damageCollider;
@@ -62,7 +67,7 @@ public class Spear : MonoBehaviour
     {
         if (isAttacking) return;
 
-        wielder.DisableInput(gameObject);
+        wielder.InputManager.AddInputChangeRequest(this);
 
         this.wielder = wielder;
         isAttacking = true;
@@ -81,7 +86,7 @@ public class Spear : MonoBehaviour
     {
         damageCollider.enabled = false;
         isAttacking = false;
-        wielder.RestoreInput(gameObject);
+        wielder.InputManager.RemoveInputChangeRequest(this);
         wielder = null;
         gameObject.SetActive(false);
     }

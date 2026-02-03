@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -21,7 +23,17 @@ public class BetterInputManager : MonoBehaviour
         public InputType InputType { get; }
     }
 
+    [Serializable]
+    public struct InputChangeRequestor
+    {
+        public int priority;
+        public string name;
+        public InputType inputType;
+    }
+
+    [SerializeField] private UnityEvent<InputType> onInputTypeChange;
     [SerializeField] private UnityEvent<InputAction.CallbackContext> onAim;
+    [SerializeField] private UnityEvent<InputAction.CallbackContext> onAimEnable;
     [SerializeField] private UnityEvent<InputAction.CallbackContext> onAttack;
     [SerializeField] private UnityEvent<InputAction.CallbackContext> onInteract;
     [SerializeField] private UnityEvent<InputAction.CallbackContext> onMove;
@@ -34,8 +46,11 @@ public class BetterInputManager : MonoBehaviour
 
     [SerializeField] private InputType currentInputType = InputType.Full;
     [SerializeField] private string topRequestorName;
+    [SerializeField] private List<InputChangeRequestor> requestors;
 
-    public InputType Type => currentInputType;
+    public PlayerInput PlayerInput => input;
+    public InputAction MoveAction => moveAction;
+    public InputAction AimAction => aimAction;
 
     private PlayerInput input;
     private InputAction aimAction;
@@ -68,7 +83,7 @@ public class BetterInputManager : MonoBehaviour
     private void OnDisable()
     {
         // Clear all registered callbacks, just in case
-        SetNoInput();
+        UnregisterAllCallbacks();
     }
 
     /// <summary>
@@ -83,6 +98,15 @@ public class BetterInputManager : MonoBehaviour
         if (inputChangeRequestors.Contains(req)) return;
         inputChangeRequestors.Add(req);
         inputChangeRequestors.Sort((a, b) => b.Priority.CompareTo(a.Priority));
+
+        // For debug purposes
+        requestors = inputChangeRequestors.Select(i => new InputChangeRequestor()
+        {
+            priority = i.Priority,
+            name = i.Name,
+            inputType = i.InputType,
+        }).ToList();
+
         UpdateInputToType();
     }
 
@@ -97,6 +121,15 @@ public class BetterInputManager : MonoBehaviour
     {
         if (!inputChangeRequestors.Contains(req)) return;
         inputChangeRequestors.Remove(req);
+
+        // For debug purposes
+        requestors = inputChangeRequestors.Select(i => new InputChangeRequestor()
+        {
+            priority = i.Priority,
+            name = i.Name,
+            inputType = i.InputType,
+        }).ToList();
+
         UpdateInputToType();
     }
 
@@ -110,6 +143,15 @@ public class BetterInputManager : MonoBehaviour
     {
         if (!inputChangeRequestors.Contains(req)) return;
         inputChangeRequestors.Sort((a, b) => b.Priority.CompareTo(a.Priority));
+
+        // For debug purposes
+        requestors = inputChangeRequestors.Select(i => new InputChangeRequestor()
+        {
+            priority = i.Priority,
+            name = i.Name,
+            inputType = i.InputType,
+        }).ToList();
+
         UpdateInputToType();
     }
 
@@ -118,14 +160,20 @@ public class BetterInputManager : MonoBehaviour
         var topRequestor = inputChangeRequestors.FirstOrDefault();
         var type = topRequestor != null ? topRequestor.InputType : InputType.Full;
 
+        topRequestorName = topRequestor != null ? topRequestor.Name : "None";
+
         if (type == currentInputType) return;
 
         currentInputType = type;
         SetInputToType(currentInputType);
+        onInputTypeChange?.Invoke(currentInputType);
     }
 
     private void SetInputToType(InputType type)
     {
+        // Clear any current callbacks so that we don't have any duplication
+        UnregisterAllCallbacks();
+
         switch (type)
         {
             case InputType.Full:
@@ -135,19 +183,21 @@ public class BetterInputManager : MonoBehaviour
                 SetAimingInput();
                 break;
             case InputType.None:
-                SetNoInput();
+                // We already unregistered all callbacks, so do nothing
                 break;
         }
     }
 
     private void SetFullInput()
     {
-        aimAction.performed += OnAim;
-        aimAction.canceled += OnAim;
+        aimAction.performed += OnAimEnable;
+        aimAction.canceled += OnAimEnable;
         attackAction.performed += OnAttack;
         interactAction.performed += OnInteract;
         moveAction.performed += OnMove;
         moveAction.canceled += OnMove;
+        moveAction.performed -= OnAim;
+        moveAction.canceled -= OnAim;
         nextAction.performed += OnNext;
         previousAction.performed += OnPrevious;
         shootAction.performed += OnShoot;
@@ -155,31 +205,36 @@ public class BetterInputManager : MonoBehaviour
 
     private void SetAimingInput()
     {
-        aimAction.performed += OnAim;
-        aimAction.canceled += OnAim;
+        aimAction.performed += OnAimEnable;
+        aimAction.canceled += OnAimEnable;
         attackAction.performed -= OnAttack;
         interactAction.performed -= OnInteract;
         moveAction.performed -= OnMove;
         moveAction.canceled -= OnMove;
+        moveAction.performed += OnAim;
+        moveAction.canceled += OnAim;
         nextAction.performed += OnNext;
         previousAction.performed += OnPrevious;
         shootAction.performed += OnShoot;
     }
 
-    private void SetNoInput()
+    private void UnregisterAllCallbacks()
     {
-        aimAction.performed -= OnAim;
-        aimAction.canceled -= OnAim;
+        aimAction.performed -= OnAimEnable;
+        aimAction.canceled -= OnAimEnable;
         attackAction.performed -= OnAttack;
         interactAction.performed -= OnInteract;
         moveAction.performed -= OnMove;
         moveAction.canceled -= OnMove;
+        moveAction.performed -= OnAim;
+        moveAction.canceled -= OnAim;
         nextAction.performed -= OnNext;
         previousAction.performed -= OnPrevious;
         shootAction.performed -= OnShoot;
     }
 
     private void OnAim(InputAction.CallbackContext context) => onAim?.Invoke(context);
+    private void OnAimEnable(InputAction.CallbackContext context) => onAimEnable?.Invoke(context);
     private void OnAttack(InputAction.CallbackContext context) => onAttack?.Invoke(context);
     private void OnInteract(InputAction.CallbackContext context) => onInteract?.Invoke(context);
     private void OnMove(InputAction.CallbackContext context) => onMove?.Invoke(context);

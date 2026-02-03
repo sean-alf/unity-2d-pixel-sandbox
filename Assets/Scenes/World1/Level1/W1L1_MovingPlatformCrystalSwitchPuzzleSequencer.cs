@@ -49,7 +49,7 @@ public class W1L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour
         if (currentSwitched == MaxSwitches)
         {
             gamePauser.PauseGame();
-            playerController.UpdateInputType(PlayerController.InputType.None);
+            playerController.UpdateInputType(BetterInputManager.InputType.None);
 
             StartCoroutine(SequencingUtilities.DelayRealtime(dramaticPause, () =>
                 followerCamera.SetNewTarget(barrier.transform, maxCameraSwitchSpeed, onCentered: () =>
@@ -65,7 +65,7 @@ public class W1L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour
 
     private void PuzzleFinished()
     {
-        playerController.UpdateInputType(PlayerController.InputType.Riding);
+        playerController.UpdateInputType(BetterInputManager.InputType.Aiming);
         gamePauser.UnpauseGame();
         cs1.Lock();
         cs2.Lock();

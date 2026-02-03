@@ -104,7 +104,7 @@ public class Platform : MonoBehaviour, ILoggerProvider
     {
         if (collision.TryGetComponent(out AutoMover mover))
         {
-            if (collision.TryGetComponent(out playerController)) playerController.UpdateInputType(PlayerController.InputType.AutoMoving);
+            if (collision.TryGetComponent(out playerController)) playerController.UpdateInputType(BetterInputManager.InputType.None);
 
             mover.MoveTo(rb.position, onDone: () =>
             {
@@ -113,7 +113,7 @@ public class Platform : MonoBehaviour, ILoggerProvider
                     rb.bodyType = RigidbodyType2D.Kinematic;
                 }
                 playerController.OnDirectionChange += PlayerDirectionChange;
-                playerController.UpdateInputType(PlayerController.InputType.Riding);
+                playerController.UpdateInputType(BetterInputManager.InputType.Aiming);
                 collision.gameObject.transform.SetParent(transform);
                 ResetAndStart();
             });
@@ -177,7 +177,7 @@ public class Platform : MonoBehaviour, ILoggerProvider
                             if (playerController)
                             {
                                 playerController.OnDirectionChange -= PlayerDirectionChange;
-                                playerController.UpdateInputType(PlayerController.InputType.Full);
+                                playerController.UpdateInputType(BetterInputManager.InputType.Full);
                                 if (playerController.TryGetComponent(out Rigidbody2D rb))
                                 {
                                     rb.bodyType = RigidbodyType2D.Dynamic;

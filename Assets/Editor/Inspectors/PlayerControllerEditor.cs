@@ -17,7 +17,7 @@ public class PlayerMovementEditor : Editor
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Input", EditorStyles.boldLabel);
 
-            PlayerController.InputType inputType = (PlayerController.InputType)EditorGUILayout.EnumPopup("Input Type", controller.CurrentInputType);
+            BetterInputManager.InputType inputType = (BetterInputManager.InputType)EditorGUILayout.EnumPopup("Input Type", controller.CurrentInputType);
 
             if (inputType != controller.CurrentInputType) controller.UpdateInputType(inputType);
         }

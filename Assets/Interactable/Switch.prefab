@@ -164,6 +164,7 @@ MonoBehaviour:
         - {fileID: 9183641034903580541, guid: 8022af2d0811e4805941477b9de8100c, type: 3}
         inactiveSprite: {fileID: 0}
         duration: 0.5
+        clearSpriteOnCompletion: 0
         loop: 0
 --- !u!114 &1676443266850016143
 MonoBehaviour:
@@ -238,6 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87027c63aabc843b3af74e690f8b75ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interactable
+  inputChangeRequestPriority: 20
   OnInteract:
     m_PersistentCalls:
       m_Calls:

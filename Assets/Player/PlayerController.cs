@@ -8,17 +8,15 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILoggerProvider, ITriggerer, Interactable.IInteractor, IMeleeWeaponWielder
+public class PlayerController : MonoBehaviour,
+    AutoMover.IAutoMoverTarget,
+    ILoggerProvider,
+    ITriggerer,
+    Interactable.IInteractor,
+    IMeleeWeaponWielder,
+    BetterInputManager.IInputChangeRequestor
 {
-    public enum InputType
-    {
-        Full,
-        Riding,
-        AutoMoving,
-        None,
-    }
-
-    public InputType CurrentInputType => inputType;
+    public BetterInputManager.InputType CurrentInputType => inputType;
     public bool IsInputReady => input != null;
     public bool IsInputActive
     {
@@ -29,8 +27,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
     }
 
-    private bool ShouldAnimate => inputType == InputType.Full || inputType == InputType.AutoMoving;
-
+    [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority;
     [SerializeField][Range(1, 20)] private float speed = 1;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
@@ -41,8 +38,8 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     [Space]
     [Header("Debug")]
 
-    [SerializeField] private InputType inputType = InputType.Full;
-    [SerializeField] private InputType storedInputType = InputType.Full;
+    [SerializeField] private BetterInputManager.InputType inputType = BetterInputManager.InputType.Full;
+    [SerializeField] private BetterInputManager.InputType storedInputType = BetterInputManager.InputType.Full;
     [SerializeField] private Vector2 currentDirection;
     [SerializeField] private float speedFactor = 1f;
     [SerializeField] private List<Interactable> interactables = new();
@@ -52,9 +49,22 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
     public float Speed => speed;
     public Logger Logger => logger;
-    public GameObject GameObject => gameObject;
-    public Transform Transform => transform;
 
+    // IInteractor
+    public GameObject GameObject => gameObject;
+    // IMeleeWeaponWielder
+    public Transform Transform => transform;
+    // IInteractor, IMeleeWeaponWielder
+    public BetterInputManager InputManager => inputManager;
+
+    // BetterInputManager.IInputChangeRequestor
+    public int Priority => inputMapSwitchingPriority;
+    // BetterInputManager.IInputChangeRequestor
+    public string Name => $"{name} ({GetType().Name})";
+    // BetterInputManager.IInputChangeRequestor
+    public BetterInputManager.InputType InputType => BetterInputManager.InputType.Aiming;
+
+    private BetterInputManager inputManager;
     private Rigidbody2D rb;
     private LinearAnimator animator;
     private PlayerInput input;
@@ -66,6 +76,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
     void Awake()
     {
+        inputManager = GetComponent<BetterInputManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<LinearAnimator>();
         input = GetComponent<PlayerInput>();
@@ -85,23 +96,26 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (inputType != InputType.Full) return;
         var scaledSpeed = speedFactor * speed;
         rb.linearVelocity = efr.AppliedForce + scaledSpeed * currentDirection;
     }
 
     public void UnityEvent_OnMove(InputAction.CallbackContext context)
     {
-        var direction = context.ReadValue<Vector2>().normalized;
-        currentDirection = direction;
-        OnDirectionChange?.Invoke(direction);
-        OnDirectionChanged(direction);
+        currentDirection = context.ReadValue<Vector2>().normalized;
+        OnDirectionChange?.Invoke(currentDirection);
+        OnDirectionChanged(currentDirection);
+        HandleAnimations(currentDirection);
     }
 
     public void UnityEvent_OnAim(InputAction.CallbackContext context)
     {
-        Debug.LogWarning($"PlayerController: OnAim Not Yet Implemented");
+        var direction = context.ReadValue<Vector2>().normalized;
+        OnDirectionChange?.Invoke(direction);
+        OnDirectionChanged(direction);
     }
+
+    public void UnityEvent_OnAimEnable(InputAction.CallbackContext context) => EnableAim(enable: context.ReadValueAsButton());
 
     public void UnityEvent_OnInteract(InputAction.CallbackContext context)
     {
@@ -146,36 +160,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
     public void UnityEvent_OnNext(InputAction.CallbackContext context)
     {
         projectileManager.SelectNext();
-    }
-
-    private void OnDirectionChanged(Vector2 direction)
-    {
-        if (direction.IsIdle())
-        {
-            animator.Stop();
-            effectAnimator.Stop();
-        }
-        else
-        {
-            var lookRotation = Quaternion.LookRotation(Vector3.forward, direction);
-
-            if (inputType == InputType.Riding)
-            {
-                transform.localRotation = lookRotation;
-            }
-            else
-            {
-                rb.SetRotation(lookRotation);
-            }
-
-            if (ShouldAnimate)
-            {
-                animator.Animate("Default");
-                effectAnimator.Animate();
-            }
-        }
-
-        logger.I($"Direction changed = {direction}");
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -236,15 +220,53 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
     }
 
+    private void EnableAim(bool enable)
+    {
+        if (enable)
+        {
+            inputManager.AddInputChangeRequest(this);
+        }
+        else
+        {
+            inputManager.RemoveInputChangeRequest(this);
+        }
+    }
+
+    public void UnityEvent_OnInputTypeChanged(BetterInputManager.InputType type)
+    {
+        switch (type)
+        {
+            case BetterInputManager.InputType.None:
+                rb.linearVelocity = Vector2.zero;
+                currentDirection = Vector2.zero;
+                break;
+            case BetterInputManager.InputType.Aiming:
+                rb.linearVelocity = Vector2.zero;
+                currentDirection = Vector2.zero;
+                var direction = inputManager.MoveAction.ReadValue<Vector2>();
+                OnDirectionChange?.Invoke(direction);
+                OnDirectionChanged(direction);
+                break;
+            case BetterInputManager.InputType.Full:
+                currentDirection = inputManager.MoveAction.ReadValue<Vector2>();
+                OnDirectionChange?.Invoke(currentDirection);
+                OnDirectionChanged(currentDirection);
+                EnableAim(inputManager.AimAction.IsPressed());
+                break;
+        }
+
+        HandleAnimations(currentDirection);
+    }
+
     public void RestoreInput(GameObject from) => UpdateInputType(storedInputType);
 
     public void DisableInput(GameObject from)
     {
-        if (inputType == InputType.None) return;
-        UpdateInputType(InputType.None);
+        if (inputType == BetterInputManager.InputType.None) return;
+        UpdateInputType(BetterInputManager.InputType.None);
     }
 
-    public void UpdateInputType(InputType type)
+    public void UpdateInputType(BetterInputManager.InputType type, bool shouldAnimate = true)
     {
         if (input == null || inputType == type) return;
 
@@ -253,17 +275,15 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
         switch (inputType)
         {
-            case InputType.Full:
+            case BetterInputManager.InputType.Full:
                 input.ActivateInput();
                 break;
 
-            case InputType.Riding:
+            case BetterInputManager.InputType.Aiming:
                 rb.linearVelocity = Vector2.zero;
                 input.ActivateInput();
                 break;
-
-            case InputType.AutoMoving:
-            case InputType.None:
+            case BetterInputManager.InputType.None:
                 // Stop the movement
                 rb.linearVelocity = Vector2.zero;
                 currentDirection = Vector2.zero;
@@ -272,7 +292,7 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
 
         }
 
-        if (ShouldAnimate && !currentDirection.IsIdle())
+        if (shouldAnimate && !currentDirection.IsIdle())
         {
             animator.Animate("Default");
             effectAnimator.Animate();
@@ -307,7 +327,11 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
     }
 
-    void AutoMover.IAutoMoverTarget.OnDirectionChanged(Vector2 direction) => OnDirectionChanged(direction);
+    void AutoMover.IAutoMoverTarget.OnDirectionChanged(Vector2 direction)
+    {
+        OnDirectionChanged(direction);
+        HandleAnimations(direction);
+    }
 
     private void OnInteractableStateChange(Interactable i)
     {
@@ -322,6 +346,39 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         else
         {
             interactIndicator.Hide();
+        }
+    }
+
+    private void OnDirectionChanged(Vector2 direction)
+    {
+        if (!direction.IsIdle())
+        {
+            var lookRotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+            if (transform.parent != null)
+            {
+                transform.localRotation = lookRotation;
+            }
+            else
+            {
+                rb.SetRotation(lookRotation);
+            }
+        }
+
+        logger.I($"Direction changed = {direction}");
+    }
+
+    private void HandleAnimations(Vector2 direction)
+    {
+        if (direction.IsIdle())
+        {
+            animator.Stop();
+            effectAnimator.Stop();
+        }
+        else
+        {
+            animator.Animate("Default");
+            effectAnimator.Animate();
         }
     }
 }

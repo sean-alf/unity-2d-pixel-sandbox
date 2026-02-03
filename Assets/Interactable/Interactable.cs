@@ -2,17 +2,20 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Interactable : MonoBehaviour
+public class Interactable : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 {
-    public interface IInteractor : IInputController
+    public interface IInteractor
     {
         public GameObject GameObject { get; }
+        public BetterInputManager InputManager { get; }
     }
 
     public interface IOverride
     {
         public bool IsInteractable { get; }
     }
+
+    [SerializeField][Range(0, 100)] int inputChangeRequestPriority;
 
     /// <summary>
     /// This will get invoked when the IsInteractable state has potentially changed.
@@ -21,6 +24,12 @@ public class Interactable : MonoBehaviour
 
     [SerializeField]
     private UnityEvent<IInteractor> OnInteract;
+
+    public int Priority => inputChangeRequestPriority;
+
+    public string Name => $"{name} ({GetType().Name})";
+
+    public BetterInputManager.InputType InputType => BetterInputManager.InputType.None;
 
     public void Interact(IInteractor interactor)
     {
