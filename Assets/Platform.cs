@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Platform : MonoBehaviour, ILoggerProvider
+public class Platform : MonoBehaviour, ILoggerProvider, BetterInputManager.IInputChangeRequestor
 {
     // This must stay in sync with Tiled
     enum TrackType
@@ -31,6 +31,14 @@ public class Platform : MonoBehaviour, ILoggerProvider
 
     public Logger Logger => logger;
 
+    public int Priority => inputMapSwitchingPriority;
+
+    public string Name => $"{name} ({GetType().Name})";
+
+    public BetterInputManager.InputType InputType => inputType;
+
+    [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority = 80;
+
     [Header("Movement")]
     [SerializeField] private float speed = 2f;
     [SerializeField] private bool randomizeTurns = false;
@@ -52,6 +60,7 @@ public class Platform : MonoBehaviour, ILoggerProvider
     private TileAndDirection nextTarget;
     private PlayerController playerController;
     private Vector2 playerDirection;
+    private BetterInputManager.InputType inputType = BetterInputManager.InputType.None;
 
     private void Awake()
     {
@@ -104,7 +113,11 @@ public class Platform : MonoBehaviour, ILoggerProvider
     {
         if (collision.TryGetComponent(out AutoMover mover))
         {
-            if (collision.TryGetComponent(out playerController)) playerController.UpdateInputType(BetterInputManager.InputType.None);
+            playerController = collision.GetComponent<PlayerController>();
+            var inputManager = collision.GetComponent<BetterInputManager>();
+
+            inputType = BetterInputManager.InputType.None;
+            inputManager.AddInputChangeRequest(this);
 
             mover.MoveTo(rb.position, onDone: () =>
             {
@@ -113,7 +126,8 @@ public class Platform : MonoBehaviour, ILoggerProvider
                     rb.bodyType = RigidbodyType2D.Kinematic;
                 }
                 playerController.OnDirectionChange += PlayerDirectionChange;
-                playerController.UpdateInputType(BetterInputManager.InputType.Aiming);
+                inputType = BetterInputManager.InputType.Aiming;
+                inputManager.UpdateInputChangeRequest(this);
                 collision.gameObject.transform.SetParent(transform);
                 ResetAndStart();
             });
@@ -177,7 +191,12 @@ public class Platform : MonoBehaviour, ILoggerProvider
                             if (playerController)
                             {
                                 playerController.OnDirectionChange -= PlayerDirectionChange;
-                                playerController.UpdateInputType(BetterInputManager.InputType.Full);
+
+                                if (playerController.TryGetComponent(out BetterInputManager inputManager))
+                                {
+                                    inputManager.RemoveInputChangeRequest(this);
+                                }
+
                                 if (playerController.TryGetComponent(out Rigidbody2D rb))
                                 {
                                     rb.bodyType = RigidbodyType2D.Dynamic;

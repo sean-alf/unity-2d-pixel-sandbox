@@ -2,9 +2,10 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
+public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 {
-    [SerializeField] private PlayerController playerController;
+    [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority = 80;
+    [SerializeField] private BetterInputManager inputManager;
     [SerializeField] private BasicTrigger gameStartTrigger;
     [SerializeField] private WallCannon wallCannon;
     [SerializeField] private Switch wallCannonSwitch;
@@ -17,6 +18,12 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
     private CameraTarget cameraTarget;
 
     private bool isFinished = false;
+
+    public int Priority => inputMapSwitchingPriority;
+
+    public string Name => $"{name} ({GetType().Name})";
+
+    public BetterInputManager.InputType InputType => BetterInputManager.InputType.None;
 
     private void Awake()
     {
@@ -65,7 +72,7 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
 
     private void OnPuzzleStart()
     {
-        playerController.DisableInput(gameObject);
+        inputManager.AddInputChangeRequest(this);
         StartCoroutine(SequencingUtilities.Delay(initialGameStartDelay, onRun: () =>
         {
             wallCannon.ShootOnce(wallCannonShotDelay);
@@ -92,13 +99,13 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour
 
     private void OnPlayerInteractedWithSwitch()
     {
-        playerController.DisableInput(gameObject);
+        inputManager.AddInputChangeRequest(this);
     }
 
     private void WhenWallCannonSwitchSwitchedToA(Switch s)
     {
         if (isFinished) s.Lock();
-        playerController.RestoreInput(gameObject);
+        inputManager.RemoveInputChangeRequest(this);
     }
 
     private void WhenWallCannonSwitchSwitchedToB(Switch _)

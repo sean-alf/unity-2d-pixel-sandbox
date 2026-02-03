@@ -165,7 +165,7 @@ public class Switch : MonoBehaviour, Interactable.IOverride
         if (interactor == null || playerCanToggleFrom.Contains(switchPosition))
         {
             isAnimating = true;
-            interactor.InputManager.AddInputChangeRequest(interactable);
+            interactor?.InputManager.AddInputChangeRequest(interactable);
             onToggleImmediateEvent?.Invoke();
             StartPositionBasedAnimation();
         }
@@ -190,7 +190,7 @@ public class Switch : MonoBehaviour, Interactable.IOverride
         isAnimating = false;
         interactable.NotifyStateChanged(gameObject);
         InvokeEvents(switchPosition);
-        interactor.InputManager.RemoveInputChangeRequest(interactable);
+        interactor?.InputManager.RemoveInputChangeRequest(interactable);
         interactor = null;
     }
 

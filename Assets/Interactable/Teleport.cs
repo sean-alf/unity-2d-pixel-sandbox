@@ -4,7 +4,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(LinearAnimator))]
-public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
+public class Teleport : MonoBehaviour,
+    ILoggerProvider,
+    ISceneTransitionPoint,
+    BetterInputManager.IInputChangeRequestor
 {
     public enum TravelType
     {
@@ -12,33 +15,22 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
         Oneway, // Like the entry teleport on the first level    
     }
 
-    [SerializeField]
-    private GameObject teleportingAnimationTemplate;
-
-    [SerializeField]
-    private TransitionType transitionType;
+    [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority = 80;
+    [SerializeField] private GameObject teleportingAnimationTemplate;
+    [SerializeField] private TransitionType transitionType;
 
     // Exposed for ST2U prefab replacer
     public TravelType travelType;
 
-    [SerializeField]
-    [Range(32, 128)]
-    private int distanceToReactivatePX = 32;
-
-    [SerializeField]
-    private int pixelsPerUnit = 32;
-
-    [SerializeField]
-    private float fadeDuration = 0.5f;
-
-    [SerializeField]
-    private int fadeSteps = 6;
+    [SerializeField][Range(32, 128)] private int distanceToReactivatePX = 32;
+    [SerializeField] private int pixelsPerUnit = 32;
+    [SerializeField] private float fadeDuration = 0.5f;
+    [SerializeField] private int fadeSteps = 6;
 
     [Space]
     [Header("Debug")]
 
-    [SerializeField]
-    private Logger logger;
+    [SerializeField] private Logger logger;
 
     private SpriteRenderer sr;
     private LinearAnimator animator;
@@ -48,6 +40,12 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
     public Action<TransitionType> OnExit { get; set; }
 
     public TransitionType TransitionType => transitionType;
+
+    public int Priority => inputMapSwitchingPriority;
+
+    public string Name => $"{name} ({GetType().Name})";
+
+    public BetterInputManager.InputType InputType => BetterInputManager.InputType.None;
 
     private void Awake()
     {
@@ -75,9 +73,9 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
 
     public void AnimateAndTeleportToNextScene(GameObject target)
     {
-        if (target.TryGetComponent(out PlayerController p))
+        if (target.TryGetComponent(out BetterInputManager inputManager))
         {
-            p.UpdateInputType(BetterInputManager.InputType.None);
+            inputManager.AddInputChangeRequest(this);
         }
         else
         {
@@ -89,7 +87,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
             a.MoveTo(transform.position, () =>
             {
                 // OnDone
-                Exit(p);
+                RunTeleportationAnimation(inputManager, false);
             });
         }
         else
@@ -123,8 +121,8 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
     /// </summary>
     public void Enter()
     {
-        // The PlayerController IS inactive at this point
-        var target = FindAnyObjectByType<PlayerController>(FindObjectsInactive.Include);
+        // The Player IS inactive at this point
+        var target = FindAnyObjectByType<BetterInputManager>(FindObjectsInactive.Include);
 
         if (target != null)
         {
@@ -136,12 +134,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
         }
     }
 
-    private void Exit(PlayerController target)
-    {
-        RunTeleportationAnimation(target, false);
-    }
-
-    private void RunTeleportationAnimation(PlayerController target, bool teleportIn)
+    private void RunTeleportationAnimation(BetterInputManager target, bool teleportIn)
     {
         var template = Instantiate(teleportingAnimationTemplate);
         template.transform.position = transform.position;
@@ -152,7 +145,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
             {
                 // On Cover
                 target.gameObject.SetActive(teleportIn);
-                target.UpdateInputType(BetterInputManager.InputType.None);
+                target.AddInputChangeRequest(this);
             }, () =>
             {
                 // On Done
@@ -173,7 +166,7 @@ public class Teleport : MonoBehaviour, ILoggerProvider, ISceneTransitionPoint
                                 StartCoroutine(WatchPlayerDistance(target.gameObject));
                             }
 
-                            target.UpdateInputType(BetterInputManager.InputType.Full);
+                            target.RemoveInputChangeRequest(this);
                         }
                     );
                 }

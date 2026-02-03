@@ -354,6 +354,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
   m_PrefabInstance: {fileID: 676277024520813166}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &52699981 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+  m_PrefabInstance: {fileID: 676277024520813166}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52699970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24bc8d367765546c5a825fbe8987da57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &61894923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1661,7 +1672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &265614213
 Transform:
   m_ObjectHideFlags: 0
@@ -1708,7 +1719,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d436f9e75f2224554b2deb35cd5f5fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::W1L1_MovingPlatformCrystalSwitchPuzzleSequencer
-  playerController: {fileID: 52699979}
+  inputMapSwitchingPriority: 90
+  inputManager: {fileID: 52699981}
   followerCamera: {fileID: 1051936497}
   maxCameraSwitchSpeed: 20
   dramaticPause: 0.5
@@ -35106,6 +35118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43834ceb5b7d4757bc0ad945119bd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  inputMapSwitchingPriority: 80
   speed: 5
   randomizeTurns: 0
   logger:
@@ -37696,7 +37709,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1442652121
 Transform:
   m_ObjectHideFlags: 0
@@ -39409,7 +39422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6ae960fbe8242b38507ea54e79e2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WallCannonRedirectionPanelGameSequencer
-  playerController: {fileID: 52699979}
+  inputMapSwitchingPriority: 80
+  inputManager: {fileID: 52699981}
   gameStartTrigger: {fileID: 215152712}
   wallCannon: {fileID: 1718127259}
   wallCannonSwitch: {fileID: 366932892}
@@ -39822,11 +39836,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.375
+      value: 14.8125
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -67.53125
+      value: -51.0625
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z
@@ -39883,6 +39897,34 @@ PrefabInstance:
     - target: {fileID: 3506734746355078395, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: logger.logLevel
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: aimAction.m_Name
+      value: Aim
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: moveAction.m_Name
+      value: Move
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: nextAction.m_Name
+      value: Next
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: shootAction.m_Name
+      value: Shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: attackAction.m_Name
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: interactAction.m_Name
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: previousAction.m_Name
+      value: Previous
       objectReference: {fileID: 0}
     - target: {fileID: 5533818684804794783, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_SortingOrder
@@ -40724,11 +40766,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4758762970756930301, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -173.625
+      value: -201.1875
       objectReference: {fileID: 0}
     - target: {fileID: 4758762970756930301, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 426.46875
+      value: 442.9375
       objectReference: {fileID: 0}
     - target: {fileID: 6125731054299193077, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.x

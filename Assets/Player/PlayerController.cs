@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BetterInputManager))]
 public class PlayerController : MonoBehaviour,
     AutoMover.IAutoMoverTarget,
     ILoggerProvider,
@@ -16,17 +17,6 @@ public class PlayerController : MonoBehaviour,
     IMeleeWeaponWielder,
     BetterInputManager.IInputChangeRequestor
 {
-    public BetterInputManager.InputType CurrentInputType => inputType;
-    public bool IsInputReady => input != null;
-    public bool IsInputActive
-    {
-        get
-        {
-            if (input) return input.inputIsActive;
-            return false;
-        }
-    }
-
     [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority;
     [SerializeField][Range(1, 20)] private float speed = 1;
     [SerializeField] private Transform projectileSpawnPoint;
@@ -38,8 +28,6 @@ public class PlayerController : MonoBehaviour,
     [Space]
     [Header("Debug")]
 
-    [SerializeField] private BetterInputManager.InputType inputType = BetterInputManager.InputType.Full;
-    [SerializeField] private BetterInputManager.InputType storedInputType = BetterInputManager.InputType.Full;
     [SerializeField] private Vector2 currentDirection;
     [SerializeField] private float speedFactor = 1f;
     [SerializeField] private List<Interactable> interactables = new();
@@ -67,7 +55,6 @@ public class PlayerController : MonoBehaviour,
     private BetterInputManager inputManager;
     private Rigidbody2D rb;
     private LinearAnimator animator;
-    private PlayerInput input;
     private ProjectileManager projectileManager;
     private HealthManager healthManager;
     private ExternalForceReceiver efr;
@@ -79,7 +66,6 @@ public class PlayerController : MonoBehaviour,
         inputManager = GetComponent<BetterInputManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<LinearAnimator>();
-        input = GetComponent<PlayerInput>();
         projectileManager = GetComponent<ProjectileManager>();
         healthManager = GetComponent<HealthManager>();
 
@@ -256,52 +242,6 @@ public class PlayerController : MonoBehaviour,
         }
 
         HandleAnimations(currentDirection);
-    }
-
-    public void RestoreInput(GameObject from) => UpdateInputType(storedInputType);
-
-    public void DisableInput(GameObject from)
-    {
-        if (inputType == BetterInputManager.InputType.None) return;
-        UpdateInputType(BetterInputManager.InputType.None);
-    }
-
-    public void UpdateInputType(BetterInputManager.InputType type, bool shouldAnimate = true)
-    {
-        if (input == null || inputType == type) return;
-
-        storedInputType = inputType;
-        inputType = type;
-
-        switch (inputType)
-        {
-            case BetterInputManager.InputType.Full:
-                input.ActivateInput();
-                break;
-
-            case BetterInputManager.InputType.Aiming:
-                rb.linearVelocity = Vector2.zero;
-                input.ActivateInput();
-                break;
-            case BetterInputManager.InputType.None:
-                // Stop the movement
-                rb.linearVelocity = Vector2.zero;
-                currentDirection = Vector2.zero;
-                input.DeactivateInput();
-                break;
-
-        }
-
-        if (shouldAnimate && !currentDirection.IsIdle())
-        {
-            animator.Animate("Default");
-            effectAnimator.Animate();
-        }
-        else
-        {
-            animator.Stop();
-            effectAnimator.Stop();
-        }
     }
 
     public void TileTracker_OnTileChanged(Vector3Int cell)
