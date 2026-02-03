@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -1618711439479532105}
   - component: {fileID: 3856687254837308205}
   - component: {fileID: -8068509138887222422}
+  - component: {fileID: -1875897828217232435}
   m_Layer: 12
   m_Name: PhaseBeam
   m_TagString: Untagged
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   speed: 12
+  maxConcurrentProjectiles: 5
   coolDownDuration: 0.4
   maxReflectionCount: 5
   destructionDelay: 0
@@ -273,3 +275,15 @@ MonoBehaviour:
         duration: 0.2
         clearSpriteOnCompletion: 0
         loop: 0
+--- !u!114 &-1875897828217232435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6726146697752115651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807e4904b909d4a6db4a09d3e3763afc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Destroyable

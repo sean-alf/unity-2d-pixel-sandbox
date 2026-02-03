@@ -37,6 +37,10 @@ public class HealthManager : MonoBehaviour
 
     public Action<EventData> onHealthChange;
 
+    // ──────────────────────────────────────────────────────────────
+    // GameObject Lifecycle
+    // ──────────────────────────────────────────────────────────────
+
     private void Awake()
     {
         currentHealth = maximumHealth;
@@ -50,6 +54,26 @@ public class HealthManager : MonoBehaviour
             maximumHealth
         ));
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        currentHealth = Mathf.Clamp(currentHealth, 0, maximumHealth);
+
+        EditorApplication.delayCall += () =>
+        {
+            onHealthChange?.Invoke(new(
+                type: EventType.EditorUpdate,
+                currentHealth,
+                maximumHealth)
+            );
+        };
+    }
+#endif
+
+    // ──────────────────────────────────────────────────────────────
+    // Public Control Methods
+    // ──────────────────────────────────────────────────────────────
 
     public void DoDamage(int strength)
     {
@@ -71,6 +95,10 @@ public class HealthManager : MonoBehaviour
         ));
     }
 
+    // ──────────────────────────────────────────────────────────────
+    // Helpers
+    // ──────────────────────────────────────────────────────────────
+
     private void Die()
     {
         Debug.Log("I got dead again!!");
@@ -81,20 +109,4 @@ public class HealthManager : MonoBehaviour
         ));
         gameObject.SetActive(false);
     }
-
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        currentHealth = Mathf.Clamp(currentHealth, 0, maximumHealth);
-
-        EditorApplication.delayCall += () =>
-        {
-            onHealthChange?.Invoke(new(
-                type: EventType.EditorUpdate,
-                currentHealth,
-                maximumHealth)
-            );
-        };
-    }
-#endif
 }

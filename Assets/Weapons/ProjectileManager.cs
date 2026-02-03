@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class ProjectileManager : MonoBehaviour, ILoggerProvider
 {
@@ -81,6 +82,15 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         {
             selectedProjectile.Instantiate(p =>
             {
+                Debug.Log($"ProjectileManager: p.MaxConcurrentProjectiles {p.MaxConcurrentProjectiles}, activeProjectiles {activeProjectiles}");
+                if (p.MaxConcurrentProjectiles == activeProjectiles)
+                {
+                    // The maximum number of projectiles are already in the field
+                    // Destroy this projectile and exit early
+                    Destroy(p.gameObject);
+                    return;
+                }
+
                 coolDownCounter = p.CoolDownDuration;
 
                 p.gameObject.SetActive(false);

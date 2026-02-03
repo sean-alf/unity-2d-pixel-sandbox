@@ -8,6 +8,7 @@ using UnityEngine;
 public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IReflectable
 {
     [SerializeField][Range(1, 40)] private int speed = 1;
+    [SerializeField][Range(1, 100)] private int maxConcurrentProjectiles = 100;
     [SerializeField] private float coolDownDuration = 0.25f;
     [SerializeField][Range(0, 40)] private int maxReflectionCount = 5;
     [SerializeField] private float destructionDelay = 0f;
@@ -28,6 +29,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     private float halfHeight;
     private int currentReflectionCount = 0;
 
+    public int MaxConcurrentProjectiles => maxConcurrentProjectiles;
     public float CoolDownDuration => coolDownDuration;
     public Logger Logger => logger;
 
