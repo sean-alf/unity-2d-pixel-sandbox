@@ -10,6 +10,7 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         public Vector3 position;
     }
 
+    public UnityEvent<ProjectileSO> onProjectileChanged;
     public UnityEvent<Transform> onProjectileInstantiated;
 
     [SerializeField] private List<ProjectileSO> projectiles;
@@ -43,13 +44,11 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
             Debug.LogError("Projectile Manager: Projectiles not set!!");
             return;
         }
-
-        // Automatically set the selected projectile to the first one in the list
-        selectedProjectile = projectiles[currentIndex];
     }
 
     private void Start()
     {
+        // Do this here so that anything listening for projectile change will be ready
         SetProjectiles();
     }
 
@@ -119,14 +118,12 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
     public void SelectNext()
     {
         currentIndex = (currentIndex + 1) % projectiles.Count;
-        selectedProjectile = projectiles[currentIndex];
         SetProjectiles();
     }
 
     public void SelectPrevious()
     {
         currentIndex = (currentIndex - 1 + projectiles.Count) % projectiles.Count;
-        selectedProjectile = projectiles[currentIndex];
         SetProjectiles();
     }
 
@@ -141,6 +138,8 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
 
     private void SetProjectiles()
     {
+        selectedProjectile = projectiles[currentIndex];
+
         if (shootingLayer == 0)
         {
             logger.E("shooting layer not set!!");
@@ -151,6 +150,8 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         {
             madm.GetTopLeftContainer().UpdatePrimaryWeaponIcon(selectedProjectile.MenuIcon);
         }
+
+        onProjectileChanged?.Invoke(selectedProjectile);
     }
 
     // ──────────────────────────────────────────────────────────────

@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour,
     private ProjectileManager projectileManager;
     private HealthManager healthManager;
     private GameObject head;
+    private GameObject eye;
     private ExternalForceReceiver efr;
     private InteractIndicator interactIndicator;
     private Vector3 headInitialLocalPosition;
@@ -102,12 +103,25 @@ public class PlayerController : MonoBehaviour,
         healthManager = GetComponent<HealthManager>();
 
         head = transform.Find("Head").gameObject;
+        eye = head.transform.Find("Eye").gameObject;
         efr = GetComponentInChildren<ExternalForceReceiver>();
 
         projectileManager.SetShootingLayer(LayerNames.Projectile);
 
         headInitialLocalPosition = head.transform.localPosition;
         headRecoilLocalPosition = head.transform.localPosition.SubtractY(4f / 32f);
+    }
+
+    private void OnEnable()
+    {
+        projectileManager.onProjectileChanged.AddListener(ProjectileManager_OnProjectilChanged);
+        projectileManager.onProjectileInstantiated.AddListener(ProjectileManager_OnShoot);
+    }
+
+    private void OnDisable()
+    {
+        projectileManager.onProjectileChanged.RemoveListener(ProjectileManager_OnProjectilChanged);
+        projectileManager.onProjectileInstantiated.RemoveListener(ProjectileManager_OnShoot);
     }
 
     private void Start()
@@ -281,10 +295,9 @@ public class PlayerController : MonoBehaviour,
     // Other UnityEvent Methods
     // ──────────────────────────────────────────────────────────────
 
-    public void ProjectileManager_OnShoot()
-    {
-        RecoilBegin();
-    }
+    private void ProjectileManager_OnProjectilChanged(ProjectileSO projectile) => eye.GetComponent<SpriteRenderer>().sprite = projectile.PlayerEye;
+
+    private void ProjectileManager_OnShoot(Transform _) => RecoilBegin();
 
     public void TileTracker_OnTileChanged(Vector3Int cell)
     {

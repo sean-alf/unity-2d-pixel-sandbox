@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639039126588147400
+  platformSettingsDirtyTick: 639057235956914180
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -234,33 +234,7 @@ ScriptedImporter:
       y: 84
       width: 28
       height: 32
-    spriteID: d02ad17c2e1b54df4ba34a5a1b55be96
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline:
-    - outline:
-      - {x: 16, y: 16}
-      - {x: -16, y: 16}
-      - {x: -16, y: -16}
-      - {x: 16, y: -16}
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: Player_Head
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 40
-      y: 4
-      width: 32
-      height: 20
-    spriteID: 0a3a7712e73114afeb2d42b494350bfc
+    spriteID: 1a50ca4dd00f0422db8c5ff43f8d0f80
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -310,15 +284,6 @@ ScriptedImporter:
         width: 28
         height: 32
       spriteId: 2c00fe237b205474292bf462e27bc601
-    - name: Frame_3
-      frameIndex: 3
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 4
-        width: 32
-        height: 19
-      spriteId: 8e0ca5f33344842f7ab43bd8bd892831
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -365,4 +330,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 32, y: 32}
-  previousTextureSize: {x: 128, y: 128}
+  previousTextureSize: {x: 64, y: 128}

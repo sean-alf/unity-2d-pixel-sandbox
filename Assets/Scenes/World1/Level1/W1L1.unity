@@ -39922,6 +39922,10 @@ PrefabInstance:
       propertyPath: previousAction.m_Name
       value: Previous
       objectReference: {fileID: 0}
+    - target: {fileID: 5533818684804794783, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6440799228650472467, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_Camera
       value: 

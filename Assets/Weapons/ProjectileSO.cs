@@ -4,13 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ProjectileSO", menuName = "Scriptable Objects/ProjectileSO")]
 public class ProjectileSO : ScriptableObject
 {
-    [SerializeField]
-    private Sprite menuIcon;
-
-    [SerializeField]
-    private GameObject template;
+    [SerializeField] private Sprite menuIcon;
+    [SerializeField] private Sprite playerEye;
+    [SerializeField] private GameObject template;
 
     public Sprite MenuIcon => menuIcon;
+    public Sprite PlayerEye => playerEye;
 
     public void Instantiate(Action<BasicProjectile> onNotNull)
     {
