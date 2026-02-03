@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 3058580506951309369}
   - component: {fileID: -3137722125030512224}
   - component: {fileID: 1621889299709325777}
+  - component: {fileID: 4944997684531950368}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -333,6 +334,7 @@ MonoBehaviour:
         - {fileID: -5975419622963624644, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
         inactiveSprite: {fileID: 0}
         duration: 0.2
+        clearSpriteOnCompletion: 0
         loop: 1
 --- !u!61 &-3137722125030512224
 BoxCollider2D:
@@ -422,6 +424,125 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4944997684531950368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828709081556262573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24bc8d367765546c5a825fbe8987da57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  onAim:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3506734746355078395}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: UnityEvent_OnAim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3506734746355078395}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: UnityEvent_OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3506734746355078395}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: UnityEvent_OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onMove:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3506734746355078395}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: UnityEvent_OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onNext:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3506734746355078395}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: UnityEvent_OnNext
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPrevious:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3506734746355078395}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: UnityEvent_OnPrevious
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onShoot:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3506734746355078395}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: UnityEvent_OnShoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  currentInputType: 0
+  topRequestorName: 
 --- !u!1 &3038318595791463268
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,6 +873,7 @@ MonoBehaviour:
         - {fileID: -426330695675843050, guid: fddd292cb362d4d19a864d4467d48f02, type: 3}
         inactiveSprite: {fileID: 1808572549509619084, guid: fddd292cb362d4d19a864d4467d48f02, type: 3}
         duration: 0.3
+        clearSpriteOnCompletion: 0
         loop: 1
 --- !u!1 &7945624619709377701
 GameObject:

@@ -16,24 +16,23 @@ public static class InputActionMapStringsGenerator
 
         if (asset == null) return;
 
-        string className = $"{asset.name.Replace(" ", "")}_Names";
+        string className = $"{asset.name.Replace(" ", "")}Names";
         string code = $"using UnityEngine.InputSystem;\n\n";
         code += $"public static class {className}\n{{\n";
 
         foreach (var map in asset.actionMaps)
         {
-            code += $"\tpublic static class {map.name}\n\t{{\n";
+            code += $"\tpublic static class {map.name}Map\n\t{{\n";
 
-            code += $"\t\tpublic static readonly string MAP_NAME = \"{map.name}\";\n\n";
+            code += $"\t\tpublic static readonly string Name = \"{map.name}\";\n\n";
 
             foreach (var action in map.actions)
             {
-                var actionName = action.name.Replace(" ", "_");
-                var actionNameConstant = Regex.Replace(actionName, "([a-z])([A-Z])", "$1_$2").ToUpper();
+                var actionName = action.name.Replace(" ", "");
 
-                code += $"\t\tpublic static readonly string {actionNameConstant} = \"{action.name}\";\n\n";
-                code += $"\t\tpublic static InputAction {actionName}(PlayerInput input)\n\t\t{{\n";
-                code += $"\t\t\treturn input.actions.FindActionMap(MAP_NAME).FindAction({actionNameConstant});\n";
+                code += $"\t\tpublic static readonly string {actionName} = \"{action.name}\";\n\n";
+                code += $"\t\tpublic static InputAction Get{actionName}Action(PlayerInput input)\n\t\t{{\n";
+                code += $"\t\t\treturn input.actions.FindActionMap(Name).FindAction({actionName});\n";
                 code += "\t\t}\n\n";
             }
 

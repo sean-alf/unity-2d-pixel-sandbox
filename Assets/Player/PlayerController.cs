@@ -77,28 +77,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         projectileManager.SetShootingLayer(LayerNames.Projectile);
     }
 
-    private void OnEnable()
-    {
-        InputSystem_Actions_Names.Player.Move(input).performed += OnMove;
-        InputSystem_Actions_Names.Player.Move(input).canceled += OnMove;
-        InputSystem_Actions_Names.Player.Attack(input).performed += OnAttack;
-        InputSystem_Actions_Names.Player.Interact(input).performed += OnInteract;
-        InputSystem_Actions_Names.Player.Jump(input).performed += OnJump;
-        InputSystem_Actions_Names.Player.Previous(input).performed += OnPrevious;
-        InputSystem_Actions_Names.Player.Next(input).performed += OnNext;
-    }
-
-    private void OnDisable()
-    {
-        InputSystem_Actions_Names.Player.Move(input).performed -= OnMove;
-        InputSystem_Actions_Names.Player.Move(input).canceled -= OnMove;
-        InputSystem_Actions_Names.Player.Attack(input).performed -= OnAttack;
-        InputSystem_Actions_Names.Player.Interact(input).performed -= OnInteract;
-        InputSystem_Actions_Names.Player.Jump(input).performed -= OnJump;
-        InputSystem_Actions_Names.Player.Previous(input).performed -= OnPrevious;
-        InputSystem_Actions_Names.Player.Next(input).performed -= OnNext;
-    }
-
     private void Start()
     {
         interactIndicator = FindFirstObjectByType<InteractIndicator>();
@@ -112,12 +90,62 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         rb.linearVelocity = efr.AppliedForce + scaledSpeed * currentDirection;
     }
 
-    private void OnMove(InputAction.CallbackContext context)
+    public void UnityEvent_OnMove(InputAction.CallbackContext context)
     {
         var direction = context.ReadValue<Vector2>().normalized;
         currentDirection = direction;
         OnDirectionChange?.Invoke(direction);
         OnDirectionChanged(direction);
+    }
+
+    public void UnityEvent_OnAim(InputAction.CallbackContext context)
+    {
+        Debug.LogWarning($"PlayerController: OnAim Not Yet Implemented");
+    }
+
+    public void UnityEvent_OnInteract(InputAction.CallbackContext context)
+    {
+        foreach (var i in interactables)
+        {
+            if (i == null) continue;
+
+            // Only handle one thing per interaction, otherwise it might be confusing
+            // Hence the "break" below
+            i.Interact(this);
+            break;
+        }
+    }
+
+    public void UnityEvent_OnAttack(InputAction.CallbackContext context)
+    {
+        if (useSword)
+        {
+            sword.StartSwing(this, swingForward);
+            swingForward = !swingForward;
+        }
+        else
+        {
+            spear.StartJab(this);
+        }
+    }
+
+    public void UnityEvent_OnShoot(InputAction.CallbackContext context)
+    {
+        projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection
+        {
+            direction = transform.rotation * Vector2.up,
+            position = projectileSpawnPoint.position,
+        });
+    }
+
+    public void UnityEvent_OnPrevious(InputAction.CallbackContext context)
+    {
+        projectileManager.SelectPrevious();
+    }
+
+    public void UnityEvent_OnNext(InputAction.CallbackContext context)
+    {
+        projectileManager.SelectNext();
     }
 
     private void OnDirectionChanged(Vector2 direction)
@@ -148,51 +176,6 @@ public class PlayerController : MonoBehaviour, AutoMover.IAutoMoverTarget, ILogg
         }
 
         logger.I($"Direction changed = {direction}");
-    }
-
-    private void OnAttack(InputAction.CallbackContext context)
-    {
-        if (useSword)
-        {
-            sword.StartSwing(this, swingForward);
-            swingForward = !swingForward;
-        }
-        else
-        {
-            spear.StartJab(this);
-        }
-    }
-
-    private void OnInteract(InputAction.CallbackContext context)
-    {
-        foreach (var i in interactables)
-        {
-            if (i == null) continue;
-
-            // Only handle one thing per interaction, otherwise it might be confusing
-            // Hence the "break" below
-            i.Interact(this);
-            break;
-        }
-    }
-
-    private void OnJump(InputAction.CallbackContext context)
-    {
-        projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection
-        {
-            direction = transform.rotation * Vector2.up,
-            position = projectileSpawnPoint.position,
-        });
-    }
-
-    private void OnPrevious(InputAction.CallbackContext context)
-    {
-        projectileManager.SelectPrevious();
-    }
-
-    private void OnNext(InputAction.CallbackContext context)
-    {
-        projectileManager.SelectNext();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
