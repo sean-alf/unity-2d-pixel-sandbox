@@ -35,7 +35,7 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, Bet
     {
         gameStartTrigger.onTriggerEnter += OnPuzzleStart;
         cameraTarget.onSwitchedBack += CameraBackOnPlayer;
-        wallCannonProjectileManager.onProjectileInstantiated += OnCannonBallShot;
+        wallCannonProjectileManager.onProjectileInstantiated.AddListener(OnCannonBallShot);
         wallCannonSwitch.onToggleImmediateEvent.AddListener(OnPlayerInteractedWithSwitch);
         finalShockOrbDamageHandler.onDeath.AddListener(OnFinalShockOrbDeath);
         wallCannonSwitch.AddListener(Switch.Position.A, WhenWallCannonSwitchSwitchedToA);
@@ -47,7 +47,7 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, Bet
     {
         gameStartTrigger.onTriggerEnter -= OnPuzzleStart;
         cameraTarget.onSwitchedBack -= CameraBackOnPlayer;
-        wallCannonProjectileManager.onProjectileInstantiated -= OnCannonBallShot;
+        wallCannonProjectileManager.onProjectileInstantiated.RemoveListener(OnCannonBallShot);
         wallCannonSwitch.onToggleImmediateEvent.RemoveAllListeners();
         finalShockOrbDamageHandler.onDeath.RemoveListener(OnFinalShockOrbDeath);
         wallCannonSwitch.RemoveAllListeners();

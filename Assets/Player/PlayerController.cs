@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(HealthManager))]
@@ -17,8 +18,13 @@ public class PlayerController : MonoBehaviour,
     IMeleeWeaponWielder,
     BetterInputManager.IInputChangeRequestor
 {
+    // ──────────────────────────────────────────────────────────────
+    // Serialized Fields
+    // ──────────────────────────────────────────────────────────────
+
     [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority;
     [SerializeField][Range(1, 20)] private float speed = 1;
+    [SerializeField][Range(1, 20)] private float recoilDuration = 0.25f;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
     [SerializeField] private Sword sword;
@@ -33,10 +39,22 @@ public class PlayerController : MonoBehaviour,
     [SerializeField] private List<Interactable> interactables = new();
     [SerializeField] private Logger logger;
 
-    public Action<Vector2> OnDirectionChange;
+    // ──────────────────────────────────────────────────────────────
+    // Public UnityEvents
+    // ──────────────────────────────────────────────────────────────
+
+    public UnityEvent<Vector2> onDirectionChange;
+
+    // ──────────────────────────────────────────────────────────────
+    // Public Properties
+    // ──────────────────────────────────────────────────────────────
 
     public float Speed => speed;
     public Logger Logger => logger;
+
+    // ──────────────────────────────────────────────────────────────
+    // Interface Implementation Properties
+    // ──────────────────────────────────────────────────────────────
 
     // IInteractor
     public GameObject GameObject => gameObject;
@@ -50,16 +68,30 @@ public class PlayerController : MonoBehaviour,
     // BetterInputManager.IInputChangeRequestor
     public string Name => $"{name} ({GetType().Name})";
     // BetterInputManager.IInputChangeRequestor
-    public BetterInputManager.InputType InputType => BetterInputManager.InputType.Aiming;
+    public BetterInputManager.InputType InputType => inputType;
+
+    // ──────────────────────────────────────────────────────────────
+    // Private Variables
+    // ──────────────────────────────────────────────────────────────
 
     private BetterInputManager inputManager;
     private Rigidbody2D rb;
     private LinearAnimator animator;
     private ProjectileManager projectileManager;
     private HealthManager healthManager;
+    private GameObject head;
     private ExternalForceReceiver efr;
     private InteractIndicator interactIndicator;
+    private Vector3 headInitialLocalPosition;
+    private Vector3 headRecoilLocalPosition;
     private bool swingForward = true;
+    private float recoilTimerCounter;
+    private bool shouldHandleRecoil = false;
+    private BetterInputManager.InputType inputType = BetterInputManager.InputType.Aiming;
+
+    // ──────────────────────────────────────────────────────────────
+    // GameObject Lifecycle
+    // ──────────────────────────────────────────────────────────────
 
     void Awake()
     {
@@ -69,9 +101,13 @@ public class PlayerController : MonoBehaviour,
         projectileManager = GetComponent<ProjectileManager>();
         healthManager = GetComponent<HealthManager>();
 
+        head = transform.Find("Head").gameObject;
         efr = GetComponentInChildren<ExternalForceReceiver>();
 
         projectileManager.SetShootingLayer(LayerNames.Projectile);
+
+        headInitialLocalPosition = head.transform.localPosition;
+        headRecoilLocalPosition = head.transform.localPosition.SubtractY(4f / 32f);
     }
 
     private void Start()
@@ -79,73 +115,15 @@ public class PlayerController : MonoBehaviour,
         interactIndicator = FindFirstObjectByType<InteractIndicator>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
+    {
+        HandleRecoil();
+    }
+
+    private void FixedUpdate()
     {
         var scaledSpeed = speedFactor * speed;
         rb.linearVelocity = efr.AppliedForce + scaledSpeed * currentDirection;
-    }
-
-    public void UnityEvent_OnMove(InputAction.CallbackContext context)
-    {
-        currentDirection = context.ReadValue<Vector2>().normalized;
-        OnDirectionChange?.Invoke(currentDirection);
-        OnDirectionChanged(currentDirection);
-        HandleAnimations(currentDirection);
-    }
-
-    public void UnityEvent_OnAim(InputAction.CallbackContext context)
-    {
-        var direction = context.ReadValue<Vector2>().normalized;
-        OnDirectionChange?.Invoke(direction);
-        OnDirectionChanged(direction);
-    }
-
-    public void UnityEvent_OnAimEnable(InputAction.CallbackContext context) => EnableAim(enable: context.ReadValueAsButton());
-
-    public void UnityEvent_OnInteract(InputAction.CallbackContext context)
-    {
-        foreach (var i in interactables)
-        {
-            if (i == null) continue;
-
-            // Only handle one thing per interaction, otherwise it might be confusing
-            // Hence the "break" below
-            i.Interact(this);
-            break;
-        }
-    }
-
-    public void UnityEvent_OnAttack(InputAction.CallbackContext context)
-    {
-        if (useSword)
-        {
-            sword.StartSwing(this, swingForward);
-            swingForward = !swingForward;
-        }
-        else
-        {
-            spear.StartJab(this);
-        }
-    }
-
-    public void UnityEvent_OnShoot(InputAction.CallbackContext context)
-    {
-        projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection
-        {
-            direction = transform.rotation * Vector2.up,
-            position = projectileSpawnPoint.position,
-        });
-    }
-
-    public void UnityEvent_OnPrevious(InputAction.CallbackContext context)
-    {
-        projectileManager.SelectPrevious();
-    }
-
-    public void UnityEvent_OnNext(InputAction.CallbackContext context)
-    {
-        projectileManager.SelectNext();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -207,16 +185,70 @@ public class PlayerController : MonoBehaviour,
         }
     }
 
-    private void EnableAim(bool enable)
+    // ──────────────────────────────────────────────────────────────
+    // Input System Unity Event Methods
+    // ──────────────────────────────────────────────────────────────
+
+    public void UnityEvent_OnMove(InputAction.CallbackContext context)
     {
-        if (enable)
+        currentDirection = context.ReadValue<Vector2>().normalized;
+        onDirectionChange?.Invoke(currentDirection);
+        OnDirectionChanged(currentDirection);
+        HandleAnimations(currentDirection);
+    }
+
+    public void UnityEvent_OnAim(InputAction.CallbackContext context)
+    {
+        var direction = context.ReadValue<Vector2>().normalized;
+        onDirectionChange?.Invoke(direction);
+        OnDirectionChanged(direction);
+    }
+
+    public void UnityEvent_OnAimEnable(InputAction.CallbackContext context) => EnableAim(enable: context.ReadValueAsButton());
+
+    public void UnityEvent_OnInteract(InputAction.CallbackContext context)
+    {
+        foreach (var i in interactables)
         {
-            inputManager.AddInputChangeRequest(this);
+            if (i == null) continue;
+
+            // Only handle one thing per interaction, otherwise it might be confusing
+            // Hence the "break" below
+            i.Interact(this);
+            break;
+        }
+    }
+
+    public void UnityEvent_OnAttack(InputAction.CallbackContext context)
+    {
+        if (useSword)
+        {
+            sword.StartSwing(this, swingForward);
+            swingForward = !swingForward;
         }
         else
         {
-            inputManager.RemoveInputChangeRequest(this);
+            spear.StartJab(this);
         }
+    }
+
+    public void UnityEvent_OnShoot(InputAction.CallbackContext context)
+    {
+        projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection
+        {
+            direction = transform.rotation * Vector2.up,
+            position = projectileSpawnPoint.position,
+        });
+    }
+
+    public void UnityEvent_OnPrevious(InputAction.CallbackContext context)
+    {
+        projectileManager.SelectPrevious();
+    }
+
+    public void UnityEvent_OnNext(InputAction.CallbackContext context)
+    {
+        projectileManager.SelectNext();
     }
 
     public void UnityEvent_OnInputTypeChanged(BetterInputManager.InputType type)
@@ -231,18 +263,27 @@ public class PlayerController : MonoBehaviour,
                 rb.linearVelocity = Vector2.zero;
                 currentDirection = Vector2.zero;
                 var direction = inputManager.MoveAction.ReadValue<Vector2>();
-                OnDirectionChange?.Invoke(direction);
+                onDirectionChange?.Invoke(direction);
                 OnDirectionChanged(direction);
                 break;
             case BetterInputManager.InputType.Full:
                 currentDirection = inputManager.MoveAction.ReadValue<Vector2>();
-                OnDirectionChange?.Invoke(currentDirection);
+                onDirectionChange?.Invoke(currentDirection);
                 OnDirectionChanged(currentDirection);
                 EnableAim(inputManager.AimAction.IsPressed());
                 break;
         }
 
         HandleAnimations(currentDirection);
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Other UnityEvent Methods
+    // ──────────────────────────────────────────────────────────────
+
+    public void ProjectileManager_OnShoot()
+    {
+        RecoilBegin();
     }
 
     public void TileTracker_OnTileChanged(Vector3Int cell)
@@ -268,11 +309,20 @@ public class PlayerController : MonoBehaviour,
         }
     }
 
+    // ──────────────────────────────────────────────────────────────
+    // Interface Implementation Methods
+    // ──────────────────────────────────────────────────────────────
+
+    // AutoMover.IAutoMoverTarget
     void AutoMover.IAutoMoverTarget.OnDirectionChanged(Vector2 direction)
     {
         OnDirectionChanged(direction);
         HandleAnimations(direction);
     }
+
+    // ──────────────────────────────────────────────────────────────
+    // Callbacks
+    // ──────────────────────────────────────────────────────────────
 
     private void OnInteractableStateChange(Interactable i)
     {
@@ -287,6 +337,54 @@ public class PlayerController : MonoBehaviour,
         else
         {
             interactIndicator.Hide();
+        }
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Helpers
+    // ──────────────────────────────────────────────────────────────
+
+    private void HandleRecoil()
+    {
+        if (!shouldHandleRecoil) return;
+
+        if (recoilTimerCounter <= 0)
+        {
+            RecoilEnd();
+        }
+        else
+        {
+            recoilTimerCounter -= Time.deltaTime;
+        }
+    }
+
+    private void RecoilBegin()
+    {
+        recoilTimerCounter = recoilDuration;
+        shouldHandleRecoil = true;
+        inputType = BetterInputManager.InputType.None;
+        inputManager.AddInputChangeRequest(this);
+        head.transform.localPosition = headRecoilLocalPosition;
+    }
+
+    private void RecoilEnd()
+    {
+        shouldHandleRecoil = false;
+        recoilTimerCounter = 0;
+        head.transform.localPosition = headInitialLocalPosition;
+        inputManager.RemoveInputChangeRequest(this);
+    }
+
+    private void EnableAim(bool enable)
+    {
+        if (enable)
+        {
+            inputType = BetterInputManager.InputType.Aiming;
+            inputManager.AddInputChangeRequest(this);
+        }
+        else
+        {
+            inputManager.RemoveInputChangeRequest(this);
         }
     }
 

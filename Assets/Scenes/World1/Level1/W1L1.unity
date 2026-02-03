@@ -37956,7 +37956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1557582620
 Transform:
   m_ObjectHideFlags: 0
@@ -39878,10 +39878,6 @@ PrefabInstance:
       propertyPath: madm
       value: 
       objectReference: {fileID: 5536931577216416330}
-    - target: {fileID: 3234188135806968123, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: logger.logLevel
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3506734746355078395, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: spear
       value: 
@@ -39926,30 +39922,10 @@ PrefabInstance:
       propertyPath: previousAction.m_Name
       value: Previous
       objectReference: {fileID: 0}
-    - target: {fileID: 5533818684804794783, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: m_SortingOrder
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6440799228650472467, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 491780909}
-    - target: {fileID: 8038992279279083225, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8038992279279083225, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8038992279279083225, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8769490243666333956, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

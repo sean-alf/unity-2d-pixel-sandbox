@@ -125,7 +125,7 @@ public class Platform : MonoBehaviour, ILoggerProvider, BetterInputManager.IInpu
                 {
                     rb.bodyType = RigidbodyType2D.Kinematic;
                 }
-                playerController.OnDirectionChange += PlayerDirectionChange;
+                playerController.onDirectionChange.AddListener(PlayerDirectionChange);
                 inputType = BetterInputManager.InputType.Aiming;
                 inputManager.UpdateInputChangeRequest(this);
                 collision.gameObject.transform.SetParent(transform);
@@ -190,7 +190,7 @@ public class Platform : MonoBehaviour, ILoggerProvider, BetterInputManager.IInpu
                         {
                             if (playerController)
                             {
-                                playerController.OnDirectionChange -= PlayerDirectionChange;
+                                playerController.onDirectionChange.RemoveListener(PlayerDirectionChange);
 
                                 if (playerController.TryGetComponent(out BetterInputManager inputManager))
                                 {

@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
+using UnityEngine.Events;
 
 public class ProjectileManager : MonoBehaviour, ILoggerProvider
 {
@@ -11,7 +10,7 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         public Vector3 position;
     }
 
-    public Action<Transform> onProjectileInstantiated;
+    public UnityEvent<Transform> onProjectileInstantiated;
 
     [SerializeField] private List<ProjectileSO> projectiles;
     [SerializeField] private MenusAndDisplayManager madm;
@@ -82,7 +81,6 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         {
             selectedProjectile.Instantiate(p =>
             {
-                Debug.Log($"ProjectileManager: p.MaxConcurrentProjectiles {p.MaxConcurrentProjectiles}, activeProjectiles {activeProjectiles}");
                 if (p.MaxConcurrentProjectiles == activeProjectiles)
                 {
                     // The maximum number of projectiles are already in the field
