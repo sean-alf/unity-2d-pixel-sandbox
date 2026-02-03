@@ -10,18 +10,6 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         public Vector3 position;
     }
 
-    public struct StartingPointWithAngleDegrees
-    {
-        public float angleDegrees;
-        public Vector3 position;
-    }
-
-    public struct StartingPointWithAngleRads
-    {
-        public float angleRads;
-        public Vector3 position;
-    }
-
     public Action<Transform> onProjectileInstantiated;
 
     [SerializeField] private List<ProjectileSO> projectiles;
@@ -30,6 +18,7 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
     [Space]
     [Header("Debug")]
 
+    [SerializeField] private float coolDownCounter = 0;
     [SerializeField] private Logger logger;
 
     private ProjectileSO selectedProjectile;
@@ -42,6 +31,10 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
     /// The number of projectiles currently in use.
     /// </summary>
     public int ActiveProjectiles => activeProjectiles;
+
+    // ──────────────────────────────────────────────────────────────
+    // GameObject Lifecycle
+    // ──────────────────────────────────────────────────────────────
 
     private void Awake()
     {
@@ -60,14 +53,36 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         SetProjectiles();
     }
 
+    private void Update()
+    {
+        if (coolDownCounter == 0) return;
+
+        if (coolDownCounter < 0)
+        {
+            coolDownCounter = 0;
+        }
+        else
+        {
+            coolDownCounter -= Time.deltaTime;
+        }
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Public Control Methods
+    // ──────────────────────────────────────────────────────────────
+
     public void Shoot(params StartingPointWithDirection[] startingPoints) => ShootDelayed(0f, startingPoints);
 
     public void ShootDelayed(float delayDuration, params StartingPointWithDirection[] startingPoints)
     {
+        if (coolDownCounter > 0) return;
+
         foreach (var s in startingPoints)
         {
             selectedProjectile.Instantiate(p =>
             {
+                coolDownCounter = p.CoolDownDuration;
+
                 p.gameObject.SetActive(false);
                 p.ClearVelocity();
                 p.transform.position = s.position;
@@ -107,6 +122,15 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         SetProjectiles();
     }
 
+    public void SetShootingLayer(string layer)
+    {
+        shootingLayer = LayerMask.NameToLayer(layer);
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Helpers
+    // ──────────────────────────────────────────────────────────────
+
     private void SetProjectiles()
     {
         if (shootingLayer == 0)
@@ -121,10 +145,9 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         }
     }
 
-    public void SetShootingLayer(string layer)
-    {
-        shootingLayer = LayerMask.NameToLayer(layer);
-    }
+    // ──────────────────────────────────────────────────────────────
+    // Callbacks
+    // ──────────────────────────────────────────────────────────────
 
     private void OnProjectileDestroyed()
     {

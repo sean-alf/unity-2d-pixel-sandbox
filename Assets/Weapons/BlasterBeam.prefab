@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicProjectile
   speed: 12
+  coolDownDuration: 0.25
   maxReflectionCount: 4
   destructionDelay: 0
   allowRotation: 1
@@ -258,4 +259,5 @@ MonoBehaviour:
         - {fileID: 996815303245547897, guid: ee755864374ae45099cfc1438abb14b2, type: 3}
         inactiveSprite: {fileID: 0}
         duration: 0.2
+        clearSpriteOnCompletion: 0
         loop: 0

@@ -8,6 +8,7 @@ using UnityEngine;
 public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IReflectable
 {
     [SerializeField][Range(1, 40)] private int speed = 1;
+    [SerializeField] private float coolDownDuration = 0.25f;
     [SerializeField][Range(0, 40)] private int maxReflectionCount = 5;
     [SerializeField] private float destructionDelay = 0f;
     [SerializeField] private bool allowRotation = true;
@@ -23,10 +24,11 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     private Rigidbody2D rb;
     private LinearAnimator linearAnimator;
     private SpriteRenderer sr;
-    private WaitForSeconds wait;
+    private WaitForSeconds destructionWait;
     private float halfHeight;
     private int currentReflectionCount = 0;
 
+    public float CoolDownDuration => coolDownDuration;
     public Logger Logger => logger;
 
     // ──────────────────────────────────────────────────────────────
@@ -40,7 +42,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
         sr = GetComponent<SpriteRenderer>();
 
         halfHeight = sr.bounds.size.y / 2.0f;
-        wait = new(destructionDelay);
+        destructionWait = new(destructionDelay);
     }
 
     private void Start()
@@ -51,7 +53,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        wait = new(destructionDelay);
+        destructionWait = new(destructionDelay);
     }
 #endif
 
@@ -60,8 +62,6 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
         if (ShouldIgnore(other.gameObject)) return;
         StartCoroutine(DelayDestroy());
     }
-
-    private bool ShouldIgnore(GameObject other) => other.TryGetComponent(out RedirectionPanel _) || other.TryGetComponent(out ReflectingWall _);
 
     // ──────────────────────────────────────────────────────────────
     // Public Control Methods
@@ -75,12 +75,6 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
         transform.rotation = Quaternion.LookRotation(Vector3.forward, rb.linearVelocity);
     }
 
-    public void Use(Vector2 direction, Vector3 startPosition)
-    {
-        float angleDegrees = Vector2.SignedAngle(Vector2.up, direction);
-        Use(startPosition, direction, Quaternion.Euler(0, 0, angleDegrees));
-    }
-
     public bool Reflect(Vector2 reflect)
     {
         if (currentReflectionCount == maxReflectionCount) StartCoroutine(DelayDestroy());
@@ -92,8 +86,11 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
         return currentReflectionCount++ < maxReflectionCount;
     }
 
-    private void Use(Vector3 startPosition, Vector2 direction, Quaternion rotation)
+    public void Use(Vector2 direction, Vector3 startPosition)
     {
+        float angleDegrees = Vector2.SignedAngle(Vector2.up, direction);
+        Quaternion rotation = Quaternion.Euler(0, 0, angleDegrees);
+
         if (!allowRotation) rotation = Quaternion.identity;
 
         if (offsetForHalfHeight) startPosition = startPosition.Add(halfHeight * direction.normalized);
@@ -109,7 +106,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
 
     private IEnumerator DelayDestroy()
     {
-        yield return wait;
+        yield return destructionWait;
 
         rb.linearVelocity = Vector2.zero;
 
@@ -135,4 +132,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     /// <param name="key"></param>
     /// <returns></returns>
     public bool ShouldAnimate(string key) => linearAnimator && linearAnimator.IsKeyValid(key);
+
+    private bool ShouldIgnore(GameObject other) => other.TryGetComponent(out RedirectionPanel _) ||
+        other.TryGetComponent(out ReflectingWall _);
 }
