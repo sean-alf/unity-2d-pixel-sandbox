@@ -5,7 +5,7 @@ public class W1L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour, Be
 {
     [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority = 80;
     [SerializeField] private BetterInputManager inputManager;
-    [SerializeField] private TargetFollowingCamera followerCamera;
+    [SerializeField] private TargetFollowerCamera followerCamera;
     [SerializeField] private float maxCameraSwitchSpeed = 20f;
     [SerializeField] private float dramaticPause = 0.5f;
     [SerializeField] private CrystalSwitch cs1;

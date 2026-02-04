@@ -4,7 +4,7 @@ using UnityEngine;
 
 [ExecuteAlways]
 [RequireComponent(typeof(Camera))]
-public class TargetFollowingCamera : MonoBehaviour
+public class TargetFollowerCamera : MonoBehaviour
 {
     [SerializeField] private Transform target;
 

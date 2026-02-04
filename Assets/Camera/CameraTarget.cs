@@ -6,7 +6,7 @@ public class CameraTarget : MonoBehaviour
     public Action onSwitchedTo;
     public Action onSwitchedBack;
 
-    [SerializeField] private new TargetFollowingCamera camera;
+    [SerializeField] private new TargetFollowerCamera camera;
     [SerializeField] private float maxSpeed;
 
     // For UnityEvents
