@@ -11,6 +11,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BetterInputManager))]
 [RequireComponent(typeof(ActionableItemGroupsManager))]
+[RequireComponent(typeof(MeleeWeaponManager))]
 public class PlayerController : MonoBehaviour,
     AutoMover.IAutoMoverTarget,
     ILoggerProvider,
@@ -28,9 +29,6 @@ public class PlayerController : MonoBehaviour,
     [SerializeField][Range(1, 20)] private float recoilDuration = 0.25f;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
-    [SerializeField] private Sword sword;
-    [SerializeField] private Spear spear;
-    [SerializeField] private bool useSword = false;
 
     [Space]
     [Header("Debug")]
@@ -79,6 +77,7 @@ public class PlayerController : MonoBehaviour,
     private Rigidbody2D rb;
     private LinearAnimator animator;
     private ActionableItemGroupsManager itemGroupsManager;
+    private MeleeWeaponManager meleeWeaponManager;
     private ProjectileManager projectileManager;
     private HealthManager healthManager;
     private GameObject head;
@@ -87,7 +86,6 @@ public class PlayerController : MonoBehaviour,
     private InteractIndicator interactIndicator;
     private Vector3 headInitialLocalPosition;
     private Vector3 headRecoilLocalPosition;
-    private bool swingForward = true;
     private float recoilTimerCounter;
     private bool shouldHandleRecoil = false;
     private BetterInputManager.InputType inputType = BetterInputManager.InputType.Aiming;
@@ -102,6 +100,7 @@ public class PlayerController : MonoBehaviour,
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<LinearAnimator>();
         itemGroupsManager = GetComponent<ActionableItemGroupsManager>();
+        meleeWeaponManager = GetComponent<MeleeWeaponManager>();
         projectileManager = GetComponent<ProjectileManager>();
         healthManager = GetComponent<HealthManager>();
 
@@ -223,7 +222,7 @@ public class PlayerController : MonoBehaviour,
 
     public void UnityEvent_OnAimEnable(InputAction.CallbackContext context) => EnableAim(enable: context.ReadValueAsButton());
 
-    public void UnityEvent_OnInteract(InputAction.CallbackContext context)
+    public void UnityEvent_OnInteract(InputAction.CallbackContext _)
     {
         foreach (var i in interactables)
         {
@@ -236,20 +235,9 @@ public class PlayerController : MonoBehaviour,
         }
     }
 
-    public void UnityEvent_OnAttack(InputAction.CallbackContext context)
-    {
-        if (useSword)
-        {
-            sword.StartSwing(this, swingForward);
-            swingForward = !swingForward;
-        }
-        else
-        {
-            spear.StartJab(this);
-        }
-    }
+    public void UnityEvent_OnAttack(InputAction.CallbackContext _) => meleeWeaponManager.Attack(this);
 
-    public void UnityEvent_OnShoot(InputAction.CallbackContext context)
+    public void UnityEvent_OnShoot(InputAction.CallbackContext _)
     {
         projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection
         {

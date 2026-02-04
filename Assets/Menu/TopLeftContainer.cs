@@ -42,7 +42,11 @@ public class TopLeftContainer : MonoBehaviour
         MakeSelected(oldIndex);
     }
 
-    public void OnMeleeWeaponChanged() => throw new($"{GetType().Name}.OnMeleeWeaponChanged: Not Yet Implemeneted");
+    public void OnMeleeWeaponChanged(MeleeWeaponSO meleeWeapon)
+    {
+        meleeWeaponIconImage.sprite = meleeWeapon.MenuIcon;
+        meleeWeaponIconImage.enabled = meleeWeapon.MenuIcon != null;
+    }
 
     public void OnProjectileChanged(ProjectileSO projectile)
     {

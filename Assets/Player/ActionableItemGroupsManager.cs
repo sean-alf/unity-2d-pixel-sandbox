@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(ProjectileManager))]
+[RequireComponent(typeof(MeleeWeaponManager))]
 public class ActionableItemGroupsManager : MonoBehaviour
 {
     public enum ItemGroupIndex
@@ -26,6 +27,7 @@ public class ActionableItemGroupsManager : MonoBehaviour
 
     public UnityEvent<ItemGroupIndex> onItemGroupIndexChanged;
 
+    private MeleeWeaponManager meleeWeaponManager;
     private ProjectileManager projectileManager;
     private ItemGroupIndex itemGroupIndex = ItemGroupIndex.MeleeWeapons;
 
@@ -33,9 +35,10 @@ public class ActionableItemGroupsManager : MonoBehaviour
 
     private void Awake()
     {
+        meleeWeaponManager = GetComponent<MeleeWeaponManager>();
         projectileManager = GetComponent<ProjectileManager>();
 
-        itemGroups.Add(ItemGroupIndex.MeleeWeapons, null);
+        itemGroups.Add(ItemGroupIndex.MeleeWeapons, meleeWeaponManager);
         itemGroups.Add(ItemGroupIndex.Projectiles, projectileManager);
         itemGroups.Add(ItemGroupIndex.Tools, null);
     }

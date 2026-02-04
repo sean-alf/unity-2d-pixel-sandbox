@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c5d5f54d3a84be8b2a1d749793e950, type: 3}
+  m_Name: LaserSpear
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeWeaponSO
+  menuIcon: {fileID: -9123516438999529182, guid: 8e1e0faabcc244df58e8e3e2bf5e9d13, type: 3}
+  weaponTemplate: {fileID: 4823755666872907444, guid: ac095f3f1b53a46c5910926b3a4e6bb5, type: 3}

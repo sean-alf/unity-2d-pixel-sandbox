@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class Spear : MonoBehaviour, BetterInputManager.IInputChangeRequestor
+public class Spear : MonoBehaviour, BetterInputManager.IInputChangeRequestor, IMeleeWeapon
 {
     [SerializeField][Range(0, 100)] int inputChangeRequestPriority;
     [SerializeField] private float jabSpeed = 1f;
@@ -20,6 +21,8 @@ public class Spear : MonoBehaviour, BetterInputManager.IInputChangeRequestor
     public int Priority => inputChangeRequestPriority;
     public string Name => $"{name} ({GetType().Name})";
     public BetterInputManager.InputType InputType => BetterInputManager.InputType.None;
+
+    private readonly UnityEvent onAttackFinished = new();
 
     private Rigidbody2D rb;
     private Collider2D damageCollider;
@@ -63,7 +66,7 @@ public class Spear : MonoBehaviour, BetterInputManager.IInputChangeRequestor
         }
     }
 
-    public void StartJab(IMeleeWeaponWielder wielder)
+    private void StartJab(IMeleeWeaponWielder wielder)
     {
         if (isAttacking) return;
 
@@ -89,5 +92,15 @@ public class Spear : MonoBehaviour, BetterInputManager.IInputChangeRequestor
         wielder.InputManager.RemoveInputChangeRequest(this);
         wielder = null;
         gameObject.SetActive(false);
+        onAttackFinished?.Invoke();
     }
+
+    // IMeleeWeapon
+    public void Attack(IMeleeWeaponWielder wielder) => StartJab(wielder);
+
+    // IMeleeWeapon
+    public void RegisterOnAttackFinished(UnityAction onFinished) => onAttackFinished.AddListener(onFinished);
+
+    // IMeleeWeapon
+    public void UnregisterOnAttackFinished(UnityAction onFinished) => onAttackFinished.RemoveListener(onFinished);
 }

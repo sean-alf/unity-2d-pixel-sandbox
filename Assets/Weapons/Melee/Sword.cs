@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Sword : MonoBehaviour, BetterInputManager.IInputChangeRequestor
+public class Sword : MonoBehaviour, BetterInputManager.IInputChangeRequestor, IMeleeWeapon
 {
     [SerializeField][Range(0, 100)] int inputChangeRequestPriority;
 
@@ -13,6 +14,8 @@ public class Sword : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 
     [Header("Visuals (optional)")]
     [SerializeField] private SpriteRenderer arcFlash;         // optional arc effect
+
+    private readonly UnityEvent onAttackFinished = new();
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -28,7 +31,7 @@ public class Sword : MonoBehaviour, BetterInputManager.IInputChangeRequestor
     public string Name => $"{name} ({GetType().Name})";
     public BetterInputManager.InputType InputType => BetterInputManager.InputType.None;
 
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
@@ -43,43 +46,7 @@ public class Sword : MonoBehaviour, BetterInputManager.IInputChangeRequestor
         gameObject.SetActive(false);
     }
 
-    // Called by player when attack button is pressed
-    public void StartSwing(IMeleeWeaponWielder wielder, bool forwardSwing)
-    {
-        if (isSwinging) return;
-
-        wielder.InputManager.AddInputChangeRequest(this);
-
-        isSwinging = true;
-        this.wielder = wielder;
-        swingingForward = forwardSwing;
-        swingProgress = 0f;
-
-        sr.flipX = forwardSwing; // Ensure sword sprite facing correct direction
-
-        // Start at left or right edge of player
-        startAngle = this.wielder.Transform.rotation.eulerAngles.z + (swingingForward ? 90f : -90f);  // 90° = up, -90° = down (relative to right)
-
-        // Snap initial position & rotation
-        Vector2 startDir = Quaternion.Euler(0, 0, startAngle) * Vector2.up;
-        transform.SetPositionAndRotation(this.wielder.Transform.position.Add(startDir * swordRadius), Quaternion.Euler(0, 0, startAngle));
-
-        damageCollider.enabled = true;
-
-        if (arcFlash != null)
-        {
-            arcFlash.transform.localScale = Vector3.zero;
-            arcFlash.color = Color.white;
-            float x = forwardSwing ? -Mathf.Abs(arcFlash.transform.localPosition.x) : Mathf.Abs(arcFlash.transform.localPosition.x);
-            arcFlash.transform.localPosition = new(x, arcFlash.transform.localPosition.y);
-            arcFlashSr.flipX = forwardSwing;
-            arcFlash.gameObject.SetActive(true);
-        }
-
-        gameObject.SetActive(true);
-    }
-
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (!isSwinging || wielder == null || wielder.Transform == null) return;
 
@@ -114,12 +81,57 @@ public class Sword : MonoBehaviour, BetterInputManager.IInputChangeRequestor
         }
     }
 
+    private void StartSwing(IMeleeWeaponWielder wielder)
+    {
+        if (isSwinging) return;
+
+        wielder.InputManager.AddInputChangeRequest(this);
+
+        isSwinging = true;
+        this.wielder = wielder;
+        swingProgress = 0f;
+
+        sr.flipX = swingingForward; // Ensure sword sprite facing correct direction
+
+        // Start at left or right edge of player
+        startAngle = this.wielder.Transform.rotation.eulerAngles.z + (swingingForward ? 90f : -90f);  // 90° = up, -90° = down (relative to right)
+
+        // Snap initial position & rotation
+        Vector2 startDir = Quaternion.Euler(0, 0, startAngle) * Vector2.up;
+        transform.SetPositionAndRotation(this.wielder.Transform.position.Add(startDir * swordRadius), Quaternion.Euler(0, 0, startAngle));
+
+        damageCollider.enabled = true;
+
+        if (arcFlash != null)
+        {
+            arcFlash.transform.localScale = Vector3.zero;
+            arcFlash.color = Color.white;
+            float x = swingingForward ? -Mathf.Abs(arcFlash.transform.localPosition.x) : Mathf.Abs(arcFlash.transform.localPosition.x);
+            arcFlash.transform.localPosition = new(x, arcFlash.transform.localPosition.y);
+            arcFlashSr.flipX = swingingForward;
+            arcFlash.gameObject.SetActive(true);
+        }
+
+        gameObject.SetActive(true);
+    }
+
     private void FinishSwing()
     {
+        swingingForward = !swingingForward;
         damageCollider.enabled = false;
         if (arcFlash != null) arcFlash.gameObject.SetActive(false);
         isSwinging = false;
         gameObject.SetActive(false);
         wielder.InputManager.RemoveInputChangeRequest(this);
+        onAttackFinished?.Invoke();
     }
+
+    // IMeleeWeapon
+    public void Attack(IMeleeWeaponWielder wielder) => StartSwing(wielder);
+
+    // IMeleeWeapon
+    public void RegisterOnAttackFinished(UnityAction onFinished) => onAttackFinished.AddListener(onFinished);
+
+    // IMeleeWeapon
+    public void UnregisterOnAttackFinished(UnityAction onFinished) => onAttackFinished.RemoveListener(onFinished);
 }
