@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
-    [SerializeField]
-    [Range(10, 50)]
-    private int maximumHealth;
-
-    [SerializeField]
-    [Range(0, 50)]
-    private int currentHealth;
+    [SerializeField][Range(10, 50)] private int maximumHealth;
+    [SerializeField][Range(0, 50)] private int currentHealth;
+    [SerializeField] private HealthChangeEvent healthChangeEvent;
 
     public enum EventType
     {
@@ -35,8 +31,6 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    public Action<EventData> onHealthChange;
-
     // ──────────────────────────────────────────────────────────────
     // GameObject Lifecycle
     // ──────────────────────────────────────────────────────────────
@@ -48,7 +42,7 @@ public class HealthManager : MonoBehaviour
 
     private void Start()
     {
-        onHealthChange?.Invoke(new(
+        healthChangeEvent.Raise(new(
             type: EventType.Init,
             currentHealth,
             maximumHealth
@@ -62,7 +56,7 @@ public class HealthManager : MonoBehaviour
 
         EditorApplication.delayCall += () =>
         {
-            onHealthChange?.Invoke(new(
+            healthChangeEvent.Raise(new(
                 type: EventType.EditorUpdate,
                 currentHealth,
                 maximumHealth)
@@ -78,7 +72,7 @@ public class HealthManager : MonoBehaviour
     public void DoDamage(int strength)
     {
         currentHealth = Mathf.Max(currentHealth - strength, 0);
-        onHealthChange?.Invoke(new(
+        healthChangeEvent.Raise(new(
             type: EventType.Damage,
              currentHealth,
              maximumHealth
@@ -88,7 +82,7 @@ public class HealthManager : MonoBehaviour
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maximumHealth);
-        onHealthChange?.Invoke(new(
+        healthChangeEvent.Raise(new(
             type: EventType.Heal,
              currentHealth,
              maximumHealth
@@ -102,7 +96,7 @@ public class HealthManager : MonoBehaviour
     private void Die()
     {
         Debug.Log("I got dead again!!");
-        onHealthChange?.Invoke(new(
+        healthChangeEvent.Raise(new(
             type: EventType.Dead,
             currentHealth,
             maximumHealth

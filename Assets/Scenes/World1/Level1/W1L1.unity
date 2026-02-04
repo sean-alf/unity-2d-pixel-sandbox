@@ -1912,17 +1912,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2142929990}
   m_SourcePrefab: {fileID: 100100000, guid: 9f4426851360841348d936d285ecbc0e, type: 3}
---- !u!114 &345966680 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3281399779050788079, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
-  m_PrefabInstance: {fileID: 3983741225161980975}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1794edcd56ecb4085a97939a80093de8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!4 &366932889 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4708153528733575819, guid: 76d724e5a97a144eab23f118f8489555, type: 3}
@@ -36391,11 +36380,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3932510986777964680, guid: b8ea69fd0cb694c2abc0a6b3aa5efccb, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 11
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3932510986777964680, guid: b8ea69fd0cb694c2abc0a6b3aa5efccb, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4572005753310158761, guid: b8ea69fd0cb694c2abc0a6b3aa5efccb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -39357,30 +39346,6 @@ PrefabInstance:
       propertyPath: 'meleeWeapons.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 1c368c349fa824bffbeaf4701bc59fa8, type: 2}
-    - target: {fileID: 1185242358587530284, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onWeaponChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1185242358587530284, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onWeaponChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 345966680}
-    - target: {fileID: 1185242358587530284, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onWeaponChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1185242358587530284, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onWeaponChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnMeleeWeaponChanged
-      objectReference: {fileID: 0}
-    - target: {fileID: 1185242358587530284, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onWeaponChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: TopLeftContainer, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1185242358587530284, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onWeaponChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 1828709081556262573, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_Name
       value: Player
@@ -39424,82 +39389,6 @@ PrefabInstance:
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3234188135806968123, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: madm
-      value: 
-      objectReference: {fileID: 5536931577216416330}
-    - target: {fileID: 3234188135806968123, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onProjectileChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 345966680}
-    - target: {fileID: 3506734746355078395, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: spear
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3506734746355078395, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: sword
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3506734746355078395, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: logger.logLevel
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4078538148733612704, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onItemGroupIndexChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4078538148733612704, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onItemGroupIndexChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 345966680}
-    - target: {fileID: 4078538148733612704, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onItemGroupIndexChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4078538148733612704, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onItemGroupIndexChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnItemGroupIndexChanged
-      objectReference: {fileID: 0}
-    - target: {fileID: 4078538148733612704, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onItemGroupIndexChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: TopLeftContainer, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4078538148733612704, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: onItemGroupIndexChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: aimAction.m_Name
-      value: Aim
-      objectReference: {fileID: 0}
-    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: moveAction.m_Name
-      value: Move
-      objectReference: {fileID: 0}
-    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: nextAction.m_Name
-      value: Next
-      objectReference: {fileID: 0}
-    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: shootAction.m_Name
-      value: Shoot
-      objectReference: {fileID: 0}
-    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: attackAction.m_Name
-      value: Attack
-      objectReference: {fileID: 0}
-    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: interactAction.m_Name
-      value: Interact
-      objectReference: {fileID: 0}
-    - target: {fileID: 4944997684531950368, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: previousAction.m_Name
-      value: Previous
-      objectReference: {fileID: 0}
-    - target: {fileID: 5533818684804794783, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6440799228650472467, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_Camera
@@ -40421,17 +40310,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31d94f540d3f1446eb7027bce074de8a, type: 3}
---- !u!114 &5536931577216416330 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5701246420978703958, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
-  m_PrefabInstance: {fileID: 3983741225161980975}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee4be9f044d3e45f291b6bbc52915bca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1001 &5966246812499922472
 PrefabInstance:
   m_ObjectHideFlags: 0

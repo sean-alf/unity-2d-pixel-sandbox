@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7970598521546768565}
   - component: {fileID: 2715447149790317044}
+  - component: {fileID: 2982887549374007832}
   m_Layer: 0
   m_Name: Energy
   m_TagString: Untagged
@@ -56,6 +57,34 @@ MonoBehaviour:
   halfEmptyColor: {r: 0.9837978, g: 1, b: 0, a: 1}
   warningColor: {r: 1, g: 0.7728097, b: 0, a: 1}
   dangerColor: {r: 1, g: 0.36335683, b: 0, a: 1}
+--- !u!114 &2982887549374007832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618196185107419985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e383e79635fc148ff8efb00d8f912b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthChangeEventListener
+  eventSO: {fileID: 11400000, guid: 3e12cd3ed3c904d53a700bced180ddbf, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2715447149790317044}
+        m_TargetAssemblyTypeName: EnergyIndicator, Assembly-CSharp
+        m_MethodName: Listener_OnPlayerHealthChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3221443927953615649
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,7 +611,6 @@ MonoBehaviour:
   projectileContainerImage: {fileID: 7532849245317598992}
   toolIconImage: {fileID: 1976936105667525770}
   toolContainerImage: {fileID: 2215849068218189255}
-  energyIndicator: {fileID: 2715447149790317044}
 --- !u!114 &2875424390264896770
 MonoBehaviour:
   m_ObjectHideFlags: 0

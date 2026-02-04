@@ -287,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   maximumHealth: 20
   currentHealth: 20
+  healthChangeEvent: {fileID: 11400000, guid: 3e12cd3ed3c904d53a700bced180ddbf, type: 2}
 --- !u!114 &2985162039943200917
 MonoBehaviour:
   m_ObjectHideFlags: 0

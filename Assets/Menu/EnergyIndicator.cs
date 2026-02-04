@@ -37,29 +37,6 @@ public class EnergyIndicator : MonoBehaviour
     [SerializeField]
     private Color dangerColor;
 
-    private HealthManager playerHealthManager;
-
-    private void Awake()
-    {
-        playerHealthManager = FindObjectsByType<HealthManager>(FindObjectsSortMode.None).First(m => m.gameObject.name == "Player");
-    }
-
-    private void OnEnable()
-    {
-        playerHealthManager.IfNotNull(m =>
-        {
-            m.onHealthChange += OnPlayerHealthChange;
-        });
-    }
-
-    private void OnDisable()
-    {
-        playerHealthManager.IfNotNull(m =>
-        {
-            m.onHealthChange -= OnPlayerHealthChange;
-        });
-    }
-
     public void SetMaximum(int max)
     {
         this.max = max;
@@ -106,7 +83,7 @@ public class EnergyIndicator : MonoBehaviour
         UpdateIcons();
     }
 
-    private void OnPlayerHealthChange(HealthManager.EventData data)
+    public void Listener_OnPlayerHealthChange(HealthManager.EventData data)
     {
         switch (data.type)
         {
