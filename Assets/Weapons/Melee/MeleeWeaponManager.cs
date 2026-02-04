@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class MeleeWeaponManager : MonoBehaviour, ActionableItemGroupsManager.IActionableItemGroup
 {
     [SerializeField] private List<MeleeWeaponSO> meleeWeapons;
-    [SerializeField] private UnityEvent<MeleeWeaponSO> onWeaponChanged;
+    [SerializeField] private SpriteChangeEvent spriteChangeEvent;
 
     private readonly List<MeleeWeaponAndIcon> meleeWeaponAndIcons = new();
     private MeleeWeaponAndIcon currentWeaponAndIcon;
@@ -60,7 +60,7 @@ public class MeleeWeaponManager : MonoBehaviour, ActionableItemGroupsManager.IAc
         if (currentWeaponAndIcon.IsValid)
         {
             currentWeaponAndIcon.weapon.RegisterOnAttackFinished(OnAttackFinished);
-            onWeaponChanged?.Invoke(currentWeaponAndIcon.so);
+            spriteChangeEvent.Raise(currentWeaponAndIcon.so.MenuIcon);
         }
         else
         {

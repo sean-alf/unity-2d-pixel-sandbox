@@ -10,10 +10,12 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
         public Vector3 position;
     }
 
+    // Keep this for inter-scene communication
     public UnityEvent<ProjectileSO> onProjectileChanged;
     public UnityEvent<Transform> onProjectileInstantiated;
 
     [SerializeField] private List<ProjectileSO> projectiles;
+    [SerializeField] private SpriteChangeEvent spriteChangeEvent;
 
     [Space]
     [Header("Debug")]
@@ -152,6 +154,7 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
         }
 
         onProjectileChanged?.Invoke(selectedProjectile);
+        spriteChangeEvent.Raise(selectedProjectile.MenuIcon);
     }
 
     // ──────────────────────────────────────────────────────────────

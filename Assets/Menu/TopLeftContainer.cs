@@ -25,7 +25,6 @@ public class TopLeftContainer : MonoBehaviour
     [SerializeField] private Image projectileContainerImage;
     [SerializeField] private Image toolIconImage;
     [SerializeField] private Image toolContainerImage;
-    [SerializeField] private EnergyIndicator energyIndicator;
 
     private readonly Dictionary<ItemGroupIndex, ImageGroup> imageGroups = new();
     private ItemGroupIndex oldIndex = ItemGroupIndex.MeleeWeapons;
@@ -42,19 +41,19 @@ public class TopLeftContainer : MonoBehaviour
         MakeSelected(oldIndex);
     }
 
-    public void OnMeleeWeaponChanged(MeleeWeaponSO meleeWeapon)
+    public void OnMeleeWeaponChanged(Sprite meleeWeaponIcon)
     {
-        meleeWeaponIconImage.sprite = meleeWeapon.MenuIcon;
-        meleeWeaponIconImage.enabled = meleeWeapon.MenuIcon != null;
+        meleeWeaponIconImage.sprite = meleeWeaponIcon;
+        meleeWeaponIconImage.enabled = meleeWeaponIcon != null;
     }
 
-    public void OnProjectileChanged(ProjectileSO projectile)
+    public void OnProjectileChanged(Sprite projectileMenuIcon)
     {
-        projectileIconImage.sprite = projectile.MenuIcon;
-        projectileIconImage.enabled = projectile.MenuIcon != null;
+        projectileIconImage.sprite = projectileMenuIcon;
+        projectileIconImage.enabled = projectileMenuIcon != null;
     }
 
-    public void OnToolChanged() => throw new($"{GetType().Name}.OnToolChanged: Not Yet Implemeneted");
+    public void OnToolChanged(Sprite toolIcon) => throw new($"{GetType().Name}.OnToolChanged: Not Yet Implemeneted");
 
     public void OnItemGroupIndexChanged(ItemGroupIndex index)
     {

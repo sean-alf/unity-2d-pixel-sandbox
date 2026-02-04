@@ -214,6 +214,7 @@ MonoBehaviour:
   projectiles:
   - {fileID: 11400000, guid: be13011e2b5414e2b95bea7faa3ec29d, type: 2}
   - {fileID: 11400000, guid: ff070e1858bb447bc940df4cf678b0d5, type: 2}
+  spriteChangeEvent: {fileID: 11400000, guid: 91ccdd6ae24fa42c1a66b0b48a2e07f1, type: 2}
   coolDownCounter: 0
   logger:
     logLevel: 5
@@ -264,9 +265,6 @@ MonoBehaviour:
   recoilDuration: 0.25
   projectileSpawnPoint: {fileID: 2939165100773571567}
   effectAnimator: {fileID: 5897339515335483366}
-  sword: {fileID: 0}
-  spear: {fileID: 0}
-  useSword: 0
   currentDirection: {x: 0, y: 0}
   speedFactor: 1
   interactables: []
@@ -577,9 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a09c89c6cb0f497bba6f12e5dcd0a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  onItemGroupIndexChanged:
-    m_PersistentCalls:
-      m_Calls: []
+  itemGroupIndexChangeEvent: {fileID: 11400000, guid: 97a73c43285ed456cac2b9a96a0bfc5d, type: 2}
 --- !u!114 &1185242358587530284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ebd11936ff641af8d69b9b7d242149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  meleeWeapons: []
+  spriteChangeEvent: {fileID: 11400000, guid: 8d8c7a07c98a44f3cb717e80208d89f5, type: 2}
 --- !u!1 &3038318595791463268
 GameObject:
   m_ObjectHideFlags: 0

@@ -532,6 +532,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3932043066792011504}
   - component: {fileID: 3876233665877676911}
+  - component: {fileID: 2875424390264896770}
+  - component: {fileID: 8137293325040576185}
+  - component: {fileID: 8754459214236638853}
+  - component: {fileID: 9114560513992495651}
   m_Layer: 0
   m_Name: TopLeftContainer
   m_TagString: Untagged
@@ -579,6 +583,118 @@ MonoBehaviour:
   toolIconImage: {fileID: 1976936105667525770}
   toolContainerImage: {fileID: 2215849068218189255}
   energyIndicator: {fileID: 2715447149790317044}
+--- !u!114 &2875424390264896770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5931023155242950318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa6ae65d70434b71a81d50c9354d2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteEventListener
+  eventSO: {fileID: 11400000, guid: 8d8c7a07c98a44f3cb717e80208d89f5, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3876233665877676911}
+        m_TargetAssemblyTypeName: TopLeftContainer, Assembly-CSharp
+        m_MethodName: OnMeleeWeaponChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8137293325040576185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5931023155242950318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa6ae65d70434b71a81d50c9354d2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteChangeEventListener
+  eventSO: {fileID: 11400000, guid: 91ccdd6ae24fa42c1a66b0b48a2e07f1, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3876233665877676911}
+        m_TargetAssemblyTypeName: TopLeftContainer, Assembly-CSharp
+        m_MethodName: OnProjectileChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8754459214236638853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5931023155242950318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa6ae65d70434b71a81d50c9354d2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteChangeEventListener
+  eventSO: {fileID: 11400000, guid: e0b13de4b87c64df8b62cc2e4dd3f98f, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3876233665877676911}
+        m_TargetAssemblyTypeName: TopLeftContainer, Assembly-CSharp
+        m_MethodName: OnToolChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9114560513992495651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5931023155242950318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3a34c6d938246949040511dc9ac44f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemGroupIndexChangeEventListener
+  eventSO: {fileID: 11400000, guid: 97a73c43285ed456cac2b9a96a0bfc5d, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3876233665877676911}
+        m_TargetAssemblyTypeName: TopLeftContainer, Assembly-CSharp
+        m_MethodName: OnItemGroupIndexChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6493701320503180691
 GameObject:
   m_ObjectHideFlags: 0

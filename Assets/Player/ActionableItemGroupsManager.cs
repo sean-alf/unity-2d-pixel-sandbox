@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(MeleeWeaponManager))]
@@ -25,7 +24,7 @@ public class ActionableItemGroupsManager : MonoBehaviour
         public void CycleToPreviousItem();
     }
 
-    public UnityEvent<ItemGroupIndex> onItemGroupIndexChanged;
+    [SerializeField] private ItemGroupIndexChangeEvent itemGroupIndexChangeEvent;
 
     private MeleeWeaponManager meleeWeaponManager;
     private ProjectileManager projectileManager;
@@ -43,16 +42,22 @@ public class ActionableItemGroupsManager : MonoBehaviour
         itemGroups.Add(ItemGroupIndex.Tools, null);
     }
 
+    private void Start()
+    {
+        // Do this here so that we know anything listening will be ready
+        itemGroupIndexChangeEvent.Raise(itemGroupIndex);
+    }
+
     public void CycleToNextGroup()
     {
         itemGroupIndex = itemGroupIndex.IncrementAndWrap();
-        onItemGroupIndexChanged?.Invoke(itemGroupIndex);
+        itemGroupIndexChangeEvent.Raise(itemGroupIndex);
     }
 
     public void CycleToPreviousGroup()
     {
         itemGroupIndex = itemGroupIndex.DecrementAndWrap();
-        onItemGroupIndexChanged?.Invoke(itemGroupIndex);
+        itemGroupIndexChangeEvent.Raise(itemGroupIndex);
     }
 
     public void CycleToNextItem()
