@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BetterInputManager))]
+[RequireComponent(typeof(ActionableItemGroupsManager))]
 public class PlayerController : MonoBehaviour,
     AutoMover.IAutoMoverTarget,
     ILoggerProvider,
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour,
     private BetterInputManager inputManager;
     private Rigidbody2D rb;
     private LinearAnimator animator;
+    private ActionableItemGroupsManager itemGroupsManager;
     private ProjectileManager projectileManager;
     private HealthManager healthManager;
     private GameObject head;
@@ -99,6 +101,7 @@ public class PlayerController : MonoBehaviour,
         inputManager = GetComponent<BetterInputManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<LinearAnimator>();
+        itemGroupsManager = GetComponent<ActionableItemGroupsManager>();
         projectileManager = GetComponent<ProjectileManager>();
         healthManager = GetComponent<HealthManager>();
 
@@ -255,14 +258,28 @@ public class PlayerController : MonoBehaviour,
         });
     }
 
-    public void UnityEvent_OnPrevious(InputAction.CallbackContext context)
+    public void UnityEvent_OnPrevious(InputAction.CallbackContext _)
     {
-        projectileManager.SelectPrevious();
+        if (inputManager.ModifyAction.IsPressed())
+        {
+            itemGroupsManager.CycleToPreviousGroup();
+        }
+        else
+        {
+            itemGroupsManager.CycleToPreviousItem();
+        }
     }
 
-    public void UnityEvent_OnNext(InputAction.CallbackContext context)
+    public void UnityEvent_OnNext(InputAction.CallbackContext _)
     {
-        projectileManager.SelectNext();
+        if (inputManager.ModifyAction.IsPressed())
+        {
+            itemGroupsManager.CycleToNextGroup();
+        }
+        else
+        {
+            itemGroupsManager.CycleToNextItem();
+        }
     }
 
     public void UnityEvent_OnInputTypeChanged(BetterInputManager.InputType type)

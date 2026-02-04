@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 614a8de353706445d9a61d02c6373532
+guid: ff30a8af75c81439a9f79f17ad1ad986
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -78,7 +78,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 16
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -93,7 +93,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 16
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639051191853129550
+  platformSettingsDirtyTick: 639039125720139150
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,7 +127,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: LaserSword
+  - name: ScrewDriverIcon
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 6
-      height: 32
-    spriteID: ca1acf3d415db4ba4807aa508c590df5
+      width: 16
+      height: 16
+    spriteID: 2c2e52a5374424f038379e81cb92c954
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -149,28 +149,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: LaserSword_0
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 16
-      y: 16
-      width: 8
-      height: 32
-    spriteID: e6818a113ab144dce8eae6628cb80c1c
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: LaserSword_Icon
+  - name: ScrewDriverIcon_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -179,10 +158,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 16
+      y: 4
       width: 32
       height: 32
-    spriteID: c2218de2161e4454bb4fbb0a6b9dcaf2
+    spriteID: f37a2e49d083e4715a9946e14cf5c8c9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -195,25 +174,25 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 4166743786
+      value0: 2198051081
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: LaserSword
+    name: ScrewDriverIcon
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: LaserSword
+    - name: ScrewDriverIcon
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 12
+        x: 0
         y: 0
-        width: 8
+        width: 32
         height: 32
-      spriteId: ca1acf3d415db4ba4807aa508c590df5
+      spriteId: 2c2e52a5374424f038379e81cb92c954
     linkedCells: []
     tileCells: []
     tileSetIndex: 0

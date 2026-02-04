@@ -48,8 +48,9 @@ public class BetterInputManager : MonoBehaviour
     [SerializeField] private List<InputChangeRequestor> requestors;
 
     public PlayerInput PlayerInput => input;
-    public InputAction MoveAction => moveAction;
     public InputAction AimAction => aimAction;
+    public InputAction MoveAction => moveAction;
+    public InputAction ModifyAction => modifyAction;
 
     private PlayerInput input;
     private InputAction aimAction;
@@ -59,6 +60,7 @@ public class BetterInputManager : MonoBehaviour
     private InputAction nextAction;
     private InputAction previousAction;
     private InputAction shootAction;
+    private InputAction modifyAction;
 
     private readonly List<IInputChangeRequestor> inputChangeRequestors = new();
 
@@ -72,6 +74,7 @@ public class BetterInputManager : MonoBehaviour
         nextAction = InputSystemActionsNames.PlayerMap.GetNextAction(input);
         previousAction = InputSystemActionsNames.PlayerMap.GetPreviousAction(input);
         shootAction = InputSystemActionsNames.PlayerMap.GetShootAction(input);
+        modifyAction = InputSystemActionsNames.PlayerMap.GetModifyAction(input);
     }
 
     private void OnEnable()

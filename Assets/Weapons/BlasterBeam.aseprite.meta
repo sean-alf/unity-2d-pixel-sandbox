@@ -78,7 +78,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 4
+    mosaicPadding: 16
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -93,7 +93,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 4
+    mosaicPadding: 16
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639039128212309240
+  platformSettingsDirtyTick: 639057314191286820
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -151,14 +151,14 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: BlasterBeam_0
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 46
-      y: 4
+      x: 62
+      y: 16
       width: 8
       height: 16
     spriteID: 871cbba67019940088907a073ae03f8a
@@ -172,14 +172,14 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: BlasterBeam_1
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 4
+      x: 16
+      y: 16
       width: 14
       height: 14
     spriteID: 903c27105f87b44c083c2eb194881a82
@@ -193,17 +193,38 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: BlasterBeam_2
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 26
-      y: 4
+      x: 16
+      y: 62
       width: 12
       height: 12
     spriteID: 3818f801105364126a69c067b1b7fffa
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: BlasterBeam_Icon
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 50
+      y: 8
+      width: 32
+      height: 32
+    spriteID: b1bbe3aa153294d5f911df2b2b072050
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,4 +320,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 16, y: 16}
-  previousTextureSize: {x: 64, y: 32}
+  previousTextureSize: {x: 128, y: 128}

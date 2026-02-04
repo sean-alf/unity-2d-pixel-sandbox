@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ProjectileManager : MonoBehaviour, ILoggerProvider
+public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IActionableItemGroup, ILoggerProvider
 {
     public struct StartingPointWithDirection
     {
@@ -14,7 +14,6 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
     public UnityEvent<Transform> onProjectileInstantiated;
 
     [SerializeField] private List<ProjectileSO> projectiles;
-    [SerializeField] private MenusAndDisplayManager madm;
 
     [Space]
     [Header("Debug")]
@@ -115,21 +114,27 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         }
     }
 
-    public void SelectNext()
+    public void SetShootingLayer(string layer)
+    {
+        shootingLayer = LayerMask.NameToLayer(layer);
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Interface Implementation Methods
+    // ──────────────────────────────────────────────────────────────
+
+    // ActionableItemGroupsManager.IActionableItemGroup
+    public void CycleToNextItem()
     {
         currentIndex = (currentIndex + 1) % projectiles.Count;
         SetProjectiles();
     }
 
-    public void SelectPrevious()
+    // ActionableItemGroupsManager.IActionableItemGroup
+    public void CycleToPreviousItem()
     {
         currentIndex = (currentIndex - 1 + projectiles.Count) % projectiles.Count;
         SetProjectiles();
-    }
-
-    public void SetShootingLayer(string layer)
-    {
-        shootingLayer = LayerMask.NameToLayer(layer);
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -144,11 +149,6 @@ public class ProjectileManager : MonoBehaviour, ILoggerProvider
         {
             logger.E("shooting layer not set!!");
             return;
-        }
-
-        if (madm)
-        {
-            madm.GetTopLeftContainer().UpdatePrimaryWeaponIcon(selectedProjectile.MenuIcon);
         }
 
         onProjectileChanged?.Invoke(selectedProjectile);

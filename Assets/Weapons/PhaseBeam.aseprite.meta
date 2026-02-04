@@ -78,7 +78,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 4
+    mosaicPadding: 8
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -93,7 +93,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 4
+    mosaicPadding: 8
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639039128369315510
+  platformSettingsDirtyTick: 639057316555510360
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -214,14 +214,14 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: PhaseBeam_0
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 28
-      y: 4
+      x: 40
+      y: 8
       width: 12
       height: 12
     spriteID: 983c46f597e1c4d8bb7ff10ae5949729
@@ -240,14 +240,14 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: PhaseBeam_1
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 4
+      x: 8
+      y: 8
       width: 16
       height: 16
     spriteID: 546b54c582eda412da154a833cee4cd8
@@ -266,14 +266,14 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: PhaseBeam_2
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 28
+      x: 8
+      y: 40
       width: 14
       height: 14
     spriteID: dbef59e7cac8746d8982934654fd0eb8
@@ -292,14 +292,14 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: PhaseBeam_3
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 72
+      x: 8
+      y: 100
       width: 14
       height: 14
     spriteID: 79c0ac07f95044965b0f96cbaae4cdef
@@ -324,8 +324,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 28
-      y: 24
+      x: 40
+      y: 64
       width: 12
       height: 12
     spriteID: 6566c1bd737ac4df081471246215b805
@@ -338,6 +338,27 @@ ScriptedImporter:
       - {x: 3, y: -3}
       - {x: 3, y: 3}
       - {x: -3, y: 3}
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: PhaseBeam_Icon
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 32
+      height: 32
+    spriteID: 911a4b5990ad0489db999b109c95e056
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
     indices: 
     edges: []
     tessellationDetail: 0

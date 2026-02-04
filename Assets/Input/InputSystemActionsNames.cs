@@ -55,6 +55,13 @@ public static class InputSystemActionsNames
 			return input.actions.FindActionMap(Name).FindAction(Next);
 		}
 
+		public static readonly string Modify = "Modify";
+
+		public static InputAction GetModifyAction(PlayerInput input)
+		{
+			return input.actions.FindActionMap(Name).FindAction(Modify);
+		}
+
 	}
 	public static class UIMap
 	{

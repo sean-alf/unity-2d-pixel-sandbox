@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 614a8de353706445d9a61d02c6373532
+guid: 35c50ccbca81b4074b18a93d6c5ebe17
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ ScriptedImporter:
     sRGBTexture: 1
     spriteMode: 2
     spriteExtrude: 1
-    spriteMeshType: 1
+    spriteMeshType: 0
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
     spritePixelsToUnits: 32
@@ -78,7 +78,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 16
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -93,7 +93,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 16
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639051191853129550
+  platformSettingsDirtyTick: 639057266099619590
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: LaserSword
+  - name: DisplayItemBorder
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 1.1428572, y: -1.2857144}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 6
-      height: 32
-    spriteID: ca1acf3d415db4ba4807aa508c590df5
+      width: 7
+      height: 7
+    spriteID: 945649c9998bd47f4b98b53b0bebd7cd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -149,19 +149,19 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: LaserSword_0
+  - name: DisplayItemBorder_0
     originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
-    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 15, y: 15, z: 15, w: 15}
     customData: 
     rect:
       serializedVersion: 2
-      x: 16
-      y: 16
-      width: 8
+      x: 4
+      y: 4
+      width: 32
       height: 32
-    spriteID: e6818a113ab144dce8eae6628cb80c1c
+    spriteID: 9c5614e1028b0449aabca8e3bd937711
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -170,19 +170,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: LaserSword_Icon
+  - name: DisplayItemBorder_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 12, y: 12, z: 12, w: 12}
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 16
+      x: 1
+      y: 41
       width: 32
       height: 32
-    spriteID: c2218de2161e4454bb4fbb0a6b9dcaf2
+    spriteID: cc1ee37d568284ddcbd9f01c15b52b5d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -195,25 +195,34 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 4166743786
+      value0: 1714453435
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: LaserSword
+    name: DisplayItemBorder
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: LaserSword
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 12
+        x: 0
         y: 0
-        width: 8
+        width: 32
         height: 32
-      spriteId: ca1acf3d415db4ba4807aa508c590df5
+      spriteId: 945649c9998bd47f4b98b53b0bebd7cd
+    - name: Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 3
+        y: 3
+        width: 26
+        height: 26
+      spriteId: 89101419608b84939b134e3ae0587b6d
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -260,4 +269,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 32, y: 32}
-  previousTextureSize: {x: 64, y: 64}
+  previousTextureSize: {x: 64, y: 128}
