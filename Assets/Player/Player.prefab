@@ -266,6 +266,7 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 2939165100773571567}
   effectAnimator: {fileID: 5897339515335483366}
   targetFollowerCameraRequestEvent: {fileID: 11400000, guid: fcafe0cdb4cf34540a649137d0e30c6c, type: 2}
+  interactIndicatorVisibilityEvent: {fileID: 11400000, guid: cf359f2dd615c46f589b3499abe8a80f, type: 2}
   currentDirection: {x: 0, y: 0}
   speedFactor: 1
   interactables: []

@@ -4,13 +4,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class InteractIndicator : MonoBehaviour
 {
-    [SerializeField]
-    [Range(0.1f, 1.0f)]
-    private float fadeDuration = 0.5f;
-
-    [SerializeField]
-    [Range(4, 50)]
-    private int fadeStepCount = 10;
+    [SerializeField][Range(0.1f, 1.0f)] private float fadeDuration = 0.5f;
+    [SerializeField][Range(4, 50)] private int fadeStepCount = 10;
 
     private Image image;
     private Coroutine coroutine = null;
@@ -23,7 +18,19 @@ public class InteractIndicator : MonoBehaviour
         image.color = image.color.WithAlpha(0);
     }
 
-    public void Show()
+    public void Listener_SetVisibility(bool show)
+    {
+        if (show)
+        {
+            Show();
+        }
+        else
+        {
+            Hide();
+        }
+    }
+
+    private void Show()
     {
         if (image.color.a == 1.0f) return;
 
@@ -51,7 +58,7 @@ public class InteractIndicator : MonoBehaviour
         );
     }
 
-    public void Hide()
+    private void Hide()
     {
         if (image.color.a == 0.0f) return;
 

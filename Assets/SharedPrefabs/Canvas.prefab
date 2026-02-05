@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 3955981460289198144}
   - component: {fileID: 526662677211174838}
   - component: {fileID: 5436237001014897051}
+  - component: {fileID: 957465588202258702}
   m_Layer: 5
   m_Name: InteractIndicator
   m_TagString: Untagged
@@ -250,6 +251,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   fadeDuration: 0.1
   fadeStepCount: 10
+--- !u!114 &957465588202258702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3231181172615076136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae373d4f8584547b08b57377d50e9f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoolChangeEventListener
+  eventSO: {fileID: 11400000, guid: cf359f2dd615c46f589b3499abe8a80f, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5436237001014897051}
+        m_TargetAssemblyTypeName: InteractIndicator, Assembly-CSharp
+        m_MethodName: Listener_SetVisibility
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3564858695111895357
 GameObject:
   m_ObjectHideFlags: 0

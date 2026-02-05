@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour,
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
     [SerializeField] private TargetFollowerCameraRequestEvent targetFollowerCameraRequestEvent;
+    [SerializeField] private BoolChangeEvent interactIndicatorVisibilityEvent;
 
     [Space]
     [Header("Debug")]
@@ -84,7 +85,6 @@ public class PlayerController : MonoBehaviour,
     private GameObject head;
     private GameObject eye;
     private ExternalForceReceiver efr;
-    private InteractIndicator interactIndicator;
     private Vector3 headInitialLocalPosition;
     private Vector3 headRecoilLocalPosition;
     private float recoilTimerCounter;
@@ -129,8 +129,6 @@ public class PlayerController : MonoBehaviour,
 
     private void Start()
     {
-        interactIndicator = FindFirstObjectByType<InteractIndicator>();
-
         targetFollowerCameraRequestEvent.Raise(new(
             command: TargetFollowerCamera.Command.SetMainTarget,
             target: transform,
@@ -179,13 +177,10 @@ public class PlayerController : MonoBehaviour,
             }
         }
 
-        if (interactIndicator)
-        {
-            // If at least one Interactable that is currently interactable
-            // Then show the interact indicator
-            var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
-            if (found) interactIndicator.Show();
-        }
+        // If at least one Interactable that is currently interactable
+        // Then show the interact indicator
+        var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
+        if (found) interactIndicatorVisibilityEvent.Raise(true);
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -199,13 +194,10 @@ public class PlayerController : MonoBehaviour,
             }
         }
 
-        if (interactIndicator)
-        {
-            // If NOT at least one Interactable that is currently interactable
-            // Then hide the interact indicator
-            var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
-            if (!found) interactIndicator.Hide();
-        }
+        // If NOT at least one Interactable that is currently interactable
+        // Then hide the interact indicator
+        var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
+        if (!found) interactIndicatorVisibilityEvent.Raise(false);
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -357,11 +349,11 @@ public class PlayerController : MonoBehaviour,
 
         if (found)
         {
-            interactIndicator.Show();
+            interactIndicatorVisibilityEvent.Raise(true);
         }
         else
         {
-            interactIndicator.Hide();
+            interactIndicatorVisibilityEvent.Raise(false);
         }
     }
 
