@@ -131,6 +131,30 @@
                 "Oneway"
             ],
             "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 17,
+            "members": [
+                {
+                    "name": "unity:SortingOrder",
+                    "type": "int",
+                    "value": 4
+                },
+                {
+                    "name": "unity:layer",
+                    "type": "string",
+                    "value": "Environment"
+                }
+            ],
+            "name": "WallTileLayer",
+            "type": "class",
+            "useAs": [
+                "property",
+                "layer",
+                "project"
+            ]
         }
     ]
 }

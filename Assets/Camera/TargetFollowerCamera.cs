@@ -30,11 +30,30 @@ public class TargetFollowerCamera : MonoBehaviour
     [Space]
     [Header("Debug")]
 
-    [SerializeField] private Transform mainTarget;
-    [SerializeField] private Transform currentTarget;
+    public string mainTargetName;
+    public string currentTargetName;
     [SerializeField] private float maxSpeed = 5;
     [SerializeField] private Vector3 velocity = Vector3.zero;
     [SerializeField] private bool catchUp = false;
+
+    private Transform mainTarget;
+    private Transform currentTarget;
+
+    private void OnEnable()
+    {
+#if UNITY_EDITOR
+        // Only do this when in the editor not in the real game
+        var go = GameObject.Find("Player");
+
+        if (go)
+        {
+            mainTarget = go.transform;
+            currentTarget = mainTarget;
+            mainTargetName = mainTarget != null ? mainTarget.name : "[Unset]";
+            currentTargetName = currentTarget != null ? currentTarget.name : "[Unset]";
+        }
+#endif
+    }
 
     void LateUpdate()
     {
@@ -110,5 +129,8 @@ public class TargetFollowerCamera : MonoBehaviour
                 currentTarget = mainTarget;
                 break;
         }
+
+        mainTargetName = mainTarget != null ? mainTarget.name : "[Unset]";
+        currentTargetName = currentTarget != null ? currentTarget.name : "[Unset]";
     }
 }

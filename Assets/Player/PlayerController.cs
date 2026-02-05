@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour,
     [SerializeField][Range(1, 20)] private float recoilDuration = 0.25f;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
-    [SerializeField] private TargetFollowerCameraRequestEvent targetFollowerCameraRequestEvent;
     [SerializeField] private BoolChangeEvent interactIndicatorVisibilityEvent;
 
     [Space]
@@ -125,15 +124,6 @@ public class PlayerController : MonoBehaviour,
     {
         projectileManager.onProjectileChanged.RemoveListener(ProjectileManager_OnProjectilChanged);
         projectileManager.onProjectileInstantiated.RemoveListener(ProjectileManager_OnShoot);
-    }
-
-    private void Start()
-    {
-        targetFollowerCameraRequestEvent.Raise(new(
-            command: TargetFollowerCamera.Command.SetMainTarget,
-            target: transform,
-            maxSpeed: 0 // ignore
-        ));
     }
 
     private void Update()

@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 4944997684531950368}
   - component: {fileID: 4078538148733612704}
   - component: {fileID: 1185242358587530284}
+  - component: {fileID: 3922967229098837385}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -195,19 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   onProjectileChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TopLeftContainer, Assembly-CSharp
-        m_MethodName: OnProjectileChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onProjectileInstantiated:
     m_PersistentCalls:
       m_Calls: []
@@ -265,7 +254,6 @@ MonoBehaviour:
   recoilDuration: 0.25
   projectileSpawnPoint: {fileID: 2939165100773571567}
   effectAnimator: {fileID: 5897339515335483366}
-  targetFollowerCameraRequestEvent: {fileID: 11400000, guid: fcafe0cdb4cf34540a649137d0e30c6c, type: 2}
   interactIndicatorVisibilityEvent: {fileID: 11400000, guid: cf359f2dd615c46f589b3499abe8a80f, type: 2}
   currentDirection: {x: 0, y: 0}
   speedFactor: 1
@@ -593,6 +581,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   meleeWeapons: []
   spriteChangeEvent: {fileID: 11400000, guid: 8d8c7a07c98a44f3cb717e80208d89f5, type: 2}
+--- !u!114 &3922967229098837385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828709081556262573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c73de54dd3e04d278bf6b2bc2d5ead5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  targetFollowerCameraRequestEvent: {fileID: 11400000, guid: fcafe0cdb4cf34540a649137d0e30c6c, type: 2}
 --- !u!1 &3038318595791463268
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,7 +949,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

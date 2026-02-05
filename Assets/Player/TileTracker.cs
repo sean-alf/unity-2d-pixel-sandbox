@@ -21,11 +21,18 @@ public class TileTracker : MonoBehaviour
 
     private void Start()
     {
-        groundMap = GameObject.Find("Above Ground").GetComponent<Tilemap>();
+        var go = GameObject.Find("Above Ground");
+
+        if (go != null)
+        {
+            groundMap = go.GetComponent<Tilemap>();
+        }
     }
 
     void Update()
     {
+        if (groundMap == null) return;
+
         var cell = groundMap.WorldToCell(transform.position);
 
         if (cell != currentTileCell)

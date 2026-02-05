@@ -29,7 +29,7 @@ public class MeleeWeaponManager : MonoBehaviour, ActionableItemGroupsManager.IAc
 
     public void Attack(IMeleeWeaponWielder wielder)
     {
-        if (isAttacking) return;
+        if (isAttacking || !currentWeaponAndIcon.IsValid) return;
         isAttacking = true;
         currentWeaponAndIcon.weapon.Attack(wielder);
     }
@@ -50,6 +50,8 @@ public class MeleeWeaponManager : MonoBehaviour, ActionableItemGroupsManager.IAc
 
     private void SetWeapon()
     {
+        if (meleeWeapons.Count == 0) return;
+
         if (currentWeaponAndIcon.IsValid)
         {
             currentWeaponAndIcon.weapon.UnregisterOnAttackFinished(OnAttackFinished);

@@ -83,7 +83,7 @@
                 7
             ],
             "scale": 1.5966,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
                 "x": 1676.3747964424401,
                 "y": 348.5531754979331
@@ -94,7 +94,7 @@
                 4
             ],
             "scale": 1.4495,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
                 "x": 1600.2069679199726,
                 "y": 1600.2069679199726
@@ -129,7 +129,7 @@
         "TileSets/Wall.tsx"
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
         "TileSets/Wall.tsx",
         "Tilemaps/w1-l3-map.tmx",

@@ -1,44 +1,58 @@
 using System.Linq;
 using SuperTiled2Unity;
+using UnityEditor;
 using UnityEngine;
 
 [ExecuteAlways]
 [RequireComponent(typeof(Camera))]
 public class CameraBackgroundColorManager : MonoBehaviour
 {
-    [SerializeField] private SuperTileLayer tileLayer;
+    [SerializeField] private Camera cam;
     [SerializeField][Range(0f, 1.0f)] private float shadeAdjustment;
 
     [Space]
     [Header("Debug")]
 
+    [SerializeField] string tileLayerName;
     [SerializeField] private Color preShadedColor;
     [SerializeField] private Color postShadedColor;
 
-    void Awake()
+    private SuperTileLayer tileLayer;
+
+    private void OnEnable()
     {
-        var tileLayers = FindObjectsByType<SuperTileLayer>(FindObjectsSortMode.None);
-        tileLayer = tileLayers.First(l => l.gameObject.name == "Wall");
         SetBackgroundColor();
     }
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        SetBackgroundColor();
+        if (Application.isPlaying)
+        {
+            SetBackgroundColor();
+        }
+        else
+        {
+            EditorApplication.delayCall += () =>
+            {
+                if (this == null) return;
+                SetBackgroundColor();
+            };
+        }
     }
 #endif
 
     private void SetBackgroundColor()
     {
-        if (tileLayer == null)
-        {
-            return;
-        }
+        var tileLayers = FindObjectsByType<SuperTileLayer>(FindObjectsSortMode.None);
+        tileLayer = tileLayers.FirstOrDefault(l => l.m_TiledName == "Wall");
+        tileLayerName = tileLayer != null ? tileLayer.m_TiledName : "[Not Set]";
 
-        var camera = GetComponent<Camera>();
-        preShadedColor = tileLayer.CalculateColor();
-        postShadedColor = preShadedColor * new Color(shadeAdjustment, shadeAdjustment, shadeAdjustment, preShadedColor.a);
-        camera.backgroundColor = postShadedColor;
+        if (tileLayer)
+        {
+            preShadedColor = tileLayer.CalculateColor();
+            postShadedColor = preShadedColor * new Color(shadeAdjustment, shadeAdjustment, shadeAdjustment, preShadedColor.a);
+            cam.backgroundColor = postShadedColor;
+        }
     }
 }

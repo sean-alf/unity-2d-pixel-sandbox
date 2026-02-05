@@ -26,15 +26,15 @@ static class SceneSwitcherExtensions
 [RequireComponent(typeof(Synchronizer))]
 public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 {
-    [SerializeField]
+    [SerializeField] private bool ignore = true;
+
     [Tooltip("This is exposed only for debuging purposes. Do not update in the inspector!")]
-    private List<SceneTransitionPoint> transitionPoints;
+    [SerializeField] private List<SceneTransitionPoint> transitionPoints;
 
     [Space]
     [Header("Debug")]
 
-    [SerializeField]
-    private Logger logger;
+    [SerializeField] private Logger logger;
 
     private Synchronizer sync;
     private TransitionType fromTransitionType = TransitionType.EXIT;
@@ -63,6 +63,10 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
     void Start()
     {
+#if UNITY_EDITOR
+        if (ignore) return;
+#endif
+
         StartCoroutine(UnloadUnwantedLoadedScenes(() =>
         {
             // On Done

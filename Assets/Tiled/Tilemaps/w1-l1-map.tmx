@@ -217,7 +217,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="4" name="Wall" width="100" height="100" locked="1" tintcolor="#3599a7">
+ <layer id="4" name="Wall" class="WallTileLayer" width="100" height="100" locked="1" tintcolor="#3599a7">
   <properties>
    <property name="unity:SortingOrder" type="int" value="4"/>
    <property name="unity:layer" value="Environment"/>
