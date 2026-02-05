@@ -148,7 +148,7 @@ MonoBehaviour:
   health: 2
   onlyDamagableBy: []
   logger:
-    logLevel: 5
+    logLevel: 3
 --- !u!60 &2756273419691802104
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -216,11 +216,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845ebb81f27e5409a9c73cec60b91fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileManager
+  onProjectileChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onProjectileInstantiated:
+    m_PersistentCalls:
+      m_Calls: []
   projectiles:
   - {fileID: 11400000, guid: ccbb24bae8ef64a26b7f493d45018bd1, type: 2}
-  madm: {fileID: 0}
+  spriteChangeEvent: {fileID: 0}
+  coolDownCounter: 0
   logger:
-    logLevel: 5
+    logLevel: 3
 --- !u!114 &4472532923015666288
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -239,7 +239,7 @@ MonoBehaviour:
   defaultAnimationKey: 
   impactAnimationKey: Impact
   logger:
-    logLevel: 1
+    logLevel: 3
 --- !u!114 &6643108539801083361
 MonoBehaviour:
   m_ObjectHideFlags: 0

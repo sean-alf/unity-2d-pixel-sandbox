@@ -276,11 +276,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845ebb81f27e5409a9c73cec60b91fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileManager
+  onProjectileChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onProjectileInstantiated:
+    m_PersistentCalls:
+      m_Calls: []
   projectiles:
   - {fileID: 11400000, guid: bdbdf2253b56642c68f69b24d7e1264a, type: 2}
-  madm: {fileID: 0}
+  spriteChangeEvent: {fileID: 0}
+  coolDownCounter: 0
   logger:
-    logLevel: 5
+    logLevel: 3
 --- !u!114 &574804052815560789
 MonoBehaviour:
   m_ObjectHideFlags: 0

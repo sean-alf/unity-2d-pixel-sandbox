@@ -206,7 +206,7 @@ MonoBehaviour:
   spriteChangeEvent: {fileID: 11400000, guid: 91ccdd6ae24fa42c1a66b0b48a2e07f1, type: 2}
   coolDownCounter: 0
   logger:
-    logLevel: 5
+    logLevel: 3
 --- !u!114 &6440799228650472467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
   speedFactor: 1
   interactables: []
   logger:
-    logLevel: 5
+    logLevel: 3
   onDirectionChange:
     m_PersistentCalls:
       m_Calls: []
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   logger:
-    logLevel: 5
+    logLevel: 3
 --- !u!114 &3058580506951309369
 MonoBehaviour:
   m_ObjectHideFlags: 0

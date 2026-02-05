@@ -122,6 +122,7 @@ MonoBehaviour:
         - {fileID: -3304954038401248989, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
         inactiveSprite: {fileID: 0}
         duration: 0.25
+        clearSpriteOnCompletion: 0
         loop: 1
 --- !u!114 &4622234208660013523
 MonoBehaviour:
@@ -248,4 +249,4 @@ MonoBehaviour:
   onlyDamagableBy:
   - {fileID: 2287008782070608329, guid: 5cf7ae7dc79ea48bdadd20f89932bdf3, type: 3}
   logger:
-    logLevel: 5
+    logLevel: 3

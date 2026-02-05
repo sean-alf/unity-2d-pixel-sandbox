@@ -120,6 +120,7 @@ MonoBehaviour:
         - {fileID: -8548495380155617751, guid: eb83abf1e5e5940adbd513342277008e, type: 3}
         inactiveSprite: {fileID: -1403417745425262354, guid: eb83abf1e5e5940adbd513342277008e, type: 3}
         duration: 0.35
+        clearSpriteOnCompletion: 0
         loop: 1
 --- !u!114 &7743796823536458332
 MonoBehaviour:
@@ -133,11 +134,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845ebb81f27e5409a9c73cec60b91fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileManager
+  onProjectileChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onProjectileInstantiated:
+    m_PersistentCalls:
+      m_Calls: []
   projectiles:
   - {fileID: 11400000, guid: be13011e2b5414e2b95bea7faa3ec29d, type: 2}
-  madm: {fileID: 0}
+  spriteChangeEvent: {fileID: 0}
+  coolDownCounter: 0
   logger:
-    logLevel: 5
+    logLevel: 3
 --- !u!114 &8053001751485367876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,4 +262,4 @@ MonoBehaviour:
   health: 1
   onlyDamagableBy: []
   logger:
-    logLevel: 5
+    logLevel: 3

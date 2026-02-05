@@ -22,4 +22,13 @@ public class AutoTargetRegisterer : MonoBehaviour
         }
     }
 #endif
+
+    private void Start()
+    {
+        targetFollowerCameraRequestEvent.Raise(new(
+                command: TargetFollowerCamera.Command.SetMainTarget,
+                target: transform,
+                maxSpeed: 0 // ignore
+            ));
+    }
 }

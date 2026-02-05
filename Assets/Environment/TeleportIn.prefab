@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4344514883491916007, guid: cd6b45d9b023248c4894160de66c217d, type: 3}
       propertyPath: logger.logLevel
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7565738375389648095, guid: cd6b45d9b023248c4894160de66c217d, type: 3}
       propertyPath: m_Sprite
