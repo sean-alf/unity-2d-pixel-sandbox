@@ -25,6 +25,8 @@ public class AutoTargetRegisterer : MonoBehaviour
 
     private void Start()
     {
+        // This must be done here so that the player will get set as the main target for the camera
+        // during game play
         targetFollowerCameraRequestEvent.Raise(new(
                 command: TargetFollowerCamera.Command.SetMainTarget,
                 target: transform,

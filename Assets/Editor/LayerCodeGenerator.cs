@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using UnityEditor;
 using UnityEditorInternal;
+using UnityEngine;
 
 public static class LayerCodeGenerator
 {
@@ -19,6 +20,7 @@ public static class LayerCodeGenerator
         foreach (string l in InternalEditorUtility.layers)
         {
             code += $"   public static readonly string {l.Replace(" ", "")} = \"{l}\";\n";
+            code += $"   public static readonly int {l.Replace(" ", "")}Index = {LayerMask.NameToLayer(l)};\n";
         }
 
         code += "}\n";

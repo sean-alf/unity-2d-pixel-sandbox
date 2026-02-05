@@ -1,13 +1,32 @@
 public static class LayerNames {
    public static readonly string Default = "Default";
+   public static readonly int DefaultIndex = 0;
    public static readonly string TransparentFX = "TransparentFX";
+   public static readonly int TransparentFXIndex = 1;
    public static readonly string IgnoreRaycast = "Ignore Raycast";
+   public static readonly int IgnoreRaycastIndex = 2;
    public static readonly string Water = "Water";
+   public static readonly int WaterIndex = 4;
    public static readonly string UI = "UI";
+   public static readonly int UIIndex = 5;
    public static readonly string Player = "Player";
+   public static readonly int PlayerIndex = 7;
+   public static readonly string Trigger = "Trigger";
+   public static readonly int TriggerIndex = 8;
+   public static readonly string Pickups = "Pickups";
+   public static readonly int PickupsIndex = 9;
    public static readonly string Environment = "Environment";
+   public static readonly int EnvironmentIndex = 10;
    public static readonly string Enemy = "Enemy";
+   public static readonly int EnemyIndex = 11;
    public static readonly string Projectile = "Projectile";
+   public static readonly int ProjectileIndex = 12;
    public static readonly string EnemyProjectile = "EnemyProjectile";
+   public static readonly int EnemyProjectileIndex = 13;
+   public static readonly string Melee = "Melee";
+   public static readonly int MeleeIndex = 14;
    public static readonly string CameraBounds = "CameraBounds";
+   public static readonly int CameraBoundsIndex = 15;
+   public static readonly string NPCBarrier = "NPCBarrier";
+   public static readonly int NPCBarrierIndex = 17;
 }
