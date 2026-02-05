@@ -1,4 +1,3 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,42 +5,41 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class TargetFollowerCamera : MonoBehaviour
 {
-    [SerializeField] private Transform target;
-
-    private new Camera camera;
-
-    private Transform currentTarget;
-    private Vector3 velocity = Vector3.zero;
-    private Action onCentered;
-    private bool catchUp = false;
-    private float maxSpeed = 5;
-
-    void Awake()
+    public enum Command
     {
-        camera = GetComponent<Camera>();
-        currentTarget = target;
+        SetMainTarget,
+        SetTemporaryTarget,
+        SwitchBackToMainTarget,
     }
 
-#if UNITY_EDITOR
-    private void OnValidate()
+    public readonly struct TargetRequest
     {
-        if (Application.isPlaying)
+        public readonly Command command;
+        public readonly Transform target;
+        public readonly float maxSpeed;
+
+        public TargetRequest(Command command, Transform target, float maxSpeed)
         {
-            currentTarget = target;
-        }
-        else
-        {
-            EditorApplication.delayCall += () =>
-            {
-                currentTarget = target;
-            };
+            this.command = command;
+            this.target = target;
+            this.maxSpeed = maxSpeed;
         }
     }
-#endif
+
+    [SerializeField] private TransformChangeEvent finishedCenteringTargetEvent;
+
+    [Space]
+    [Header("Debug")]
+
+    [SerializeField] private Transform mainTarget;
+    [SerializeField] private Transform currentTarget;
+    [SerializeField] private float maxSpeed = 5;
+    [SerializeField] private Vector3 velocity = Vector3.zero;
+    [SerializeField] private bool catchUp = false;
 
     void LateUpdate()
     {
-        if (currentTarget == null || camera == null) return;
+        if (currentTarget == null) return;
 
         if (catchUp)
         {
@@ -64,7 +62,9 @@ public class TargetFollowerCamera : MonoBehaviour
                 transform.position = targetPosition;
                 velocity = Vector3.zero;
                 catchUp = false;
-                onCentered?.Invoke();
+
+                // This event may not be used in some cases
+                if (finishedCenteringTargetEvent) finishedCenteringTargetEvent.Raise(currentTarget);
             }
         }
         else
@@ -73,19 +73,43 @@ public class TargetFollowerCamera : MonoBehaviour
         }
     }
 
-    public void SetNewTarget(Transform newFollow, float maxSpeed, Action onCentered)
+    public void UnityEvent_SetRequest(TargetRequest req)
     {
-        this.onCentered = onCentered;
-        this.maxSpeed = maxSpeed;
-        catchUp = true;
-        currentTarget = newFollow;
-    }
+        if (req.maxSpeed > 0) maxSpeed = req.maxSpeed;
 
-    public void SetOriginalTarget(float maxSpeed, Action onCentered)
-    {
-        this.onCentered = onCentered;
-        this.maxSpeed = maxSpeed;
-        catchUp = true;
-        currentTarget = target;
+        switch (req.command)
+        {
+            case Command.SetMainTarget:
+                if (req.target == null)
+                {
+                    Debug.LogError($"{name} ({GetType().Name}): req.target must not be null when command is {req.command}!");
+                    return;
+                }
+
+                catchUp = false;
+                mainTarget = req.target;
+                currentTarget = req.target;
+                break;
+            case Command.SetTemporaryTarget:
+                if (req.target == null)
+                {
+                    Debug.LogError($"{name} ({GetType().Name}): req.target must not be null when command is {req.command}!");
+                    return;
+                }
+
+                catchUp = true;
+                currentTarget = req.target;
+                break;
+            case Command.SwitchBackToMainTarget:
+                if (mainTarget == null)
+                {
+                    Debug.LogError($"{name} ({GetType().Name}): main target must not be null when command is {req.command}!");
+                    return;
+                }
+
+                catchUp = true;
+                currentTarget = mainTarget;
+                break;
+        }
     }
 }

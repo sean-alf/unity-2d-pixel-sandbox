@@ -411,7 +411,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 124
-      y: 124
+      y: 164
       width: 16
       height: 32
     spriteID: e3db369080cd74602bc2089b9ebc5d2f
@@ -422,7 +422,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 124, y: 124}
+    uvTransform: {x: 124, y: 164}
   - name: GeneralGroundAndFloorPathAndBorder_15
     originalName: 
     pivot: {x: 1, y: 1}
@@ -431,8 +431,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 228
-      y: 4
+      x: 164
+      y: 180
       width: 16
       height: 16
     spriteID: 4bbf500ac3c3e445f810850332338538
@@ -443,7 +443,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 228, y: 4}
+    uvTransform: {x: 164, y: 180}
   - name: GeneralGroundAndFloorPathAndBorder_16
     originalName: 
     pivot: {x: 0, y: 1}
@@ -453,7 +453,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 164
-      y: 84
+      y: 204
       width: 16
       height: 16
     spriteID: 52fc0402ad7c148b8848cf7d9fb53875
@@ -464,7 +464,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 148, y: 84}
+    uvTransform: {x: 148, y: 204}
   - name: GeneralGroundAndFloorPathAndBorder_17
     originalName: 
     pivot: {x: 0, y: 0.5}
@@ -474,7 +474,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 124
-      y: 164
+      y: 204
       width: 16
       height: 32
     spriteID: 518fd131f7f814cec90f24d8cd93a756
@@ -485,7 +485,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 108, y: 164}
+    uvTransform: {x: 108, y: 204}
   - name: GeneralGroundAndFloorPathAndBorder_18
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -579,7 +579,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 164
-      y: 108
+      y: 228
       width: 16
       height: 16
     spriteID: 606f7b2d983d145f88876d1331389a66
@@ -590,7 +590,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 148, y: 92}
+    uvTransform: {x: 148, y: 212}
   - name: GeneralGroundAndFloorPathAndBorder_23
     originalName: 
     pivot: {x: 1, y: 0}
@@ -599,8 +599,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 164
-      y: 132
+      x: 204
+      y: 4
       width: 16
       height: 16
     spriteID: c2498c223f7184a40be5e723a8cec065
@@ -611,7 +611,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 164, y: 116}
+    uvTransform: {x: 204, y: -12}
   - name: GeneralGroundAndFloorPathAndBorder_24
     originalName: 
     pivot: {x: 0.5, y: 1}
@@ -620,8 +620,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 124
-      y: 204
+      x: 164
+      y: 4
       width: 32
       height: 16
     spriteID: 1ffb616e46a3f4be0b4c356f46a149e2
@@ -632,7 +632,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 124, y: 204}
+    uvTransform: {x: 164, y: 4}
   - name: GeneralGroundAndFloorPathAndBorder_25
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -641,8 +641,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 124
-      y: 228
+      x: 164
+      y: 28
       width: 32
       height: 16
     spriteID: 1b509a5f520a84bdcb1339c355b434c8
@@ -653,7 +653,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 124, y: 212}
+    uvTransform: {x: 164, y: 12}
   - name: GeneralGroundAndFloorPathAndBorder_26
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -746,8 +746,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 164
-      y: 156
+      x: 204
+      y: 28
       width: 16
       height: 16
     spriteID: 22c9a6dbcbcc843fb8d12203227d4f49
@@ -758,7 +758,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 148, y: 156}
+    uvTransform: {x: 188, y: 28}
   - name: GeneralGroundAndFloorPathAndBorder_31
     originalName: 
     pivot: {x: 1, y: 1}
@@ -767,8 +767,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 164
-      y: 180
+      x: 204
+      y: 52
       width: 16
       height: 16
     spriteID: d3bebcc47d6074f30989d6cc802907dd
@@ -779,7 +779,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 164, y: 180}
+    uvTransform: {x: 204, y: 52}
   - name: GeneralGroundAndFloorPathAndBorder_32
     originalName: 
     pivot: {x: 0, y: 0.5}
@@ -789,7 +789,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 164
-      y: 4
+      y: 52
       width: 16
       height: 32
     spriteID: 06f83ae36dc38499dbbdce6f4953f256
@@ -800,7 +800,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 148, y: 4}
+    uvTransform: {x: 148, y: 52}
   - name: GeneralGroundAndFloorPathAndBorder_33
     originalName: 
     pivot: {x: 1, y: 0.5}
@@ -810,7 +810,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 164
-      y: 44
+      y: 92
       width: 16
       height: 32
     spriteID: 1b07940a6adef4d95a5e98b2b829b0d3
@@ -821,7 +821,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 164, y: 44}
+    uvTransform: {x: 164, y: 92}
   - name: GeneralGroundAndFloorPathAndBorder_34
     originalName: 
     pivot: {x: 0.5, y: 1}
@@ -830,8 +830,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 188
-      y: 4
+      x: 164
+      y: 132
       width: 32
       height: 16
     spriteID: 07ce90d34df9a4605bd628b3946f58ae
@@ -842,7 +842,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 188, y: 4}
+    uvTransform: {x: 164, y: 132}
   - name: GeneralGroundAndFloorPathAndBorder_35
     originalName: 
     pivot: {x: 0, y: 0}
@@ -851,8 +851,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 164
-      y: 204
+      x: 204
+      y: 76
       width: 16
       height: 16
     spriteID: fa471ca886c5e44b59982b2c2d08f1d6
@@ -863,7 +863,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 148, y: 188}
+    uvTransform: {x: 188, y: 60}
   - name: GeneralGroundAndFloorPathAndBorder_36
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -872,8 +872,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 188
-      y: 28
+      x: 164
+      y: 156
       width: 32
       height: 16
     spriteID: 5e6c1b537ea6447a8be0f0c2f7fb9fd9
@@ -884,7 +884,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 188, y: 12}
+    uvTransform: {x: 164, y: 140}
   - name: GeneralGroundAndFloorPathAndBorder_37
     originalName: 
     pivot: {x: 1, y: 0}
@@ -893,8 +893,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 164
-      y: 228
+      x: 204
+      y: 100
       width: 16
       height: 16
     spriteID: 6b1167448903f47099eb687bcc9749d5
@@ -905,7 +905,28 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 164, y: 212}
+    uvTransform: {x: 204, y: 84}
+  - name: GeneralGroundAndFloorPathAndBorder_38
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 124
+      y: 124
+      width: 32
+      height: 32
+    spriteID: ee86ba9f24778427ba5dee63843b83b8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 124, y: 124}
   asepriteLayers:
   - layerIndex: 0
     uuid:
@@ -928,7 +949,7 @@ ScriptedImporter:
         y: 0
         width: 15
         height: 10
-      tileIndices: 01000000020000000500000006000000090000000a00000000000000000000000d0000000000000000000000100000000f0000000000000000000000030000000400000007000000080000000b0000000c0000000000000000000000000000000000000000000000110000000e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000180000001300000012000000180000000f0000000000000000000000000000000000000000000000000000000000000000000000000000001600000019000000140000001500000019000000170000000000000000000000000000000000000000000000000000000000000000000000000000001e0000001f000000110000000e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000002100000016000000170000000000000000000000000000000000000000000000000000000000000000000000000000001e000000220000001a0000001b000000220000001f00000000000000000000000000000000000000000000000000000000000000000000000000000023000000240000001c0000001d00000024000000250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000002100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000230000002500000000000000000000000000000000000000
+      tileIndices: 01000000020000000500000006000000090000000a00000000000000000000000d0000000000000000000000100000000f0000000000000000000000030000000400000007000000080000000b0000000c0000000000000000000000000000000000000000000000110000000e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000180000001300000012000000180000000f0000000000000000000000000000000000000000000000000000000000000000000000000000001600000019000000140000001500000019000000170000000000000000000000000000000000000000000000000000000000000000000000000000001e0000001f000000110000000e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000026000000200000002100000016000000170000000000000000000000000000000000000000000000000000000000000000000000000000001e000000220000001a0000001b000000220000001f00000000000000000000000000000000000000000000000000000000000000000000000000000023000000240000001c0000001d00000024000000250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000002100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000230000002500000000000000000000000000000000000000
     tileSetIndex: 0
     parentIndex: -1
   tileSets:
@@ -1160,6 +1181,12 @@ ScriptedImporter:
         y: 32
       name: GeneralGroundAndFloorPathAndBorder_37
       spriteId: 6b1167448903f47099eb687bcc9749d5
+    - tileId: 38
+      size:
+        x: 32
+        y: 32
+      name: GeneralGroundAndFloorPathAndBorder_38
+      spriteId: ee86ba9f24778427ba5dee63843b83b8
     guid: 873192154
   platformSettings: []
   generatePhysicsShape: 0

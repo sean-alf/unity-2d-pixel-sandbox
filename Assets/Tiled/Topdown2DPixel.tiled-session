@@ -5,12 +5,12 @@
     },
     "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
-        "Rules",
         "Tilemaps/Rules",
-        ".",
         "Tilemaps",
         "Worlds",
         "TileSets",
+        ".",
+        "Rules",
         "Properties"
     ],
     "fileStates": {
@@ -82,11 +82,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 1.1747,
-            "selectedLayer": 3,
+            "scale": 1.5966,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 1433.131863454499,
-                "y": 2487.8692432110324
+                "x": 1676.3747964424401,
+                "y": 348.5531754979331
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -96,7 +96,7 @@
             "scale": 1.4495,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1599.8620213866852,
+                "x": 1600.2069679199726,
                 "y": 1600.2069679199726
             }
         },
@@ -107,8 +107,8 @@
             "scale": 1.424,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": -6014.396067415731,
-                "y": 2889.3960674157306
+                "x": 1600.0702247191011,
+                "y": 1600.0702247191011
             }
         }
     },
@@ -131,11 +131,11 @@
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "TileSets/MuddyGround.tsx",
         "TileSets/Wall.tsx",
         "Tilemaps/w1-l3-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
+        "TileSets/MuddyGround.tsx",
         "TileSets/ForestGround.tsx",
         "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/PlatformTracks.tsx",

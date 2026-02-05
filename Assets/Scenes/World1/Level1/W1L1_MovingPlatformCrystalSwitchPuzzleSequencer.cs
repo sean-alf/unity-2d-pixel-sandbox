@@ -5,13 +5,13 @@ public class W1L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour, Be
 {
     [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority = 80;
     [SerializeField] private BetterInputManager inputManager;
-    [SerializeField] private TargetFollowerCamera followerCamera;
     [SerializeField] private float maxCameraSwitchSpeed = 20f;
     [SerializeField] private float dramaticPause = 0.5f;
     [SerializeField] private CrystalSwitch cs1;
     [SerializeField] private CrystalSwitch cs2;
     [SerializeField] private CrystalSwitch cs3;
     [SerializeField] private RemovableBarrier barrier;
+    [SerializeField] private TargetFollowerCameraRequestEvent targetFollowerCameraRequestEvent;
 
     private GamePauser gamePauser;
     private int currentSwitched = 0;
@@ -48,6 +48,18 @@ public class W1L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour, Be
         barrier.onRemoved.RemoveListener(OnBarrierRemoved);
     }
 
+    public void UnityEvent_OnCameraTargetCentered(Transform target)
+    {
+        if (target == barrier.transform)
+        {
+            StartCoroutine(SequencingUtilities.DelayRealtime(dramaticPause, () => barrier.Remove()));
+        }
+        else
+        {
+            PuzzleFinished();
+        }
+    }
+
     private void OnCrystalStateChange(CrystalSwitch.State state)
     {
         if (state == CrystalSwitch.State.A) --currentSwitched;
@@ -59,15 +71,21 @@ public class W1L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour, Be
             inputManager.AddInputChangeRequest(this);
 
             StartCoroutine(SequencingUtilities.DelayRealtime(dramaticPause, () =>
-                followerCamera.SetNewTarget(barrier.transform, maxCameraSwitchSpeed, onCentered: () =>
-                    StartCoroutine(SequencingUtilities.DelayRealtime(dramaticPause, () => barrier.Remove()))
-                )
+                targetFollowerCameraRequestEvent.Raise(new(
+                    TargetFollowerCamera.Command.SetTemporaryTarget,
+                    barrier.transform,
+                    maxCameraSwitchSpeed
+                ))
             ));
         }
     }
 
     private void OnBarrierRemoved() => StartCoroutine(SequencingUtilities.DelayRealtime(dramaticPause, onRun: () =>
-        followerCamera.SetOriginalTarget(maxCameraSwitchSpeed, onCentered: () => PuzzleFinished())
+        targetFollowerCameraRequestEvent.Raise(new(
+            TargetFollowerCamera.Command.SwitchBackToMainTarget,
+            null,
+            maxCameraSwitchSpeed
+        ))
     ));
 
     private void PuzzleFinished()

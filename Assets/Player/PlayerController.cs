@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour,
     [SerializeField][Range(1, 20)] private float recoilDuration = 0.25f;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
+    [SerializeField] private TargetFollowerCameraRequestEvent targetFollowerCameraRequestEvent;
 
     [Space]
     [Header("Debug")]
@@ -129,6 +130,12 @@ public class PlayerController : MonoBehaviour,
     private void Start()
     {
         interactIndicator = FindFirstObjectByType<InteractIndicator>();
+
+        targetFollowerCameraRequestEvent.Raise(new(
+            command: TargetFollowerCamera.Command.SetMainTarget,
+            target: transform,
+            maxSpeed: 0 // ignore
+        ));
     }
 
     private void Update()

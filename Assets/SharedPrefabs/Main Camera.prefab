@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7199443274293690665}
   - component: {fileID: 2404431055061086493}
   - component: {fileID: 319604336117231454}
+  - component: {fileID: 4614694239168807153}
   m_Layer: 15
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -72,9 +73,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.120370366
-    width: 0.25833336
-    height: 0.25833333
+    y: 0.13796297
+    width: 0.2682292
+    height: 0.26822916
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -183,7 +184,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bba71705a2084a798d777f77c08316f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  target: {fileID: 0}
+  finishedCenteringTargetEvent: {fileID: 11400000, guid: 7043730fb1ebc4b82a8304bbf557e48e, type: 2}
+  mainTarget: {fileID: 0}
+  currentTarget: {fileID: 0}
+  maxSpeed: 5
+  velocity: {x: 0, y: 0, z: 0}
+  catchUp: 0
 --- !u!114 &2742945930279902669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +338,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraBackgroundColorManager
   tilemap: {fileID: 0}
   shadeAdjustment: 0.33
+--- !u!114 &4614694239168807153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168149547597679393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a0aef1ee44d48c886ced9ab9d143d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TargetFollowerCameraRequestEventListener
+  eventSO: {fileID: 11400000, guid: fcafe0cdb4cf34540a649137d0e30c6c, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6519449804208709958}
+        m_TargetAssemblyTypeName: TargetFollowerCamera, Assembly-CSharp
+        m_MethodName: UnityEvent_SetRequest
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &623380238098495605
 GameObject:
   m_ObjectHideFlags: 0

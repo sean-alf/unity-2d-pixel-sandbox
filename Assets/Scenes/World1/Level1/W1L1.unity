@@ -1452,13 +1452,14 @@ GameObject:
   - component: {fileID: 265614213}
   - component: {fileID: 265614215}
   - component: {fileID: 265614216}
+  - component: {fileID: 265614217}
   m_Layer: 0
   m_Name: MovingPlatformPuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &265614213
 Transform:
   m_ObjectHideFlags: 0
@@ -1507,13 +1508,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::W1L1_MovingPlatformCrystalSwitchPuzzleSequencer
   inputMapSwitchingPriority: 90
   inputManager: {fileID: 52699981}
-  followerCamera: {fileID: 1051936497}
   maxCameraSwitchSpeed: 20
   dramaticPause: 0.5
   cs1: {fileID: 1921966108}
   cs2: {fileID: 1272319894}
   cs3: {fileID: 870135365}
   barrier: {fileID: 83138617}
+  targetFollowerCameraRequestEvent: {fileID: 11400000, guid: fcafe0cdb4cf34540a649137d0e30c6c, type: 2}
+--- !u!114 &265614217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265614212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b9c69a11f3b40d891d3fc066f7275b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TransformChangeEventListener
+  eventSO: {fileID: 11400000, guid: 7043730fb1ebc4b82a8304bbf557e48e, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 265614216}
+        m_TargetAssemblyTypeName: W1L1_MovingPlatformCrystalSwitchPuzzleSequencer,
+          Assembly-CSharp
+        m_MethodName: UnityEvent_OnCameraTargetCentered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &271881621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1835,7 +1865,7 @@ PrefabInstance:
     - target: {fileID: 4666126222213079177, guid: 9f4426851360841348d936d285ecbc0e, type: 3}
       propertyPath: onProjectileInstantiated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2142929990}
+      objectReference: {fileID: 0}
     - target: {fileID: 4666126222213079177, guid: 9f4426851360841348d936d285ecbc0e, type: 3}
       propertyPath: onProjectileInstantiated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1907,10 +1937,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7647631529967740655, guid: 9f4426851360841348d936d285ecbc0e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2142929990}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f4426851360841348d936d285ecbc0e, type: 3}
 --- !u!4 &366932889 stripped
 Transform:
@@ -35712,7 +35739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2730726327980649173, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4472532923015666288, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: toBeWatched
@@ -35785,7 +35812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2730726327980649173, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4472532923015666288, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: toBeWatched
@@ -35858,7 +35885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2730726327980649173, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4472532923015666288, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: toBeWatched
@@ -36126,17 +36153,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
---- !u!114 &1051936497 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7049882170464678506, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
-  m_PrefabInstance: {fileID: 3983741225161980975}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bba71705a2084a798d777f77c08316f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!4 &1067685764 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 293816154585627288, guid: e9450418dc212472aac497f71c779b0e, type: 3}
@@ -37404,7 +37420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1442652121
 Transform:
   m_ObjectHideFlags: 0
@@ -38289,7 +38305,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 574804052815560789, guid: 9f4426851360841348d936d285ecbc0e, type: 3}
   m_PrefabInstance: {fileID: 338641642}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142929986}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2984bae2a2514ffaa746f5e2a6b7c2f, type: 3}
@@ -38892,6 +38908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1943881067}
   - component: {fileID: 1943881068}
+  - component: {fileID: 1943881069}
   m_Layer: 0
   m_Name: Sequencer
   m_TagString: Untagged
@@ -38934,6 +38951,7 @@ MonoBehaviour:
   finalShockOrbDamageHandler: {fileID: 817210945}
   initialGameStartDelay: 0.5
   wallCannonShotDelay: 0.5
+  maxCameraSwitchSpeed: 20
   panelSwitchCombos:
   - panelSwitch: {fileID: 2105793295}
     panel: {fileID: 1795199574}
@@ -38944,6 +38962,36 @@ MonoBehaviour:
   - panelSwitch: {fileID: 1571931339}
     panel: {fileID: 843481367}
     onDuration: 24
+  targetFollowerCameraRequestEvent: {fileID: 11400000, guid: fcafe0cdb4cf34540a649137d0e30c6c, type: 2}
+--- !u!114 &1943881069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943881066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b9c69a11f3b40d891d3fc066f7275b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TransformChangeEventListener
+  eventSO: {fileID: 11400000, guid: 7043730fb1ebc4b82a8304bbf557e48e, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1943881068}
+        m_TargetAssemblyTypeName: W1L1_WallCannonRedirectionPanelPuzzleSequencer,
+          Assembly-CSharp
+        m_MethodName: UnityEvent_OnCameraTargetCentered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!19719996 &1965745060 stripped
 TilemapCollider2D:
   m_CorrespondingSourceObject: {fileID: 3975872553268899085, guid: 5d097f0cd603c4bc78993615b1aeaf2f, type: 3}
@@ -39307,25 +39355,6 @@ Transform:
   - {fileID: 1228895748}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2142929986 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7647631529967740655, guid: 9f4426851360841348d936d285ecbc0e, type: 3}
-  m_PrefabInstance: {fileID: 338641642}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2142929990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142929986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96cf5dad0b8034bf0addde627ad3082c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraTarget
-  camera: {fileID: 1051936497}
-  maxSpeed: 20
 --- !u!1001 &676277024520813166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39352,11 +39381,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 61.96875
+      value: 63.46875
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.6875
+      value: -9.625
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z
@@ -39968,10 +39997,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 5647044928779410511, guid: 50f6445ff559e46cfa9608ecc1bdc7f1, type: 3}
-    - target: {fileID: 1167012252933006615, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 1941555270935437873, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.size
       value: 4
@@ -40178,11 +40203,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4758762970756930301, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 61.96875
+      value: 63.46875
       objectReference: {fileID: 0}
     - target: {fileID: 4758762970756930301, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.6875
+      value: -9.625
       objectReference: {fileID: 0}
     - target: {fileID: 6125731054299193077, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40228,15 +40253,16 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 52699980}
-    - target: {fileID: 7401333050680542889, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 42
+    - target: {fileID: 7049882170464678506, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: mainTarget
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8985032271260545611, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 44
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7049882170464678506, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: currentTarget
+      value: 
+      objectReference: {fileID: 52699980}
+    m_RemovedComponents:
+    - {fileID: 5701246420978703958, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -12,29 +12,26 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, Bet
     [SerializeField] private EnemyDamageHandler finalShockOrbDamageHandler;
     [SerializeField] private float initialGameStartDelay = 0.5f;
     [SerializeField] private float wallCannonShotDelay = 0.25f;
+    [SerializeField] private float maxCameraSwitchSpeed = 20f;
     [SerializeField] private PanelSwitchCombo[] panelSwitchCombos;
+    [SerializeField] private TargetFollowerCameraRequestEvent targetFollowerCameraRequestEvent;
 
     private ProjectileManager wallCannonProjectileManager;
-    private CameraTarget cameraTarget;
-
+    private Transform cannonBallTransform;
     private bool isFinished = false;
 
     public int Priority => inputMapSwitchingPriority;
-
     public string Name => $"{name} ({GetType().Name})";
-
     public BetterInputManager.InputType InputType => BetterInputManager.InputType.None;
 
     private void Awake()
     {
-        cameraTarget = wallCannon.GetComponent<CameraTarget>();
         wallCannonProjectileManager = wallCannon.GetComponent<ProjectileManager>();
     }
 
     private void OnEnable()
     {
         gameStartTrigger.onTriggerEnter += OnPuzzleStart;
-        cameraTarget.onSwitchedBack += CameraBackOnPlayer;
         wallCannonProjectileManager.onProjectileInstantiated.AddListener(OnCannonBallShot);
         wallCannonSwitch.onToggleImmediateEvent.AddListener(OnPlayerInteractedWithSwitch);
         finalShockOrbDamageHandler.onDeath.AddListener(OnFinalShockOrbDeath);
@@ -46,7 +43,6 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, Bet
     private void OnDisable()
     {
         gameStartTrigger.onTriggerEnter -= OnPuzzleStart;
-        cameraTarget.onSwitchedBack -= CameraBackOnPlayer;
         wallCannonProjectileManager.onProjectileInstantiated.RemoveListener(OnCannonBallShot);
         wallCannonSwitch.onToggleImmediateEvent.RemoveAllListeners();
         finalShockOrbDamageHandler.onDeath.RemoveListener(OnFinalShockOrbDeath);
@@ -82,19 +78,26 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, Bet
 
     private void OnCannonBallShot(Transform t)
     {
+        cannonBallTransform = t;
         var d = t.GetComponent<Destroyable>();
         d.onDestroyed += OnCannonBallDestroyed;
-        cameraTarget.SwitchTo(t);
+        targetFollowerCameraRequestEvent.Raise(new(
+            command: TargetFollowerCamera.Command.SetTemporaryTarget,
+            target: t,
+            maxSpeed: maxCameraSwitchSpeed
+        ));
     }
 
-    private void OnCannonBallDestroyed()
-    {
-        cameraTarget.SwitchBack();
-    }
+    private void OnCannonBallDestroyed() => targetFollowerCameraRequestEvent.Raise(new(
+            command: TargetFollowerCamera.Command.SwitchBackToMainTarget,
+            target: null,
+            maxSpeed: maxCameraSwitchSpeed
+        ));
 
-    private void CameraBackOnPlayer()
+    public void UnityEvent_OnCameraTargetCentered(Transform target)
     {
-        wallCannonSwitch.Toggle();
+        // Only toggle if it's the original player target
+        if (target != cannonBallTransform) wallCannonSwitch.Toggle();
     }
 
     private void OnPlayerInteractedWithSwitch()
