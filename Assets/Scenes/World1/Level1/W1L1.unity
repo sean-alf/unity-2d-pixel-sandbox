@@ -38853,6 +38853,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8ea69fd0cb694c2abc0a6b3aa5efccb, type: 3}
+--- !u!114 &1917380393 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3101983030017342991, guid: 5d097f0cd603c4bc78993615b1aeaf2f, type: 3}
+  m_PrefabInstance: {fileID: 390708109}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9afdeaae1bb27d6418d5d8cd5165faed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SuperTiled2Unity::SuperTiled2Unity.SuperMap
 --- !u!4 &1921966107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1346653915247444348, guid: f4d6f6da262ec41e79b353652d84d6fb, type: 3}
@@ -39401,11 +39412,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.1875
+      value: 4.09375
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -57.9375
+      value: -77.0625
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z
@@ -40198,6 +40209,18 @@ PrefabInstance:
       value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 2937775642085302455, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.2292157
+      objectReference: {fileID: 0}
+    - target: {fileID: 2937775642085302455, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.21000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2937775642085302455, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.0727451
+      objectReference: {fileID: 0}
+    - target: {fileID: 2937775642085302455, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
       value: 0
       objectReference: {fileID: 0}
@@ -40221,13 +40244,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: tilemap
+      value: 
+      objectReference: {fileID: 1917380393}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: tileLayer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: shadeAdjustment
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: preShadedColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: preShadedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: preShadedColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: preShadedColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: postShadedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: postShadedColor.b
+      value: 0.2292157
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: postShadedColor.g
+      value: 0.21000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593949822309940338, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
+      propertyPath: postShadedColor.r
+      value: 0.0727451
+      objectReference: {fileID: 0}
     - target: {fileID: 4758762970756930301, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.1875
+      value: 4.09375
       objectReference: {fileID: 0}
     - target: {fileID: 4758762970756930301, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -57.9375
+      value: -77.0625
       objectReference: {fileID: 0}
     - target: {fileID: 6125731054299193077, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40283,7 +40350,8 @@ PrefabInstance:
       objectReference: {fileID: 52699980}
     m_RemovedComponents:
     - {fileID: 5701246420978703958, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8994148312631323088, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f539a7ac00a642d7a3d5610f523ec4c, type: 3}

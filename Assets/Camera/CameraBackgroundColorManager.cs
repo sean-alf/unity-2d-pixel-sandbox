@@ -1,47 +1,44 @@
+using System.Linq;
+using SuperTiled2Unity;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
+[ExecuteAlways]
 [RequireComponent(typeof(Camera))]
 public class CameraBackgroundColorManager : MonoBehaviour
 {
-    [SerializeField]
-    private Tilemap tilemap;
-
-    [SerializeField]
-    [Range(0f, 1.0f)]
-    private float shadeAdjustment;
+    [SerializeField] private SuperTileLayer tileLayer;
+    [SerializeField][Range(0f, 1.0f)] private float shadeAdjustment;
 
     [Space]
     [Header("Debug")]
 
-    private new Camera camera;
-
-    private void OnEnable()
-    {
-        SetBackgroundColor();
-    }
+    [SerializeField] private Color preShadedColor;
+    [SerializeField] private Color postShadedColor;
 
     void Awake()
     {
+        var tileLayers = FindObjectsByType<SuperTileLayer>(FindObjectsSortMode.None);
+        tileLayer = tileLayers.First(l => l.gameObject.name == "Wall");
         SetBackgroundColor();
     }
 
+#if UNITY_EDITOR
     private void OnValidate()
     {
         SetBackgroundColor();
     }
+#endif
 
     private void SetBackgroundColor()
     {
-        if (tilemap == null)
+        if (tileLayer == null)
         {
             return;
         }
 
-        if (camera == null) camera = GetComponent<Camera>();
-
-        Color newTintedColor = tilemap.color * new Color(shadeAdjustment, shadeAdjustment, shadeAdjustment, tilemap.color.a);
-
-        camera.backgroundColor = newTintedColor;
+        var camera = GetComponent<Camera>();
+        preShadedColor = tileLayer.CalculateColor();
+        postShadedColor = preShadedColor * new Color(shadeAdjustment, shadeAdjustment, shadeAdjustment, preShadedColor.a);
+        camera.backgroundColor = postShadedColor;
     }
 }
