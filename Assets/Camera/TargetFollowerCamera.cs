@@ -30,30 +30,14 @@ public class TargetFollowerCamera : MonoBehaviour
     [Space]
     [Header("Debug")]
 
-    public string mainTargetName;
-    public string currentTargetName;
+    public string mainTargetName = "[Unset]";
+    public string currentTargetName = "[Unset]";
     [SerializeField] private float maxSpeed = 5;
     [SerializeField] private Vector3 velocity = Vector3.zero;
     [SerializeField] private bool catchUp = false;
 
     private Transform mainTarget;
     private Transform currentTarget;
-
-    private void OnEnable()
-    {
-#if UNITY_EDITOR
-        // Only do this when in the editor not in the real game
-        var go = GameObject.Find("Player");
-
-        if (go)
-        {
-            mainTarget = go.transform;
-            currentTarget = mainTarget;
-            mainTargetName = mainTarget != null ? mainTarget.name : "[Unset]";
-            currentTargetName = currentTarget != null ? currentTarget.name : "[Unset]";
-        }
-#endif
-    }
 
     void LateUpdate()
     {
@@ -93,6 +77,8 @@ public class TargetFollowerCamera : MonoBehaviour
 
     public void UnityEvent_SetRequest(TargetRequest req)
     {
+        // Debug.Log($"{name} ({GetType().Name}): reg: command {req.command}, target {req.target.name}, max speed {req.maxSpeed}");
+
         if (req.maxSpeed > 0) maxSpeed = req.maxSpeed;
 
         switch (req.command)

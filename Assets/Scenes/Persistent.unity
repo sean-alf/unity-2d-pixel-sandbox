@@ -1582,7 +1582,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!4 &5544255559878684027
 Transform:
   m_ObjectHideFlags: 0
@@ -1784,8 +1784,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   finishedCenteringTargetEvent: {fileID: 11400000, guid: 7043730fb1ebc4b82a8304bbf557e48e, type: 2}
-  mainTargetName: 
-  currentTargetName: 
+  mainTargetName: Player
+  currentTargetName: Player
   maxSpeed: 5
   velocity: {x: 0, y: 0, z: 0}
   catchUp: 0
@@ -2120,7 +2120,7 @@ Transform:
   m_GameObject: {fileID: 1059471690995180578}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.28125, y: -15.53125, z: -100}
+  m_LocalPosition: {x: 8.9375, y: -15.25, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
