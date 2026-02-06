@@ -1,18 +1,25 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using SuperTiled2Unity;
 using SuperTiled2Unity.Editor;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [AutoCustomTmxImporter()]
 public class AlfTmxImporter : CustomTmxImporter
 {
-    private static readonly int WallSortingOrder = 4;
+    private TmxImporterSettings settings;
 
     public override void TmxAssetImported(TmxAssetImportedArgs args)
     {
         var superMap = args.ImportedSuperMap;
+
+        // Ignore any rules maps
+        if (superMap.name.Contains("rules", StringComparison.OrdinalIgnoreCase)) return;
+
+        settings = GetOrCreateSettings();
         SetupGrid(superMap.gameObject);
     }
 
@@ -41,20 +48,39 @@ public class AlfTmxImporter : CustomTmxImporter
 
     private void SetupTilemaps(Tilemap[] tilemaps)
     {
-        foreach (var t in tilemaps)
+        foreach (var tilemap in tilemaps)
         {
-            SetupTilemap(t);
+            SetupTilemap(tilemap);
+
+            if (settings.tilemapSettingsList.FirstOrDefault(t => tilemap.name == t.name) == null)
+            {
+                settings.tilemapSettingsList.Insert(Array.IndexOf(tilemaps, tilemap), new()
+                {
+                    name = tilemap.name,
+                });
+            }
         }
     }
 
     private void SetupTilemap(Tilemap tilemap)
     {
         var layer = tilemap.GetComponent<SuperTileLayer>();
+        var renderer = tilemap.GetComponent<TilemapRenderer>();
+        var tilemapSettings = settings.tilemapSettingsList.FirstOrDefault(s => s.name == layer.m_TiledName);
 
-        if (layer.m_TiledName == "Wall") ConfigureWallTilemap(tilemap);
+        if (tilemapSettings != null)
+        {
+            tilemap.gameObject.layer = tilemapSettings.layer;
+            renderer.sortingOrder = tilemapSettings.sortingOrder;
+        }
+        else
+        {
+            Debug.LogWarning($"{GetType().Name}: tilemap settings null for tilemap {layer.m_TiledName}");
+        }
+
         if (layer.m_TiledName == "Reflecting Wall") ConfigureReflectingWallTilemap(tilemap);
         if (layer.m_TiledName == "Above Ground") ConfigureAboveGroundTilemap(tilemap);
-        if (layer.m_TiledName == "NPC Barrier") ConfigureNPCBarrierTilemap(tilemap);
+        if (layer.m_TiledName == "NPC Barrier") ConfigureNPCBarrierTilemap(renderer);
 
         if (tilemap.transform.childCount == 1)
         {
@@ -75,23 +101,11 @@ public class AlfTmxImporter : CustomTmxImporter
         }
     }
 
-    private void ConfigureWallTilemap(Tilemap tilemap)
-    {
-        tilemap.gameObject.layer = LayerNames.EnvironmentIndex;
-
-        var renderer = tilemap.GetComponent<TilemapRenderer>();
-        renderer.sortingOrder = WallSortingOrder;
-    }
-
     private void ConfigureReflectingWallTilemap(Tilemap tilemap)
     {
-        tilemap.gameObject.layer = LayerNames.EnvironmentIndex;
-
-        var renderer = tilemap.GetComponent<TilemapRenderer>();
         var reflectingWall = tilemap.gameObject.AddComponent<ReflectingWall>();
         var allCellPositions = tilemap.cellBounds.allPositionsWithin;
 
-        renderer.sortingOrder = WallSortingOrder;
         reflectingWall.tilemap = tilemap;
         allCellPositions.Reset();
         reflectingWall.defaultTileColor = tilemap.GetColor(allCellPositions.Current);
@@ -99,18 +113,14 @@ public class AlfTmxImporter : CustomTmxImporter
 
     private void ConfigureAboveGroundTilemap(Tilemap tilemap)
     {
-        tilemap.gameObject.layer = LayerNames.EnvironmentIndex;
-
         var tilemapManager = tilemap.gameObject.AddComponent<AboveGroundTilemapManager>();
         tilemapManager.tilemap = tilemap;
     }
 
-    private void ConfigureNPCBarrierTilemap(Tilemap tilemap)
+    private void ConfigureNPCBarrierTilemap(TilemapRenderer renderer)
     {
-        tilemap.gameObject.layer = LayerNames.NPCBarrierIndex;
-
         // This tilemap should be invisible
-        tilemap.GetComponent<TilemapRenderer>().enabled = false;
+        renderer.enabled = false;
     }
 
     private void SetTileColliderType(Tilemap tilemap, Func<SuperTile, bool> pred = null)
@@ -122,5 +132,20 @@ public class AlfTmxImporter : CustomTmxImporter
             tile.m_ColliderType = Tile.ColliderType.Sprite;
             tilemap.SetTile(cell, tile);
         }
+    }
+
+    private static TmxImporterSettings GetOrCreateSettings()
+    {
+        const string path = "Assets/Settings/TmxImporterSettings.asset";
+
+        var asset = AssetDatabase.LoadAssetAtPath<TmxImporterSettings>(path);
+        if (asset == null)
+        {
+            asset = ScriptableObject.CreateInstance<TmxImporterSettings>();
+            AssetDatabase.CreateAsset(asset, path);
+            AssetDatabase.SaveAssets();
+        }
+
+        return asset;
     }
 }

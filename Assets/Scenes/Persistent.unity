@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04161d9267ba4025bf36bb67b2b929f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  startFromCurrentScene: 1
+  startFromCurrentScene: 0
   teleportInInitially: 0
   transitionPoints: []
   targetBuildIndex: 1
@@ -2125,7 +2125,7 @@ Transform:
   m_GameObject: {fileID: 1059471690995180578}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.71875, y: -13.875, z: -100}
+  m_LocalPosition: {x: 62.9375, y: -8.40625, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
