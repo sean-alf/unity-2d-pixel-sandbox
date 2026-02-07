@@ -13,6 +13,7 @@ public class BetterInputManager : MonoBehaviour
         Full,
         Aiming,
         None,
+        UI,
     }
 
     public interface IInputChangeRequestor
@@ -31,6 +32,9 @@ public class BetterInputManager : MonoBehaviour
     }
 
     [SerializeField] private UnityEvent<InputType> onInputTypeChange;
+
+    [Header("Player Input")]
+
     [SerializeField] private UnityEvent<InputAction.CallbackContext> onAim;
     [SerializeField] private UnityEvent<InputAction.CallbackContext> onAimEnable;
     [SerializeField] private UnityEvent<InputAction.CallbackContext> onAttack;
@@ -39,6 +43,10 @@ public class BetterInputManager : MonoBehaviour
     [SerializeField] private UnityEvent<InputAction.CallbackContext> onNext;
     [SerializeField] private UnityEvent<InputAction.CallbackContext> onPrevious;
     [SerializeField] private UnityEvent<InputAction.CallbackContext> onShoot;
+
+    [Header("UI Input")]
+
+    [SerializeField] private UnityEvent<InputAction.CallbackContext> onSubmit;
 
     [Space]
     [Header("Debug")]
@@ -61,12 +69,15 @@ public class BetterInputManager : MonoBehaviour
     private InputAction previousAction;
     private InputAction shootAction;
     private InputAction modifyAction;
+    private InputAction submitAction;
 
     private readonly List<IInputChangeRequestor> inputChangeRequestors = new();
 
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
+
+        // Player Input Actions
         aimAction = InputSystemActionsNames.PlayerMap.GetAimAction(input);
         attackAction = InputSystemActionsNames.PlayerMap.GetAttackAction(input);
         interactAction = InputSystemActionsNames.PlayerMap.GetInteractAction(input);
@@ -75,17 +86,24 @@ public class BetterInputManager : MonoBehaviour
         previousAction = InputSystemActionsNames.PlayerMap.GetPreviousAction(input);
         shootAction = InputSystemActionsNames.PlayerMap.GetShootAction(input);
         modifyAction = InputSystemActionsNames.PlayerMap.GetModifyAction(input);
+
+        // UI Input Actions
+        submitAction = InputSystemActionsNames.UIMap.GetSubmitAction(input);
     }
 
     private void OnEnable()
     {
         SetInputToType(currentInputType);
+        // No need to register/unregister based on input type
+        // Because it is only used with the UI action map
+        submitAction.performed += OnSubmit;
     }
 
     private void OnDisable()
     {
         // Clear all registered callbacks, just in case
         UnregisterAllCallbacks();
+        submitAction.performed -= OnSubmit;
     }
 
     /// <summary>
@@ -173,6 +191,9 @@ public class BetterInputManager : MonoBehaviour
 
     private void SetInputToType(InputType type)
     {
+        // Default to player action map
+        string mapName = InputSystemActionsNames.PlayerMap.Name;
+
         // Clear any current callbacks so that we don't have any duplication
         UnregisterAllCallbacks();
 
@@ -184,10 +205,21 @@ public class BetterInputManager : MonoBehaviour
             case InputType.Aiming:
                 SetAimingInput();
                 break;
+            case InputType.UI:
+                mapName = InputSystemActionsNames.UIMap.Name;
+                break;
             case InputType.None:
                 // We already unregistered all callbacks, so do nothing
                 break;
         }
+
+        SwitchToMap(mapName);
+    }
+
+    private void SwitchToMap(string name)
+    {
+        if (input.currentActionMap.name == name) return;
+        input.SwitchCurrentActionMap(name);
     }
 
     private void SetFullInput()
@@ -235,6 +267,7 @@ public class BetterInputManager : MonoBehaviour
         shootAction.performed -= OnShoot;
     }
 
+    // Player Input Actions
     private void OnAim(InputAction.CallbackContext context) => onAim?.Invoke(context);
     private void OnAimEnable(InputAction.CallbackContext context) => onAimEnable?.Invoke(context);
     private void OnAttack(InputAction.CallbackContext context) => onAttack?.Invoke(context);
@@ -243,4 +276,7 @@ public class BetterInputManager : MonoBehaviour
     private void OnNext(InputAction.CallbackContext context) => onNext?.Invoke(context);
     private void OnPrevious(InputAction.CallbackContext context) => onPrevious?.Invoke(context);
     private void OnShoot(InputAction.CallbackContext context) => onShoot?.Invoke(context);
+
+    // UI Input Actions
+    private void OnSubmit(InputAction.CallbackContext context) => onSubmit?.Invoke(context);
 }

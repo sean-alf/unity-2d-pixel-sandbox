@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Animations
 {
-    public static Coroutine AnimateFloat(this MonoBehaviour m, float start, float end, int stepCount, float totalDuration, Action<float> onStep, Action onDone)
+    public static Coroutine AnimateFloat(this MonoBehaviour m, float start, float end, int stepCount, float totalDuration, Action<float> onStep, Action onDone = null)
     {
         IEnumerator Animate()
         {

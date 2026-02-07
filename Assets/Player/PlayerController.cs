@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour,
     [SerializeField] private Vector2 currentDirection;
     [SerializeField] private float speedFactor = 1f;
     [SerializeField] private List<Interactable> interactables = new();
+    [SerializeField] private Readable readable;
     [SerializeField] private Logger logger;
 
     // ──────────────────────────────────────────────────────────────
@@ -166,11 +167,12 @@ public class PlayerController : MonoBehaviour,
                 i.onInteractableStateChange += OnInteractableStateChange;
             }
         }
+        else if (other.TryGetComponent(out Readable r))
+        {
+            readable = r;
+        }
 
-        // If at least one Interactable that is currently interactable
-        // Then show the interact indicator
-        var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
-        if (found) interactIndicatorVisibilityEvent.Raise(true);
+        UpdateInteractIndicatorVisibility();
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -183,11 +185,12 @@ public class PlayerController : MonoBehaviour,
                 i.onInteractableStateChange += OnInteractableStateChange;
             }
         }
+        else if (other.TryGetComponent(out Readable r))
+        {
+            readable = null;
+        }
 
-        // If NOT at least one Interactable that is currently interactable
-        // Then hide the interact indicator
-        var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
-        if (!found) interactIndicatorVisibilityEvent.Raise(false);
+        UpdateInteractIndicatorVisibility();
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -220,8 +223,10 @@ public class PlayerController : MonoBehaviour,
             // Only handle one thing per interaction, otherwise it might be confusing
             // Hence the "break" below
             i.Interact(this);
-            break;
+            return;
         }
+
+        if (readable != null) readable.ReadMessage(inputManager);
     }
 
     public void UnityEvent_OnAttack(InputAction.CallbackContext _) => meleeWeaponManager.Attack(this);
@@ -259,10 +264,16 @@ public class PlayerController : MonoBehaviour,
         }
     }
 
+    public void UnityEvent_UI_OnSubmit(InputAction.CallbackContext _)
+    {
+        if (readable != null) readable.HideMessage();
+    }
+
     public void UnityEvent_OnInputTypeChanged(BetterInputManager.InputType type)
     {
         switch (type)
         {
+            case BetterInputManager.InputType.UI:
             case BetterInputManager.InputType.None:
                 rb.linearVelocity = Vector2.zero;
                 currentDirection = Vector2.zero;
@@ -350,6 +361,12 @@ public class PlayerController : MonoBehaviour,
     // ──────────────────────────────────────────────────────────────
     // Helpers
     // ──────────────────────────────────────────────────────────────
+
+    private void UpdateInteractIndicatorVisibility()
+    {
+        var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
+        interactIndicatorVisibilityEvent.Raise(found);
+    }
 
     private void HandleRecoil()
     {
