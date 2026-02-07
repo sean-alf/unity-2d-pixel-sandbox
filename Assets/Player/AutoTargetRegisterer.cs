@@ -3,11 +3,11 @@ using UnityEngine;
 [ExecuteAlways]
 public class AutoTargetRegisterer : MonoBehaviour
 {
-#if UNITY_EDITOR
-    [Header("This component automatically registers the player game object as the main target for the TargetFollowerCamera.\nThis includes in the editor as well.")]
+    [Header("This component automatically registers the player game object as the main target for the TargetFollowerCamera.")]
     [Space]
     [SerializeField] private TargetFollowerCameraRequestEvent targetFollowerCameraRequestEvent;
 
+#if UNITY_EDITOR
     private void OnEnable()
     {
         var go = GameObject.Find("Main Camera");
