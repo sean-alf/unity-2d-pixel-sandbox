@@ -26,8 +26,15 @@ static class SceneSwitcherExtensions
 [RequireComponent(typeof(Synchronizer))]
 public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 {
-    [SerializeField] private bool startFromCurrentScene = true;
+#if UNITY_EDITOR
+    private bool isEditor = true;
+
     [SerializeField] private bool teleportInInitially = false;
+#else
+    private bool isEditor = false;
+    private bool teleportInInitially = true;
+#endif
+    [SerializeField] private TargetFollowerCamera followerCamera;
 
     [Space]
     [Header("Debug")]
@@ -38,7 +45,6 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
     // The index of the scene that starts the levels, and isn't persistent
     [SerializeField] private int prevSceneIndex = (int)SceneIndex.FirstLevel;
     [SerializeField] private int lastLevelSceneIndex;
-    [SerializeField] private bool firstLoad = true;
     [SerializeField] private Logger logger;
 
     private Synchronizer sync;
@@ -50,14 +56,6 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
     private void Awake()
     {
         sync = GetComponent<Synchronizer>();
-
-        if (startFromCurrentScene && !SceneManager.GetActiveScene().buildIndex.IsLevelSceneIndex())
-        {
-            // This could cause all level scenes to be unloaded
-            Debug.LogError($"{name} ({GetType().Name}): startFromCurrentScene is enabled, but active scene is not a level scene!");
-            startFromCurrentScene = false;
-        }
-
         lastLevelSceneIndex = SceneManager.sceneCountInBuildSettings - 1;
     }
 
@@ -106,7 +104,7 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
     private void LoadScene(int sceneBuildIndex)
     {
         transitionPoints.ForEach(p => p.OnExit -= OnExit);
-        SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(sceneBuildIndex, LoadSceneMode.Additive);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -115,27 +113,15 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
         if (scene.IsPersistentScene())
         {
-            targetBuildIndex = startFromCurrentScene
-                ? SceneManager.GetActiveScene().buildIndex
-                : (int)SceneIndex.FirstLevel;
-            prevSceneIndex = targetBuildIndex;
-
-            StartCoroutine(UnloadUnwantedLoadedScenes(targetBuildIndex, onDone: () =>
+            if (isEditor)
             {
-                var targetScene = SceneManager.GetSceneByBuildIndex(targetBuildIndex);
-                if (targetScene.isLoaded)
-                {
-                    FindTransitionPointsThenEnter(teleportInInitially);
-                }
-                else
-                {
-                    // Debug.Log($"Target scene is NOT loaded");
-                    // ... otherwise load the scene first
-                    LoadScene(targetBuildIndex);
-                }
-
-                firstLoad = false;
-            }));
+                LoadInitialSceneForEditorBuild();
+            }
+            else
+            {
+                // Standalone build
+                LoadScene((int)SceneIndex.FirstLevel);
+            }
         }
         else
         {
@@ -152,10 +138,72 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
         }
     }
 
+    private void LoadInitialSceneForEditorBuild()
+    {
+        var targetScene = SceneManager.GetActiveScene();
+
+        // Debug.Log($"SceneSwitcher: OnSceneLoaded: active scene {targetScene.name}");
+
+        // If the active scene is Persistent, then find the first scene that is not
+        if (targetScene.IsPersistentScene())
+        {
+            // If a non-Persistent scene is found then use it, otherwise use the first level scene
+            targetScene = TryGetFirstNonPersistentScene(out targetScene) ? targetScene : SceneManager.GetSceneByBuildIndex((int)SceneIndex.FirstLevel);
+        }
+        targetBuildIndex = targetScene.buildIndex;
+        // Setting these equal signifies that this is the first loaded level
+        prevSceneIndex = targetBuildIndex;
+
+        // Debug.Log($"SceneSwitcher: OnSceneLoaded: target scene {targetScene.name}");
+        // Debug.Log($"SceneSwitcher: OnSceneLoaded: target scene build index {targetBuildIndex}");
+
+        StartCoroutine(UnloadAllScenesButTarget(targetBuildIndex, onDone: () =>
+        {
+            // Debug.Log($"SceneSwitcher: OnSceneLoaded: is target scene loaded {targetScene.isLoaded}");
+
+            if (IsSceneInScenesList(targetScene))
+            {
+                FindTransitionPointsThenEnter(teleportInInitially);
+            }
+            else
+            {
+                Debug.Log($"Target scene is NOT loaded");
+                // ... otherwise load the scene first
+                LoadScene(targetBuildIndex);
+            }
+        }));
+    }
+
+    private bool IsSceneInScenesList(Scene scene)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var sceneToCheck = SceneManager.GetSceneAt(i);
+            // Debug.Log($"SceneSwitcher: IsSceneInScenesList: scene {scene.name}, scene to check {sceneToCheck.name}");
+            // Debug.Log($"SceneSwitcher: IsSceneInScenesList: scene {scene.buildIndex}, scene to check {sceneToCheck.buildIndex}");
+            if (sceneToCheck.buildIndex == scene.buildIndex && sceneToCheck.name == scene.name) return true;
+        }
+
+        return false;
+    }
+
+    private bool TryGetFirstNonPersistentScene(out Scene scene)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var s = SceneManager.GetSceneAt(i);
+            if (s == null || s.IsPersistentScene()) continue;
+            scene = s; // Choose the first scene that is not persistent or null
+            return true;
+        }
+
+        scene = default;
+        return false;
+    }
+
     private void OnSceneUnloaded(Scene scene)
     {
-        if (firstLoad) return;
-
+        if (scene.buildIndex == prevSceneIndex) return;
         FindTransitionPointsThenEnter();
     }
 
@@ -185,13 +233,13 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
         transitionPoints.ForEach(p => p.OnExit += OnExit);
     }
 
-    private IEnumerator UnloadUnwantedLoadedScenes(int targetBuildIndex, Action onDone)
+    private IEnumerator UnloadAllScenesButTarget(int targetBuildIndex, Action onDone)
     {
         for (int i = lastLevelSceneIndex; i >= 0; i--)
         {
             var scene = SceneManager.GetSceneByBuildIndex(i);
 
-            if (scene.isLoaded && scene.buildIndex.IsLevelSceneIndex() && scene.buildIndex != targetBuildIndex)
+            if (scene.buildIndex.IsLevelSceneIndex() && scene.buildIndex != targetBuildIndex)
             {
                 yield return SceneManager.UnloadSceneAsync(scene);
             }

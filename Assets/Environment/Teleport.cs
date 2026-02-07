@@ -35,40 +35,40 @@ public class Teleport : MonoBehaviour,
     private SpriteRenderer sr;
     private LinearAnimator animator;
 
-    public Logger Logger => logger;
+    private static readonly Vector2 FinishingDirection = Vector2.up;
 
     public Action<TransitionType> OnExit { get; set; }
 
     public TransitionType TransitionType => transitionType;
-
     public int Priority => inputMapSwitchingPriority;
-
     public string Name => $"{name} ({GetType().Name})";
-
     public BetterInputManager.InputType InputType => BetterInputManager.InputType.None;
+    public Logger Logger => logger;
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<LinearAnimator>();
 
+        Debug.Log($"{name} ({GetType().Name}): Awake: travelType {travelType}");
         switch (travelType)
         {
             case TravelType.Oneway:
                 {
-                    var color = sr.color;
-                    color.a = 0.0f;
-                    sr.color = color;
                     Activate(false);
                     break;
                 }
             case TravelType.Bidirectional:
                 {
-                    animator.Animate("Default");
                     Activate(true);
                     break;
                 }
         }
+    }
+
+    private void Start()
+    {
+        animator.Animate("Default");
     }
 
     public void AnimateAndTeleportToNextScene(GameObject target)
@@ -84,7 +84,7 @@ public class Teleport : MonoBehaviour,
 
         if (target.TryGetComponent(out AutoMover a))
         {
-            a.MoveTo(transform.position, () =>
+            a.MoveTo(transform.position, FinishingDirection, () =>
             {
                 // OnDone
                 RunTeleportationAnimation(inputManager, false);
@@ -102,17 +102,20 @@ public class Teleport : MonoBehaviour,
     /// </summary>
     public void PrepareToEnter()
     {
-        // Let's not assume that we know if the PlayerController will be active at this point
-        var target = FindAnyObjectByType<PlayerController>(FindObjectsInactive.Include);
+        Activate(false);
+        sr.color = sr.color.WithAlpha(1f);
+        animator.Animate("Default");
 
-        target.gameObject.SetActive(false);
+        // Let's not assume that we know if the PlayerController will be active at this point
+        var target = FindAnyObjectByType<BetterInputManager>(FindObjectsInactive.Include);
+        var visibilityManager = target.gameObject.GetComponent<SpriteRendererVisibilityManager>();
+        var playerController = target.GetComponent<PlayerController>();
+
+        target.AddInputChangeRequest(this);
+        playerController.UpdateDirection(FinishingDirection);
+        visibilityManager.SetVisibility(visible: false);
         target.transform.position = transform.position;
 
-        var color = sr.color;
-        color.a = 1.0f;
-        sr.color = color;
-        animator.Animate("Default");
-        Activate(false);
     }
 
     /// <summary>
@@ -121,7 +124,10 @@ public class Teleport : MonoBehaviour,
     /// </summary>
     public void Enter()
     {
-        // The Player IS inactive at this point
+        // SceneManager may try to acces this Teleport when multiple scenes are loaded in the Scene Editor
+        // The Teleport may be null by that point due to unloading of non-target scenes
+        if (this == null) return;
+
         var target = FindAnyObjectByType<BetterInputManager>(FindObjectsInactive.Include);
 
         if (target != null)
@@ -141,40 +147,40 @@ public class Teleport : MonoBehaviour,
 
         if (template.TryGetComponent(out TeleportingAnimator ta))
         {
-            ta.Animate(() =>
-            {
-                // On Cover
-                target.gameObject.SetActive(teleportIn);
-                target.AddInputChangeRequest(this);
-            }, () =>
-            {
-                // On Done
-                if (teleportIn)
+            ta.Animate(
+                onCover: () => target.gameObject.GetComponent<SpriteRendererVisibilityManager>().SetVisibility(visible: teleportIn),
+                onDone: () =>
                 {
-                    this.AnimateFloat(
-                        start: 1.0f,
-                        end: 0.0f,
-                        stepCount: fadeSteps,
-                        totalDuration: fadeDuration,
-                        onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
-                        onDone: () =>
-                        {
-                            animator.Stop();
-
-                            if (travelType == TravelType.Bidirectional)
+                    if (teleportIn)
+                    {
+                        this.AnimateFloat(
+                            start: 1.0f,
+                            end: 0.0f,
+                            stepCount: fadeSteps,
+                            totalDuration: fadeDuration,
+                            onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
+                            onDone: () =>
                             {
-                                StartCoroutine(WatchPlayerDistance(target.gameObject));
-                            }
+                                animator.Stop();
 
-                            target.RemoveInputChangeRequest(this);
-                        }
-                    );
+                                if (travelType == TravelType.Bidirectional)
+                                {
+                                    StartCoroutine(WatchPlayerDistance(target.gameObject));
+                                }
+
+                                target.RemoveInputChangeRequest(this);
+                            }
+                        );
+                    }
+                    else
+                    {
+                        // This must be done so that there is only one PlayerInput instance in the scene at a time
+                        // Otherwise it gets cleard out
+                        target.gameObject.SetActive(false);
+                        OnExit?.Invoke(transitionType);
+                    }
                 }
-                else
-                {
-                    OnExit?.Invoke(transitionType);
-                }
-            });
+            );
         }
         else
         {

@@ -75,6 +75,8 @@ public class BetterInputManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log($"{name} ({GetType().Name}): Awake");
+
         input = GetComponent<PlayerInput>();
 
         // Player Input Actions
@@ -89,10 +91,13 @@ public class BetterInputManager : MonoBehaviour
 
         // UI Input Actions
         submitAction = InputSystemActionsNames.UIMap.GetSubmitAction(input);
+
+        input.SwitchCurrentActionMap(InputSystemActionsNames.PlayerMap.Name);
     }
 
     private void OnEnable()
     {
+        Debug.Log($"{name} ({GetType().Name}): OnEnable");
         SetInputToType(currentInputType);
         // No need to register/unregister based on input type
         // Because it is only used with the UI action map
@@ -101,6 +106,7 @@ public class BetterInputManager : MonoBehaviour
 
     private void OnDisable()
     {
+        Debug.Log($"{name} ({GetType().Name}): OnDisable");
         // Clear all registered callbacks, just in case
         UnregisterAllCallbacks();
         submitAction.performed -= OnSubmit;
@@ -191,6 +197,8 @@ public class BetterInputManager : MonoBehaviour
 
     private void SetInputToType(InputType type)
     {
+        Debug.Log($"{name} ({GetType().Name}): SetInputTypeTo: type {type}");
+
         // Default to player action map
         string mapName = InputSystemActionsNames.PlayerMap.Name;
 

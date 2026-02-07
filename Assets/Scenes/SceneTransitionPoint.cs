@@ -48,11 +48,11 @@ public class SceneTransitionPoint : MonoBehaviour, ILoggerProvider
 
     public void Enter()
     {
-        transitionPoint.Enter();
+        transitionPoint?.Enter();
     }
 
     public void PrepareToEnter()
     {
-        transitionPoint.PrepareToEnter();
+        transitionPoint?.PrepareToEnter();
     }
 }

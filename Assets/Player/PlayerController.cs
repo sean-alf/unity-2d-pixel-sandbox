@@ -194,6 +194,17 @@ public class PlayerController : MonoBehaviour,
     }
 
     // ──────────────────────────────────────────────────────────────
+    // Public Methods
+    // ──────────────────────────────────────────────────────────────
+
+    // Only use this when the player's direction needs to be changed immediately
+    // Never use this when the player should have control of movement/direction.
+    public void UpdateDirection(Vector2 direction)
+    {
+        OnDirectionChanged(direction);
+    }
+
+    // ──────────────────────────────────────────────────────────────
     // Input System Unity Event Methods
     // ──────────────────────────────────────────────────────────────
 

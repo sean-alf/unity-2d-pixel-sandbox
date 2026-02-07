@@ -3,15 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Tilemaps/w1-l1-map.tmx",
+    "activeFile": "Tilemaps/w1-l3-map.tmx",
     "expandedProjectPaths": [
+        "Tilemaps",
         "Tilemaps/Rules",
-        "TileSets",
-        "Properties",
-        "Rules",
         "Worlds",
-        ".",
-        "Tilemaps"
+        "TileSets",
+        "Rules",
+        "Properties",
+        "."
     ],
     "fileStates": {
         ":/automap-tiles.tsx": {
@@ -34,7 +34,7 @@
         },
         "TileSets/ForestGround.tsx": {
             "scaleInDock": 1.5222,
-            "scaleInEditor": 2.55
+            "scaleInEditor": 2.54
         },
         "TileSets/GeneralFloorAndGround.tsx": {
             "scaleInDock": 1,
@@ -85,7 +85,7 @@
             "scale": 1.4019,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 373.06512590056354,
+                "x": 333.4759968614024,
                 "y": 897.7102503744918
             }
         },
@@ -96,8 +96,8 @@
             "scale": 1.4495,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": -599.8620213866851,
-                "y": 1401.5177647464643
+                "x": 1599.8620213866852,
+                "y": 1600.2069679199726
             }
         },
         "Tilemaps/w1-l3-map.tmx": {
@@ -125,18 +125,17 @@
     "openFiles": [
         "Tilemaps/w1-l1-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
-        "Tilemaps/w1-l3-map.tmx",
-        "TileSets/Wall.tsx"
+        "Tilemaps/w1-l3-map.tmx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "TileSets/Wall.tsx",
-        "Tilemaps/w1-l3-map.tmx",
-        "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
-        "TileSets/MuddyGround.tsx",
+        "Tilemaps/w1-l2-map.tmx",
+        "Tilemaps/w1-l3-map.tmx",
         "TileSets/ForestGround.tsx",
+        "TileSets/Wall.tsx",
+        "TileSets/MuddyGround.tsx",
         "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/PlatformTracks.tsx",
         "Rules/wall_rules.tmx",

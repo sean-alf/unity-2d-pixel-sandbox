@@ -36,10 +36,15 @@ public class AutoMover : MonoBehaviour, ILoggerProvider
 
     public void MoveTo(Vector2 position, Action onDone)
     {
-        StartCoroutine(AutoMoveTo(position, onDone));
+        StartCoroutine(AutoMoveTo(position, Vector2.zero, onDone));
     }
 
-    private IEnumerator AutoMoveTo(Vector2 position, Action onDone)
+    public void MoveTo(Vector2 position, Vector2 finishingDirection, Action onDone)
+    {
+        StartCoroutine(AutoMoveTo(position, finishingDirection, onDone));
+    }
+
+    private IEnumerator AutoMoveTo(Vector2 position, Vector2 finishingDirection, Action onDone)
     {
         float speed = autoMoverTarget.Speed;
         Vector2 xTarget = new(position.x, rb.position.y);
@@ -69,7 +74,7 @@ public class AutoMover : MonoBehaviour, ILoggerProvider
             yield return new WaitForFixedUpdate();
         }
 
-        autoMoverTarget.OnDirectionChanged(Vector2.zero);
+        if (!finishingDirection.IsIdle()) autoMoverTarget.OnDirectionChanged(finishingDirection);
 
         onDone?.Invoke();
     }
