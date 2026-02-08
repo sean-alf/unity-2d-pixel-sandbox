@@ -26,6 +26,7 @@ public class Teleport : MonoBehaviour,
     [SerializeField] private int pixelsPerUnit = 32;
     [SerializeField] private float fadeDuration = 0.5f;
     [SerializeField] private int fadeSteps = 6;
+    [SerializeField] private bool isTeleporting = false;
 
     [Space]
     [Header("Debug")]
@@ -73,27 +74,19 @@ public class Teleport : MonoBehaviour,
 
     public void AnimateAndTeleportToNextScene(GameObject target)
     {
-        if (target.TryGetComponent(out BetterInputManager inputManager))
-        {
-            inputManager.AddInputChangeRequest(this);
-        }
-        else
-        {
-            logger.E($"{target.name}: no {nameof(PlayerController)} attached!!");
-        }
+        if (isTeleporting) return;
 
-        if (target.TryGetComponent(out AutoMover a))
+        isTeleporting = true;
+
+        var inputManager = target.GetComponent<BetterInputManager>();
+        var autoMover = target.GetComponent<AutoMover>();
+
+        inputManager.AddInputChangeRequest(this);
+        autoMover.MoveTo(transform.position, FinishingDirection, () =>
         {
-            a.MoveTo(transform.position, FinishingDirection, () =>
-            {
-                // OnDone
-                RunTeleportationAnimation(inputManager, false);
-            });
-        }
-        else
-        {
-            logger.E($"{target.name}: no {nameof(AutoMover)} attached!!");
-        }
+            // OnDone
+            RunTeleportationAnimation(inputManager, false);
+        });
     }
 
     /// <summary>
@@ -115,7 +108,6 @@ public class Teleport : MonoBehaviour,
         playerController.UpdateDirection(FinishingDirection);
         visibilityManager.SetVisibility(visible: false);
         target.transform.position = transform.position;
-
     }
 
     /// <summary>
@@ -143,49 +135,46 @@ public class Teleport : MonoBehaviour,
     private void RunTeleportationAnimation(BetterInputManager target, bool teleportIn)
     {
         var template = Instantiate(teleportingAnimationTemplate);
+        var teleportingAnimator = template.GetComponent<TeleportingAnimator>();
+
         template.transform.position = transform.position;
-
-        if (template.TryGetComponent(out TeleportingAnimator ta))
-        {
-            ta.Animate(
-                onCover: () => target.gameObject.GetComponent<SpriteRendererVisibilityManager>().SetVisibility(visible: teleportIn),
-                onDone: () =>
+        teleportingAnimator.Animate(
+            onCover: () => target.gameObject.GetComponent<SpriteRendererVisibilityManager>().SetVisibility(visible: teleportIn),
+            onDone: () =>
+            {
+                if (teleportIn)
                 {
-                    if (teleportIn)
-                    {
-                        this.AnimateFloat(
-                            start: 1.0f,
-                            end: 0.0f,
-                            stepCount: fadeSteps,
-                            totalDuration: fadeDuration,
-                            onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
-                            onDone: () =>
+                    this.AnimateFloat(
+                        start: 1.0f,
+                        end: 0.0f,
+                        stepCount: fadeSteps,
+                        totalDuration: fadeDuration,
+                        onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
+                        onDone: () =>
+                        {
+                            animator.Stop();
+
+                            if (travelType == TravelType.Bidirectional)
                             {
-                                animator.Stop();
-
-                                if (travelType == TravelType.Bidirectional)
-                                {
-                                    StartCoroutine(WatchPlayerDistance(target.gameObject));
-                                }
-
-                                target.RemoveInputChangeRequest(this);
+                                StartCoroutine(WatchPlayerDistance(target.gameObject));
                             }
-                        );
-                    }
-                    else
-                    {
-                        // This must be done so that there is only one PlayerInput instance in the scene at a time
-                        // Otherwise it gets cleard out
-                        target.gameObject.SetActive(false);
-                        OnExit?.Invoke(transitionType);
-                    }
+
+                            target.RemoveInputChangeRequest(this);
+                        }
+                    );
                 }
-            );
-        }
-        else
-        {
-            logger.E($"template ({teleportingAnimationTemplate.name}): no {nameof(TeleportingAnimator)} attached!");
-        }
+                else
+                {
+                    // This must be done so that there is only one PlayerInput instance in the scene at a time
+                    // Otherwise it gets cleard out
+                    target.gameObject.SetActive(false);
+                    Activate(false);
+                    OnExit?.Invoke(transitionType);
+                }
+
+                isTeleporting = false;
+            }
+        );
     }
 
     private IEnumerator WatchPlayerDistance(GameObject target)

@@ -27,14 +27,16 @@ static class SceneSwitcherExtensions
 public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 {
 #if UNITY_EDITOR
-    private bool isEditor = true;
+    private readonly bool isEditor = true;
 
     [SerializeField] private bool teleportInInitially = false;
 #else
-    private bool isEditor = false;
+    private readonly bool isEditor = false;
+
     private bool teleportInInitially = true;
 #endif
     [SerializeField] private TargetFollowerCamera followerCamera;
+    [SerializeField] private WashoutController washoutController;
 
     [Space]
     [Header("Debug")]
@@ -49,7 +51,6 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
     private Synchronizer sync;
     private TransitionType fromTransitionType = TransitionType.EXIT;
-
 
     public Logger Logger => logger;
 
@@ -98,7 +99,7 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
     private void OnExit(TransitionType type)
     {
         fromTransitionType = type;
-        Switch();
+        washoutController.FadeIn(() => Switch());
     }
 
     private void LoadScene(int sceneBuildIndex)
@@ -109,10 +110,12 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Debug.Log($"SceneSwitcher: OnSceneLoaded: scene build index {scene.buildIndex}, prev {prevSceneIndex}");
+        Debug.Log($"SceneSwitcher: OnSceneLoaded: scene build index {scene.buildIndex}, prev {prevSceneIndex}");
 
         if (scene.IsPersistentScene())
         {
+            washoutController.Show();
+
             if (isEditor)
             {
                 LoadInitialSceneForEditorBuild();
@@ -217,11 +220,10 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
             .IfNotNull(p =>
             {
                 p.PrepareToEnter();
-                sync.WaitForSync(() =>
-                    {
-                        // On Synchronized
-                        p.Enter();
-                    });
+                sync.WaitForSync(onDone: () =>
+                {
+                    washoutController.FadeOut(() => p.Enter());
+                });
             })
             .IfNull(() => Debug.LogError("SceneSwitcher: no entry points found!!"));
     }

@@ -23,7 +23,9 @@ public static class Animations
 
             if (range == 0)
             {
-                Debug.LogError("AnimateFloat: end - start must be non-zero");
+                // Not really an error
+                // Debug.LogError("AnimateFloat: end - start must be non-zero");
+                onDone?.Invoke();
                 yield break;
             }
 
