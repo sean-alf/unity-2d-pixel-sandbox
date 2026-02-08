@@ -375,7 +375,7 @@ public class PlayerController : MonoBehaviour,
 
     private void UpdateInteractIndicatorVisibility()
     {
-        var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable);
+        var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable) || readable != null;
         interactIndicatorVisibilityEvent.Raise(found);
     }
 

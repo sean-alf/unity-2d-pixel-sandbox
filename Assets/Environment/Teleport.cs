@@ -51,7 +51,8 @@ public class Teleport : MonoBehaviour,
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<LinearAnimator>();
 
-        Debug.Log($"{name} ({GetType().Name}): Awake: travelType {travelType}");
+        // Debug.Log($"{name} ({GetType().Name}): Awake: travelType {travelType}");
+
         switch (travelType)
         {
             case TravelType.Oneway:

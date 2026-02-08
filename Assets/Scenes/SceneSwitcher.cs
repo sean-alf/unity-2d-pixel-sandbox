@@ -110,7 +110,7 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log($"SceneSwitcher: OnSceneLoaded: scene build index {scene.buildIndex}, prev {prevSceneIndex}");
+        // Debug.Log($"SceneSwitcher: OnSceneLoaded: scene build index {scene.buildIndex}, prev {prevSceneIndex}");
 
         if (scene.IsPersistentScene())
         {
@@ -170,7 +170,8 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
             }
             else
             {
-                Debug.Log($"Target scene is NOT loaded");
+                // Debug.Log($"Target scene is NOT loaded");
+
                 // ... otherwise load the scene first
                 LoadScene(targetBuildIndex);
             }
