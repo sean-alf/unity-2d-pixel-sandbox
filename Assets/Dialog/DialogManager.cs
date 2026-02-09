@@ -78,7 +78,12 @@ public class DialogManager : MonoBehaviour
 
         foreach (var lineInfo in info.lineInfo)
         {
+            if (lineInfo.characterCount == 0) continue;
+
             var firstIndex = lineInfo.firstVisibleCharacterIndex;
+
+            Debug.Log($"DialogManager: line height {lineInfo.lineHeight}, first index {firstIndex}, char count {lineInfo.characterCount}");
+
             messageList.Add(message.Substring(firstIndex, lineInfo.characterCount).Trim());
         }
 
