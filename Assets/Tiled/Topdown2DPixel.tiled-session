@@ -34,11 +34,11 @@
         },
         "TileSets/ForestGround.tsx": {
             "scaleInDock": 1.5222,
-            "scaleInEditor": 2.54
+            "scaleInEditor": 6.9256
         },
         "TileSets/GeneralFloorAndGround.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1.8107
+            "scaleInEditor": 3.4959
         },
         "TileSets/GreenWall.tsx": {
             "dynamicWrapping": true,
@@ -53,6 +53,9 @@
         "TileSets/PlatformTracks.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 3.22
+        },
+        "TileSets/StairsLaddersStepsEtc.tsx": {
+            "scaleInEditor": 2.84
         },
         "TileSets/Wall.tsx": {
             "dynamicWrapping": false,
@@ -82,33 +85,33 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 1.4019,
-            "selectedLayer": 2,
+            "scale": 2.29,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 333.4759968614024,
-                "y": 897.7102503744918
+                "x": 3053.930131004367,
+                "y": 358.7336244541485
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 1.4495,
+            "scale": 0.2686,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1599.8620213866852,
-                "y": 1600.2069679199726
+                "x": 4819.434102755025,
+                "y": 1721.891288160834
             }
         },
         "Tilemaps/w1-l3-map.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 1.424,
+            "scale": 0.2686,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1600.0702247191011,
-                "y": 1600.0702247191011
+                "x": -5057.706626954579,
+                "y": 1569.2479523454952
             }
         }
     },
@@ -130,18 +133,18 @@
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "TileSets/GeneralFloorAndGround.tsx",
+        "TileSets/ForestGround.tsx",
+        "TileSets/Wall.tsx",
+        "TileSets/StairsLaddersStepsEtc.tsx",
         "Tilemaps/w1-l1-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l3-map.tmx",
-        "TileSets/ForestGround.tsx",
-        "TileSets/Wall.tsx",
         "TileSets/MuddyGround.tsx",
-        "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/PlatformTracks.tsx",
         "Rules/wall_rules.tmx",
         "TileSets/Conveyer.tsx",
-        "Tilemaps/TestMap.tmx",
-        "Tilemaps/TestMap2.tmx"
+        "Tilemaps/TestMap.tmx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx"

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1468971369698140235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.848173, y: -55.33535, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -117,4 +117,5 @@ MonoBehaviour:
         - {fileID: 7768651319141402334, guid: 11a598b6772dd4d4788b5209ceb33d6c, type: 3}
         inactiveSprite: {fileID: 7768651319141402334, guid: 11a598b6772dd4d4788b5209ceb33d6c, type: 3}
         duration: 0.2
+        clearSpriteOnCompletion: 0
         loop: 0

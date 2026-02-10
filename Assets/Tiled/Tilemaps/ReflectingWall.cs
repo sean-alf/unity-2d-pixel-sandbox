@@ -7,8 +7,12 @@ public class ReflectingWall : MonoBehaviour
 {
     [SerializeField] private float colorLerpSpeed = 5f;
     [SerializeField] private float colorDistanceThreshold = 0.3f;
-    [SerializeField] private GameObject reflectionAnimationTemplate;
     [SerializeField] private bool useGreenTileFeedback = false;
+
+    [Space]
+    [Header("Debug")]
+
+    public GameObject reflectionAnimationTemplate;
 
     public Tilemap tilemap;
     public Color defaultTileColor;

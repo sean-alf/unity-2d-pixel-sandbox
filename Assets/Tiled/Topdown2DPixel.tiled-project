@@ -84,7 +84,8 @@
             "storageType": "string",
             "type": "enum",
             "values": [
-                "DeepMud"
+                "DeepMud",
+                "Stairs"
             ],
             "valuesAsFlags": false
         },

@@ -21,10 +21,13 @@ MonoBehaviour:
     sortingOrder: 1
   - name: Wall
     layer: 10
-    sortingOrder: 4
+    sortingOrder: 2
   - name: Reflecting Wall
     layer: 10
-    sortingOrder: 4
+    sortingOrder: 2
+  - name: AboveWall
+    layer: 10
+    sortingOrder: 3
   - name: NPC Barrier
     layer: 17
-    sortingOrder: 4
+    sortingOrder: 2

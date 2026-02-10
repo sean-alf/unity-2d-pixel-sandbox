@@ -1287,6 +1287,132 @@ ScriptedImporter:
         y: 32
       name: GreenWall_35
       spriteId: f0acb63de888a480bb94badebe693f94
+    - tileId: 36
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_36
+      spriteId: 9f5d8852770444f4d8b723c8f7905732
+    - tileId: 37
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_37
+      spriteId: ecfc79c2510f4401eb74be5717fb9689
+    - tileId: 38
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_38
+      spriteId: 8de66205acdf84979bbb15388844c22d
+    - tileId: 39
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_39
+      spriteId: 4dcd794e5e1344aed9f0239f7eeca030
+    - tileId: 40
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_40
+      spriteId: 776413a9a9174407d91837279a78fd0d
+    - tileId: 41
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_41
+      spriteId: ac1a62e13b96d401493a5bd7dc119787
+    - tileId: 42
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_42
+      spriteId: 07160a374f8f144e694354471f0a08dc
+    - tileId: 43
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_43
+      spriteId: 9c50abe6f790a4c4498712e385a6477b
+    - tileId: 44
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_44
+      spriteId: c9d3888714e7244279f35c277901d22f
+    - tileId: 45
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_45
+      spriteId: 3c89e3046e5f14efbb7c1724f3670d00
+    - tileId: 46
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_46
+      spriteId: a5d86de2d492148b7b25ae92f11fa07b
+    - tileId: 47
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_47
+      spriteId: 09f1a9ecb1b884c3d8a66fad2e42c643
+    - tileId: 48
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_48
+      spriteId: b13786cd07f5342e48062ff7015a18b5
+    - tileId: 49
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_49
+      spriteId: 93b2714f6ba4a436284daabc426438ec
+    - tileId: 50
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_50
+      spriteId: dfd06d28dfb0143e095d5b5f41535deb
+    - tileId: 51
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_51
+      spriteId: 231da2cfaf7f24478bc726f29813a34c
+    - tileId: 52
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_52
+      spriteId: cf9442452fbe44c5f822b9f75cdfcf9f
+    - tileId: 53
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_53
+      spriteId: bc3cb01c1db3341918196efbe2df94b5
+    - tileId: 54
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_54
+      spriteId: 132427f878110446593bf651b05d7742
+    - tileId: 55
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_55
+      spriteId: 9796b1cd5297b4d3089aeb8cd7342bf6
+    - tileId: 56
+      size:
+        x: 32
+        y: 32
+      name: GreenWall_56
+      spriteId: 545a4eada2cab49eaa73b3060fc0a0c6
     guid: -1135564739
   platformSettings:
   - name: DefaultTexturePlatform
@@ -1329,4 +1455,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 512, y: 512}
-  previousTextureSize: {x: 256, y: 256}
+  previousTextureSize: {x: 256, y: 512}

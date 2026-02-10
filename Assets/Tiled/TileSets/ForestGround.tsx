@@ -4,11 +4,7 @@
  <tile id="5">
   <properties>
    <property name="destroyableType" propertytype="DestroyableType" value="Bush"/>
-   <property name="solid" type="bool" value="true"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="32" height="32"/>
-  </objectgroup>
  </tile>
  <tile id="20" probability="0.5"/>
  <tile id="36" probability="0.5"/>

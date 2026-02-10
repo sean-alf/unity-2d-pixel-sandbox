@@ -10,6 +10,7 @@ public class TileTracker : MonoBehaviour
     {
         None,
         DeepMud,
+        Stairs,
     }
 
     public UnityEvent<Vector3Int> onTileChange;

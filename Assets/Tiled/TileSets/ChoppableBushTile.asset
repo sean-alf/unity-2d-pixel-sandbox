@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca81c190693a41d3a82e9a687fc3eb3, type: 3}
+  m_Name: ChoppableBushTile
+  m_EditorClassIdentifier: Assembly-CSharp::ReplaceableTile
+  type: 0
+  initialTile: {fileID: -3301327428740728627, guid: 4faa5624155d34c6ebd014dcf78a3259, type: 3}
+  replaceWith: {fileID: 406797534189869079, guid: 4faa5624155d34c6ebd014dcf78a3259, type: 3}
+  optionalReplaceAnimationTemplate: {fileID: 1468971369698140235, guid: 588474c05706240edac3c5306785b38d, type: 3}
+  isReplaced: 0

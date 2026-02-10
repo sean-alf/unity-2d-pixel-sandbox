@@ -8,19 +8,31 @@ public static class GenericExtensions
         return t;
     }
 
+    public static T WhenNullReturn<T>(this T t, Func<T> onNull) where T : UnityEngine.Object
+    {
+        if (t == null) return onNull();
+        return t;
+    }
+
+    public static T WhenNotNull<T>(this T t, Action<T> onNotNull) where T : UnityEngine.Object
+    {
+        if (t != null) onNotNull(t);
+        return t;
+    }
+
     public static T WhenNullClass<T>(this T t, Action onNull) where T : class
     {
         if (t == null) onNull();
         return t;
     }
 
-    public static T WhenNotNullClass<T>(this T t, Action<T> onNotNull) where T : class
+    public static T WhenNullClassReturn<T>(this T t, Func<T> onNull) where T : class
     {
-        if (t != null) onNotNull(t);
+        if (t == null) return onNull();
         return t;
     }
 
-    public static T WhenNotNull<T>(this T t, Action<T> onNotNull) where T : UnityEngine.Object
+    public static T WhenNotNullClass<T>(this T t, Action<T> onNotNull) where T : class
     {
         if (t != null) onNotNull(t);
         return t;

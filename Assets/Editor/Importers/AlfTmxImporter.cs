@@ -72,6 +72,13 @@ public class AlfTmxImporter : CustomTmxImporter
         {
             tilemap.gameObject.layer = tilemapSettings.layer;
             renderer.sortingOrder = tilemapSettings.sortingOrder;
+
+            if (tilemap.transform.childCount == 1) // If has the polygon collider GameObject
+            {
+                // Make sure it's on the correct layer
+                var polygonCollider = tilemap.transform.GetChild(0).gameObject;
+                polygonCollider.layer = tilemapSettings.layer;
+            }
         }
         else
         {
@@ -79,42 +86,31 @@ public class AlfTmxImporter : CustomTmxImporter
         }
 
         if (layer.m_TiledName == "Reflecting Wall") ConfigureReflectingWallTilemap(tilemap);
-        if (layer.m_TiledName == "Above Ground") ConfigureAboveGroundTilemap(tilemap);
         if (layer.m_TiledName == "NPC Barrier") ConfigureNPCBarrierTilemap(renderer);
-
-        if (tilemap.transform.childCount == 1)
-        {
-            if (layer.m_TiledName == "Above Ground")
-            {
-                SetTileColliderType(tilemap, tile => tile.GetPropertyValueAsBool("solid"));
-            }
-            else
-            {
-                SetTileColliderType(tilemap);
-            }
-            UnityEngine.Object.DestroyImmediate(tilemap.transform.GetChild(0).gameObject);
-            var rb = tilemap.gameObject.AddComponent<Rigidbody2D>();
-            rb.bodyType = RigidbodyType2D.Static;
-            tilemap.gameObject.AddComponent<CompositeCollider2D>();
-            var collider = tilemap.gameObject.AddComponent<TilemapCollider2D>();
-            collider.compositeOperation = Collider2D.CompositeOperation.Merge;
-        }
     }
 
     private void ConfigureReflectingWallTilemap(Tilemap tilemap)
     {
-        var reflectingWall = tilemap.gameObject.AddComponent<ReflectingWall>();
+        var polygonColliderObject = tilemap.transform.GetChild(0).gameObject;
+        var reflectingWall = polygonColliderObject.AddComponent<ReflectingWall>();
         var allCellPositions = tilemap.cellBounds.allPositionsWithin;
 
         reflectingWall.tilemap = tilemap;
         allCellPositions.Reset();
         reflectingWall.defaultTileColor = tilemap.GetColor(allCellPositions.Current);
-    }
 
-    private void ConfigureAboveGroundTilemap(Tilemap tilemap)
-    {
-        var tilemapManager = tilemap.gameObject.AddComponent<AboveGroundTilemapManager>();
-        tilemapManager.tilemap = tilemap;
+        var path = "Assets/Effects/ReflectionAnimation.prefab";
+        var anim = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+
+        if (anim != null)
+        {
+            reflectingWall.reflectionAnimationTemplate = anim;
+        }
+        else
+        {
+            Debug.LogError($"{GetType().Name}: reflection animation template not found at path {path}!");
+        }
+
     }
 
     private void ConfigureNPCBarrierTilemap(TilemapRenderer renderer)
@@ -123,28 +119,18 @@ public class AlfTmxImporter : CustomTmxImporter
         renderer.enabled = false;
     }
 
-    private void SetTileColliderType(Tilemap tilemap, Func<SuperTile, bool> pred = null)
-    {
-        foreach (var cell in tilemap.cellBounds.allPositionsWithin)
-        {
-            var tile = tilemap.GetTile<SuperTile>(cell);
-            if (tile == null || (pred != null && !pred(tile))) continue;
-            tile.m_ColliderType = Tile.ColliderType.Sprite;
-            tilemap.SetTile(cell, tile);
-        }
-    }
-
     private static TmxImporterSettings GetOrCreateSettings()
     {
         const string path = "Assets/Settings/TmxImporterSettings.asset";
 
-        var asset = AssetDatabase.LoadAssetAtPath<TmxImporterSettings>(path);
-        if (asset == null)
-        {
-            asset = ScriptableObject.CreateInstance<TmxImporterSettings>();
-            AssetDatabase.CreateAsset(asset, path);
-            AssetDatabase.SaveAssets();
-        }
+        var asset = AssetDatabase.LoadAssetAtPath<TmxImporterSettings>(path)
+            .WhenNullReturn(() =>
+            {
+                var asset = ScriptableObject.CreateInstance<TmxImporterSettings>();
+                AssetDatabase.CreateAsset(asset, path);
+                AssetDatabase.SaveAssets();
+                return asset;
+            });
 
         return asset;
     }
