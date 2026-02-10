@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Readable : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 {
-    [SerializeField] private string message;
+    [SerializeField][TextArea] private string message;
     [SerializeField] private string senderName;
     [SerializeField] private int inputMapChangePriority = 90;
 
@@ -42,9 +42,9 @@ public class Readable : MonoBehaviour, BetterInputManager.IInputChangeRequestor
         dialogManager.ShowMessage(message);
     }
 
-    public void HideMessage()
+    public void ShowNextMessagePageOrClose()
     {
-        dialogManager.Hide(onDone: () =>
+        dialogManager.ShowNextMessagePageOrClose(onDone: () =>
         {
             inputManager.RemoveInputChangeRequest(this);
             inputManager = null;

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -10,19 +9,15 @@ public class DialogManager : MonoBehaviour
 {
     [SerializeField] private float fadeAnimationDuration = 0.25f;
     [SerializeField] private int fadeAnimationStepCount = 10;
-    [SerializeField] private float characterTypeDuration = 0.1f;
-
-    [Space]
-    [Header("Debug")]
-
-    [SerializeField] private List<string> messageList = new();
+    [SerializeField] private float charsPerSecond = 60f;
+    [SerializeField] private float pageTurnDelay = 0.3f;
+    [SerializeField] private float pageScrollDuration = 1f;
 
     private Image container;
     private TextMeshProUGUI text;
-    private WaitForSeconds charTypeWait;
-    private bool canBeClosed = false;
-    private int lineCount = 0;
-
+    private WaitForSeconds charTypeDelayWait;
+    private WaitForSeconds pageTurnDelayWait;
+    private Coroutine typingCoroutine;
 
     private void Awake()
     {
@@ -32,78 +27,111 @@ public class DialogManager : MonoBehaviour
         SetAlpha(0);
         text.text = null;
         gameObject.SetActive(false);
-        charTypeWait = new(characterTypeDuration);
+        charTypeDelayWait = new(1f / charsPerSecond);
+        pageTurnDelayWait = new(pageTurnDelay);
     }
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        charTypeWait = new(characterTypeDuration);
+        charTypeDelayWait = new(1f / charsPerSecond);
+        pageTurnDelayWait = new(pageTurnDelay);
     }
 #endif
 
     public void ShowMessage(string message)
     {
-        canBeClosed = false;
-
         if (gameObject.activeSelf)
         {
             Debug.LogError($"DialogManager: game object is active and ShowMessage was called!");
             return;
         }
 
-        PrepareMessage(message);
+        text.text = message;
+        text.pageToDisplay = 1;
+        text.maxVisibleCharacters = 0;
+
         SetAlpha(0);
         gameObject.SetActive(true);
-        Fade(endAlphaValue: 1f, onDone: TypeMessage);
+        Fade(endAlphaValue: 1f, onDone: () => TypeMessage());
     }
 
-    public void Hide(Action onDone = null)
+    public void ShowNextMessagePageOrClose(Action onDone)
     {
-        if (!gameObject.activeSelf || !canBeClosed) return;
+        // Ignore if typing
+        if (typingCoroutine != null) return;
+
+        if (text.pageToDisplay == text.textInfo.pageCount)
+        {
+            Hide(onDone);
+        }
+        else
+        {
+            StartCoroutine(StartTextScroll(
+                onScrollToBottom: () =>
+                {
+                    text.maxVisibleCharacters = 0;
+                },
+                onDone: () =>
+                {
+                    text.pageToDisplay += 1;
+                    TypeMessage();
+                }
+            ));
+        }
+    }
+
+    private void Hide(Action onDone)
+    {
+        if (!gameObject.activeSelf) return;
         Fade(endAlphaValue: 0f, onDone: () =>
         {
             gameObject.SetActive(false);
-            onDone?.Invoke();
+            onDone();
         });
     }
 
-    private void PrepareMessage(string message)
+    private void TypeMessage()
     {
-        messageList.Clear();
-
-        var info = text.GetTextInfo(message);
-        lineCount = info.lineCount;
-        Debug.Log($"DialogManager: line count {lineCount}");
-
-        foreach (var lineInfo in info.lineInfo)
-        {
-            if (lineInfo.characterCount == 0) continue;
-
-            var firstIndex = lineInfo.firstVisibleCharacterIndex;
-
-            Debug.Log($"DialogManager: line height {lineInfo.lineHeight}, first index {firstIndex}, char count {lineInfo.characterCount}");
-
-            messageList.Add(message.Substring(firstIndex, lineInfo.characterCount).Trim());
-        }
-
-        text.text = null;
+        text.ForceMeshUpdate();
+        var pageInfo = text.textInfo.pageInfo[text.pageToDisplay - 1];
+        typingCoroutine = StartCoroutine(TypeMessageCoroutine(
+            charStartIndex: pageInfo.firstCharacterIndex,
+            charEndIndex: pageInfo.lastCharacterIndex
+        ));
     }
 
-    private void TypeMessage() => StartCoroutine(TypeMessageCoroutine(onDone: () => canBeClosed = true));
-
-    private IEnumerator TypeMessageCoroutine(Action onDone)
+    private IEnumerator TypeMessageCoroutine(int charStartIndex, int charEndIndex)
     {
-        foreach (var line in messageList)
+        int charCount = charStartIndex + 1;
+        while (charCount <= (charEndIndex + 1))
         {
-            foreach (var c in line)
-            {
-                text.text += c;
-                yield return charTypeWait;
-            }
-
-            if (messageList.IndexOf(line) != lineCount - 1) text.text += "\n";
+            text.maxVisibleCharacters = charCount++;
+            yield return charTypeDelayWait;
         }
+
+        yield return pageTurnDelayWait;
+
+        typingCoroutine = null;
+    }
+
+    private IEnumerator StartTextScroll(Action onScrollToBottom, Action onDone)
+    {
+        float elapsed = 0f;
+        Vector2 startPos = text.rectTransform.anchoredPosition;
+        float scrollDistance = text.rectTransform.rect.height;
+
+        while (elapsed < pageScrollDuration)
+        {
+            elapsed += Time.deltaTime;
+            text.rectTransform.anchoredPosition = Vector2.Lerp(startPos, startPos.AddY(scrollDistance), elapsed / pageScrollDuration);
+            yield return null;
+        }
+
+        onScrollToBottom();
+
+        // Snap back to starting position
+        text.rectTransform.anchoredPosition = startPos;
 
         onDone();
     }

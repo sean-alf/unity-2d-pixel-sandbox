@@ -277,7 +277,7 @@ public class PlayerController : MonoBehaviour,
 
     public void UnityEvent_UI_OnSubmit(InputAction.CallbackContext _)
     {
-        if (readable != null) readable.HideMessage();
+        if (readable != null) readable.ShowNextMessagePageOrClose();
     }
 
     public void UnityEvent_OnInputTypeChanged(BetterInputManager.InputType type)

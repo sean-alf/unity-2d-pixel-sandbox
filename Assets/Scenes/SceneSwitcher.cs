@@ -114,7 +114,7 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
         if (scene.IsPersistentScene())
         {
-            washoutController.Show();
+            if (teleportInInitially) washoutController.Show();
 
             if (isEditor)
             {
