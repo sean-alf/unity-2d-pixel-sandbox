@@ -213,6 +213,90 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 44, y: 4}
+  - name: StairsLaddersStepsEtc_5
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 44
+      width: 32
+      height: 32
+    spriteID: 7208a36e2a8d54011acc49fe6a356f44
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 44}
+  - name: StairsLaddersStepsEtc_6
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 84
+      width: 32
+      height: 32
+    spriteID: 5f1469505c5ac4ae7921dcf7ad0d872d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 84}
+  - name: StairsLaddersStepsEtc_7
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 4
+      width: 32
+      height: 32
+    spriteID: 35e3c1608c2264263ab481c1d9c9d13b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 4}
+  - name: StairsLaddersStepsEtc_8
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 44
+      width: 32
+      height: 32
+    spriteID: 6b5eebe285602428398e4e79d0240e8b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 44}
   asepriteLayers:
   - layerIndex: 0
     uuid:
@@ -235,7 +319,7 @@ ScriptedImporter:
         y: 0
         width: 3
         height: 2
-      tileIndices: 010000000100000001000000020000000200000002000000
+      tileIndices: 060000000400000005000000070000000300000008000000
     tileSetIndex: 0
     parentIndex: -1
   tileSets:
@@ -269,6 +353,30 @@ ScriptedImporter:
         y: 32
       name: StairsLaddersStepsEtc_4
       spriteId: 2d6be520a0f0f41ea91e96756867afc2
+    - tileId: 5
+      size:
+        x: 32
+        y: 32
+      name: StairsLaddersStepsEtc_5
+      spriteId: 7208a36e2a8d54011acc49fe6a356f44
+    - tileId: 6
+      size:
+        x: 32
+        y: 32
+      name: StairsLaddersStepsEtc_6
+      spriteId: 5f1469505c5ac4ae7921dcf7ad0d872d
+    - tileId: 7
+      size:
+        x: 32
+        y: 32
+      name: StairsLaddersStepsEtc_7
+      spriteId: 35e3c1608c2264263ab481c1d9c9d13b
+    - tileId: 8
+      size:
+        x: 32
+        y: 32
+      name: StairsLaddersStepsEtc_8
+      spriteId: 6b5eebe285602428398e4e79d0240e8b
     guid: 1404586994
   platformSettings: []
   generatePhysicsShape: 0

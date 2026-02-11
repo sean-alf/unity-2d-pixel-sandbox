@@ -25,7 +25,7 @@ MonoBehaviour:
   - name: Reflecting Wall
     layer: 10
     sortingOrder: 2
-  - name: AboveWall
+  - name: Above Wall
     layer: 10
     sortingOrder: 3
   - name: NPC Barrier

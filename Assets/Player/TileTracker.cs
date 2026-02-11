@@ -13,33 +13,32 @@ public class TileTracker : MonoBehaviour
         Stairs,
     }
 
-    public UnityEvent<Vector3Int> onTileChange;
-    public UnityEvent<Vector3Int, TileType> onTileTypeChange;
+    public UnityEvent<Tilemap, Vector3Int> onTileChange;
+    public UnityEvent<Tilemap, Vector3Int, TileType> onTileTypeChange;
 
-    private Tilemap groundMap;
+    private readonly Tilemap[] tilemaps = new Tilemap[1];
+    private readonly string[] tilemapNames = new[]
+    {
+        "Above Ground",
+    };
     private Vector3Int currentTileCell;
     private TileType currentType = TileType.None;
 
-    private void Start()
-    {
-        var go = GameObject.Find("Above Ground");
-
-        if (go != null)
-        {
-            groundMap = go.GetComponent<Tilemap>();
-        }
-    }
+    private void Start() => FindTilemaps();
 
     void Update()
     {
-        if (groundMap == null) return;
+        foreach (var tilemap in tilemaps) ProcessTilemap(tilemap);
+    }
 
-        var cell = groundMap.WorldToCell(transform.position);
+    private void ProcessTilemap(Tilemap tilemap)
+    {
+        var cell = tilemap.WorldToCell(transform.position);
 
         if (cell != currentTileCell)
         {
             currentTileCell = cell;
-            var tile = groundMap.GetTile<SuperTile>(currentTileCell);
+            var tile = tilemap.GetTile<SuperTile>(currentTileCell);
             var type = TileType.None;
 
             if (tile)
@@ -50,11 +49,20 @@ public class TileTracker : MonoBehaviour
                     type = Enum.Parse<TileType>(typeString);
                 }
 
-                onTileChange?.Invoke(currentTileCell);
+                onTileChange?.Invoke(tilemap, currentTileCell);
             }
 
-            if (type != currentType) onTileTypeChange?.Invoke(currentTileCell, type);
+            if (type != currentType) onTileTypeChange?.Invoke(tilemap, currentTileCell, type);
             currentType = type;
         }
+    }
+
+    private void FindTilemaps()
+    {
+        int index = 0;
+
+        foreach (string tilemapName in tilemapNames) GameObject.Find(tilemapName)
+            .WhenNotNull(go => tilemaps[index++] = go.GetComponent<Tilemap>())
+            .WhenNull(() => Debug.LogError($"{name} ({GetType().Name}): tilemap {tilemapName} not found!"));
     }
 }

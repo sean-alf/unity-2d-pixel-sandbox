@@ -131,7 +131,7 @@
         "Tilemaps/w1-l3-map.tmx"
     ],
     "project": "Topdown2DPixel.tiled-project",
-    "property.type": "string",
+    "property.type": "TileType",
     "recentFiles": [
         "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/ForestGround.tsx",

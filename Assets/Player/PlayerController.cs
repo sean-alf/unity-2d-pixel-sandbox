@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(HealthManager))]
 [RequireComponent(typeof(LinearAnimator))]
@@ -315,14 +316,14 @@ public class PlayerController : MonoBehaviour,
 
     private void ProjectileManager_OnShoot(Transform _) => RecoilBegin();
 
-    public void TileTracker_OnTileChanged(Vector3Int cell)
+    public void TileTracker_OnTileChanged(Tilemap tilemap, Vector3Int cell)
     {
-        logger.D($"new tile cell {cell}");
+        logger.D($"tilemap {tilemap.name}, new tile cell {cell}");
     }
 
-    public void TileTracker_OnTileTypeChanged(Vector3Int cell, TileTracker.TileType type)
+    public void TileTracker_OnTileTypeChanged(Tilemap tilemap, Vector3Int cell, TileTracker.TileType type)
     {
-        logger.D($"new tile cell {cell} type {type}");
+        logger.D($"tilemap {tilemap.name}, new tile cell {cell} type {type}");
 
         switch (type)
         {
@@ -334,6 +335,11 @@ public class PlayerController : MonoBehaviour,
             case TileTracker.TileType.DeepMud:
                 speedFactor = 0.5f;
                 effectAnimator.Animate("Mud");
+                break;
+            case TileTracker.TileType.Stairs:
+                speedFactor = 0.75f;
+                effectAnimator.Stop(clearSprite: true);
+                effectAnimator.ClearCurrentAnimation();
                 break;
         }
     }
