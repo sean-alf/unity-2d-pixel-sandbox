@@ -22,6 +22,12 @@ public class PlayerController : MonoBehaviour,
     BetterInputManager.IInputChangeRequestor
 {
     // ──────────────────────────────────────────────────────────────
+    // Constants/Statics
+    // ──────────────────────────────────────────────────────────────
+
+    private const string NotFacingCorrectlyMessage = "You can't access this from your current position ...";
+
+    // ──────────────────────────────────────────────────────────────
     // Serialized Fields
     // ──────────────────────────────────────────────────────────────
 
@@ -35,6 +41,7 @@ public class PlayerController : MonoBehaviour,
     [Space]
     [Header("Debug")]
 
+    [SerializeField] private DialogManager dialogManager;
     [SerializeField] private Vector2 currentDirection;
     [SerializeField] private float speedFactor = 1f;
     [SerializeField] private List<Interactable> interactables = new();
@@ -127,6 +134,11 @@ public class PlayerController : MonoBehaviour,
     {
         projectileManager.onProjectileChanged.RemoveListener(ProjectileManager_OnProjectilChanged);
         projectileManager.onProjectileInstantiated.RemoveListener(ProjectileManager_OnShoot);
+    }
+
+    private void Start()
+    {
+        dialogManager = FindFirstObjectByType<DialogManager>(FindObjectsInactive.Include);
     }
 
     private void Update()
@@ -242,7 +254,7 @@ public class PlayerController : MonoBehaviour,
             if (i == null) continue;
 
             // Only handle one thing per interaction, otherwise it might be confusing
-            // Hence the "break" below
+            // Hence the "return" below
             i.Interact(this);
             return;
         }
@@ -259,13 +271,17 @@ public class PlayerController : MonoBehaviour,
             }
             else
             {
-                logger.W("TODO: handle player trying to collect item cache but not facing its front");
+                inputType = BetterInputManager.InputType.UI;
+                inputManager.AddInputChangeRequest(this);
+                dialogManager.ShowMessage(NotFacingCorrectlyMessage);
             }
+            return;
         }
 
         if (readable != null)
         {
             readable.ReadMessage(inputManager);
+            return;
         }
 
     }
@@ -308,6 +324,11 @@ public class PlayerController : MonoBehaviour,
     public void UnityEvent_UI_OnSubmit(InputAction.CallbackContext _)
     {
         if (readable != null) readable.ShowNextMessagePageOrClose();
+        if (dialogManager.IsShowing) dialogManager.ShowNextMessagePageOrClose(onClosed: () =>
+        {
+            inputManager.RemoveInputChangeRequest(this);
+            inputType = BetterInputManager.InputType.Aiming;
+        });
     }
 
     public void UnityEvent_OnInputTypeChanged(BetterInputManager.InputType type)

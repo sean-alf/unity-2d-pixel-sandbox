@@ -7,17 +7,23 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class DialogManager : MonoBehaviour
 {
+    public bool IsShowing => gameObject.activeSelf;
+
     [SerializeField] private float fadeAnimationDuration = 0.25f;
     [SerializeField] private int fadeAnimationStepCount = 10;
     [SerializeField] private float charsPerSecond = 60f;
     [SerializeField] private float pageTurnDelay = 0.3f;
     [SerializeField] private float pageScrollDuration = 1f;
 
+    [Space]
+    [Header("Debug")]
+
+    [SerializeField] private bool ignoreInput = false;
+
     private Image container;
     private TextMeshProUGUI text;
     private WaitForSeconds charTypeDelayWait;
     private WaitForSeconds pageTurnDelayWait;
-    private Coroutine typingCoroutine;
 
     private void Awake()
     {
@@ -41,11 +47,9 @@ public class DialogManager : MonoBehaviour
 
     public void ShowMessage(string message)
     {
-        if (gameObject.activeSelf)
-        {
-            Debug.LogError($"DialogManager: game object is active and ShowMessage was called!");
-            return;
-        }
+        if (ignoreInput) return;
+
+        ignoreInput = true;
 
         text.text = message;
         text.pageToDisplay = 1;
@@ -56,14 +60,15 @@ public class DialogManager : MonoBehaviour
         Fade(endAlphaValue: 1f, onDone: () => TypeMessage());
     }
 
-    public void ShowNextMessagePageOrClose(Action onDone)
+    public void ShowNextMessagePageOrClose(Action onClosed)
     {
-        // Ignore if typing
-        if (typingCoroutine != null) return;
+        if (ignoreInput) return;
+
+        ignoreInput = true;
 
         if (text.pageToDisplay == text.textInfo.pageCount)
         {
-            Hide(onDone);
+            Close(onClosed);
         }
         else
         {
@@ -81,13 +86,14 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    private void Hide(Action onDone)
+    private void Close(Action onClosed)
     {
         if (!gameObject.activeSelf) return;
         Fade(endAlphaValue: 0f, onDone: () =>
         {
             gameObject.SetActive(false);
-            onDone();
+            ignoreInput = false;
+            onClosed();
         });
     }
 
@@ -95,7 +101,7 @@ public class DialogManager : MonoBehaviour
     {
         text.ForceMeshUpdate();
         var pageInfo = text.textInfo.pageInfo[text.pageToDisplay - 1];
-        typingCoroutine = StartCoroutine(TypeMessageCoroutine(
+        StartCoroutine(TypeMessageCoroutine(
             charStartIndex: pageInfo.firstCharacterIndex,
             charEndIndex: pageInfo.lastCharacterIndex
         ));
@@ -112,7 +118,7 @@ public class DialogManager : MonoBehaviour
 
         yield return pageTurnDelayWait;
 
-        typingCoroutine = null;
+        ignoreInput = false;
     }
 
     private IEnumerator StartTextScroll(Action onScrollToBottom, Action onDone)

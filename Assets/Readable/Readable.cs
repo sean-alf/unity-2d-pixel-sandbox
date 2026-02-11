@@ -44,7 +44,7 @@ public class Readable : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 
     public void ShowNextMessagePageOrClose()
     {
-        dialogManager.ShowNextMessagePageOrClose(onDone: () =>
+        dialogManager.ShowNextMessagePageOrClose(onClosed: () =>
         {
             inputManager.RemoveInputChangeRequest(this);
             inputManager = null;
