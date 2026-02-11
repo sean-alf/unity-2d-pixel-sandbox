@@ -260,13 +260,14 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 2939165100773571567}
   effectAnimator: {fileID: 5897339515335483366}
   interactIndicatorVisibilityEvent: {fileID: 11400000, guid: cf359f2dd615c46f589b3499abe8a80f, type: 2}
+  dialogManager: {fileID: 0}
   currentDirection: {x: 0, y: 0}
   speedFactor: 1
   interactables: []
   readable: {fileID: 0}
   itemCache: {fileID: 0}
   logger:
-    logLevel: 1
+    logLevel: 3
   onDirectionChange:
     m_PersistentCalls:
       m_Calls: []

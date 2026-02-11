@@ -214,6 +214,7 @@ MonoBehaviour:
   charsPerSecond: 60
   pageTurnDelay: 0.3
   pageScrollDuration: 0.35
+  ignoreInput: 0
 --- !u!114 &775293176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,7 +496,7 @@ MonoBehaviour:
   prevSceneIndex: 1
   lastLevelSceneIndex: 0
   logger:
-    logLevel: 0
+    logLevel: 3
 --- !u!4 &1654408609
 Transform:
   m_ObjectHideFlags: 0
@@ -2465,7 +2466,7 @@ Transform:
   m_GameObject: {fileID: 1059471690995180578}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.09375, y: -24.5625, z: -100}
+  m_LocalPosition: {x: 8.40625, y: -24.59375, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
