@@ -16,23 +16,21 @@ public class TileTracker : MonoBehaviour
     public UnityEvent<Tilemap, Vector3Int> onTileChange;
     public UnityEvent<Tilemap, Vector3Int, TileType> onTileTypeChange;
 
-    private readonly Tilemap[] tilemaps = new Tilemap[1];
-    private readonly string[] tilemapNames = new[]
-    {
-        "Above Ground",
-    };
-    private Vector3Int currentTileCell;
-    private TileType currentType = TileType.None;
+    [Space]
+    [Header("Debug")]
+    [SerializeField] private Tilemap tilemap;
+    [SerializeField] private Vector3Int currentTileCell;
+    [SerializeField] private TileType currentType = TileType.None;
 
-    private void Start() => FindTilemaps();
+    private void Start() => FindTilemap();
 
-    void Update()
-    {
-        foreach (var tilemap in tilemaps) ProcessTilemap(tilemap);
-    }
+    void Update() => ProcessTilemap(tilemap);
 
     private void ProcessTilemap(Tilemap tilemap)
     {
+        // In case the current scene doesn't have the Above Ground tilemap/tile layer
+        if (tilemap == null) return;
+
         var cell = tilemap.WorldToCell(transform.position);
 
         if (cell != currentTileCell)
@@ -57,12 +55,10 @@ public class TileTracker : MonoBehaviour
         }
     }
 
-    private void FindTilemaps()
+    private void FindTilemap()
     {
-        int index = 0;
-
-        foreach (string tilemapName in tilemapNames) GameObject.Find(tilemapName)
-            .WhenNotNull(go => tilemaps[index++] = go.GetComponent<Tilemap>())
-            .WhenNull(() => Debug.LogError($"{name} ({GetType().Name}): tilemap {tilemapName} not found!"));
+        GameObject.Find("Above Ground")
+            .WhenNotNull(go => tilemap = go.GetComponent<Tilemap>())
+            .WhenNull(() => Debug.LogWarning($"{name} ({GetType().Name}): tilemap AboveGround not found!"));
     }
 }
