@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour,
     [SerializeField] private float speedFactor = 1f;
     [SerializeField] private List<Interactable> interactables = new();
     [SerializeField] private Readable readable;
+    [SerializeField] private ItemCache itemCache;
     [SerializeField] private Logger logger;
 
     // ──────────────────────────────────────────────────────────────
@@ -172,6 +173,10 @@ public class PlayerController : MonoBehaviour,
         {
             readable = r;
         }
+        else if (other.gameObject.TryGetComponent(out ItemCache ic))
+        {
+            itemCache = ic;
+        }
 
         UpdateInteractIndicatorVisibility();
     }
@@ -186,9 +191,13 @@ public class PlayerController : MonoBehaviour,
                 i.onInteractableStateChange += OnInteractableStateChange;
             }
         }
-        else if (other.TryGetComponent(out Readable r))
+        else if (other.TryGetComponent(out Readable _))
         {
             readable = null;
+        }
+        else if (other.TryGetComponent(out ItemCache _))
+        {
+            itemCache = null;
         }
 
         UpdateInteractIndicatorVisibility();
@@ -238,7 +247,27 @@ public class PlayerController : MonoBehaviour,
             return;
         }
 
-        if (readable != null) readable.ReadMessage(inputManager);
+        if (itemCache != null)
+        {
+            Vector2 direction = transform.rotation * Vector2.up;
+
+            if (direction == Vector2.up)
+            {
+                itemCache.Collect(gameObject);
+                itemCache = null;
+                UpdateInteractIndicatorVisibility();
+            }
+            else
+            {
+                logger.W("TODO: handle player trying to collect item cache but not facing its front");
+            }
+        }
+
+        if (readable != null)
+        {
+            readable.ReadMessage(inputManager);
+        }
+
     }
 
     public void UnityEvent_OnAttack(InputAction.CallbackContext _) => meleeWeaponManager.Attack(this);
@@ -381,7 +410,9 @@ public class PlayerController : MonoBehaviour,
 
     private void UpdateInteractIndicatorVisibility()
     {
-        var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable) || readable != null;
+        var found = interactables.Find(i => !i.TryGetComponent(out Interactable.IOverride o) || o.IsInteractable)
+            || readable != null
+            || (itemCache != null && !itemCache.IsCollected);
         interactIndicatorVisibilityEvent.Raise(found);
     }
 

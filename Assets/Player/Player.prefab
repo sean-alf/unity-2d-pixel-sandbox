@@ -203,11 +203,15 @@ MonoBehaviour:
       m_Calls: []
   projectiles:
   - {fileID: 11400000, guid: be13011e2b5414e2b95bea7faa3ec29d, type: 2}
-  - {fileID: 11400000, guid: ff070e1858bb447bc940df4cf678b0d5, type: 2}
   spriteChangeEvent: {fileID: 11400000, guid: 91ccdd6ae24fa42c1a66b0b48a2e07f1, type: 2}
   coolDownCounter: 0
   logger:
     logLevel: 3
+  selectedProjectile: {fileID: 0}
+  projectileCount: 0
+  currentIndex: 0
+  shootingLayer: 0
+  activeProjectiles: 0
 --- !u!114 &6440799228650472467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +264,7 @@ MonoBehaviour:
   speedFactor: 1
   interactables: []
   readable: {fileID: 0}
+  itemCache: {fileID: 0}
   logger:
     logLevel: 1
   onDirectionChange:
@@ -406,6 +411,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  tilemap: {fileID: 0}
+  currentTileCell: {x: 0, y: 0, z: 0}
+  currentType: 0
 --- !u!114 &4944997684531950368
 MonoBehaviour:
   m_ObjectHideFlags: 0

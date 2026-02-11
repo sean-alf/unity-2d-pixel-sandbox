@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ProjectileSO", menuName = "Scriptable Objects/ProjectileSO")]
-public class ProjectileSO : ScriptableObject
+public class ProjectileSO : ScriptableObject, ItemCache.ICollectible
 {
     [SerializeField] private Sprite menuIcon;
     [SerializeField] private Sprite playerEye;
@@ -10,6 +10,12 @@ public class ProjectileSO : ScriptableObject
 
     public Sprite MenuIcon => menuIcon;
     public Sprite PlayerEye => playerEye;
+
+    public void Collect(GameObject collector)
+    {
+        var projectileManager = collector.GetComponent<ProjectileManager>();
+        projectileManager.AddProjectile(this);
+    }
 
     public void Instantiate(Action<BasicProjectile> onNotNull)
     {

@@ -39,7 +39,8 @@ public class ReplaceableTile : TileBase
             var template = Instantiate(optionalReplaceAnimationTemplate, worldSpace.Add(0.5f, 0.5f), Quaternion.identity);
             var animator = template.GetComponent<LinearAnimator>();
             animator.Animate("Default", replaceAnimationDone);
-            tilemap.RefreshTile(position);
         }
+
+        tilemap.RefreshTile(position);
     }
 }

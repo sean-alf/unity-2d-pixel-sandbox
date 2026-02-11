@@ -19,14 +19,18 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
 
     [Space]
     [Header("Debug")]
+    [Space]
 
     [SerializeField] private float coolDownCounter = 0;
     [SerializeField] private Logger logger;
 
-    private ProjectileSO selectedProjectile;
-    private int currentIndex = 0;
-    private int shootingLayer;
-    private int activeProjectiles = 0;
+    [SerializeField] private ProjectileSO selectedProjectile;
+    [Header("How many different types of projectiles the player has access to.")]
+    [SerializeField] private int projectileCount = 0;
+    [SerializeField] private int currentIndex = 0;
+    [SerializeField] private int shootingLayer;
+    [Header("How many projectiles of the currently selected type have been instantiated and have not been destroyed.")]
+    [SerializeField] private int activeProjectiles = 0;
 
     public Logger Logger => logger;
     /// <summary>
@@ -40,7 +44,9 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
 
     private void Awake()
     {
-        if (projectiles == null || projectiles.Count == 0)
+        projectileCount = projectiles.Count;
+
+        if (projectiles == null || projectileCount == 0)
         {
             Debug.LogError("Projectile Manager: Projectiles not set!!");
             return;
@@ -121,6 +127,12 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
         shootingLayer = LayerMask.NameToLayer(layer);
     }
 
+    public void AddProjectile(ProjectileSO so)
+    {
+        projectiles.Add(so);
+        projectileCount = projectiles.Count;
+    }
+
     // ──────────────────────────────────────────────────────────────
     // Interface Implementation Methods
     // ──────────────────────────────────────────────────────────────
@@ -128,14 +140,14 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
     // ActionableItemGroupsManager.IActionableItemGroup
     public void CycleToNextItem()
     {
-        currentIndex = (currentIndex + 1) % projectiles.Count;
+        currentIndex = (currentIndex + 1) % projectileCount;
         SetProjectiles();
     }
 
     // ActionableItemGroupsManager.IActionableItemGroup
     public void CycleToPreviousItem()
     {
-        currentIndex = (currentIndex - 1 + projectiles.Count) % projectiles.Count;
+        currentIndex = (currentIndex - 1 + projectileCount) % projectileCount;
         SetProjectiles();
     }
 

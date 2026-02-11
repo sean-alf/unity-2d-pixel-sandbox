@@ -45,6 +45,10 @@
             "scaleInDock": 1,
             "scaleInEditor": 1.7
         },
+        "TileSets/ItemsTileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "TileSets/MuddyGround.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 5.2534,
@@ -133,6 +137,7 @@
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "TileType",
     "recentFiles": [
+        "TileSets/ItemsTileset.tsx",
         "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/ForestGround.tsx",
         "TileSets/Wall.tsx",
@@ -143,8 +148,7 @@
         "TileSets/MuddyGround.tsx",
         "TileSets/PlatformTracks.tsx",
         "Rules/wall_rules.tmx",
-        "TileSets/Conveyer.tsx",
-        "Tilemaps/TestMap.tmx"
+        "TileSets/Conveyer.tsx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx"
