@@ -128,15 +128,15 @@ public static class Vector2Extensions
     public static Vector2 NormalizeAndRound(this Vector2 v) => v.normalized.Round();
 
     public static Vector2 Add(this Vector2 v, Vector2 other) => v + other;
-
     public static Vector2 AddY(this Vector2 v, float y) => new(v.x, v.y + y);
 
     public static Vector2 Subtract(this Vector2 v, Vector3 other) => new(v.x - other.x, v.y - other.y);
-
     public static Vector2 SubtractY(this Vector2 v, float y) => new(v.x, v.y - y);
 
     public static Vector2 Direction(this Vector2 v, Vector2 other) => v.Subtract(other).normalized;
 
     public static Vector2 DirectionX(this Vector2 v) => new(Mathf.Sign(v.x), 0);
     public static Vector2 DirectionY(this Vector2 v) => new(0, Mathf.Sign(v.y));
+
+    public static bool Approximately(this Vector2 v, Vector2 other) => Mathf.Approximately(v.x, other.x) && Mathf.Approximately(v.y, other.y);
 }

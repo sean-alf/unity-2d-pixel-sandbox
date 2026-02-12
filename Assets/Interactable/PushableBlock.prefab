@@ -61,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -181,10 +181,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   isPushable: 1
   pushSpeed: 1
+  pushTimerExpirationDuration: 0.25
   maxPushCount: 2
   allowedPushingDirections: 00000000010000000200000003000000
   initialPosition: {x: 0, y: 0}
   nextPosition: {x: 0, y: 0}
-  currentPushCount: 0
   direction: {x: 0, y: 0}
+  pushTimer: 0
+  currentPushCount: 0
   isMoving: 0
