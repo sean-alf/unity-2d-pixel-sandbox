@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public static class Animations
 {
@@ -16,7 +16,7 @@ public static class Animations
         return m.AnimateFloat(
             start: sr.color.a,
             end: 1f,
-            totalDuration,
+            (1f - sr.color.a) * totalDuration,
             onStep: value => sr.color = sr.color.WithAlpha(value),
             onDone
         );
@@ -33,8 +33,42 @@ public static class Animations
         return m.AnimateFloat(
             start: sr.color.a,
             end: 0f,
-            totalDuration,
+            sr.color.a * totalDuration,
             onStep: value => sr.color = sr.color.WithAlpha(value),
+            onDone
+        );
+    }
+
+    public static Coroutine FadeIn(this MonoBehaviour m, Image image, float totalDuration, Action onDone = null)
+    {
+        if (image.color.a == 1f)
+        {
+            onDone?.Invoke();
+            return null;
+        }
+
+        return m.AnimateFloat(
+            start: image.color.a,
+            end: 1f,
+            (1f - image.color.a) * totalDuration,
+            onStep: value => image.color = image.color.WithAlpha(value),
+            onDone
+        );
+    }
+
+    public static Coroutine FadeOut(this MonoBehaviour m, Image image, float totalDuration, Action onDone = null)
+    {
+        if (image.color.a == 0f)
+        {
+            onDone?.Invoke();
+            return null;
+        }
+
+        return m.AnimateFloat(
+            start: image.color.a,
+            end: 0f,
+            image.color.a * totalDuration,
+            onStep: value => image.color = image.color.WithAlpha(value),
             onDone
         );
     }

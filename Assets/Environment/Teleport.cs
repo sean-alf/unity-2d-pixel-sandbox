@@ -144,11 +144,8 @@ public class Teleport : MonoBehaviour,
             {
                 if (teleportIn)
                 {
-                    this.AnimateFloat(
-                        start: 1.0f,
-                        end: 0.0f,
+                    this.FadeOut(sr,
                         totalDuration: fadeDuration,
-                        onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
                         onDone: () =>
                         {
                             animator.Stop();
@@ -183,11 +180,8 @@ public class Teleport : MonoBehaviour,
             yield return null;
         }
 
-        this.AnimateFloat(
-            start: 0.0f,
-            end: 1.0f,
+        this.FadeIn(sr,
             totalDuration: fadeDuration,
-            onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
             onDone: () =>
             {
                 animator.Animate("Default");

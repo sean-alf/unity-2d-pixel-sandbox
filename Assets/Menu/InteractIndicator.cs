@@ -38,21 +38,9 @@ public class InteractIndicator : MonoBehaviour
             this.StopCoroutine(coroutine);
         }
 
-        coroutine = this.AnimateFloat(
-            start: image.color.a,
-            end: 1.0f,
+        coroutine = this.FadeIn(image,
             totalDuration: fadeDuration,
-            onStep: (newValue) =>
-            {
-                // On Step
-                image.color = image.color.WithAlpha(newValue);
-
-            },
-            onDone: () =>
-            {
-                // On Done
-                coroutine = null;
-            }
+            onDone: () => coroutine = null
         );
     }
 
@@ -65,18 +53,9 @@ public class InteractIndicator : MonoBehaviour
             StopCoroutine(coroutine);
         }
 
-        coroutine = this.AnimateFloat(
-            start: image.color.a,
-            end: 0.0f,
+        coroutine = this.FadeOut(image,
             totalDuration: fadeDuration,
-            onStep: (newValue) =>
-            {
-                image.color = image.color.WithAlpha(newValue);
-            },
-            onDone: () =>
-            {
-                coroutine = null;
-            }
+            onDone: () => coroutine = null
         );
     }
 }

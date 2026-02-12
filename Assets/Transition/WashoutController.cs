@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class WashoutController : MonoBehaviour
 {
     [SerializeField] private RectTransform canvasRectTransform;
-    [SerializeField] private float totalFadeDurtion = 0.25f;
+    [SerializeField] private float totalFadeDuration = 0.25f;
 
     private Image image;
 
@@ -28,15 +28,7 @@ public class WashoutController : MonoBehaviour
 
     public void Hide() => image.color = image.color.WithAlpha(0f);
 
-    public void FadeIn(Action onDone = null) => Fade(endValue: 1f, onDone);
+    public void FadeIn(Action onDone = null) => this.FadeIn(image, totalFadeDuration, onDone);
 
-    public void FadeOut(Action onDone = null) => Fade(endValue: 0f, onDone);
-
-    private void Fade(float endValue, Action onDone = null) => this.AnimateFloat(
-        start: image.color.a,
-        end: endValue,
-        totalDuration: totalFadeDurtion,
-        onStep: value => image.color = image.color.WithAlpha(value),
-        onDone: onDone
-    );
+    public void FadeOut(Action onDone = null) => this.FadeOut(image, totalFadeDuration, onDone);
 }
