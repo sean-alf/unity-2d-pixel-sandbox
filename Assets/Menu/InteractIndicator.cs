@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class InteractIndicator : MonoBehaviour
 {
     [SerializeField][Range(0.1f, 1.0f)] private float fadeDuration = 0.5f;
-    [SerializeField][Range(4, 50)] private int fadeStepCount = 10;
 
     private Image image;
     private Coroutine coroutine = null;
@@ -42,7 +41,6 @@ public class InteractIndicator : MonoBehaviour
         coroutine = this.AnimateFloat(
             start: image.color.a,
             end: 1.0f,
-            stepCount: fadeStepCount,
             totalDuration: fadeDuration,
             onStep: (newValue) =>
             {
@@ -70,7 +68,6 @@ public class InteractIndicator : MonoBehaviour
         coroutine = this.AnimateFloat(
             start: image.color.a,
             end: 0.0f,
-            stepCount: fadeStepCount,
             totalDuration: fadeDuration,
             onStep: (newValue) =>
             {

@@ -10,7 +10,6 @@ public class DialogManager : MonoBehaviour
     public bool IsShowing => gameObject.activeSelf;
 
     [SerializeField] private float fadeAnimationDuration = 0.25f;
-    [SerializeField] private int fadeAnimationStepCount = 10;
     [SerializeField] private float charsPerSecond = 60f;
     [SerializeField] private float pageTurnDelay = 0.3f;
     [SerializeField] private float pageScrollDuration = 1f;
@@ -147,7 +146,6 @@ public class DialogManager : MonoBehaviour
     private void Fade(float endAlphaValue, Action onDone = null) => this.AnimateFloat(
         start: container.color.a,
         end: endAlphaValue,
-        stepCount: fadeAnimationStepCount,
         totalDuration: fadeAnimationDuration,
         onStep: (value) => SetAlpha(value),
         onDone: onDone

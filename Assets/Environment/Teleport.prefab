@@ -54,8 +54,7 @@ MonoBehaviour:
   travelType: 0
   distanceToReactivatePX: 66
   pixelsPerUnit: 32
-  fadeDuration: 0.5
-  fadeSteps: 6
+  fadeDuration: 1
   isTeleporting: 0
   logger:
     logLevel: 1

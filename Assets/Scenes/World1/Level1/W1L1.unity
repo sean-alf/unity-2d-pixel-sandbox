@@ -10409,11 +10409,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.5625
+      value: 9.40625
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -24.59375
+      value: -24.09375
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11560,9 +11560,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5743221081395609198, guid: 8d3e70a585ed2484ca7eb13029145102, type: 3}
-      propertyPath: levitationSpeed
-      value: 2
-      objectReference: {fileID: 0}
+      propertyPath: collectibleSO
+      value: 
+      objectReference: {fileID: 11400000, guid: ff070e1858bb447bc940df4cf678b0d5, type: 2}
     - target: {fileID: 7410618925100224517, guid: 8d3e70a585ed2484ca7eb13029145102, type: 3}
       propertyPath: m_Name
       value: ItemCrate

@@ -17,7 +17,7 @@ public class ItemCache : MonoBehaviour, BetterInputManager.IInputChangeRequestor
     [Space]
     [Header("Debug")]
     [SerializeField] private bool isCollected = false;
-    [SerializeField] private string message;
+    [SerializeField][TextArea] private string message;
 
     public bool IsCollected => isCollected;
     public int Priority => 90;
@@ -69,7 +69,6 @@ public class ItemCache : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 
         this.FadeIn(
             iconSR,
-            stepCount: 10,
             totalDuration: fadeDuration,
             onDone: () => StartCoroutine(Levitate(
                 target: icon,
@@ -90,7 +89,6 @@ public class ItemCache : MonoBehaviour, BetterInputManager.IInputChangeRequestor
         {
             this.FadeOut(
                 iconSR,
-                stepCount: 10,
                 totalDuration: fadeDuration,
                 onDone: () =>
                 {

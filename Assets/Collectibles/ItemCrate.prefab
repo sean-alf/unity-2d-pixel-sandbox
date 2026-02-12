@@ -160,7 +160,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72ef59d3fbb5474e8fea757e943c359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  collectibleSO: {fileID: 11400000, guid: ff070e1858bb447bc940df4cf678b0d5, type: 2}
+  collectibleSO: {fileID: 0}
   collectedSprite: {fileID: -1802638033526074518, guid: 3b0766cddf2ca43d68efcb1ec19564c9, type: 3}
   collectibleIconTemplate: {fileID: 673124053879985000, guid: 654a33108710d4dc2b2fe4cc8b6a7fc3, type: 3}
+  fadeDuration: 0.45
+  showItemDuration: 1
+  levitationSpeed: 2
+  afterLevitateDelay: 0.5
   isCollected: 0
+  message: 

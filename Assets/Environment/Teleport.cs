@@ -25,7 +25,6 @@ public class Teleport : MonoBehaviour,
     [SerializeField][Range(32, 128)] private int distanceToReactivatePX = 32;
     [SerializeField] private int pixelsPerUnit = 32;
     [SerializeField] private float fadeDuration = 0.5f;
-    [SerializeField] private int fadeSteps = 6;
     [SerializeField] private bool isTeleporting = false;
 
     [Space]
@@ -148,7 +147,6 @@ public class Teleport : MonoBehaviour,
                     this.AnimateFloat(
                         start: 1.0f,
                         end: 0.0f,
-                        stepCount: fadeSteps,
                         totalDuration: fadeDuration,
                         onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
                         onDone: () =>
@@ -188,7 +186,6 @@ public class Teleport : MonoBehaviour,
         this.AnimateFloat(
             start: 0.0f,
             end: 1.0f,
-            stepCount: fadeSteps,
             totalDuration: fadeDuration,
             onStep: newValue => sr.color = sr.color.WithAlpha(newValue),
             onDone: () =>

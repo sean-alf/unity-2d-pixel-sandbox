@@ -209,8 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004e8ea78c70f44e79cb4ce71c8c4b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  fadeAnimationDuration: 0.1
-  fadeAnimationStepCount: 10
+  fadeAnimationDuration: 0.35
   charsPerSecond: 60
   pageTurnDelay: 0.3
   pageScrollDuration: 0.35
@@ -423,7 +422,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   canvasRectTransform: {fileID: 5862237920275043848}
   totalFadeDurtion: 0.25
-  totalFadeStepCount: 10
 --- !u!114 &1563252029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2308,8 +2306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805ea069594204167b400323b8ccd20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  fadeDuration: 0.1
-  fadeStepCount: 10
+  fadeDuration: 0.15
 --- !u!114 &7253316432332563971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2470,7 +2467,7 @@ Transform:
   m_GameObject: {fileID: 1059471690995180578}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.5625, y: -24.59375, z: -100}
+  m_LocalPosition: {x: 9.40625, y: -24.09375, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

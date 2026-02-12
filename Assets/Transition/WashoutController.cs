@@ -8,7 +8,6 @@ public class WashoutController : MonoBehaviour
 {
     [SerializeField] private RectTransform canvasRectTransform;
     [SerializeField] private float totalFadeDurtion = 0.25f;
-    [SerializeField] private int totalFadeStepCount = 10;
 
     private Image image;
 
@@ -36,7 +35,6 @@ public class WashoutController : MonoBehaviour
     private void Fade(float endValue, Action onDone = null) => this.AnimateFloat(
         start: image.color.a,
         end: endValue,
-        stepCount: totalFadeStepCount,
         totalDuration: totalFadeDurtion,
         onStep: value => image.color = image.color.WithAlpha(value),
         onDone: onDone
