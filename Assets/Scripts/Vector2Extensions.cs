@@ -138,5 +138,9 @@ public static class Vector2Extensions
     public static Vector2 DirectionX(this Vector2 v) => new(Mathf.Sign(v.x), 0);
     public static Vector2 DirectionY(this Vector2 v) => new(0, Mathf.Sign(v.y));
 
-    public static bool Approximately(this Vector2 v, Vector2 other) => Mathf.Approximately(v.x, other.x) && Mathf.Approximately(v.y, other.y);
+    public static bool Approximately(
+        this Vector2 v,
+        Vector2 other,
+        float tolerance = 0.001f
+    ) => v.x.Approximately(other.x, tolerance) && v.y.Approximately(other.y, tolerance);
 }

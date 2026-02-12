@@ -11,4 +11,6 @@ public static class FloatExtensions
     {
         return f == 0f;
     }
+
+    public static bool Approximately(this float f, float other, float tolerance = 0.001f) => Mathf.Abs(other - f) <= tolerance;
 }

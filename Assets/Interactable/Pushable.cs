@@ -91,15 +91,16 @@ public class Pushable : MonoBehaviour
             var delta = c1.normal - direction;
             bool isPushingFromCorrectSide = delta.Approximately(Vector2.zero);
 
+            // Debug.Log($"{name} ({GetType().Name}): direction {direction}");
             // Debug.Log($"{name} ({GetType().Name}): c1 normal {c1.normal}, c1 point {c1.point}");
             // Debug.Log($"{name} ({GetType().Name}): c2 normal {c2.normal}, c2 point {c2.point}");
             // Debug.Log($"{name} ({GetType().Name}): contact length {contactLength}");
-            // Debug.Log($"{name} ({GetType().Name}): direction to normal delta {delta}");
+            // Debug.Log($"{name} ({GetType().Name}): direction to normal delta ({delta.x}, {delta.y}");
             // Debug.Log($"{name} ({GetType().Name}): is pushing from correct side {isPushingFromCorrectSide}");
 
             if (!direction.IsCardinal()
                 || (allowedPushingDirections.Count(d => d.ToVector2() == direction) == 0)
-                || contactLength < 0.5f
+                || contactLength < 0.4f
                 || !isPushingFromCorrectSide)
             {
                 pushTimer = pushTimerExpirationDuration;
