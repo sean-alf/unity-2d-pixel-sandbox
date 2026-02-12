@@ -263,8 +263,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 16, y: -16}
-  m_SizeDelta: {x: 268, y: 118}
+  m_AnchoredPosition: {x: 22, y: -22}
+  m_SizeDelta: {x: 256, y: 106}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1355379500
 MonoBehaviour:
@@ -286,8 +286,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stand next to the <color=green>Switch</color> over there and press the
-    <color=#DFAB11>Interact</color> button. \nSee what happens ...
+  m_text: 'You Received the
+
+    Phase Beam
+
+
+    <sprite name="PhaseBeamIcon">'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f955d27bd67cc473a867661c87b158a9, type: 2}
   m_sharedMaterial: {fileID: -8217374765161122463, guid: f955d27bd67cc473a867661c87b158a9, type: 2}
@@ -306,7 +310,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 95c31484cabf34525aa634e9fd25364c, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -321,7 +325,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2466,7 +2470,7 @@ Transform:
   m_GameObject: {fileID: 1059471690995180578}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.40625, y: -24.59375, z: -100}
+  m_LocalPosition: {x: 9.5625, y: -24.59375, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

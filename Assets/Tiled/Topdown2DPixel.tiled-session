@@ -3,15 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Tilemaps/w1-l3-map.tmx",
+    "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
-        "Tilemaps",
-        "Tilemaps/Rules",
         "Worlds",
         "TileSets",
-        "Rules",
         "Properties",
-        "."
+        "Tilemaps",
+        ".",
+        "Rules",
+        "Tilemaps/Rules"
     ],
     "fileStates": {
         ":/automap-tiles.tsx": {
@@ -59,6 +59,7 @@
             "scaleInEditor": 3.22
         },
         "TileSets/StairsLaddersStepsEtc.tsx": {
+            "scaleInDock": 1,
             "scaleInEditor": 2.84
         },
         "TileSets/Wall.tsx": {
@@ -89,11 +90,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 2.29,
-            "selectedLayer": 1,
+            "scale": 1.8278,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 3053.930131004367,
-                "y": 358.7336244541485
+                "x": 1299.923405186563,
+                "y": 591.1478279899331
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -103,8 +104,8 @@
             "scale": 0.2686,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 4819.434102755025,
-                "y": 1721.891288160834
+                "x": 1600.893521965748,
+                "y": 1599.0320178704392
             }
         },
         "Tilemaps/w1-l3-map.tmx": {
@@ -114,8 +115,8 @@
             "scale": 0.2686,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": -5057.706626954579,
-                "y": 1569.2479523454952
+                "x": 1600.893521965748,
+                "y": 1599.0320178704392
             }
         }
     },
@@ -137,14 +138,14 @@
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "TileType",
     "recentFiles": [
+        "Tilemaps/w1-l3-map.tmx",
+        "Tilemaps/w1-l2-map.tmx",
+        "Tilemaps/w1-l1-map.tmx",
         "TileSets/ItemsTileset.tsx",
         "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/ForestGround.tsx",
         "TileSets/Wall.tsx",
         "TileSets/StairsLaddersStepsEtc.tsx",
-        "Tilemaps/w1-l1-map.tmx",
-        "Tilemaps/w1-l2-map.tmx",
-        "Tilemaps/w1-l3-map.tmx",
         "TileSets/MuddyGround.tsx",
         "TileSets/PlatformTracks.tsx",
         "Rules/wall_rules.tmx",

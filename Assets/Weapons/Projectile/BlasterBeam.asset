@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: BlasterBeam
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileSO
   menuIcon: {fileID: -493811852611773470, guid: ee755864374ae45099cfc1438abb14b2, type: 3}
+  cacheIcon: {fileID: 0}
+  displayName: Blaster Beam
+  description: "A simple beam shot. \nIt's not very powerful, but has a higher shot
+    rate."
   playerEye: {fileID: -463738340825572676, guid: 0b9fdba65669940fcaa70cf23f51c1fa, type: 3}
   template: {fileID: 1765677281592612409, guid: 8a992e71a6103471a9df61027c9c4e6d, type: 3}

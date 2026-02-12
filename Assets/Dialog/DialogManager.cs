@@ -45,12 +45,13 @@ public class DialogManager : MonoBehaviour
     }
 #endif
 
-    public void ShowMessage(string message)
+    public void ShowMessage(string message, TextAlignmentOptions alignment = TextAlignmentOptions.TopLeft)
     {
         if (ignoreInput) return;
 
         ignoreInput = true;
 
+        text.alignment = alignment;
         text.text = message;
         text.pageToDisplay = 1;
         text.maxVisibleCharacters = 0;
@@ -60,9 +61,9 @@ public class DialogManager : MonoBehaviour
         Fade(endAlphaValue: 1f, onDone: () => TypeMessage());
     }
 
-    public void ShowNextMessagePageOrClose(Action onClosed)
+    public void ShowNextMessagePageOrClose(Action onClosed, TextAlignmentOptions aligment = TextAlignmentOptions.TopLeft)
     {
-        if (ignoreInput) return;
+        if (ignoreInput || !gameObject.activeSelf) return;
 
         ignoreInput = true;
 
@@ -76,6 +77,7 @@ public class DialogManager : MonoBehaviour
                 onScrollToBottom: () =>
                 {
                     text.maxVisibleCharacters = 0;
+                    text.alignment = aligment;
                 },
                 onDone: () =>
                 {

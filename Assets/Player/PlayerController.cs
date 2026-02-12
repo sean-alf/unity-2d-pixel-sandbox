@@ -266,7 +266,6 @@ public class PlayerController : MonoBehaviour,
             if (direction == Vector2.up)
             {
                 itemCache.Collect(gameObject);
-                itemCache = null;
                 UpdateInteractIndicatorVisibility();
             }
             else
@@ -323,7 +322,21 @@ public class PlayerController : MonoBehaviour,
 
     public void UnityEvent_UI_OnSubmit(InputAction.CallbackContext _)
     {
-        if (readable != null) readable.ShowNextMessagePageOrClose();
+        if (readable != null)
+        {
+            readable.ShowNextMessagePageOrClose();
+            return;
+        }
+
+        if (itemCache != null)
+        {
+            itemCache.Acknowledge(onDone: () =>
+            {
+                itemCache = null;
+            });
+            return;
+        }
+
         if (dialogManager.IsShowing) dialogManager.ShowNextMessagePageOrClose(onClosed: () =>
         {
             inputManager.RemoveInputChangeRequest(this);

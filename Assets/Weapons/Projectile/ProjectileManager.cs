@@ -167,7 +167,7 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
 
         onProjectileChanged?.Invoke(selectedProjectile);
         // Some projectiles don't need this (e.g., CannonBalls)
-        if (spriteChangeEvent) spriteChangeEvent.Raise(selectedProjectile.MenuIcon);
+        if (spriteChangeEvent) spriteChangeEvent.Raise(selectedProjectile.LargeIcon);
     }
 
     // ──────────────────────────────────────────────────────────────
