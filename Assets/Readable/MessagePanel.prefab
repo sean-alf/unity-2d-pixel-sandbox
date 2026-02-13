@@ -105,11 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3407d23bb7a4a1c9a515a9ebdf8ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  message: 'Stand next to the <color=green>Switch</color> over there and press the
-    <color=#DFAB11>Interact</color> button. \nSee what happens ...\n
-
-    This is
-    the second page that needs to be tested now.'
+  message: 
   senderName: 
   inputMapChangePriority: 90
   dialogManager: {fileID: 0}

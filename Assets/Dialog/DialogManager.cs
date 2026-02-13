@@ -7,6 +7,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class DialogManager : MonoBehaviour
 {
+    private const string CHAR_DOWNARROW = "<sprite name=\"DownArrow\" tint=1>";
+    private const string CHAR_CROSSOUT = "<sprite name=\"CrossOut\" tint=1>";
+
     public bool IsShowing => gameObject.activeSelf;
 
     [SerializeField] private float fadeAnimationDuration = 0.25f;
@@ -21,16 +24,22 @@ public class DialogManager : MonoBehaviour
 
     private Image container;
     private TextMeshProUGUI text;
+    private TextMeshProUGUI inputCueText;
     private WaitForSeconds charTypeDelayWait;
     private WaitForSeconds pageTurnDelayWait;
+    private Coroutine inputCueCoroutine;
+
+    private bool IsLastPage => text.pageToDisplay == text.textInfo.pageCount;
 
     private void Awake()
     {
         container = GetComponent<Image>();
-        text = GetComponentInChildren<TextMeshProUGUI>();
+        text = transform.Find("DialogText").GetComponent<TextMeshProUGUI>();
+        inputCueText = transform.Find("InputCueText").GetComponent<TextMeshProUGUI>();
 
         SetAlpha(0);
         text.text = null;
+        inputCueText.text = null;
         gameObject.SetActive(false);
         charTypeDelayWait = new(1f / charsPerSecond);
         pageTurnDelayWait = new(pageTurnDelay);
@@ -66,7 +75,13 @@ public class DialogManager : MonoBehaviour
 
         ignoreInput = true;
 
-        if (text.pageToDisplay == text.textInfo.pageCount)
+        if (inputCueCoroutine != null)
+        {
+            StopCoroutine(inputCueCoroutine);
+            inputCueText.text = null;
+        }
+
+        if (IsLastPage)
         {
             Close(onClosed);
         }
@@ -104,11 +119,24 @@ public class DialogManager : MonoBehaviour
         var pageInfo = text.textInfo.pageInfo[text.pageToDisplay - 1];
         StartCoroutine(TypeMessageCoroutine(
             charStartIndex: pageInfo.firstCharacterIndex,
-            charEndIndex: pageInfo.lastCharacterIndex
+            charEndIndex: pageInfo.lastCharacterIndex,
+            onDone: () =>
+            {
+                if (IsLastPage)
+                {
+                    inputCueText.alignment = TextAlignmentOptions.Right;
+                    inputCueCoroutine = StartCoroutine(FlashInputCue($"<color=red>{CHAR_CROSSOUT}</color>"));
+                }
+                else
+                {
+                    inputCueText.alignment = TextAlignmentOptions.Flush;
+                    inputCueCoroutine = StartCoroutine(FlashInputCue($"<color=green>{CHAR_DOWNARROW} {CHAR_DOWNARROW} {CHAR_DOWNARROW}</color>"));
+                }
+            }
         ));
     }
 
-    private IEnumerator TypeMessageCoroutine(int charStartIndex, int charEndIndex)
+    private IEnumerator TypeMessageCoroutine(int charStartIndex, int charEndIndex, Action onDone)
     {
         int charCount = charStartIndex + 1;
         while (charCount <= (charEndIndex + 1))
@@ -120,6 +148,7 @@ public class DialogManager : MonoBehaviour
         yield return pageTurnDelayWait;
 
         ignoreInput = false;
+        onDone();
     }
 
     private IEnumerator StartTextScroll(Action onScrollToBottom, Action onDone)
@@ -143,6 +172,20 @@ public class DialogManager : MonoBehaviour
         onDone();
     }
 
+    private IEnumerator FlashInputCue(string icon)
+    {
+        inputCueText.text = icon;
+
+        bool visible = true;
+
+        while (true)
+        {
+            inputCueText.color = inputCueText.color.WithAlpha(visible ? 1f : 0f);
+            yield return new WaitForSeconds(0.5f);
+            visible = !visible;
+        }
+    }
+
     private void Fade(float endAlphaValue, Action onDone = null) => this.AnimateFloat(
         start: container.color.a,
         end: endAlphaValue,
@@ -155,5 +198,6 @@ public class DialogManager : MonoBehaviour
     {
         container.color = container.color.WithAlpha(value);
         text.color = text.color.WithAlpha(value);
+        inputCueText.color = inputCueText.color.WithAlpha(value);
     }
 }

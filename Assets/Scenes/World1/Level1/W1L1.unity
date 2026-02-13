@@ -10409,11 +10409,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 93.21875
+      value: 19.8125
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.5
+      value: -9.75
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10861,6 +10861,15 @@ PrefabInstance:
     - target: {fileID: 6183921716568695611, guid: 69581b77056884b0aa0dafb8b72fe856, type: 3}
       propertyPath: m_Name
       value: MessagePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8990380044510487457, guid: 69581b77056884b0aa0dafb8b72fe856, type: 3}
+      propertyPath: message
+      value: 'Stand in front of the <color=green>Switch</color> and press the <color=#DFAB11>Interact</color>
+        button.
+
+        See what happens
+
+        ...'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11521,11 +11530,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4501147713145632215, guid: 8d3e70a585ed2484ca7eb13029145102, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.5
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 4501147713145632215, guid: 8d3e70a585ed2484ca7eb13029145102, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -22.5
+      value: -24.5
       objectReference: {fileID: 0}
     - target: {fileID: 4501147713145632215, guid: 8d3e70a585ed2484ca7eb13029145102, type: 3}
       propertyPath: m_LocalPosition.z
