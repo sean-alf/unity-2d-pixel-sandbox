@@ -120,7 +120,7 @@ public class StraightShooter : MonoBehaviour
         }
     }
 
-    public void EnemyDamageHandler_OnDeathPreAnimate() => Stop();
+    public void EnemyDamageHandler_OnDeathPreAnimate() => OnPreDeath();
 
     private void CheckForPlayerBehind()
     {
@@ -214,6 +214,12 @@ public class StraightShooter : MonoBehaviour
     }
 
     private void Stop() => currentDirection = Vector2.zero;
+
+    private void OnPreDeath()
+    {
+        Stop();
+        StopAllCoroutines();
+    }
 
     private void Shoot()
     {

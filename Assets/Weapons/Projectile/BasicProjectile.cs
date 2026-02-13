@@ -23,6 +23,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     [SerializeField] private Logger logger;
 
     private Rigidbody2D rb;
+    private new Collider2D collider;
     private LinearAnimator linearAnimator;
     private SpriteRenderer sr;
     private WaitForSeconds destructionWait;
@@ -40,6 +41,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<Collider2D>();
         TryGetComponent(out linearAnimator);
         sr = GetComponent<SpriteRenderer>();
 
@@ -62,7 +64,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (ShouldIgnore(other.gameObject)) return;
-        StartCoroutine(DelayDestroy());
+        OnImpact();
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -79,7 +81,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
 
     public bool Reflect(Vector2 reflect)
     {
-        if (currentReflectionCount == maxReflectionCount) StartCoroutine(DelayDestroy());
+        if (currentReflectionCount == maxReflectionCount) OnImpact();
 
         rb.linearVelocity = reflect;
         float angleDegrees = Vector2.SignedAngle(Vector2.up, reflect);
@@ -126,6 +128,12 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     // ──────────────────────────────────────────────────────────────
     // Helpers
     // ──────────────────────────────────────────────────────────────
+
+    private void OnImpact()
+    {
+        collider.enabled = false;
+        StartCoroutine(DelayDestroy());
+    }
 
     /// <summary>
     /// Not all projectiles will necessarily have animations.

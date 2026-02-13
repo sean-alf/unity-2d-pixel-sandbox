@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour,
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
     [SerializeField] private BoolChangeEvent interactIndicatorVisibilityEvent;
+    [SerializeField] private bool enableDamage = true;
+    [SerializeField] private bool enableKnockback = true;
 
     [Space]
     [Header("Debug")]
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour,
     [SerializeField] private DialogManager dialogManager;
     [SerializeField] private Vector2 currentDirection;
     [SerializeField] private float speedFactor = 1f;
+    [SerializeField] private float secondarySpeedFactor = 1f;
     [SerializeField] private List<Interactable> interactables = new();
     [SerializeField] private Readable readable;
     [SerializeField] private ItemCache itemCache;
@@ -85,6 +88,7 @@ public class PlayerController : MonoBehaviour,
     private MeleeWeaponManager meleeWeaponManager;
     private ProjectileManager projectileManager;
     private HealthManager healthManager;
+    private KnockbackReceiver knockbackReceiver;
     private GameObject head;
     private GameObject eye;
     private ExternalForceReceiver efr;
@@ -107,6 +111,7 @@ public class PlayerController : MonoBehaviour,
         meleeWeaponManager = GetComponent<MeleeWeaponManager>();
         projectileManager = GetComponent<ProjectileManager>();
         healthManager = GetComponent<HealthManager>();
+        knockbackReceiver = GetComponent<KnockbackReceiver>();
 
         head = transform.Find("Head").gameObject;
         eye = head.transform.Find("Eye").gameObject;
@@ -142,8 +147,10 @@ public class PlayerController : MonoBehaviour,
 
     private void FixedUpdate()
     {
-        var scaledSpeed = speedFactor * speed;
-        rb.linearVelocity = efr.AppliedForce + scaledSpeed * currentDirection;
+        var scaledSpeed = speedFactor * secondarySpeedFactor * speed;
+        rb.linearVelocity = efr.AppliedForce +
+            knockbackReceiver.KnockbackVelocity +
+            scaledSpeed * currentDirection;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -154,8 +161,20 @@ public class PlayerController : MonoBehaviour,
         {
             if (data.Type == CollisionData.CollisionType.Damage)
             {
-                logger.D($"Hit by {LayerMask.LayerToName(data.gameObject.layer)}");
-                healthManager.DoDamage(data.Strength);
+                logger.D($"Hit from layer {LayerMask.LayerToName(data.gameObject.layer)}");
+
+                if (enableDamage)
+                {
+                    healthManager.DoDamage(data.Strength);
+                }
+                if (enableKnockback)
+                {
+                    secondarySpeedFactor = 0; // Stop input movement
+                    knockbackReceiver.KnockBack(data.Strength, other, onDone: () =>
+                    {
+                        secondarySpeedFactor = 1f;
+                    });
+                }
                 return;
             }
         }

@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 3922967229098837385}
   - component: {fileID: 5143325139664625907}
   - component: {fileID: 437989351448552536}
+  - component: {fileID: 5291095758802875505}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -217,6 +218,7 @@ MonoBehaviour:
   dialogManager: {fileID: 0}
   currentDirection: {x: 0, y: 0}
   speedFactor: 1
+  secondarySpeedFactor: 1
   interactables: []
   readable: {fileID: 0}
   itemCache: {fileID: 0}
@@ -642,6 +644,47 @@ PolygonCollider2D:
       - {x: -0.21875, y: -0.5}
       - {x: 0.21875, y: -0.5}
   m_UseDelaunayMesh: 1
+--- !u!114 &5291095758802875505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828709081556262573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b19fc41121e47248abd0401377ca43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  duration: 0.25
+  baseKnockbackFactor: 7
+  decayCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  knockbackVelocity: {x: 0, y: 0}
+  initialVelocity: {x: 0, y: 0}
+  timerCounter: 0
 --- !u!1 &3038318595791463268
 GameObject:
   m_ObjectHideFlags: 0

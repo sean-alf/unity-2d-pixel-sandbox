@@ -23,4 +23,6 @@ public static class Vector3Extensions
         var v2 = new Vector2(Mathf.Round(v.x * 2f), Mathf.Round(v.y * 2f)) / 2f;
         return new(v2.x, v2.y, v.z);
     }
+
+    public static Vector2 ToVector2(this Vector3 v) => (Vector2)v;
 }
