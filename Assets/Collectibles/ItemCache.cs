@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class ItemCache : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 {
+    private const string NotFacingCorrectlyMessage = "You can't access this from your current position ...";
+
     [SerializeField] ScriptableObject collectibleSO;
     [SerializeField] Sprite collectedSprite;
     [SerializeField] GameObject collectibleIconTemplate;
@@ -47,13 +49,22 @@ public class ItemCache : MonoBehaviour, BetterInputManager.IInputChangeRequestor
         dialogManager = FindFirstObjectByType<DialogManager>(FindObjectsInactive.Include);
     }
 
-    public void Collect(GameObject collector)
+    public bool Collect(GameObject collector)
     {
-        if (isCollected) return;
-        isCollected = true;
-        sr.sprite = collectedSprite;
+        if (isCollected) return false;
 
         inputManager = collector.GetComponent<BetterInputManager>();
+        Vector2 direction = collector.transform.rotation * Vector2.up;
+
+        if (direction != Vector2.up)
+        {
+            inputManager.AddInputChangeRequest(this);
+            dialogManager.ShowMessage(NotFacingCorrectlyMessage);
+            return false;
+        }
+
+        isCollected = true;
+        sr.sprite = collectedSprite;
         inputManager.AddInputChangeRequest(this);
 
         var startingPosition = transform.position.Add(new Vector2(0, 0.5f));
@@ -79,6 +90,7 @@ public class ItemCache : MonoBehaviour, BetterInputManager.IInputChangeRequestor
         );
 
         collectible.Collect(collector);
+        return true;
     }
 
     public void Acknowledge(Action onDone) => dialogManager.ShowNextMessagePageOrClose(onClosed: () => OnDialogClosed(onDone));
@@ -104,10 +116,15 @@ public class ItemCache : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 
     private void OnDialogClosed(Action onDone)
     {
-        onDone();
         inputManager.RemoveInputChangeRequest(this);
-        // Destroy this script to allow GC of any related memory, but leave the rest of the GO intact
-        Destroy(this);
+
+        if (isCollected)
+        {
+            onDone();
+            // Destroy this script to allow GC of any related memory, but leave the rest of the GO intact
+            Destroy(this);
+        }
+
     }
 
     private IEnumerator Levitate(GameObject target, Vector2 startingPosition, Vector2 endingPosition, Action onDone)

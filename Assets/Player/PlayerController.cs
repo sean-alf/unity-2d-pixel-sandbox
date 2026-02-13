@@ -22,12 +22,6 @@ public class PlayerController : MonoBehaviour,
     BetterInputManager.IInputChangeRequestor
 {
     // ──────────────────────────────────────────────────────────────
-    // Constants/Statics
-    // ──────────────────────────────────────────────────────────────
-
-    private const string NotFacingCorrectlyMessage = "You can't access this from your current position ...";
-
-    // ──────────────────────────────────────────────────────────────
     // Serialized Fields
     // ──────────────────────────────────────────────────────────────
 
@@ -261,19 +255,8 @@ public class PlayerController : MonoBehaviour,
 
         if (itemCache != null)
         {
-            Vector2 direction = transform.rotation * Vector2.up;
-
-            if (direction == Vector2.up)
-            {
-                itemCache.Collect(gameObject);
-                UpdateInteractIndicatorVisibility();
-            }
-            else
-            {
-                inputType = BetterInputManager.InputType.UI;
-                inputManager.AddInputChangeRequest(this);
-                dialogManager.ShowMessage(NotFacingCorrectlyMessage);
-            }
+            itemCache.Collect(gameObject);
+            UpdateInteractIndicatorVisibility();
             return;
         }
 

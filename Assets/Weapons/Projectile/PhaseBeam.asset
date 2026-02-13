@@ -15,7 +15,7 @@ MonoBehaviour:
   menuIcon: {fileID: -5663166529958197167, guid: f02d3a0e75a70418fba86825a90ef759, type: 3}
   cacheIcon: {fileID: 4011951315771019982, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
   displayName: Phase Beam
-  description: 'Higher power compared to the Blaster Beam,
+  description: 'It has double the power of the Blaster Beam,
 
     but a slower shot
     rate.'

@@ -271,9 +271,9 @@ MonoBehaviour:
     - key: Default
       value:
         sprites:
-        - {fileID: -5975419622963624644, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
-        - {fileID: -83815371281610533, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
         - {fileID: 710695516568656543, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
+        - {fileID: -83815371281610533, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
+        - {fileID: -5975419622963624644, guid: d0fc254466be14c8c8b2c18cfb454741, type: 3}
         inactiveSprite: {fileID: 0}
         duration: 0.2
         clearSpriteOnCompletion: 0

@@ -21,13 +21,16 @@ public class DialogManager : MonoBehaviour
     [Header("Debug")]
 
     [SerializeField] private bool ignoreInput = false;
+    [SerializeField] private bool isHandlingMessage = false;
 
     private Image container;
     private TextMeshProUGUI text;
     private TextMeshProUGUI inputCueText;
     private WaitForSeconds charTypeDelayWait;
     private WaitForSeconds pageTurnDelayWait;
+    private Coroutine typingCoroutine;
     private Coroutine inputCueCoroutine;
+    private TMP_PageInfo pageInfo;
 
     private bool IsLastPage => text.pageToDisplay == text.textInfo.pageCount;
 
@@ -55,8 +58,9 @@ public class DialogManager : MonoBehaviour
 
     public void ShowMessage(string message, TextAlignmentOptions alignment = TextAlignmentOptions.TopLeft)
     {
-        if (ignoreInput) return;
+        if (isHandlingMessage) return;
 
+        isHandlingMessage = true;
         ignoreInput = true;
 
         text.alignment = alignment;
@@ -71,7 +75,16 @@ public class DialogManager : MonoBehaviour
 
     public void ShowNextMessagePageOrClose(Action onClosed, TextAlignmentOptions aligment = TextAlignmentOptions.TopLeft)
     {
-        if (ignoreInput || !gameObject.activeSelf) return;
+        if (!gameObject.activeSelf || ignoreInput) return;
+
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+            text.maxVisibleCharacters = pageInfo.lastCharacterIndex + 1;
+            OnTypingIsDone();
+            return;
+        }
 
         ignoreInput = true;
 
@@ -108,6 +121,7 @@ public class DialogManager : MonoBehaviour
         Fade(endAlphaValue: 0f, onDone: () =>
         {
             gameObject.SetActive(false);
+            isHandlingMessage = false;
             ignoreInput = false;
             onClosed();
         });
@@ -116,28 +130,33 @@ public class DialogManager : MonoBehaviour
     private void TypeMessage()
     {
         text.ForceMeshUpdate();
-        var pageInfo = text.textInfo.pageInfo[text.pageToDisplay - 1];
-        StartCoroutine(TypeMessageCoroutine(
+        pageInfo = text.textInfo.pageInfo[text.pageToDisplay - 1];
+        typingCoroutine = StartCoroutine(TypeMessageCoroutine(
             charStartIndex: pageInfo.firstCharacterIndex,
             charEndIndex: pageInfo.lastCharacterIndex,
-            onDone: () =>
-            {
-                if (IsLastPage)
-                {
-                    inputCueText.alignment = TextAlignmentOptions.Right;
-                    inputCueCoroutine = StartCoroutine(FlashInputCue($"<color=red>{CHAR_CROSSOUT}</color>"));
-                }
-                else
-                {
-                    inputCueText.alignment = TextAlignmentOptions.Flush;
-                    inputCueCoroutine = StartCoroutine(FlashInputCue($"<color=green>{CHAR_DOWNARROW} {CHAR_DOWNARROW} {CHAR_DOWNARROW}</color>"));
-                }
-            }
+            onDone: OnTypingIsDone
         ));
+    }
+
+    private void OnTypingIsDone()
+    {
+        if (IsLastPage)
+        {
+            inputCueText.alignment = TextAlignmentOptions.Right;
+            inputCueCoroutine = StartCoroutine(FlashInputCue($"<color=red>{CHAR_CROSSOUT}</color>"));
+        }
+        else
+        {
+            inputCueText.alignment = TextAlignmentOptions.Flush;
+            inputCueCoroutine = StartCoroutine(FlashInputCue($"<color=green>{CHAR_DOWNARROW} {CHAR_DOWNARROW} {CHAR_DOWNARROW}</color>"));
+        }
     }
 
     private IEnumerator TypeMessageCoroutine(int charStartIndex, int charEndIndex, Action onDone)
     {
+        // Allow skipping message
+        ignoreInput = false;
+
         int charCount = charStartIndex + 1;
         while (charCount <= (charEndIndex + 1))
         {
@@ -146,8 +165,7 @@ public class DialogManager : MonoBehaviour
         }
 
         yield return pageTurnDelayWait;
-
-        ignoreInput = false;
+        typingCoroutine = null;
         onDone();
     }
 
