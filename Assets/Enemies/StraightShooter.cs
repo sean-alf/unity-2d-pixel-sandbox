@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(KnockbackReceiver))]
 public class StraightShooter : MonoBehaviour
 {
     private static readonly float FORWARD_PATH_DISTANCE = 1f / 16f;
@@ -21,17 +22,23 @@ public class StraightShooter : MonoBehaviour
     [SerializeField] private float reverseCastDistance = 4;
     [SerializeField] private LayerMask castLayerMask;
 
+    [Space]
+    [Header("Debug")]
+    [SerializeField] private float speedFactor = 1f;
+    [SerializeField] private bool autoTurnCorner = false;
+    [SerializeField] private bool isShootingAtPlayer = false;
+    [SerializeField] private bool isGettingKnockedBack = false;
+    [SerializeField] private LayerMask navigationLayerMask;
+    [SerializeField] private Vector2 currentDirection;
+
     private Rigidbody2D rb;
     private new Collider2D collider;
     private LinearAnimator animator;
     private ProjectileManager projectileManager;
-    private Vector2 currentDirection;
+    private KnockbackReceiver knockbackReceiver;
     private Vector2 hitPosition;
-    private int navigationLayerMask;
     private Coroutine autoTurnCoroutine;
     private Coroutine autoShootCoroutine;
-    private bool autoTurnCorner = false;
-    private bool isShootingAtPlayer = false;
 
     [SerializeField]
     private CardinalDirection initialDirection;
@@ -42,17 +49,17 @@ public class StraightShooter : MonoBehaviour
         collider = GetComponent<Collider2D>();
         animator = GetComponent<LinearAnimator>();
         projectileManager = GetComponent<ProjectileManager>();
+        knockbackReceiver = GetComponent<KnockbackReceiver>();
 
         projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
         navigationLayerMask = Physics2D.GetLayerCollisionMask(gameObject.layer)
             & ~((1 << LayerMask.NameToLayer(LayerNames.Player)) | (1 << LayerMask.NameToLayer(LayerNames.Projectile)));
-
-        ChangeDirection(initialDirection.ToVector2());
     }
 
     private void Start()
     {
         StartTimers();
+        ChangeDirection(initialDirection.ToVector2());
     }
 
     private void OnValidate()
@@ -60,69 +67,97 @@ public class StraightShooter : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(Vector3.forward, initialDirection.ToVector2());
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void FixedUpdate()
     {
-        rb.linearVelocity = Vector2.zero;
+        if (!isGettingKnockedBack)
+        {
+            CheckForPlayerInSightOrBehind();
+            HandlePathNavigation();
+        }
+
+        float scaledSpeed = speed * speedFactor;
+        var scaledVelocity = scaledSpeed * currentDirection;
+        rb.linearVelocity = knockbackReceiver.KnockbackVelocity + scaledVelocity;
     }
 
-    private void FixedUpdate()
+    private void CheckForPlayerInSightOrBehind()
     {
         if (isShootingAtPlayer) return;
 
-        if (currentDirection == Vector2.zero)
+        hitPosition = Vector2.zero;
+
+        var hit = Physics2D.Raycast(transform.position, currentDirection, mainCastDistance, castLayerMask);
+        var isPlayerInLineOfSight = hit.collider && hit.collider.gameObject.IsOnLayer(LayerNames.Player);
+
+        // Capture position for Gizmos
+        if (hit.collider)
         {
-            animator.Stop();
+            hitPosition = hit.collider.transform.position;
+        }
+
+        if (isPlayerInLineOfSight)
+        {
+            isShootingAtPlayer = true;
+
+            var savedDirection = currentDirection;
+
+            StopTimers();
+            Stop();
+            StartCoroutine(SequencingUtilities.Delay(0.25f, onRun: () =>
+            {
+                Shoot();
+                StartCoroutine(SequencingUtilities.Delay(0.25f, onRun: () =>
+                {
+                    isShootingAtPlayer = false;
+                    StartTimers();
+                    ChangeDirection(savedDirection);
+                }));
+            }));
         }
         else
         {
-            hitPosition = Vector2.zero;
-
-            // Check if player is in line-of-sight
-            // Shoot if true
-            var hit = Physics2D.Raycast(transform.position, currentDirection, mainCastDistance, castLayerMask);
-            if (hit.collider)
-            {
-                hitPosition = hit.collider.transform.position;
-            }
-
-            if (hit.collider && hit.collider.gameObject.IsOnLayer(LayerNames.Player))
-            {
-                isShootingAtPlayer = true;
-                StopTimers();
-                StartCoroutine(SequencingUtilities.Delay(0.25f, onRun: () =>
-                {
-                    Shoot();
-                    StartCoroutine(SequencingUtilities.Delay(0.25f, onRun: () =>
-                    {
-                        isShootingAtPlayer = false;
-                        StartTimers();
-                    }));
-                }));
-            }
-            else
-            {
-                CheckForPlayerBehind();
-            }
-
-            // Now check if self is blocked and needs to change directions
-            if (IsPathBlocked(currentDirection, FORWARD_PATH_DISTANCE))
-            {
-                ChangeDirection(NewDirection());
-            }
-            else if (autoTurnCorner && LookForNextOpenCorner(out var newDirection))
-            {
-                autoTurnCorner = false;
-                ChangeDirection(newDirection);
-            }
-
-            animator.Animate("Default");
-            rb.MovePosition(rb.position + speed * Time.fixedDeltaTime * currentDirection);
+            CheckForPlayerCloseBehind();
         }
+    }
+
+    private void HandlePathNavigation()
+    {
+        if (isShootingAtPlayer) return;
+
+        // Now check if self is blocked and needs to change directions
+        if (IsPathBlocked(currentDirection, FORWARD_PATH_DISTANCE))
+        {
+            ChangeDirection(NewDirection());
+        }
+        else if (autoTurnCorner && LookForNextOpenCorner(out var newDirection))
+        {
+            autoTurnCorner = false;
+            ChangeDirection(newDirection);
+        }
+    }
+
+    public void EnemyDamageHandler_OnKnockbackStart()
+    {
+        isGettingKnockedBack = true;
+
+        StopAllCoroutines();
+        animator.Stop();
+        isShootingAtPlayer = false;
+        speedFactor = 0f;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+    }
+
+    public void EnemyDamageHandler_OnKnockbackEnd()
+    {
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        StartTimers();
+        speedFactor = 1f;
+        isGettingKnockedBack = false;
     }
 
     public void EnemyDamageHandler_OnDeathPreAnimate() => OnPreDeath();
 
-    private void CheckForPlayerBehind()
+    private void CheckForPlayerCloseBehind()
     {
         var reverse = -currentDirection;
 
@@ -140,7 +175,16 @@ public class StraightShooter : MonoBehaviour
     private void ChangeDirection(Vector2 direction)
     {
         currentDirection = direction;
-        rb.SetRotation(Quaternion.LookRotation(Vector3.forward, currentDirection));
+
+        if (currentDirection.IsIdle())
+        {
+            animator.Stop();
+        }
+        else
+        {
+            rb.SetRotation(Quaternion.LookRotation(Vector3.forward, currentDirection));
+            animator.Animate("Default");
+        }
     }
 
     private void StopTimers()
@@ -213,7 +257,7 @@ public class StraightShooter : MonoBehaviour
         return gameObject.HasHits(hits);
     }
 
-    private void Stop() => currentDirection = Vector2.zero;
+    private void Stop() => ChangeDirection(Vector2.zero);
 
     private void OnPreDeath()
     {
@@ -264,7 +308,7 @@ public class StraightShooter : MonoBehaviour
             yield return _waitForSeconds0_5;
 
             // Resume movement
-            currentDirection = savedDirection;
+            ChangeDirection(savedDirection);
         }
     }
 

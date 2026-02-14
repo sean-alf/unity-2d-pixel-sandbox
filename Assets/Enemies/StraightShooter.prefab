@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8409569574095883400}
   - component: {fileID: 3910723933126725208}
   - component: {fileID: 5914061657231601208}
+  - component: {fileID: 2621529820718140736}
   m_Layer: 11
   m_Name: StraightShooter
   m_TagString: Untagged
@@ -146,6 +147,11 @@ MonoBehaviour:
   coolDownCounter: 0
   logger:
     logLevel: 3
+  selectedProjectile: {fileID: 0}
+  projectileCount: 0
+  currentIndex: 0
+  shootingLayer: 0
+  activeProjectiles: 0
 --- !u!114 &8053001751485367876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +170,12 @@ MonoBehaviour:
   castLayerMask:
     serializedVersion: 2
     m_Bits: 33920
+  speedFactor: 1
+  autoTurnCorner: 0
+  isShootingAtPlayer: 0
+  isGettingKnockedBack: 0
+  navigationLayerMask: 0
+  currentDirection: {x: 0, y: 0}
   initialDirection: 2
 --- !u!50 &8409569574095883400
 Rigidbody2D:
@@ -240,6 +252,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b0c314ce0a514d5781ae78adf36a032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamageHandler
+  onKnockbackStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8053001751485367876}
+        m_TargetAssemblyTypeName: StraightShooter, Assembly-CSharp
+        m_MethodName: EnemyDamageHandler_OnKnockbackStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onKnockbackEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8053001751485367876}
+        m_TargetAssemblyTypeName: StraightShooter, Assembly-CSharp
+        m_MethodName: EnemyDamageHandler_OnKnockbackEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDeathPreAnimate:
     m_PersistentCalls:
       m_Calls:
@@ -263,3 +305,44 @@ MonoBehaviour:
   onlyDamagableBy: []
   logger:
     logLevel: 3
+--- !u!114 &2621529820718140736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2749789457448764704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b19fc41121e47248abd0401377ca43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnockbackReceiver
+  duration: 0.35
+  baseKnockbackFactor: 5
+  decayCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  knockbackVelocity: {x: 0, y: 0}
+  initialVelocity: {x: 0, y: 0}
+  timerCounter: 0

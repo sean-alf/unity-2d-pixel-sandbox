@@ -5,8 +5,9 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider2D))]
 public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 {
+    public UnityEvent onKnockbackStart;
+    public UnityEvent onKnockbackEnd;
     public UnityEvent onDeathPreAnimate;
-
     public UnityEvent onDeath;
 
     [SerializeField] private GameObject deathCloudTemplate;
@@ -21,49 +22,65 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
     public Logger Logger => logger;
 
     private new Collider2D collider;
+    private KnockbackReceiver knockbackReceiver;
 
     void Awake()
     {
         collider = GetComponent<Collider2D>();
+        // Some enemies (like fixed enemies, e.g. Globbels) do NOT have a knockback receiver
+        TryGetComponent(out knockbackReceiver);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         logger.D($"{name} ({gameObject.name}): OnCollisionEnter2D {other.gameObject.name}");
-        HandleCollisionData(other.gameObject);
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        logger.D($"{name} ({gameObject.name}): OnTriggerEnter2D {other.gameObject.name}");
-        HandleCollisionData(other.gameObject);
-    }
-
-    private void HandleCollisionData(GameObject target)
-    {
-        if (target.TryGetComponent(out CollisionData data))
+        if (other.gameObject.TryGetComponent(out CollisionData data))
         {
             logger.D($"has CollisionData");
 
-            if (onlyDamagableBy == null || onlyDamagableBy.Count == 0 || onlyDamagableBy.Find(d => d.ID == data.ID))
+            var canTakeDamage = onlyDamagableBy == null ||
+               onlyDamagableBy.Count == 0 ||
+               onlyDamagableBy.Find(d => d.ID == data.ID);
+
+            if (canTakeDamage && data.Type == CollisionData.CollisionType.Damage)
             {
-                if (data.Type == CollisionData.CollisionType.Damage)
-                {
-                    logger.D($"type is Damage");
-                    logger.D($"strength {data.Strength}");
-
-                    health -= data.Strength;
-
-                    if (health <= 0)
-                    {
-                        onDeathPreAnimate?.Invoke();
-                        collider.enabled = false;
-                        var deathCloud = Instantiate(deathCloudTemplate, transform).GetComponent<DeathCloud>();
-                        deathCloud.onAnimationEnd += Die;
-                        deathCloud.Begin();
-                    }
-                }
+                TakeDamage(data, other);
             }
+        }
+    }
+
+    private void TakeDamage(CollisionData data, Collision2D other)
+    {
+        logger.D($"type is Damage");
+        logger.D($"strength {data.Strength}");
+
+        health -= data.Strength;
+
+        if (knockbackReceiver != null)
+        {
+            onKnockbackStart?.Invoke();
+            knockbackReceiver.KnockBack(data.Strength, other, onDone: () =>
+            {
+                CheckHealth();
+                onKnockbackEnd?.Invoke();
+            });
+        }
+        else
+        {
+            CheckHealth();
+        }
+    }
+
+    private void CheckHealth()
+    {
+        if (health <= 0)
+        {
+            onDeathPreAnimate?.Invoke();
+            collider.enabled = false;
+            var deathCloud = Instantiate(deathCloudTemplate, transform).GetComponent<DeathCloud>();
+            deathCloud.onAnimationEnd += Die;
+            deathCloud.Begin();
         }
     }
 
