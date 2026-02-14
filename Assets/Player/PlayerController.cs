@@ -13,6 +13,8 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(BetterInputManager))]
 [RequireComponent(typeof(ActionableItemGroupsManager))]
 [RequireComponent(typeof(MeleeWeaponManager))]
+[RequireComponent(typeof(SpriteFlasher))]
+[RequireComponent(typeof(KnockbackReceiver))]
 public class PlayerController : MonoBehaviour,
     AutoMover.IAutoMoverTarget,
     ILoggerProvider,
@@ -89,6 +91,7 @@ public class PlayerController : MonoBehaviour,
     private ProjectileManager projectileManager;
     private HealthManager healthManager;
     private KnockbackReceiver knockbackReceiver;
+    private SpriteFlasher spriteFlasher;
     private GameObject head;
     private GameObject eye;
     private ExternalForceReceiver efr;
@@ -112,6 +115,7 @@ public class PlayerController : MonoBehaviour,
         projectileManager = GetComponent<ProjectileManager>();
         healthManager = GetComponent<HealthManager>();
         knockbackReceiver = GetComponent<KnockbackReceiver>();
+        spriteFlasher = GetComponent<SpriteFlasher>();
 
         head = transform.Find("Head").gameObject;
         eye = head.transform.Find("Eye").gameObject;
@@ -170,12 +174,13 @@ public class PlayerController : MonoBehaviour,
                 if (enableKnockback)
                 {
                     secondarySpeedFactor = 0; // Stop input movement
+                    spriteFlasher.StartFlash();
                     knockbackReceiver.KnockBack(data.Strength, other, onDone: () =>
                     {
+                        spriteFlasher.StopFlash();
                         secondarySpeedFactor = 1f;
                     });
                 }
-                return;
             }
         }
     }

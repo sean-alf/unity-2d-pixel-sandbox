@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 5143325139664625907}
   - component: {fileID: 437989351448552536}
   - component: {fileID: 5291095758802875505}
+  - component: {fileID: 8649114674785006270}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -215,6 +216,8 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 2939165100773571567}
   effectAnimator: {fileID: 5897339515335483366}
   interactIndicatorVisibilityEvent: {fileID: 11400000, guid: cf359f2dd615c46f589b3499abe8a80f, type: 2}
+  enableDamage: 1
+  enableKnockback: 1
   dialogManager: {fileID: 0}
   currentDirection: {x: 0, y: 0}
   speedFactor: 1
@@ -685,6 +688,25 @@ MonoBehaviour:
   knockbackVelocity: {x: 0, y: 0}
   initialVelocity: {x: 0, y: 0}
   timerCounter: 0
+--- !u!114 &8649114674785006270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828709081556262573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ebf5633be78f4b03af111572f6a76d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  flashColor: {r: 1.0606601, g: 0.26516503, b: 0.26516503, a: 1}
+  spriteRenderers:
+  - {fileID: 8769490243666333956}
+  - {fileID: 5533818684804794783}
+  stepDuration: 0.04
+  demoColor: 0
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3038318595791463268
 GameObject:
   m_ObjectHideFlags: 0
