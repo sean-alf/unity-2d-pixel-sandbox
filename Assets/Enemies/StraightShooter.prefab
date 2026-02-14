@@ -306,6 +306,7 @@ MonoBehaviour:
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 1
   onlyDamagableBy: []
+  damageTakenDelay: 0.25
   logger:
     logLevel: 3
 --- !u!114 &2621529820718140736

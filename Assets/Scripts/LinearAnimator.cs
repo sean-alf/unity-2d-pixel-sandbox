@@ -97,6 +97,11 @@ public class LinearAnimator : MonoBehaviour
             return;
         }
 
+        if (sr == null)
+        {
+            sr = GetComponent<SpriteRenderer>();
+        }
+
         currentAnimation = animations[animationKey];
         currentAnimationKey = animationKey;
         var sprites = currentAnimation.Sprites;
@@ -110,16 +115,9 @@ public class LinearAnimator : MonoBehaviour
         if (!Application.isPlaying)
         {
             // Simply set the first sprite of the animation
-            if (sr == null)
-            {
-                sr = GetComponent<SpriteRenderer>();
-            }
-
             sr.sprite = sprites[0];
             return;
         }
-
-        if (sr == null) return;
 
         if (coroutine != null) StopCoroutine(coroutine);
         coroutine = StartCoroutine(AnimateIntern(currentAnimation, onFinished));

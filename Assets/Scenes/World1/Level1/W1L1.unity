@@ -1766,6 +1766,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -885117731351602557, guid: 5d097f0cd603c4bc78993615b1aeaf2f, type: 3}
+      propertyPath: shouldAnimateOnStart
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8824,6 +8828,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1534623855}
     m_Modifications:
+    - target: {fileID: 1369527315053234149, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: demoColor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803010396746781904, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803010396746781904, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803010396746781904, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2686294511214651354, guid: 1cc4508f8dd244fbaad5500fbe04cd29, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20
@@ -10409,11 +10429,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.9375
+      value: 7.03125
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.84375
+      value: -9.71875
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z

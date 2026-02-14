@@ -22,14 +22,14 @@ public class Teleport : MonoBehaviour,
     // Exposed for ST2U prefab replacer
     public TravelType travelType;
 
-    [SerializeField][Range(32, 128)] private int distanceToReactivatePX = 32;
-    [SerializeField] private int pixelsPerUnit = 32;
+    [SerializeField][Range(1, 4)][Tooltip("Distance in world units")] private int distanceToReactivate = 2;
     [SerializeField] private float fadeDuration = 0.5f;
-    [SerializeField] private bool isTeleporting = false;
 
     [Space]
     [Header("Debug")]
 
+    [SerializeField] private bool isTeleporting = false;
+    [SerializeField] private bool isEntering = false;
     [SerializeField] private Logger logger;
 
     private SpriteRenderer sr;
@@ -52,24 +52,16 @@ public class Teleport : MonoBehaviour,
 
         // Debug.Log($"{name} ({GetType().Name}): Awake: travelType {travelType}");
 
-        switch (travelType)
-        {
-            case TravelType.Oneway:
-                {
-                    Activate(false);
-                    break;
-                }
-            case TravelType.Bidirectional:
-                {
-                    Activate(true);
-                    break;
-                }
-        }
+        var isBidirectional = travelType == TravelType.Bidirectional;
+        Activate(isBidirectional);
+        sr.color = sr.color.WithAlpha(isBidirectional ? 1f : 0f);
+        if (isBidirectional) animator.Animate("Default");
     }
 
+    // Start gets called AFTER PrepareToEnter
     private void Start()
     {
-        animator.Animate("Default");
+        if (isEntering) return;
     }
 
     public void AnimateAndTeleportToNextScene(GameObject target)
@@ -95,9 +87,12 @@ public class Teleport : MonoBehaviour,
     /// </summary>
     public void PrepareToEnter()
     {
-        Activate(false);
-        sr.color = sr.color.WithAlpha(1f);
+        // Debug.Log($"{name} ({GetType().Name}): PrepareToEnter");
+
+        isEntering = true;
         animator.Animate("Default");
+        sr.color = sr.color.WithAlpha(1f);
+        Activate(false);
 
         // Let's not assume that we know if the PlayerController will be active at this point
         var target = FindAnyObjectByType<BetterInputManager>(FindObjectsInactive.Include);
@@ -162,7 +157,7 @@ public class Teleport : MonoBehaviour,
                 else
                 {
                     // This must be done so that there is only one PlayerInput instance in the scene at a time
-                    // Otherwise it gets cleard out
+                    // Otherwise it gets cleared out
                     target.gameObject.SetActive(false);
                     Activate(false);
                     OnExit?.Invoke(transitionType);
@@ -175,7 +170,7 @@ public class Teleport : MonoBehaviour,
 
     private IEnumerator WatchPlayerDistance(GameObject target)
     {
-        while (Vector2.Distance(target.transform.position, transform.position) < (distanceToReactivatePX / (float)pixelsPerUnit))
+        while (Vector2.Distance(target.transform.position, transform.position) < distanceToReactivate)
         {
             yield return null;
         }
