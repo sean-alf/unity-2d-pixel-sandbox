@@ -29,12 +29,12 @@ public class PlayerController : MonoBehaviour,
 
     [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority;
     [SerializeField][Range(1, 20)] private float speed = 1;
+    [SerializeField] private float damageCoolDownTime = 0.5f;
     [SerializeField][Range(1, 20)] private float recoilDuration = 0.25f;
+    [SerializeField][Range(0, 1)] private float externalForceScaleOnDamage = 0.75f;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
     [SerializeField] private BoolChangeEvent interactIndicatorVisibilityEvent;
-    [SerializeField] private bool enableDamage = true;
-    [SerializeField] private bool enableKnockback = true;
 
     [Space]
     [Header("Debug")]
@@ -160,26 +160,38 @@ public class PlayerController : MonoBehaviour,
     private void OnCollisionEnter2D(Collision2D other)
     {
         rb.linearVelocity = Vector2.zero;
+        HandleCollision(other);
+    }
 
+    private void OnCollisionStay2D(Collision2D other) => HandleCollision(other);
+
+    private void HandleCollision(Collision2D other)
+    {
         if (other.gameObject.TryGetComponent(out CollisionData data))
         {
             if (data.Type == CollisionData.CollisionType.Damage)
             {
                 logger.D($"Hit from layer {LayerMask.LayerToName(data.gameObject.layer)}");
 
-                if (enableDamage)
+                if (healthManager.DoDamage(data.Strength) && !healthManager.IsDead)
                 {
-                    healthManager.DoDamage(data.Strength);
-                }
-                if (enableKnockback)
-                {
-                    secondarySpeedFactor = 0; // Stop input movement
-                    spriteFlasher.StartFlash();
-                    knockbackReceiver.KnockBack(data.Strength, other, onDone: () =>
+                    efr.UpdateForceScale(externalForceScaleOnDamage);
+                    bool wasKnockbackReceived = knockbackReceiver.KnockBack(
+                        strength: data.Strength,
+                        collision: other,
+                        onDone: () =>
+                        {
+                            secondarySpeedFactor = 1f;
+                            efr.UpdateForceScale(1f);
+                        }
+                    );
+
+                    if (wasKnockbackReceived)
                     {
-                        spriteFlasher.StopFlash();
-                        secondarySpeedFactor = 1f;
-                    });
+                        secondarySpeedFactor = 0; // Stop input movement
+                        healthManager.invincible = true;
+                        spriteFlasher.StartFlash(damageCoolDownTime, onDone: () => healthManager.invincible = false);
+                    }
                 }
             }
         }

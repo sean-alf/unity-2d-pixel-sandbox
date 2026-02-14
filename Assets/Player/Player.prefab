@@ -212,12 +212,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   inputMapSwitchingPriority: 10
   speed: 5
+  damageCoolDownTime: 0.5
   recoilDuration: 0.25
+  externalForceScaleOnDamage: 0.3
   projectileSpawnPoint: {fileID: 2939165100773571567}
   effectAnimator: {fileID: 5897339515335483366}
   interactIndicatorVisibilityEvent: {fileID: 11400000, guid: cf359f2dd615c46f589b3499abe8a80f, type: 2}
-  enableDamage: 1
-  enableKnockback: 1
   dialogManager: {fileID: 0}
   currentDirection: {x: 0, y: 0}
   speedFactor: 1
@@ -245,6 +245,8 @@ MonoBehaviour:
   maximumHealth: 20
   currentHealth: 20
   healthChangeEvent: {fileID: 11400000, guid: 3e12cd3ed3c904d53a700bced180ddbf, type: 2}
+  enableDamage: 1
+  invincible: 0
 --- !u!114 &2985162039943200917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,6 +690,7 @@ MonoBehaviour:
   knockbackVelocity: {x: 0, y: 0}
   initialVelocity: {x: 0, y: 0}
   timerCounter: 0
+  knockbackEnabled: 1
 --- !u!114 &8649114674785006270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,7 +707,7 @@ MonoBehaviour:
   spriteRenderers:
   - {fileID: 8769490243666333956}
   - {fileID: 5533818684804794783}
-  stepDuration: 0.04
+  stepDuration: 0.06
   demoColor: 0
   originalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3038318595791463268
@@ -845,6 +848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExternalForceReceiver
   appliedForce: {x: 0, y: 0}
+  forceScale: 1
 --- !u!61 &8303170381959917197
 BoxCollider2D:
   m_ObjectHideFlags: 0

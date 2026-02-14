@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SpriteFlasher : MonoBehaviour
 {
@@ -25,10 +27,10 @@ public class SpriteFlasher : MonoBehaviour
     }
 #endif
 
-    public void StartFlash()
+    public void StartFlash(float duration = float.MaxValue, Action onDone = null)
     {
-        if (coroutine != null) return;
-        coroutine = StartCoroutine(FlashCoroutine());
+        if (coroutine != null || this == null) return;
+        coroutine = StartCoroutine(FlashCoroutine(duration, onDone));
     }
 
     public void StopFlash()
@@ -39,8 +41,9 @@ public class SpriteFlasher : MonoBehaviour
         coroutine = null;
     }
 
-    public IEnumerator FlashCoroutine()
+    private IEnumerator FlashCoroutine(float duration, Action onDone)
     {
+        float totalDuration = 0;
         bool useFlashColor = true;
 
         while (true)
@@ -48,6 +51,17 @@ public class SpriteFlasher : MonoBehaviour
             foreach (var sr in spriteRenderers) sr.color = useFlashColor ? flashColor : originalColor;
             useFlashColor = !useFlashColor;
             yield return new WaitForSeconds(stepDuration);
+
+            totalDuration += stepDuration;
+
+            if (totalDuration >= duration)
+            {
+                break;
+            }
         }
+
+        foreach (var sr in spriteRenderers) sr.color = originalColor;
+        coroutine = null;
+        onDone?.Invoke();
     }
 }

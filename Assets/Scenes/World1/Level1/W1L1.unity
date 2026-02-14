@@ -939,6 +939,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallTorch 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6527895520526134297, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5541,6 +5545,75 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31d94f540d3f1446eb7027bce074de8a, type: 3}
+--- !u!1001 &684918142
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3714957597467350680, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: runTime
+      value: 1000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714957597467350680, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: idleTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044229506943572835, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044229506943572835, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -47.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044229506943572835, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044229506943572835, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044229506943572835, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044229506943572835, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044229506943572835, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044229506943572835, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044229506943572835, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6044229506943572835, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527895520526134297, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_Name
+      value: WallTorchTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527895520526134297, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
 --- !u!1001 &721379388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6508,7 +6581,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!210 &886186282
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -7554,6 +7627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallTorch 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6527895520526134297, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8014,6 +8091,10 @@ PrefabInstance:
     - target: {fileID: 6527895520526134297, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
       propertyPath: m_Name
       value: WallTorch 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527895520526134297, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10221,6 +10302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallTorch 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6527895520526134297, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10429,11 +10514,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.03125
+      value: 6.40625
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.71875
+      value: -11.34375
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11155,6 +11240,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallTorch 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6527895520526134297, guid: 22a1873a5126f48abac1041e47f6c6a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11648,6 +11737,7 @@ SceneRoots:
   - {fileID: 265614213}
   - {fileID: 1720731850}
   - {fileID: 200616757}
+  - {fileID: 684918142}
   - {fileID: 2133949480}
   - {fileID: 1299323456}
   - {fileID: 886186283}

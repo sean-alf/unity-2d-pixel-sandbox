@@ -7,6 +7,15 @@ public class HealthManager : MonoBehaviour
     [SerializeField][Range(10, 50)] private int maximumHealth;
     [SerializeField][Range(0, 50)] private int currentHealth;
     [SerializeField] private HealthChangeEvent healthChangeEvent;
+    // Allows disabling of damage while still acting like it's being received
+    [SerializeField] private bool enableDamage = true;
+
+    [Space]
+    [Header("Debug")]
+    // In-game invincibility
+    public bool invincible = false;
+
+    public bool IsDead => currentHealth <= 0;
 
     public enum EventType
     {
@@ -69,16 +78,29 @@ public class HealthManager : MonoBehaviour
     // Public Control Methods
     // ──────────────────────────────────────────────────────────────
 
-    public void DoDamage(int strength)
+    /// <summary>
+    /// Decrease health by "strength" amount.
+    /// </summary>
+    /// <param name="strength"></param>
+    /// <returns>True if damage has been recieved</returns>
+    public bool DoDamage(int strength)
     {
-        currentHealth = Mathf.Max(currentHealth - strength, 0);
-        healthChangeEvent.Raise(new(
-            type: EventType.Damage,
-             currentHealth,
-             maximumHealth
-        ));
-        if (currentHealth <= 0) Die();
+        if (invincible) return false;
+
+        if (enableDamage)
+        {
+            currentHealth = Mathf.Max(currentHealth - strength, 0);
+            healthChangeEvent.Raise(new(
+                type: EventType.Damage,
+                 currentHealth,
+                 maximumHealth
+            ));
+            if (IsDead) Die();
+        }
+
+        return true;
     }
+
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maximumHealth);

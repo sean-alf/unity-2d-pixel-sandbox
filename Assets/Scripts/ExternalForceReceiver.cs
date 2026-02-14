@@ -5,13 +5,13 @@ public class ExternalForceReceiver : MonoBehaviour
 {
     private readonly Dictionary<Component, Vector2> externalForces = new();
 
-    public Vector2 AppliedForce => appliedForce;
+    public Vector2 AppliedForce => appliedForce * forceScale;
 
     [Space]
     [Header("Debug")]
 
-    [SerializeField]
-    private Vector2 appliedForce;
+    [SerializeField] private Vector2 appliedForce;
+    [SerializeField] private float forceScale = 1f;
 
     public void AddForce(Component c, Vector2 force)
     {
@@ -33,4 +33,6 @@ public class ExternalForceReceiver : MonoBehaviour
         RemoveForce(c);
         AddForce(c, force);
     }
+
+    public void UpdateForceScale(float scale) => forceScale = scale;
 }

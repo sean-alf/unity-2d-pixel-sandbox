@@ -350,6 +350,7 @@ MonoBehaviour:
   knockbackVelocity: {x: 0, y: 0}
   initialVelocity: {x: 0, y: 0}
   timerCounter: 0
+  knockbackEnabled: 1
 --- !u!114 &-1532963152174241159
 MonoBehaviour:
   m_ObjectHideFlags: 0

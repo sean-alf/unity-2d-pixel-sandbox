@@ -14,12 +14,20 @@ public class KnockbackReceiver : MonoBehaviour
     [SerializeField] private Vector2 knockbackVelocity;
     [SerializeField] private Vector2 initialVelocity;
     [SerializeField] private float timerCounter;
+    [SerializeField] private bool knockbackEnabled = true;
 
     private Action onKnockBackDone;
 
-    public void KnockBack(float strength, Collision2D collision, Action onDone)
+    /// <summary>
+    /// Starts the Knockback sequence.
+    /// </summary>
+    /// <param name="strength">Strength of the knockback, affects knockback distance</param>
+    /// <param name="collision">The collision from which initiates the knockback sequence</param>
+    /// <param name="onDone">Called when the knockback sequence is finished</param>
+    /// <returns>True if the knockback was recieved</returns>
+    public bool KnockBack(float strength, Collision2D collision, Action onDone)
     {
-        if (onKnockBackDone != null || collision.contactCount == 0) return;
+        if (onKnockBackDone != null || collision.contactCount == 0 || !knockbackEnabled) return false;
 
         var direction = transform.position
             .ToVector2()
@@ -30,6 +38,7 @@ public class KnockbackReceiver : MonoBehaviour
         timerCounter = duration;
         initialVelocity = (baseKnockbackFactor + strength) * direction;
         knockbackVelocity = initialVelocity;
+        return true;
     }
 
     private void FixedUpdate()
