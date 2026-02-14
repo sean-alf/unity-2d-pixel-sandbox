@@ -5,8 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
+[RequireComponent(typeof(CanvasGroup))]
 public class DialogManager : MonoBehaviour
 {
+    private static WaitForSeconds _waitForSeconds0_5 = new(0.5f);
     private const string CHAR_DOWNARROW = "<sprite name=\"DownArrow\" tint=1>";
     private const string CHAR_CROSSOUT = "<sprite name=\"CrossOut\" tint=1>";
 
@@ -26,6 +28,7 @@ public class DialogManager : MonoBehaviour
     private Image container;
     private TextMeshProUGUI text;
     private TextMeshProUGUI inputCueText;
+    private CanvasGroup group;
     private WaitForSeconds charTypeDelayWait;
     private WaitForSeconds pageTurnDelayWait;
     private Coroutine typingCoroutine;
@@ -37,6 +40,7 @@ public class DialogManager : MonoBehaviour
     private void Awake()
     {
         container = GetComponent<Image>();
+        group = GetComponent<CanvasGroup>();
         text = transform.Find("DialogText").GetComponent<TextMeshProUGUI>();
         inputCueText = transform.Find("InputCueText").GetComponent<TextMeshProUGUI>();
 
@@ -199,13 +203,13 @@ public class DialogManager : MonoBehaviour
         while (true)
         {
             inputCueText.color = inputCueText.color.WithAlpha(visible ? 1f : 0f);
-            yield return new WaitForSeconds(0.5f);
+            yield return _waitForSeconds0_5;
             visible = !visible;
         }
     }
 
     private void Fade(float endAlphaValue, Action onDone = null) => this.AnimateFloat(
-        start: container.color.a,
+        start: group.alpha,
         end: endAlphaValue,
         totalDuration: fadeAnimationDuration,
         onStep: (value) => SetAlpha(value),
@@ -214,8 +218,6 @@ public class DialogManager : MonoBehaviour
 
     private void SetAlpha(float value)
     {
-        container.color = container.color.WithAlpha(value);
-        text.color = text.color.WithAlpha(value);
-        inputCueText.color = inputCueText.color.WithAlpha(value);
+        group.alpha = value;
     }
 }

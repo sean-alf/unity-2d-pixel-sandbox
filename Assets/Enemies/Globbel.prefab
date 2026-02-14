@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5589158998950041537}
   - component: {fileID: -6718179303294631227}
   - component: {fileID: -262022770956470715}
+  - component: {fileID: 1369527315053234149}
   m_Layer: 11
   m_Name: Globbel
   m_TagString: Untagged
@@ -66,7 +67,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,6 +139,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b0c314ce0a514d5781ae78adf36a032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  onKnockbackStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onKnockbackEnd:
+    m_PersistentCalls:
+      m_Calls: []
   onDeathPreAnimate:
     m_PersistentCalls:
       m_Calls: []
@@ -147,6 +154,7 @@ MonoBehaviour:
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 2
   onlyDamagableBy: []
+  damageTakenDelay: 0.25
   logger:
     logLevel: 3
 --- !u!60 &2756273419691802104
@@ -228,6 +236,11 @@ MonoBehaviour:
   coolDownCounter: 0
   logger:
     logLevel: 3
+  selectedProjectile: {fileID: 0}
+  projectileCount: 0
+  currentIndex: 0
+  shootingLayer: 0
+  activeProjectiles: 0
 --- !u!114 &4472532923015666288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,3 +332,21 @@ MonoBehaviour:
   m_labelHash: 0.00000040954276
   m_SpriteKey: 0
   m_SpriteHash: 373374374
+--- !u!114 &1369527315053234149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730726327980649173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ebf5633be78f4b03af111572f6a76d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFlasher
+  flashColor: {r: 1.0592737, g: 0.26481843, b: 0.26481843, a: 1}
+  spriteRenderers:
+  - {fileID: 1803010396746781904}
+  stepDuration: 0.05
+  demoColor: 0
+  originalColor: {r: 1, g: 1, b: 1, a: 1}

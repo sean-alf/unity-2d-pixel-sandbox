@@ -6,7 +6,7 @@ public class SpriteFlasher : MonoBehaviour
     [ColorUsage(true, true)]  // ← this enables HDR mode in Inspector!
     [SerializeField] private Color flashColor = new(2f, 2f, 2f, 1f);
     [SerializeField] SpriteRenderer[] spriteRenderers;
-    [SerializeField] private float stepDuration = 0.25f;
+    [SerializeField] private float stepDuration = 0.05f;
     [SerializeField] private bool demoColor = false;
     [SerializeField] private Color originalColor = Color.white;
 

@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebf5633be78f4b03af111572f6a76d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  flashColor: {r: 1.0606601, g: 0.26516503, b: 0.26516503, a: 1}
+  flashColor: {r: 1.0592737, g: 0.26481843, b: 0.26481843, a: 1}
   spriteRenderers:
   - {fileID: 8769490243666333956}
   - {fileID: 5533818684804794783}

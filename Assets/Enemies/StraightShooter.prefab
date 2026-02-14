@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3910723933126725208}
   - component: {fileID: 5914061657231601208}
   - component: {fileID: 2621529820718140736}
+  - component: {fileID: -1532963152174241159}
   m_Layer: 11
   m_Name: StraightShooter
   m_TagString: Untagged
@@ -174,7 +175,9 @@ MonoBehaviour:
   autoTurnCorner: 0
   isShootingAtPlayer: 0
   isGettingKnockedBack: 0
-  navigationLayerMask: 0
+  navigationLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   currentDirection: {x: 0, y: 0}
   initialDirection: 2
 --- !u!50 &8409569574095883400
@@ -346,3 +349,21 @@ MonoBehaviour:
   knockbackVelocity: {x: 0, y: 0}
   initialVelocity: {x: 0, y: 0}
   timerCounter: 0
+--- !u!114 &-1532963152174241159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2749789457448764704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ebf5633be78f4b03af111572f6a76d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFlasher
+  flashColor: {r: 1.0592737, g: 0.26481843, b: 0.26481843, a: 1}
+  spriteRenderers:
+  - {fileID: 5093702938560432678}
+  stepDuration: 0.05
+  demoColor: 0
+  originalColor: {r: 1, g: 1, b: 1, a: 1}

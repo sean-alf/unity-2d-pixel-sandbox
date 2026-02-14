@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(SpriteFlasher))]
 public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 {
     public UnityEvent onKnockbackStart;
@@ -14,6 +15,9 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
     [SerializeField] private int health = 1;
     [SerializeField] private List<CollisionData> onlyDamagableBy;
 
+    [Header("Stationary Enemies")]
+    [SerializeField] private float damageTakenDelay = 0.25f;
+
     [Header("Debug")]
     [Space]
 
@@ -23,12 +27,14 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
     private new Collider2D collider;
     private KnockbackReceiver knockbackReceiver;
+    private SpriteFlasher spriteFlasher;
 
     void Awake()
     {
         collider = GetComponent<Collider2D>();
         // Some enemies (like fixed enemies, e.g. Globbels) do NOT have a knockback receiver
         TryGetComponent(out knockbackReceiver);
+        spriteFlasher = GetComponent<SpriteFlasher>();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -57,18 +63,27 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
         health -= data.Strength;
 
+        spriteFlasher.StartFlash();
+
         if (knockbackReceiver != null)
         {
+            // Handle moving enemies
             onKnockbackStart?.Invoke();
             knockbackReceiver.KnockBack(data.Strength, other, onDone: () =>
             {
+                spriteFlasher.StopFlash();
                 CheckHealth();
                 onKnockbackEnd?.Invoke();
             });
         }
         else
         {
-            CheckHealth();
+            // Handle stationary enemies
+            this.StartTimer(damageTakenDelay, onExpired: () =>
+            {
+                spriteFlasher.StopFlash();
+                CheckHealth();
+            });
         }
     }
 
