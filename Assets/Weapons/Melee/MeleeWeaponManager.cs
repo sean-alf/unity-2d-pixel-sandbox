@@ -37,6 +37,8 @@ public class MeleeWeaponManager : MonoBehaviour, ActionableItemGroupsManager.IAc
     // ActionableItemGroupsManager.IActionableItemGroup
     public void CycleToNextItem()
     {
+        if (weaponsCount == 0) return;
+
         currentIndex = (currentIndex + 1) % weaponsCount;
         SetWeapon();
     }
@@ -44,13 +46,19 @@ public class MeleeWeaponManager : MonoBehaviour, ActionableItemGroupsManager.IAc
     // ActionableItemGroupsManager.IActionableItemGroup
     public void CycleToPreviousItem()
     {
+        if (weaponsCount == 0) return;
+
         currentIndex = (currentIndex - 1 + weaponsCount) % weaponsCount;
         SetWeapon();
     }
 
     private void SetWeapon()
     {
-        if (meleeWeapons.Count == 0) return;
+        if (meleeWeapons.Count == 0)
+        {
+            spriteChangeEvent.Raise(null);
+            return;
+        }
 
         if (currentWeaponAndIcon.IsValid)
         {

@@ -140,6 +140,7 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
     // ActionableItemGroupsManager.IActionableItemGroup
     public void CycleToNextItem()
     {
+        if (projectileCount == 0) return;
         currentIndex = (currentIndex + 1) % projectileCount;
         SetProjectiles();
     }
@@ -147,6 +148,7 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
     // ActionableItemGroupsManager.IActionableItemGroup
     public void CycleToPreviousItem()
     {
+        if (projectileCount == 0) return;
         currentIndex = (currentIndex - 1 + projectileCount) % projectileCount;
         SetProjectiles();
     }
@@ -157,6 +159,12 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
 
     private void SetProjectiles()
     {
+        if (projectileCount == 0)
+        {
+            if (spriteChangeEvent) spriteChangeEvent.Raise(null);
+            return;
+        }
+
         selectedProjectile = projectiles[currentIndex];
 
         if (shootingLayer == 0)
