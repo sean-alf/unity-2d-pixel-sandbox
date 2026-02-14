@@ -13,13 +13,10 @@ public enum SceneIndex
 static class SceneSwitcherExtensions
 {
     public static bool IsLoaded(this SceneIndex s) => SceneManager.GetSceneByBuildIndex((int)s).isLoaded;
-
     public static bool IsPersistentScene(this Scene scene) => scene.buildIndex == (int)SceneIndex.Persistent;
-
     public static bool IsLevelSceneIndex(this int sceneBuildIndex) => sceneBuildIndex >= (int)SceneIndex.FirstLevel;
-
+    public static bool IsLevelScene(this Scene s) => s.buildIndex >= (int)SceneIndex.FirstLevel;
     public static bool IsFirstLevelScene(this Scene s) => s.buildIndex == (int)SceneIndex.FirstLevel;
-
     public static bool IsGreaterThanFirstLevelScene(this int sceneBuildIndex) => sceneBuildIndex > (int)SceneIndex.FirstLevel;
 }
 
@@ -37,6 +34,7 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 #endif
     [SerializeField] private TargetFollowerCamera followerCamera;
     [SerializeField] private WashoutController washoutController;
+    [SerializeField] private TheEndController theEndController;
 
     [Space]
     [Header("Debug")]
@@ -53,6 +51,8 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
     private TransitionType fromTransitionType = TransitionType.EXIT;
 
     public Logger Logger => logger;
+
+    private string Tag => $"{GetType().Name}";
 
     private void Awake()
     {
@@ -80,7 +80,11 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
         {
             var wasClamped = sceneIndex.Increment(
                 clamp: lastLevelSceneIndex,
-                onClamped: () => Debug.Log($"No more scenes! Final scene index {sceneIndex}.")
+                onClamped: () =>
+                {
+                    Debug.Log($"{Tag}: No more scenes! Final scene index {sceneIndex}.");
+                    theEndController.Enter();
+                }
             );
 
             if (wasClamped)
@@ -110,7 +114,7 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Debug.Log($"SceneSwitcher: OnSceneLoaded: scene build index {scene.buildIndex}, prev {prevSceneIndex}");
+        // Debug.Log($"{Tag}: OnSceneLoaded: scene build index {scene.buildIndex}, prev {prevSceneIndex}");
 
         if (scene.IsPersistentScene())
         {
@@ -129,9 +133,9 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
         else
         {
             SceneManager.SetActiveScene(scene);
-            if (scene.buildIndex == prevSceneIndex)
+            if (IsStartingScene(scene))
             {
-                FindTransitionPointsThenEnter(teleportInInitially);
+                FindTransitionPointsThenEnter("OnSceneLoaded", teleportInInitially);
             }
             else
             {
@@ -145,7 +149,7 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
     {
         var targetScene = SceneManager.GetActiveScene();
 
-        // Debug.Log($"SceneSwitcher: OnSceneLoaded: active scene {targetScene.name}");
+        // Debug.Log($"{Tag}: LoadInitialSceneForEditorBuild: active scene {targetScene.name}");
 
         // If the active scene is Persistent, then find the first scene that is not
         if (targetScene.IsPersistentScene())
@@ -157,22 +161,23 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
         // Setting these equal signifies that this is the first loaded level
         prevSceneIndex = targetBuildIndex;
 
-        // Debug.Log($"SceneSwitcher: OnSceneLoaded: target scene {targetScene.name}");
-        // Debug.Log($"SceneSwitcher: OnSceneLoaded: target scene build index {targetBuildIndex}");
+        // Debug.Log($"{Tag}: LoadInitialSceneForEditorBuild: target scene {targetScene.name}");
+        // Debug.Log($"{Tag}: LoadInitialSceneForEditorBuild: target scene build index {targetBuildIndex}");
 
         StartCoroutine(UnloadAllScenesButTarget(targetBuildIndex, onDone: () =>
         {
-            // Debug.Log($"SceneSwitcher: OnSceneLoaded: is target scene loaded {targetScene.isLoaded}");
+            // Debug.Log($"{Tag}: UnloadAllScenesButTarget.onDone: is target scene loaded {targetScene.isLoaded}");
+            // Debug.Log($"{Tag}: UnloadAllScenesButTarget.onDone: is level scene {targetScene.IsLevelScene()}");
 
             if (IsSceneInScenesList(targetScene))
             {
-                FindTransitionPointsThenEnter(teleportInInitially);
+                // Scene is already going to be loaded so just defer to OnSceneLoaded...
             }
             else
             {
                 // Debug.Log($"Target scene is NOT loaded");
 
-                // ... otherwise load the scene first
+                // ...otherwise load the scene
                 LoadScene(targetBuildIndex);
             }
         }));
@@ -183,8 +188,8 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             var sceneToCheck = SceneManager.GetSceneAt(i);
-            // Debug.Log($"SceneSwitcher: IsSceneInScenesList: scene {scene.name}, scene to check {sceneToCheck.name}");
-            // Debug.Log($"SceneSwitcher: IsSceneInScenesList: scene {scene.buildIndex}, scene to check {sceneToCheck.buildIndex}");
+            // Debug.Log($"{Tag}: IsSceneInScenesList: scene {scene.name}, scene to check {sceneToCheck.name}");
+            // Debug.Log($"{Tag}: IsSceneInScenesList: scene {scene.buildIndex}, scene to check {sceneToCheck.buildIndex}");
             if (sceneToCheck.buildIndex == scene.buildIndex && sceneToCheck.name == scene.name) return true;
         }
 
@@ -207,15 +212,19 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
 
     private void OnSceneUnloaded(Scene scene)
     {
-        if (scene.buildIndex == prevSceneIndex) return;
-        FindTransitionPointsThenEnter();
+        if (IsStartingScene(scene)) return;
+        FindTransitionPointsThenEnter("OnSceneUnloaded");
     }
 
-    private void FindTransitionPointsThenEnter(bool teleport = true)
+    private void FindTransitionPointsThenEnter(string comingFrom, bool teleportIn = true)
     {
+        // Debug.Log($"{Tag}: FindTransitionPointsThenEnter: comingFrom {comingFrom}");
+
         UpdateAllTransitionPoints();
 
-        if (!teleport) return;
+        // Debug.Log($"{Tag}: FindTransitionPointsThenEnter: teleportIn {teleportIn}, transition point count {transitionPoints.Count}");
+
+        if (!teleportIn) return;
 
         transitionPoints.Find(p => p.Type.ShouldEnter(fromTransitionType))
             .IfNotNull(p =>
@@ -226,7 +235,7 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
                     washoutController.FadeOut(() => p.Enter());
                 });
             })
-            .IfNull(() => Debug.LogError("SceneSwitcher: no entry points found!!"));
+            .IfNull(() => Debug.LogError($"{Tag}: no entry points found!!"));
     }
 
     private void UpdateAllTransitionPoints()
@@ -235,6 +244,8 @@ public class SceneSwitcher : MonoBehaviour, ILoggerProvider
         transitionPoints.AddRange(FindObjectsByType<SceneTransitionPoint>(FindObjectsSortMode.None));
         transitionPoints.ForEach(p => p.OnExit += OnExit);
     }
+
+    private bool IsStartingScene(Scene scene) => scene.buildIndex == prevSceneIndex;
 
     private IEnumerator UnloadAllScenesButTarget(int targetBuildIndex, Action onDone)
     {

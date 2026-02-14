@@ -19,6 +19,8 @@ public class LinearAnimator : MonoBehaviour
     private bool animateReverse = false;
     private bool useUnscaledTime = false;
 
+    private string Tag => $"{name} ({GetType().Name})";
+
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -87,13 +89,13 @@ public class LinearAnimator : MonoBehaviour
 
         if (!IsKeyValid(animationKey))
         {
-            Debug.LogError($"LinearAnimator ({gameObject.name}): animation key {animationKey} is not valid!");
+            Debug.LogError($"{Tag}: animation key {animationKey} is not valid!");
             return;
         }
 
         if (animations.Count == 0)
         {
-            Debug.LogError($"LinearAnimator ({gameObject.name}): animation count is 0!");
+            Debug.LogError($"{Tag}: animation count is 0!");
             return;
         }
 
@@ -108,7 +110,7 @@ public class LinearAnimator : MonoBehaviour
 
         if (sprites.Count() == 0)
         {
-            Debug.LogError($"LinearAnimator ({gameObject.name}): sprite count must be greater than 0!");
+            Debug.LogError($"{Tag}: sprite count must be greater than 0!");
             return;
         }
 
@@ -155,7 +157,7 @@ public class LinearAnimator : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"LinearAnimator ({gameObject.name}): attempting to update duration with invalid key {key}!");
+            Debug.LogError($"{Tag}: attempting to update duration with invalid key {key}!");
         }
     }
 

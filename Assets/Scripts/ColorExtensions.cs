@@ -6,4 +6,5 @@ public static class ColorExtensions
     public static Color WithGreen(this Color c, float g) => new(c.r, g, c.b, c.a);
     public static Color WithBlue(this Color c, float b) => new(c.r, c.g, b, c.a);
     public static Color WithAlpha(this Color c, float a) => new(c.r, c.g, c.b, a);
+    public static Color32 WithAlpha(this Color32 c, float a) => new(c.r, c.g, c.b, (byte)(a * 255));
 }

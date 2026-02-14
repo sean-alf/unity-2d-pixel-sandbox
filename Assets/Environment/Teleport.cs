@@ -41,16 +41,18 @@ public class Teleport : MonoBehaviour,
 
     public TransitionType TransitionType => transitionType;
     public int Priority => inputMapSwitchingPriority;
-    public string Name => $"{name} ({GetType().Name})";
+    public string Name => Tag;
     public BetterInputManager.InputType InputType => BetterInputManager.InputType.None;
     public Logger Logger => logger;
+
+    private string Tag => $"{name} ({GetType().Name})";
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<LinearAnimator>();
 
-        // Debug.Log($"{name} ({GetType().Name}): Awake: travelType {travelType}");
+        // Debug.Log($"{Tag}: Awake: travelType {travelType}");
 
         var isBidirectional = travelType == TravelType.Bidirectional;
         Activate(isBidirectional);
@@ -87,7 +89,7 @@ public class Teleport : MonoBehaviour,
     /// </summary>
     public void PrepareToEnter()
     {
-        // Debug.Log($"{name} ({GetType().Name}): PrepareToEnter");
+        // Debug.Log($"{Tag}: PrepareToEnter");
 
         isEntering = true;
         animator.Animate("Default");
