@@ -1003,7 +1003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4697188465152973252, guid: e9450418dc212472aac497f71c779b0e, type: 3}
       propertyPath: m_Name
-      value: ShockOrb Third
+      value: SpinningBlade Third
       objectReference: {fileID: 0}
     - target: {fileID: 4697188465152973252, guid: e9450418dc212472aac497f71c779b0e, type: 3}
       propertyPath: m_IsActive
@@ -7272,7 +7272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4697188465152973252, guid: e9450418dc212472aac497f71c779b0e, type: 3}
       propertyPath: m_Name
-      value: ShockOrb Fourth
+      value: SpinningBlade Fourth
       objectReference: {fileID: 0}
     - target: {fileID: 4697188465152973252, guid: e9450418dc212472aac497f71c779b0e, type: 3}
       propertyPath: m_IsActive
@@ -7771,7 +7771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1299323456
 Transform:
   m_ObjectHideFlags: 0
@@ -7842,7 +7842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4697188465152973252, guid: e9450418dc212472aac497f71c779b0e, type: 3}
       propertyPath: m_Name
-      value: ShockOrb Second
+      value: SpinningBlade Second
       objectReference: {fileID: 0}
     - target: {fileID: 4697188465152973252, guid: e9450418dc212472aac497f71c779b0e, type: 3}
       propertyPath: m_IsActive
@@ -8597,7 +8597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1534623855
 Transform:
   m_ObjectHideFlags: 0
@@ -9659,7 +9659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1830749943
 Transform:
   m_ObjectHideFlags: 0
@@ -10467,7 +10467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2133949480
 Transform:
   m_ObjectHideFlags: 0
@@ -10514,11 +10514,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.40625
+      value: 30.09375
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.34375
+      value: -52.15625
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11469,7 +11469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4697188465152973252, guid: e9450418dc212472aac497f71c779b0e, type: 3}
       propertyPath: m_Name
-      value: ShockOrb First
+      value: SpinningBlade First
       objectReference: {fileID: 0}
     - target: {fileID: 4697188465152973252, guid: e9450418dc212472aac497f71c779b0e, type: 3}
       propertyPath: m_IsActive

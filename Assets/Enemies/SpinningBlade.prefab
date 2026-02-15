@@ -10,14 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 293816154585627288}
   - component: {fileID: 6658595254282299434}
-  - component: {fileID: 8705984186843490245}
   - component: {fileID: 4622234208660013523}
   - component: {fileID: 2090454050223047624}
   - component: {fileID: 7048408598549194742}
   - component: {fileID: 3971028382154437742}
   - component: {fileID: 5272581615989968143}
+  - component: {fileID: 7200240873544363077}
   m_Layer: 11
-  m_Name: ShockOrb
+  m_Name: SpinningBlade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,33 +97,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &8705984186843490245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4697188465152973252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4e8bc5df205b4e7eab3af5c42e7b79e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
-  animations:
-    kvpList:
-    - key: Default
-      value:
-        sprites:
-        - {fileID: -7137472753127587558, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
-        - {fileID: 7278158322998898790, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
-        - {fileID: -2265241128969917600, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
-        - {fileID: -2690916703434168688, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
-        - {fileID: 5802812199442768257, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
-        - {fileID: -3304954038401248989, guid: dd72795a3136546d499beb8a3bcdb381, type: 3}
-        inactiveSprite: {fileID: 0}
-        duration: 0.25
-        clearSpriteOnCompletion: 0
-        loop: 1
 --- !u!114 &4622234208660013523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,7 +159,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.63
+  m_Radius: 0.85
 --- !u!50 &3971028382154437742
 Rigidbody2D:
   serializedVersion: 5
@@ -226,6 +199,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b0c314ce0a514d5781ae78adf36a032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamageHandler
+  onKnockbackStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onKnockbackEnd:
+    m_PersistentCalls:
+      m_Calls: []
   onDeathPreAnimate:
     m_PersistentCalls:
       m_Calls:
@@ -248,5 +227,25 @@ MonoBehaviour:
   health: 1
   onlyDamagableBy:
   - {fileID: 2287008782070608329, guid: 5cf7ae7dc79ea48bdadd20f89932bdf3, type: 3}
+  damageCooldownPeriod: 0.25
+  invincible: 0
   logger:
     logLevel: 3
+--- !u!114 &7200240873544363077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4697188465152973252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ebf5633be78f4b03af111572f6a76d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFlasher
+  flashColor: {r: 2, g: 2, b: 2, a: 1}
+  flashColor2: {r: 2, g: 2, b: 2, a: 1}
+  spriteRenderers: []
+  stepDuration: 0.05
+  colorToShow: 0
+  originalColor: {r: 1, g: 1, b: 1, a: 1}

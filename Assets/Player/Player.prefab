@@ -214,6 +214,7 @@ MonoBehaviour:
   speed: 5
   damageCoolDownTime: 0.5
   recoilDuration: 0.25
+  recoilDistance: 0.09375
   externalForceScaleOnDamage: 0.3
   projectileSpawnPoint: {fileID: 2939165100773571567}
   effectAnimator: {fileID: 5897339515335483366}
@@ -640,12 +641,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.4375, y: -0.25261688}
-      - {x: 0.4375, y: 0.24734879}
+    - - {x: 0.5, y: -0.22136688}
+      - {x: 0.5, y: 0.21609879}
       - {x: 0.21875, y: 0.5}
       - {x: -0.2195425, y: 0.5}
-      - {x: -0.4375, y: 0.25}
-      - {x: -0.4375, y: -0.24862862}
+      - {x: -0.5, y: 0.21875}
+      - {x: -0.5, y: -0.21737862}
       - {x: -0.21875, y: -0.5}
       - {x: 0.21875, y: -0.5}
   m_UseDelaunayMesh: 1

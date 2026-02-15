@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639041661666017970
+  platformSettingsDirtyTick: 639066952286005100
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -149,7 +149,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: ShockOrb_0
+  - name: SpinningBlade_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -162,111 +162,6 @@ ScriptedImporter:
       width: 40
       height: 40
     spriteID: 6675a886ccfc04a5c8440eeaf8d990a9
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: ShockOrb_1
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 52
-      width: 40
-      height: 40
-    spriteID: 8262337b090874514b2a0a0a1e6173d2
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: ShockOrb_2
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 100
-      width: 40
-      height: 40
-    spriteID: 3fe3817fd3f614cef881fe366b2b89da
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: ShockOrb_5
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 52
-      y: 4
-      width: 40
-      height: 40
-    spriteID: b00191e7c3bd54075ae406f1f043cfaf
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: ShockOrb_3
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 148
-      width: 40
-      height: 40
-    spriteID: 5264736cf31074ef297f7cfd80a2ba22
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: ShockOrb_4
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 196
-      width: 40
-      height: 40
-    spriteID: d905fd7f6634244d88f87f449e5350e6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -289,7 +184,7 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: Frame_0
+    - name: SpinningBlade
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -298,51 +193,6 @@ ScriptedImporter:
         width: 40
         height: 40
       spriteId: 7df6512d57de94a009f698f6d1496d03
-    - name: Frame_1
-      frameIndex: 1
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 40
-        height: 40
-      spriteId: 4da1d2779e56647c6a379bc4f772d107
-    - name: Frame_2
-      frameIndex: 2
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 40
-        height: 40
-      spriteId: 3fbb446d2e0764fbdbb88deddec5e678
-    - name: Frame_3
-      frameIndex: 3
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 40
-        height: 40
-      spriteId: 1ec95f6f08ef0412691dc0d59ca87297
-    - name: Frame_4
-      frameIndex: 4
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 40
-        height: 40
-      spriteId: 7444528822bc8457593ec2ffb492cb76
-    - name: Frame_5
-      frameIndex: 5
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 40
-        height: 40
-      spriteId: 07b368fd9b3964128b929fc64b6680bf
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -389,4 +239,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 40, y: 40}
-  previousTextureSize: {x: 128, y: 256}
+  previousTextureSize: {x: 64, y: 64}
