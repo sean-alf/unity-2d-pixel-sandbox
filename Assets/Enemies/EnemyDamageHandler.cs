@@ -16,13 +16,15 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
     [SerializeField] private List<CollisionData> onlyDamagableBy;
 
     [Header("Stationary Enemies")]
-    [SerializeField] private float damageTakenDelay = 0.25f;
+    [SerializeField] private float damageCooldownPeriod = 0.25f;
 
     [Header("Debug")]
     [Space]
 
+    [SerializeField] private bool invincible = false;
     [SerializeField] private Logger logger;
 
+    public bool IsDead => health <= 0;
     public Logger Logger => logger;
 
     private new Collider2D collider;
@@ -49,7 +51,7 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
                onlyDamagableBy.Count == 0 ||
                onlyDamagableBy.Find(d => d.ID == data.ID);
 
-            if (canTakeDamage && data.Type == CollisionData.CollisionType.Damage)
+            if (!invincible && canTakeDamage && data.Type == CollisionData.CollisionType.Damage)
             {
                 TakeDamage(data, other);
             }
@@ -63,6 +65,12 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
         health -= data.Strength;
 
+        if (IsDead)
+        {
+            onDeathPreAnimate?.Invoke();
+        }
+
+        invincible = true;
         spriteFlasher.StartFlash();
 
         if (knockbackReceiver != null)
@@ -72,6 +80,7 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
             knockbackReceiver.KnockBack(data.Strength, other, onDone: () =>
             {
                 spriteFlasher.StopFlash();
+                invincible = false;
                 CheckHealth();
                 onKnockbackEnd?.Invoke();
             });
@@ -79,9 +88,10 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
         else
         {
             // Handle stationary enemies
-            this.StartTimer(damageTakenDelay, onExpired: () =>
+            this.StartTimer(damageCooldownPeriod, onExpired: () =>
             {
                 spriteFlasher.StopFlash();
+                invincible = false;
                 CheckHealth();
             });
         }
@@ -89,9 +99,8 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
     private void CheckHealth()
     {
-        if (health <= 0)
+        if (IsDead)
         {
-            onDeathPreAnimate?.Invoke();
             collider.enabled = false;
             var deathCloud = Instantiate(deathCloudTemplate, transform).GetComponent<DeathCloud>();
             deathCloud.onAnimationEnd += Die;

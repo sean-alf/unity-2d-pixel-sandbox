@@ -7,6 +7,7 @@ using StartingPoint = ProjectileManager.StartingPointWithDirection;
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(SpriteResolver))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(DistanceWatcher))]
 public class Globbel : MonoBehaviour
 {
     private static readonly int SIMULTANEOUS_SHOTS_COUNT = 4;
@@ -36,22 +37,31 @@ public class Globbel : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         projectileManager = GetComponent<ProjectileManager>();
-        projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
 
+        projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
         positionOffset = sr.bounds.extents.x;
         UpdateWaitDurations();
     }
 
-    public void OnActivate()
+    public void DistanceWatcher_OnActivate() => Activate();
+
+    public void DistanceWatcher_OnDeactivate() => Deactivate();
+
+    public void EnemyDamageHandler_OnDeathPreAnimate() => Deactivate();
+
+    private void Activate()
     {
+        Deactivate();
         coroutine = StartCoroutine(RotateAndShoot());
     }
 
-    public void OnDeactivate()
+    private void Deactivate()
     {
-        if (coroutine == null) return;
-        StopCoroutine(coroutine);
-        coroutine = null;
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
     }
 
     private void UpdateStartingPoints(float angleOffsetRads = 0)

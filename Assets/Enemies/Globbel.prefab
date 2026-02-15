@@ -147,14 +147,39 @@ MonoBehaviour:
       m_Calls: []
   onDeathPreAnimate:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5589158998950041537}
+        m_TargetAssemblyTypeName: Globbel, Assembly-CSharp
+        m_MethodName: EnemyDamageHandler_OnDeathPreAnimate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4472532923015666288}
+        m_TargetAssemblyTypeName: DistanceWatcher, Assembly-CSharp
+        m_MethodName: StopWatching
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDeath:
     m_PersistentCalls:
       m_Calls: []
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 2
   onlyDamagableBy: []
-  damageTakenDelay: 0.25
+  damageCooldownPeriod: 0.25
+  invincible: 0
   logger:
     logLevel: 3
 --- !u!60 &2756273419691802104
@@ -254,14 +279,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   toBeWatched: {fileID: 0}
-  pixelDistance: 256
-  pixelsPerUnit: 32
+  distance: 8
+  isWatching: 1
   onActivate:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5589158998950041537}
         m_TargetAssemblyTypeName: Globbel, Assembly-CSharp
-        m_MethodName: OnActivate
+        m_MethodName: DistanceWatcher_OnActivate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -276,7 +301,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5589158998950041537}
         m_TargetAssemblyTypeName: Globbel, Assembly-CSharp
-        m_MethodName: OnDeactivate
+        m_MethodName: DistanceWatcher_OnDeactivate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
