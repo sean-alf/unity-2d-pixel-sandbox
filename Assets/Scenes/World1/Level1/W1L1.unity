@@ -10552,6 +10552,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3234188135806968123, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: projectiles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3234188135806968123, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
+      propertyPath: 'projectiles.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: ff070e1858bb447bc940df4cf678b0d5, type: 2}
     - target: {fileID: 5533818684804794783, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_Color.b
       value: 1

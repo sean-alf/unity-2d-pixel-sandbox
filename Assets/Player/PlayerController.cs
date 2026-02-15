@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour,
     [SerializeField][Range(1, 20)] private float speed = 1;
     [SerializeField] private float damageCoolDownTime = 0.5f;
     [SerializeField][Range(1, 20)] private float recoilDuration = 0.25f;
+    [SerializeField][Range(0f, 0.5f)] private float recoilDistance = 3f / 32f;
     [SerializeField][Range(0, 1)] private float externalForceScaleOnDamage = 0.75f;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator effectAnimator;
@@ -124,7 +125,7 @@ public class PlayerController : MonoBehaviour,
         projectileManager.SetShootingLayer(LayerNames.Projectile);
 
         headInitialLocalPosition = head.transform.localPosition;
-        headRecoilLocalPosition = head.transform.localPosition.SubtractY(4f / 32f);
+        headRecoilLocalPosition = head.transform.localPosition.SubtractY(recoilDistance);
     }
 
     private void OnEnable()
@@ -138,6 +139,14 @@ public class PlayerController : MonoBehaviour,
         projectileManager.onProjectileChanged.RemoveListener(ProjectileManager_OnProjectilChanged);
         projectileManager.onProjectileInstantiated.RemoveListener(ProjectileManager_OnShoot);
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (head == null) head = transform.Find("Head").gameObject;
+        headRecoilLocalPosition = head.transform.localPosition.SubtractY(recoilDistance);
+    }
+#endif
 
     private void Start()
     {
