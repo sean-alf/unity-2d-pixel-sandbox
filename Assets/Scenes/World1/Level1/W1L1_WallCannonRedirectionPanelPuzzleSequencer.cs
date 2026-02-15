@@ -13,6 +13,7 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, Bet
     [SerializeField] private float initialGameStartDelay = 0.5f;
     [SerializeField] private float wallCannonShotDelay = 0.25f;
     [SerializeField] private float maxCameraSwitchSpeed = 20f;
+    [SerializeField] private float afterSpinningBladeDestroyedDelay = 0.5f;
     [SerializeField] private PanelSwitchCombo[] panelSwitchCombos;
     [SerializeField] private TargetFollowerCameraRequestEvent targetFollowerCameraRequestEvent;
 
@@ -88,11 +89,17 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, Bet
         ));
     }
 
-    private void OnCannonBallDestroyed() => targetFollowerCameraRequestEvent.Raise(new(
-            command: TargetFollowerCamera.Command.SwitchBackToMainTarget,
-            target: null,
-            maxSpeed: maxCameraSwitchSpeed
-        ));
+    private void OnCannonBallDestroyed()
+    {
+        this.StartTimer(afterSpinningBladeDestroyedDelay, onExpired: () =>
+        {
+            targetFollowerCameraRequestEvent.Raise(new(
+                command: TargetFollowerCamera.Command.SwitchBackToMainTarget,
+                target: null,
+                maxSpeed: maxCameraSwitchSpeed
+            ));
+        });
+    }
 
     public void UnityEvent_OnCameraTargetCentered(Transform target)
     {

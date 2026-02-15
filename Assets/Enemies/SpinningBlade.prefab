@@ -243,9 +243,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebf5633be78f4b03af111572f6a76d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpriteFlasher
-  flashColor: {r: 2, g: 2, b: 2, a: 1}
+  flashColor: {r: 1.0592737, g: 0.26481843, b: 0.26481843, a: 1}
   flashColor2: {r: 2, g: 2, b: 2, a: 1}
-  spriteRenderers: []
+  spriteRenderers:
+  - {fileID: 6658595254282299434}
   stepDuration: 0.05
   colorToShow: 0
   originalColor: {r: 1, g: 1, b: 1, a: 1}
