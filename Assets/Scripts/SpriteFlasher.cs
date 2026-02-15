@@ -5,11 +5,18 @@ using UnityEngine.Rendering;
 
 public class SpriteFlasher : MonoBehaviour
 {
-    [ColorUsage(true, true)]  // ← this enables HDR mode in Inspector!
-    [SerializeField] private Color flashColor = new(2f, 2f, 2f, 1f);
+    public enum ColorToShow
+    {
+        Original,
+        FlashColor1,
+        FlashColor2,
+    }
+
+    [SerializeField][ColorUsage(true, true)] private Color flashColor = new(2f, 2f, 2f, 1f);
+    [SerializeField][ColorUsage(true, true)] private Color flashColor2 = new(2f, 2f, 2f, 1f);
     [SerializeField] SpriteRenderer[] spriteRenderers;
     [SerializeField] private float stepDuration = 0.05f;
-    [SerializeField] private bool demoColor = false;
+    [SerializeField] private ColorToShow colorToShow;
     [SerializeField] private Color originalColor = Color.white;
 
     private Coroutine coroutine;
@@ -22,7 +29,18 @@ public class SpriteFlasher : MonoBehaviour
         foreach (var sr in spriteRenderers)
         {
             if (sr == null) continue;
-            sr.color = demoColor ? flashColor : originalColor;
+            switch (colorToShow)
+            {
+                case ColorToShow.Original:
+                    sr.color = originalColor;
+                    break;
+                case ColorToShow.FlashColor1:
+                    sr.color = flashColor;
+                    break;
+                case ColorToShow.FlashColor2:
+                    sr.color = flashColor2;
+                    break;
+            }
         }
     }
 #endif
@@ -48,7 +66,7 @@ public class SpriteFlasher : MonoBehaviour
 
         while (true)
         {
-            foreach (var sr in spriteRenderers) sr.color = useFlashColor ? flashColor : originalColor;
+            foreach (var sr in spriteRenderers) sr.color = useFlashColor ? flashColor : flashColor2;
             useFlashColor = !useFlashColor;
             yield return new WaitForSeconds(stepDuration);
 

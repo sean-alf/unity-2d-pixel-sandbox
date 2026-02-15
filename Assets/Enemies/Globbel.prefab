@@ -178,7 +178,7 @@ MonoBehaviour:
   deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
   health: 2
   onlyDamagableBy: []
-  damageCooldownPeriod: 0.25
+  damageCooldownPeriod: 0.35
   invincible: 0
   logger:
     logLevel: 3
@@ -370,8 +370,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpriteFlasher
   flashColor: {r: 1.0592737, g: 0.26481843, b: 0.26481843, a: 1}
+  flashColor2: {r: 2, g: 2, b: 2, a: 1}
   spriteRenderers:
   - {fileID: 1803010396746781904}
   stepDuration: 0.05
-  demoColor: 0
+  colorToShow: 0
   originalColor: {r: 1, g: 1, b: 1, a: 1}

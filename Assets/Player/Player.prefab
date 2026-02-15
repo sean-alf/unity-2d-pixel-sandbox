@@ -704,11 +704,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   flashColor: {r: 1.0592737, g: 0.26481843, b: 0.26481843, a: 1}
+  flashColor2: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
   spriteRenderers:
   - {fileID: 8769490243666333956}
   - {fileID: 5533818684804794783}
   stepDuration: 0.06
-  demoColor: 0
+  colorToShow: 0
   originalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3038318595791463268
 GameObject:
