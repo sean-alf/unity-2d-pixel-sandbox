@@ -19,6 +19,9 @@ MonoBehaviour:
   - name: Above Ground
     layer: 10
     sortingOrder: 1
+  - name: Hazards
+    layer: 10
+    sortingOrder: 2
   - name: Wall
     layer: 10
     sortingOrder: 2

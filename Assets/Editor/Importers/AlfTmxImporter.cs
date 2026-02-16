@@ -78,6 +78,7 @@ public class AlfTmxImporter : CustomTmxImporter
                 // Make sure it's on the correct layer
                 var polygonCollider = tilemap.transform.GetChild(0).gameObject;
                 polygonCollider.layer = tilemapSettings.layer;
+                polygonCollider.name = $"{tilemap.name} Collider";
             }
         }
         else
