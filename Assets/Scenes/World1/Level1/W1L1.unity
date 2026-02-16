@@ -10078,6 +10078,7 @@ MonoBehaviour:
   initialGameStartDelay: 0.5
   wallCannonShotDelay: 0.5
   maxCameraSwitchSpeed: 20
+  afterSpinningBladeDestroyedDelay: 0.5
   panelSwitchCombos:
   - panelSwitch: {fileID: 2105793295}
     panel: {fileID: 1795199574}
@@ -10550,11 +10551,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.90625
+      value: 6.3125
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -50.65625
+      value: -11.125
       objectReference: {fileID: 0}
     - target: {fileID: 2214910010599946264, guid: eb2331ccd14ca4fefbc4540086aac509, type: 3}
       propertyPath: m_LocalPosition.z

@@ -3,11 +3,11 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Tilemaps/w1-l1-map.tmx",
+    "activeFile": "TileSets/Hazards.tsx",
     "expandedProjectPaths": [
-        "Worlds",
         "TileSets",
         "Properties",
+        "Worlds",
         "Tilemaps",
         ".",
         "Rules",
@@ -44,6 +44,10 @@
             "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1.7
+        },
+        "TileSets/Hazards.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2.47
         },
         "TileSets/ItemsTileset.tsx": {
             "scaleInDock": 1,
@@ -90,11 +94,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 1.8278,
+            "scale": 2.1242,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1599.7373892110732,
-                "y": 1599.4638363059416
+                "x": 334.7142453629602,
+                "y": 283.6361924489219
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -120,6 +124,7 @@
             }
         }
     },
+    "frame.defaultDuration": 200,
     "last.externalTilesetPath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/TileSets",
     "last.imagePath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/TileSets",
     "last.objectTypesPath": "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/Properties/propertytypes.xml",
@@ -133,14 +138,16 @@
     "openFiles": [
         "Tilemaps/w1-l1-map.tmx",
         "Tilemaps/w1-l2-map.tmx",
-        "Tilemaps/w1-l3-map.tmx"
+        "Tilemaps/w1-l3-map.tmx",
+        "TileSets/Hazards.tsx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "TileType",
     "recentFiles": [
-        "Tilemaps/w1-l3-map.tmx",
-        "Tilemaps/w1-l2-map.tmx",
         "Tilemaps/w1-l1-map.tmx",
+        "Tilemaps/w1-l2-map.tmx",
+        "Tilemaps/w1-l3-map.tmx",
+        "TileSets/Hazards.tsx",
         "TileSets/ItemsTileset.tsx",
         "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/ForestGround.tsx",
@@ -148,8 +155,7 @@
         "TileSets/StairsLaddersStepsEtc.tsx",
         "TileSets/MuddyGround.tsx",
         "TileSets/PlatformTracks.tsx",
-        "Rules/wall_rules.tmx",
-        "TileSets/Conveyer.tsx"
+        "Rules/wall_rules.tmx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx"

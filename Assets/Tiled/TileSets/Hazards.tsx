@@ -161,6 +161,17 @@
    <object id="1" x="0" y="7" width="29" height="21"/>
   </objectgroup>
  </tile>
+ <tile id="128">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="32" height="32"/>
+  </objectgroup>
+  <animation>
+   <frame tileid="0" duration="200"/>
+   <frame tileid="64" duration="200"/>
+   <frame tileid="32" duration="200"/>
+   <frame tileid="96" duration="200"/>
+  </animation>
+ </tile>
  <tile id="129">
   <objectgroup draworder="index" id="2">
    <object id="1" x="7" y="0" width="25" height="27"/>

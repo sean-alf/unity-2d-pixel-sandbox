@@ -213,6 +213,7 @@ MonoBehaviour:
   inputMapSwitchingPriority: 10
   speed: 5
   damageCoolDownTime: 0.5
+  hazardDamageStrength: 1
   recoilDuration: 0.25
   recoilDistance: 0.09375
   externalForceScaleOnDamage: 0.3
