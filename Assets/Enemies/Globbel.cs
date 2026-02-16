@@ -28,6 +28,7 @@ public class Globbel : MonoBehaviour
 
     private SpriteRenderer sr;
     private ProjectileManager projectileManager;
+    private DistanceWatcher distanceWatcher;
     private WaitForSeconds stepWait;
     private WaitForSeconds shotWait;
     private float positionOffset;
@@ -37,10 +38,14 @@ public class Globbel : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         projectileManager = GetComponent<ProjectileManager>();
+        distanceWatcher = GetComponent<DistanceWatcher>();
 
         projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
         positionOffset = sr.bounds.extents.x;
         UpdateWaitDurations();
+
+        var playerTransform = GameObject.Find("Player").transform;
+        distanceWatcher.target = playerTransform;
     }
 
     public void DistanceWatcher_OnActivate() => Activate();

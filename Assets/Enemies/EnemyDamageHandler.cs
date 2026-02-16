@@ -41,7 +41,10 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        logger.D($"{name} ({gameObject.name}): OnCollisionEnter2D {other.gameObject.name}");
+        logger.D($"{name} ({gameObject.name}): OnCollisionEnter2D {other.gameObject.name}, layer {LayerMask.LayerToName(other.gameObject.layer)}");
+
+        // Generally, enemies shouldn't hurt other enemies
+        if (other.gameObject.layer == LayerNames.EnemyIndex) return;
 
         if (other.gameObject.TryGetComponent(out CollisionData data))
         {

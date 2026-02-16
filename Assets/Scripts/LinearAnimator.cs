@@ -6,11 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class LinearAnimator : MonoBehaviour
 {
-    [Serializable]
-    public class LinearAnimationDictionary : SerializableDictionary<string, LinearAnimation> { }
-
-    [SerializeField]
-    private LinearAnimationDictionary animations;
+    [Serializable] public class LinearAnimationDictionary : SerializableDictionary<string, LinearAnimation> { }
+    [SerializeField] private bool autoStart = false;
+    [SerializeField] private LinearAnimationDictionary animations;
 
     private SpriteRenderer sr;
     private Coroutine coroutine;
@@ -24,6 +22,23 @@ public class LinearAnimator : MonoBehaviour
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+
+        if (animations.Count == 0 && autoStart)
+        {
+            Debug.LogWarning($"{name} ({GetType().Name}): autoStart is enabled but there are no animations!");
+            Debug.LogWarning($"{name} ({GetType().Name}): disabling autoStart");
+            autoStart = false;
+        }
+    }
+
+    private void Start()
+    {
+        if (autoStart)
+        {
+            // Get the first animation in the dictionary
+            var key = animations.Keys.ToArray()[0];
+            Animate(key);
+        }
     }
 
     /// <summary>

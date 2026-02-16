@@ -278,8 +278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af09edcb8d8f4ffcbd4604fae1c2cc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  toBeWatched: {fileID: 0}
-  distance: 8
+  target: {fileID: 0}
+  distanceToActivate: 11
+  deactivationDistanceHysteresis: 0
   isWatching: 1
   onActivate:
     m_PersistentCalls:
@@ -311,6 +312,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  totalDeactivationDistance: 11
 --- !u!114 &5589158998950041537
 MonoBehaviour:
   m_ObjectHideFlags: 0

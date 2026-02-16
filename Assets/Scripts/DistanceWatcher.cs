@@ -3,11 +3,29 @@ using UnityEngine.Events;
 
 public class DistanceWatcher : MonoBehaviour
 {
-    [SerializeField] private GameObject toBeWatched;
-    [SerializeField][Range(0, 32)] private float distance = 8;
+    public Transform target;
+    [SerializeField][Range(0, 32)] private float distanceToActivate = 8;
+    [SerializeField][Tooltip("The distance amount greater than distanceToActivate to trigger deactivation")][Range(0, 32)] private float deactivationDistanceHysteresis = 0;
     [SerializeField] private bool isWatching = true;
     [SerializeField] private UnityEvent onActivate;
     [SerializeField] private UnityEvent onDeactivate;
+
+    [Space]
+    [Header("Debug")]
+
+    [SerializeField] private float totalDeactivationDistance;
+
+    private void Awake()
+    {
+        totalDeactivationDistance = distanceToActivate + deactivationDistanceHysteresis;
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        totalDeactivationDistance = distanceToActivate + deactivationDistanceHysteresis;
+    }
+#endif
 
     private bool _isActivated = false;
     private bool Activated
@@ -34,12 +52,21 @@ public class DistanceWatcher : MonoBehaviour
 
     private void Update()
     {
-        if (!toBeWatched.activeSelf || !isWatching)
+        if (!target.gameObject.activeSelf || !isWatching)
         {
             Activated = false;
             return;
         }
 
-        Activated = Vector2.Distance(toBeWatched.transform.position, transform.position) < distance;
+        float distance = Vector2.Distance(target.position, transform.position);
+
+        if (distance <= distanceToActivate)
+        {
+            Activated = true;
+        }
+        else if (distance >= totalDeactivationDistance)
+        {
+            Activated = false;
+        }
     }
 }
