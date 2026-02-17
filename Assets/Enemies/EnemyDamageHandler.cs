@@ -24,6 +24,7 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
     [SerializeField] private bool invincible = false;
     [SerializeField] private Logger logger;
 
+    public bool IsInvincible => invincible;
     public bool IsDead => health <= 0;
     public Logger Logger => logger;
 

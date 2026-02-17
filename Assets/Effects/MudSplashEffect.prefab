@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1527593099643976086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1245595274554125401}
+  - component: {fileID: 883963380117500245}
+  - component: {fileID: 1889405201678251519}
+  m_Layer: 0
+  m_Name: MudSplashEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1245595274554125401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527593099643976086}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 28.862654, y: -50.712257, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &883963380117500245
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527593099643976086}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 5
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.5, y: 0.5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &1889405201678251519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527593099643976086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e8bc5df205b4e7eab3af5c42e7b79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
+  autoStart: 0
+  destroySelfOnFinish: 0
+  animations:
+    kvpList:
+    - key: Default
+      value:
+        sprites:
+        - {fileID: 2972225877494319792, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: 2125640069379776581, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: -1956074676783513333, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: -3850462273922818612, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: -7621915744888063348, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: -3710023278408844181, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: -7302094967581141171, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        inactiveSprite: {fileID: 0}
+        duration: 0.5
+        clearSpriteOnCompletion: 1
+        loop: 0
+    - key: Splash
+      value:
+        sprites:
+        - {fileID: -1956074676783513333, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: -3850462273922818612, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: -7621915744888063348, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: -3710023278408844181, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: -7302094967581141171, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        inactiveSprite: {fileID: 0}
+        duration: 0.5
+        clearSpriteOnCompletion: 1
+        loop: 0
+    - key: Ripple
+      value:
+        sprites:
+        - {fileID: 2972225877494319792, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: 2125640069379776581, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: 2972225877494319792, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: 2125640069379776581, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: 2972225877494319792, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        - {fileID: 2125640069379776581, guid: b3d5f3cf98c294be08388cb26c6e8018, type: 3}
+        inactiveSprite: {fileID: 0}
+        duration: 0.5
+        clearSpriteOnCompletion: 0
+        loop: 0
+  currentAnimationKey: 
+  animateReverse: 0
+  useUnscaledTime: 0

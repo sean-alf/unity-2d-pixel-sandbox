@@ -123,8 +123,6 @@ public class PlayerController : MonoBehaviour,
         eye = head.transform.Find("Eye").gameObject;
         efr = GetComponentInChildren<ExternalForceReceiver>();
 
-        projectileManager.SetShootingLayer(LayerNames.Projectile);
-
         headInitialLocalPosition = head.transform.localPosition;
         headRecoilLocalPosition = head.transform.localPosition.SubtractY(recoilDistance);
     }

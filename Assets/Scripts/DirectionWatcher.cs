@@ -5,6 +5,7 @@ public class DirectionWatcher : MonoBehaviour
 {
     public Transform target;
     [SerializeField] private bool shouldWatch;
+    [SerializeField] private bool sendZeroVectorOnStopWatching = true;
     public UnityEvent<Vector2> onNewDirection;
 
     [Space]
@@ -31,6 +32,6 @@ public class DirectionWatcher : MonoBehaviour
     {
         shouldWatch = false;
         currentDirection = Vector2.zero;
-        onNewDirection?.Invoke(currentDirection);
+        if (sendZeroVectorOnStopWatching) onNewDirection?.Invoke(currentDirection);
     }
 }

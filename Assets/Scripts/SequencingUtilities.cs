@@ -15,4 +15,15 @@ public static class SequencingUtilities
         yield return new WaitForSecondsRealtime(duration);
         onRun();
     }
+
+    public static IEnumerator WaitForSecondsWhile(float duration, Func<bool> whileCondition)
+    {
+        float timer = 0f;
+
+        while (timer < duration && whileCondition())
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
 }

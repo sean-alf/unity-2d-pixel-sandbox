@@ -51,7 +51,6 @@ public class StraightShooter : MonoBehaviour
         projectileManager = GetComponent<ProjectileManager>();
         knockbackReceiver = GetComponent<KnockbackReceiver>();
 
-        projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
         navigationLayerMask = Physics2D.GetLayerCollisionMask(gameObject.layer)
             & ~((1 << LayerMask.NameToLayer(LayerNames.Player)) | (1 << LayerMask.NameToLayer(LayerNames.Projectile)));
     }

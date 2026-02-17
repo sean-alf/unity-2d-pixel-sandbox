@@ -25,9 +25,6 @@ public class WallCannon : MonoBehaviour
     private void Awake()
     {
         projectileManager = GetComponent<ProjectileManager>();
-
-        projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
-
         UpdateValues();
     }
 

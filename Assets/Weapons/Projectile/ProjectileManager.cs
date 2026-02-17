@@ -10,6 +10,8 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
         public Vector3 position;
     }
 
+    [Header("Only select one layer!!")]
+    [SerializeField] private LayerMask shootingLayer;
     // Keep this for inter-scene communication
     public UnityEvent<ProjectileSO> onProjectileChanged;
     public UnityEvent<Transform> onProjectileInstantiated;
@@ -22,15 +24,16 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
     [Space]
 
     [SerializeField] private float coolDownCounter = 0;
-    [SerializeField] private Logger logger;
-
     [SerializeField] private ProjectileSO selectedProjectile;
+    [SerializeField] private int shootingLayerIndex = 0;
+
     [Header("How many different types of projectiles the player has access to.")]
     [SerializeField] private int projectileCount = 0;
     [SerializeField] private int currentIndex = 0;
-    [SerializeField] private int shootingLayer;
+
     [Header("How many projectiles of the currently selected type have been instantiated and have not been destroyed.")]
     [SerializeField] private int activeProjectiles = 0;
+    [SerializeField] private Logger logger;
 
     public Logger Logger => logger;
     /// <summary>
@@ -51,7 +54,17 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
             Debug.LogError("Projectile Manager: Projectiles not set!!");
             return;
         }
+
+        CalculateShootingLayerIndex();
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        CalculateShootingLayerIndex();
+        // Debug.Log($"{name} ({GetType().Name}): shooting layer {shootingLayer}, value {shootingLayer.value}, shooting layer index {shootingLayerIndex}");
+    }
+#endif
 
     private void Start()
     {
@@ -100,7 +113,13 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
                 p.gameObject.SetActive(false);
                 p.ClearVelocity();
                 p.transform.position = s.position;
-                p.gameObject.layer = shootingLayer;
+                p.gameObject.layer = shootingLayerIndex;
+
+                if (p.TryGetComponent(out TrailMaker tm))
+                {
+                    tm.inheritedSpeed = p.Speed;
+                    tm.inheritedDirection = s.direction;
+                }
 
                 if (p.TryGetComponent(out Destroyable d))
                 {
@@ -120,11 +139,6 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
                 }
             });
         }
-    }
-
-    public void SetShootingLayer(string layer)
-    {
-        shootingLayer = LayerMask.NameToLayer(layer);
     }
 
     public void AddProjectile(ProjectileSO so)
@@ -167,7 +181,7 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
 
         selectedProjectile = projectiles[currentIndex];
 
-        if (shootingLayer == 0)
+        if (shootingLayer.value == 0)
         {
             logger.E("shooting layer not set!!");
             return;
@@ -176,6 +190,17 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
         onProjectileChanged?.Invoke(selectedProjectile);
         // Some projectiles don't need this (e.g., CannonBalls)
         if (spriteChangeEvent) spriteChangeEvent.Raise(selectedProjectile.LargeIcon);
+    }
+
+    private void CalculateShootingLayerIndex()
+    {
+        int layerValue = shootingLayer.value;
+        shootingLayerIndex = 0;
+        while (layerValue > 1)
+        {
+            layerValue /= 2;
+            ++shootingLayerIndex;
+        }
     }
 
     // ──────────────────────────────────────────────────────────────

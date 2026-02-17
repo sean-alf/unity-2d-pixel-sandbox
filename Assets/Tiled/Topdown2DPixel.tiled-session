@@ -3,15 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "TileSets/Hazards.tsx",
+    "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
-        "TileSets",
-        "Properties",
         "Worlds",
+        "Rules",
         "Tilemaps",
         ".",
-        "Rules",
-        "Tilemaps/Rules"
+        "TileSets",
+        "Tilemaps/Rules",
+        "Properties"
     ],
     "fileStates": {
         ":/automap-tiles.tsx": {
@@ -94,11 +94,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 2.1242,
+            "scale": 4.6837,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1600.131814330101,
-                "y": 1599.8964315977778
+                "x": 1234.0670837158657,
+                "y": 1441.4885667314304
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
@@ -144,10 +144,10 @@
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "TileType",
     "recentFiles": [
-        "Tilemaps/w1-l1-map.tmx",
-        "Tilemaps/w1-l2-map.tmx",
-        "Tilemaps/w1-l3-map.tmx",
         "TileSets/Hazards.tsx",
+        "Tilemaps/w1-l3-map.tmx",
+        "Tilemaps/w1-l2-map.tmx",
+        "Tilemaps/w1-l1-map.tmx",
         "TileSets/ItemsTileset.tsx",
         "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/ForestGround.tsx",

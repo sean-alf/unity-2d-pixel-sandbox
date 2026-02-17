@@ -151,6 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845ebb81f27e5409a9c73cec60b91fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  shootingLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   onProjectileChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -161,13 +164,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be13011e2b5414e2b95bea7faa3ec29d, type: 2}
   spriteChangeEvent: {fileID: 11400000, guid: 91ccdd6ae24fa42c1a66b0b48a2e07f1, type: 2}
   coolDownCounter: 0
-  logger:
-    logLevel: 3
   selectedProjectile: {fileID: 0}
+  shootingLayerIndex: 12
   projectileCount: 0
   currentIndex: 0
-  shootingLayer: 0
   activeProjectiles: 0
+  logger:
+    logLevel: 3
 --- !u!114 &6440799228650472467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
   autoStart: 0
+  destroySelfOnFinish: 0
   animations:
     kvpList:
     - key: Default
@@ -288,6 +292,9 @@ MonoBehaviour:
         duration: 0.2
         clearSpriteOnCompletion: 0
         loop: 1
+  currentAnimationKey: 
+  animateReverse: 0
+  useUnscaledTime: 0
 --- !u!61 &-3137722125030512224
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1095,6 +1102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
   autoStart: 0
+  destroySelfOnFinish: 0
   animations:
     kvpList:
     - key: Mud
@@ -1108,6 +1116,9 @@ MonoBehaviour:
         duration: 0.3
         clearSpriteOnCompletion: 0
         loop: 1
+  currentAnimationKey: 
+  animateReverse: 0
+  useUnscaledTime: 0
 --- !u!1 &7945624619709377701
 GameObject:
   m_ObjectHideFlags: 0

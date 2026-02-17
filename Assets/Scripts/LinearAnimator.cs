@@ -8,14 +8,19 @@ public class LinearAnimator : MonoBehaviour
 {
     [Serializable] public class LinearAnimationDictionary : SerializableDictionary<string, LinearAnimation> { }
     [SerializeField] private bool autoStart = false;
+    [SerializeField] private bool destroySelfOnFinish = false;
     [SerializeField] private LinearAnimationDictionary animations;
+
+    [Space]
+    [Header("Debug")]
+
+    [SerializeField] private string currentAnimationKey;
+    [SerializeField] private bool animateReverse = false;
+    [SerializeField] private bool useUnscaledTime = false;
 
     private SpriteRenderer sr;
     private Coroutine coroutine;
     private LinearAnimation currentAnimation;
-    private string currentAnimationKey;
-    private bool animateReverse = false;
-    private bool useUnscaledTime = false;
 
     private string Tag => $"{name} ({GetType().Name})";
 
@@ -197,16 +202,19 @@ public class LinearAnimator : MonoBehaviour
             {
                 yield return AnimateThrough(animation);
                 onFinished?.Invoke();
+                if (!animation.Loop) break;
             }
         }
         else
         {
             yield return AnimateThrough(animation);
-            coroutine = null;
             onFinished?.Invoke();
         }
 
+        coroutine = null;
+
         if (animation.ClearSpriteOnCompletion) sr.sprite = null;
+        if (destroySelfOnFinish) Destroy(gameObject);
     }
 
     private IEnumerator AnimateThrough(LinearAnimation animation)

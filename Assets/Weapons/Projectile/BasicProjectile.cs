@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -16,6 +17,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     [SerializeField] private bool offsetForHalfHeight = true;
     [SerializeField] private string defaultAnimationKey = "Default";
     [SerializeField] private string impactAnimationKey = "Impact";
+    public UnityEvent onImpact;
 
     [Header("Debug")]
     [Space]
@@ -30,6 +32,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     private float halfHeight;
     private int currentReflectionCount = 0;
 
+    public float Speed => speed;
     public int MaxConcurrentProjectiles => maxConcurrentProjectiles;
     public float CoolDownDuration => coolDownDuration;
     public Logger Logger => logger;
@@ -132,6 +135,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     private void OnImpact()
     {
         collider.enabled = false;
+        onImpact?.Invoke();
         StartCoroutine(DelayDestroy());
     }
 

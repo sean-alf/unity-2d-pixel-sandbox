@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
   autoStart: 1
+  destroySelfOnFinish: 0
   animations:
     kvpList:
     - key: Default
@@ -127,6 +128,9 @@ MonoBehaviour:
         duration: 0.8
         clearSpriteOnCompletion: 0
         loop: 1
+  currentAnimationKey: 
+  animateReverse: 0
+  useUnscaledTime: 0
 --- !u!61 &6443525786323936037
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -439,6 +443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   target: {fileID: 0}
   shouldWatch: 0
+  sendZeroVectorOnStopWatching: 1
   onNewDirection:
     m_PersistentCalls:
       m_Calls:

@@ -40,7 +40,6 @@ public class Globbel : MonoBehaviour
         projectileManager = GetComponent<ProjectileManager>();
         distanceWatcher = GetComponent<DistanceWatcher>();
 
-        projectileManager.SetShootingLayer(LayerNames.EnemyProjectile);
         positionOffset = sr.bounds.extents.x;
         UpdateWaitDurations();
 

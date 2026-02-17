@@ -276,6 +276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845ebb81f27e5409a9c73cec60b91fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileManager
+  shootingLayer:
+    serializedVersion: 2
+    m_Bits: 8192
   onProjectileChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -288,6 +291,10 @@ MonoBehaviour:
   coolDownCounter: 0
   logger:
     logLevel: 3
+  selectedProjectile: {fileID: 0}
+  projectileCount: 0
+  currentIndex: 0
+  activeProjectiles: 0
 --- !u!114 &574804052815560789
 MonoBehaviour:
   m_ObjectHideFlags: 0
