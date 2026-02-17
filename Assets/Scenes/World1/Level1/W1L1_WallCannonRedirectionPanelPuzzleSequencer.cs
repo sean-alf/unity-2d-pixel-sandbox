@@ -81,7 +81,7 @@ public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, Bet
     {
         cannonBallTransform = t;
         var d = t.GetComponent<Destroyable>();
-        d.onDestroyed += OnCannonBallDestroyed;
+        d.onDestroyed.AddListener(OnCannonBallDestroyed);
         targetFollowerCameraRequestEvent.Raise(new(
             command: TargetFollowerCamera.Command.SetTemporaryTarget,
             target: t,

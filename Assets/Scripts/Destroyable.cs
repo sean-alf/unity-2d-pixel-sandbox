@@ -1,9 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Destroyable : MonoBehaviour
 {
-    public Action onDestroyed;
+    public UnityEvent onDestroyed;
+
+    public void DestroySelf() => Destroy(gameObject);
 
     private void OnDestroy()
     {

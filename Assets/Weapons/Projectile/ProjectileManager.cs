@@ -123,7 +123,7 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
 
                 if (p.TryGetComponent(out Destroyable d))
                 {
-                    d.onDestroyed += OnProjectileDestroyed;
+                    d.onDestroyed.AddListener(OnProjectileDestroyed);
                 }
 
                 onProjectileInstantiated?.Invoke(p.transform);
