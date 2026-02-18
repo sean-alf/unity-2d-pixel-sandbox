@@ -1,33 +1,59 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(DirectionWatcher))]
 public class SpinSlicer : MonoBehaviour
 {
-    [SerializeField] private float idleAngularVelocity = 180f;
-    [SerializeField] private float watchAngularVelocity = 360f;
-    [SerializeField] private float attackAngularVelocity = 1440f;
-    [SerializeField] private float spinVelocityChangeDuration = 1f;
+    [Header("Spin Velocity")]
+    [SerializeField] private float idleSpinVelocity = 180f;
+    [SerializeField] private float watchSpinVelocity = 360f;
+    [SerializeField] private float attackSpinVelocity = 1440f;
+    [SerializeField] private float spinVelocityChangeDuration = 0.5f;
+
+    [Header("Center Eye")]
+    [SerializeField] private Transform centerEye;
+    [SerializeField] private Sprite lookStraightSprite;
+    [SerializeField] private Sprite lookUpSprite;
+    [SerializeField] private Sprite lookLeftSprite;
+    [SerializeField] private Sprite lookDownSprite;
+    [SerializeField] private Sprite lookRightSprite;
+    [SerializeField] private Sprite lookUpLeftSprite;
+    [SerializeField] private Sprite lookDownLeftSprite;
+    [SerializeField] private Sprite lookUpRightSprite;
+    [SerializeField] private Sprite lookDownRightSprite;
 
     [Header("Arc Attack")]
-    [SerializeField] private float attackArcSpeed = 6f;
     [SerializeField] private float attackArcHeight = 1.2f;
     [SerializeField] private float attackDuration = 0.9f;
-    [SerializeField] private float attackCooldownPeriod = 2f;
 
     [Space]
     [Header("Debug")]
 
+    [HideInInspector]
     [SerializeField] private Transform target;
+    [HideInInspector]
+    [SerializeField] private SpriteRenderer centerEyeSR;
+    [HideInInspector]
     [SerializeField] private State currentState = State.Idle;
+    [HideInInspector]
     [SerializeField] private State nextState = State.Idle;
+    [HideInInspector]
     [SerializeField] private SpinState currentSpinState = SpinState.Idle;
+    [HideInInspector]
     [SerializeField] private float currentAngularVelocity;
+    [HideInInspector]
     [SerializeField] private float startingAngularVelocity;
+    [HideInInspector]
     [SerializeField] private float targetAngularVelocity;
+    [HideInInspector]
     [SerializeField] private Vector2 currentLinearVelocity;
+    [HideInInspector]
     [SerializeField] private Vector2 startPosition;
+    [HideInInspector]
     [SerializeField] private Vector2 targetPosition;
+    [HideInInspector]
     [SerializeField] private float arcProgress;
+    [HideInInspector]
     [SerializeField] private float spinVelocityChangeTimer;
 
     private Rigidbody2D rb;
@@ -42,13 +68,17 @@ public class SpinSlicer : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         knockbackReceiver = GetComponentInChildren<KnockbackReceiver>();
 
+        var directionWatcher = GetComponent<DirectionWatcher>();
         var distanceWatchers = GetComponents<DistanceWatcher>();
         target = GameObject.Find("Player").transform;
 
+        directionWatcher.target = target;
         foreach (var watchers in distanceWatchers)
         {
             watchers.target = target;
         }
+
+        centerEyeSR = centerEye.GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -67,6 +97,12 @@ public class SpinSlicer : MonoBehaviour
         rb.linearVelocity = knockbackReceiver.KnockbackVelocity + currentLinearVelocity;
     }
 
+    private void LateUpdate()
+    {
+        // Prevent the center eye from rotating with the parent GameObject
+        centerEye.rotation = Quaternion.identity;
+    }
+
     // ──────────────────────────────────────────────────────────────
     // Public Control Methods
     // ──────────────────────────────────────────────────────────────
@@ -78,6 +114,32 @@ public class SpinSlicer : MonoBehaviour
     public void SetStateAttacking() => TransitionTo(State.Attacking);
 
     public void SetStateDead() => SetState(State.Dead);
+
+    public void OnNewTargetDirection(Vector2 direction)
+    {
+        if (direction.IsIdle())
+        {
+            centerEyeSR.sprite = lookStraightSprite;
+            return;
+        }
+
+        float angle = Vector2.SignedAngle(Vector2.down, direction);
+        float rotation = Mathf.Round(angle / 45f) * 45f;
+
+        centerEyeSR.sprite = rotation switch
+        {
+            -180 => lookUpSprite,
+            -135 => lookUpLeftSprite,
+            -90 => lookLeftSprite,
+            -45 => lookDownLeftSprite,
+            0 => lookDownSprite,
+            45 => lookDownRightSprite,
+            90 => lookRightSprite,
+            135 => lookUpRightSprite,
+            180 => lookUpSprite,
+            _ => lookStraightSprite,
+        };
+    }
 
     // ──────────────────────────────────────────────────────────────
     // Helpers
@@ -136,7 +198,7 @@ public class SpinSlicer : MonoBehaviour
                 currentSpinState = SpinState.Idle;
                 break;
             case SpinState.AttackCooldown:
-                var isAttackAngularVelocity = currentAngularVelocity.Approximately(attackAngularVelocity);
+                var isAttackAngularVelocity = currentAngularVelocity.Approximately(attackSpinVelocity);
 
                 // Debug.Log($"{name} ({GetType().Name}): OnTargetAngularVelocityReached: attackAngularVelocity {attackAngularVelocity}");
                 // Debug.Log($"{name} ({GetType().Name}): OnTargetAngularVelocityReached: isAttackAngularVelocity {isAttackAngularVelocity}");
@@ -148,7 +210,7 @@ public class SpinSlicer : MonoBehaviour
                 }
                 else
                 {
-                    SetTargetAngularVelocity(attackAngularVelocity, SpinState.AttackCooldown);
+                    SetTargetAngularVelocity(attackSpinVelocity, SpinState.AttackCooldown);
                 }
                 break;
         }
@@ -177,7 +239,7 @@ public class SpinSlicer : MonoBehaviour
     {
         currentLinearVelocity = Vector2.zero;
         if (nextState != State.Attacking) SetState(nextState);
-        SetTargetAngularVelocity(watchAngularVelocity, SpinState.AttackCooldown);
+        SetTargetAngularVelocity(watchSpinVelocity, SpinState.AttackCooldown);
     }
 
     private void InterruptIfNoLongerAttacking()
@@ -195,13 +257,13 @@ public class SpinSlicer : MonoBehaviour
         switch (currentState)
         {
             case State.Idle:
-                SetTargetAngularVelocity(idleAngularVelocity, SpinState.VelocityChange);
+                SetTargetAngularVelocity(idleSpinVelocity, SpinState.VelocityChange);
                 break;
             case State.Watching:
-                SetTargetAngularVelocity(watchAngularVelocity, SpinState.VelocityChange);
+                SetTargetAngularVelocity(watchSpinVelocity, SpinState.VelocityChange);
                 break;
             case State.Attacking:
-                SetTargetAngularVelocity(attackAngularVelocity, SpinState.AttackSpinup);
+                SetTargetAngularVelocity(attackSpinVelocity, SpinState.AttackSpinup);
                 break;
             case State.Dead:
                 currentAngularVelocity = 0f;
