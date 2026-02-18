@@ -149,7 +149,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: SpinSlicer_0
+  - name: SpinSlicer_Full
     originalName: 
     pivot: {x: 0.4, y: 0.5}
     alignment: 9
@@ -162,6 +162,111 @@ ScriptedImporter:
       width: 40
       height: 48
     spriteID: b3a8cf9c43ca04665a5f91c84a909610
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: SpinSlicer_LookLeft
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 8
+      y: 104
+      width: 16
+      height: 16
+    spriteID: 1bef12e1cad694269a36a8b4a316a033
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: SpinSlicer_LookStraight
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 8
+      y: 72
+      width: 16
+      height: 16
+    spriteID: 28ba5050ab191449bb8ccabbb4d9f631
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: SpinSlicer_LookDown
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 64
+      y: 72
+      width: 16
+      height: 16
+    spriteID: 581efa3209906483c8b80a0f4676ee12
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: SpinSlicer_LookUp
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 64
+      y: 40
+      width: 16
+      height: 16
+    spriteID: f60f494f0b110471b858e5cd47a7025c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: SpinSlicer_LookRight
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 64
+      y: 8
+      width: 16
+      height: 16
+    spriteID: b0fcad70440d44107a70c3b7723ad8a9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -184,7 +289,7 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: SpinSlicer
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -193,6 +298,51 @@ ScriptedImporter:
         width: 40
         height: 48
       spriteId: ffd787b13abc94b51ac5ba60ef27bf09
+    - name: Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      spriteId: a948dafe5366346fa89446991e860b68
+    - name: Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      spriteId: bd11993e4fea14e738984445122e3f19
+    - name: Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      spriteId: bd5f14cff29e54710a0fbd74ea93cc8b
+    - name: Frame_4
+      frameIndex: 4
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      spriteId: b507dd98de3fc473b9e7487ca4e0fd53
+    - name: Frame_5
+      frameIndex: 5
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      spriteId: c327601409e2b489283100a09e880ada
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -239,4 +389,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 48, y: 48}
-  previousTextureSize: {x: 64, y: 64}
+  previousTextureSize: {x: 128, y: 128}

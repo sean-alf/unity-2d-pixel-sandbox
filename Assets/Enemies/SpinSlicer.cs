@@ -3,15 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class SpinSlicer : MonoBehaviour
 {
-    [SerializeField] private float idleRotationsPerSecond = 0.5f;
-    [SerializeField] private float watchingRotationsPerSecond = 1f;
-    [SerializeField] private float attackingRotationsPerSecond = 2f;
+    [SerializeField] private float idleAngularVelocity = 180f;
+    [SerializeField] private float watchAngularVelocity = 360f;
+    [SerializeField] private float attackAngularVelocity = 1440f;
+    [SerializeField] private float spinVelocityChangeDuration = 1f;
 
     [Header("Arc Attack")]
     [SerializeField] private float attackArcSpeed = 6f;
     [SerializeField] private float attackArcHeight = 1.2f;
     [SerializeField] private float attackDuration = 0.9f;
-    [SerializeField] private float attackSpinupDuration = 2f;
     [SerializeField] private float attackCooldownPeriod = 2f;
 
     [Space]
@@ -20,13 +20,15 @@ public class SpinSlicer : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private State currentState = State.Idle;
     [SerializeField] private State nextState = State.Idle;
+    [SerializeField] private SpinState currentSpinState = SpinState.Idle;
     [SerializeField] private float currentAngularVelocity;
+    [SerializeField] private float startingAngularVelocity;
+    [SerializeField] private float targetAngularVelocity;
     [SerializeField] private Vector2 currentLinearVelocity;
     [SerializeField] private Vector2 startPosition;
     [SerializeField] private Vector2 targetPosition;
     [SerializeField] private float arcProgress;
-    [SerializeField] private float attackCooldownTimer;
-    [SerializeField] private float attackSpinUpTimer;
+    [SerializeField] private float spinVelocityChangeTimer;
 
     private Rigidbody2D rb;
     private KnockbackReceiver knockbackReceiver;
@@ -56,8 +58,12 @@ public class SpinSlicer : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (currentState != State.Dead)
+        {
+            HandleSpinMovement();
+            HandleArcMovement();
+        }
         rb.angularVelocity = currentAngularVelocity;
-        HandleAttackMovement();
         rb.linearVelocity = knockbackReceiver.KnockbackVelocity + currentLinearVelocity;
     }
 
@@ -65,11 +71,11 @@ public class SpinSlicer : MonoBehaviour
     // Public Control Methods
     // ──────────────────────────────────────────────────────────────
 
-    public void SetStateIdle() => UpdateState(State.Idle);
+    public void SetStateIdle() => TransitionTo(State.Idle);
 
-    public void SetStateWatching() => UpdateState(State.Watching);
+    public void SetStateWatching() => TransitionTo(State.Watching);
 
-    public void SetStateAttacking() => UpdateState(State.Attacking);
+    public void SetStateAttacking() => TransitionTo(State.Attacking);
 
     public void SetStateDead() => SetState(State.Dead);
 
@@ -77,7 +83,7 @@ public class SpinSlicer : MonoBehaviour
     // Helpers
     // ──────────────────────────────────────────────────────────────
 
-    private void UpdateState(State state)
+    public void TransitionTo(State state)
     {
         nextState = state;
         if (currentState == state || currentState == State.Attacking) return;
@@ -91,73 +97,95 @@ public class SpinSlicer : MonoBehaviour
         arcProgress = 0f;
     }
 
-    private void HandleAttackMovement()
+    private void HandleSpinMovement()
     {
-        if (currentState != State.Attacking) return;
+        // Debug.Log($"{name} ({GetType().Name}): HandleSpinMovement: currentState {currentState}");
+        // Debug.Log($"{name} ({GetType().Name}): HandleSpinMovement: rb.angularVelocity {rb.angularVelocity}");
+        // Debug.Log($"{name} ({GetType().Name}): HandleSpinMovement: targetAngularVelocity {targetAngularVelocity}");
+        // Debug.Log($"{name} ({GetType().Name}): HandleSpinMovement: are equal {rb.angularVelocity == targetAngularVelocity}");
 
-        if (attackSpinUpTimer > 0f)
+        if (spinVelocityChangeTimer <= 0f) return;
+        if (currentAngularVelocity == targetAngularVelocity)
         {
-            if (InterruptIfNoLongerAttacking()) return;
-
-            attackSpinUpTimer -= Time.fixedDeltaTime;
-            var t = 1f - (attackSpinUpTimer / attackSpinupDuration);
-            currentAngularVelocity = Mathf.Lerp(watchingRotationsPerSecond, attackingRotationsPerSecond, t) * 360f;
-
-            if (attackSpinUpTimer <= 0)
-            {
-                currentAngularVelocity = attackingRotationsPerSecond * 360f;
-            }
-
+            spinVelocityChangeTimer = 0f;
             return;
         }
 
-        if (attackCooldownTimer >= 0f)
+        spinVelocityChangeTimer -= Time.fixedDeltaTime;
+        var t = 1f - spinVelocityChangeTimer / spinVelocityChangeDuration;
+        var newSpinVelocity = Mathf.Lerp(startingAngularVelocity, targetAngularVelocity, t);
+
+        currentAngularVelocity = newSpinVelocity;
+
+        if (spinVelocityChangeTimer <= 0f) OnTargetAngularVelocityReached();
+
+        InterruptIfNoLongerAttacking();
+    }
+
+    private void OnTargetAngularVelocityReached()
+    {
+        currentAngularVelocity = targetAngularVelocity;
+
+        switch (currentSpinState)
         {
-            if (InterruptIfNoLongerAttacking()) return;
+            case SpinState.VelocityChange:
+                currentSpinState = SpinState.Idle;
+                break;
+            case SpinState.AttackSpinup:
+                InitAttack();
+                currentSpinState = SpinState.Idle;
+                break;
+            case SpinState.AttackCooldown:
+                var isAttackAngularVelocity = currentAngularVelocity.Approximately(attackAngularVelocity);
 
-            attackCooldownTimer -= Time.fixedDeltaTime;
-            float t = 1f - attackCooldownTimer / attackCooldownPeriod;
-            float rotationsPerSecond;
+                // Debug.Log($"{name} ({GetType().Name}): OnTargetAngularVelocityReached: attackAngularVelocity {attackAngularVelocity}");
+                // Debug.Log($"{name} ({GetType().Name}): OnTargetAngularVelocityReached: isAttackAngularVelocity {isAttackAngularVelocity}");
 
-            if (t <= 0.5f)
-            {
-                rotationsPerSecond = Mathf.Lerp(attackingRotationsPerSecond, watchingRotationsPerSecond, 2 * t);
-            }
-            else
-            {
-                rotationsPerSecond = Mathf.Lerp(watchingRotationsPerSecond, attackingRotationsPerSecond, 2 * (t - 0.5f));
-            }
-
-            currentAngularVelocity = rotationsPerSecond * 360f;
-            InitAttack();
-            return;
+                if (isAttackAngularVelocity)
+                {
+                    currentSpinState = SpinState.Idle;
+                    InitAttack();
+                }
+                else
+                {
+                    SetTargetAngularVelocity(attackAngularVelocity, SpinState.AttackCooldown);
+                }
+                break;
         }
+
+        // Debug.Log($"{name} ({GetType().Name}): OnTargetAngularVelocityReached: currentSpinState {currentSpinState}");
+    }
+
+    private void HandleArcMovement()
+    {
+        if (currentState != State.Attacking || currentSpinState != SpinState.Idle || arcProgress >= 1f) return;
 
         arcProgress += Time.fixedDeltaTime / attackDuration;
 
         if (arcProgress >= 1f)
         {
-            currentLinearVelocity = Vector2.zero;
-            if (nextState != State.Attacking) SetState(nextState);
-            attackCooldownTimer = attackCooldownPeriod;
-            return;
+            OnNewPositionReached();
         }
-
-        Vector2 targetPosThisFrame = ParabolicPosition(arcProgress);
-        currentLinearVelocity = (targetPosThisFrame - (Vector2)transform.position) / Time.fixedDeltaTime;
-        currentAngularVelocity = attackingRotationsPerSecond * 360f;
+        else
+        {
+            Vector2 intermediateTargetPosition = ParabolicPosition(arcProgress);
+            currentLinearVelocity = (intermediateTargetPosition - (Vector2)transform.position) / Time.fixedDeltaTime;
+        }
     }
 
-    private bool InterruptIfNoLongerAttacking()
+    private void OnNewPositionReached()
     {
-        if (nextState != State.Attacking)
+        currentLinearVelocity = Vector2.zero;
+        if (nextState != State.Attacking) SetState(nextState);
+        SetTargetAngularVelocity(watchAngularVelocity, SpinState.AttackCooldown);
+    }
+
+    private void InterruptIfNoLongerAttacking()
+    {
+        if (currentState == State.Attacking && nextState != State.Attacking)
         {
-            attackCooldownTimer = 0f;
-            attackSpinUpTimer = 0f;
             SetState(nextState);
-            return true;
         }
-        return false;
     }
 
     private void SetState(State state)
@@ -167,20 +195,31 @@ public class SpinSlicer : MonoBehaviour
         switch (currentState)
         {
             case State.Idle:
-                currentAngularVelocity = idleRotationsPerSecond * 360f;
+                SetTargetAngularVelocity(idleAngularVelocity, SpinState.VelocityChange);
                 break;
             case State.Watching:
-                currentAngularVelocity = watchingRotationsPerSecond * 360f;
+                SetTargetAngularVelocity(watchAngularVelocity, SpinState.VelocityChange);
                 break;
             case State.Attacking:
-                attackSpinUpTimer = attackSpinupDuration;
-                InitAttack();
+                SetTargetAngularVelocity(attackAngularVelocity, SpinState.AttackSpinup);
                 break;
             case State.Dead:
                 currentAngularVelocity = 0f;
                 currentLinearVelocity = Vector2.zero;
+                spinVelocityChangeTimer = 0f;
                 break;
         }
+    }
+
+    private void SetTargetAngularVelocity(float angularVelocity, SpinState newSpinState)
+    {
+        currentSpinState = newSpinState;
+        startingAngularVelocity = currentAngularVelocity;
+        targetAngularVelocity = angularVelocity;
+        spinVelocityChangeTimer = spinVelocityChangeDuration;
+
+        // Debug.Log($"{name} ({GetType().Name}): SetTargetAngularVelocity: startingAngularVelocity {startingAngularVelocity}");
+        // Debug.Log($"{name} ({GetType().Name}): SetTargetAngularVelocity: targetAngularVelocity {targetAngularVelocity}");
     }
 
     private Vector2 ParabolicPosition(float t)
@@ -198,5 +237,13 @@ public class SpinSlicer : MonoBehaviour
         Watching,
         Attacking,
         Dead
+    }
+
+    public enum SpinState
+    {
+        Idle,
+        VelocityChange,
+        AttackSpinup,
+        AttackCooldown,
     }
 }
