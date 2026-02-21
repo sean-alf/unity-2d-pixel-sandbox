@@ -292,8 +292,9 @@ MonoBehaviour:
         duration: 0.2
         clearSpriteOnCompletion: 0
         loop: 1
+        isReverse: 0
+        spriteIndex: 0
   currentAnimationKey: 
-  animateReverse: 0
   useUnscaledTime: 0
 --- !u!61 &-3137722125030512224
 BoxCollider2D:
@@ -1116,8 +1117,9 @@ MonoBehaviour:
         duration: 0.3
         clearSpriteOnCompletion: 0
         loop: 1
+        isReverse: 0
+        spriteIndex: 0
   currentAnimationKey: 
-  animateReverse: 0
   useUnscaledTime: 0
 --- !u!1 &7945624619709377701
 GameObject:

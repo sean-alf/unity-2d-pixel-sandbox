@@ -15,7 +15,6 @@ public class LinearAnimator : MonoBehaviour
     [Header("Debug")]
 
     [SerializeField] private string currentAnimationKey;
-    [SerializeField] private bool animateReverse = false;
     [SerializeField] private bool useUnscaledTime = false;
 
     private SpriteRenderer sr;
@@ -55,16 +54,22 @@ public class LinearAnimator : MonoBehaviour
     /// <param name="onFinished"></param>
     public void Animate(string animationName, Action onFinished = null)
     {
-        animateReverse = false;
         useUnscaledTime = false;
-        AnimateStart(animationName, onFinished);
+        AnimateStart(
+            animationKey: animationName,
+            animateReverse: false,
+            onFinished
+        );
     }
 
     public void AnimateRealtime(string animationName, Action onFinished = null)
     {
-        animateReverse = false;
         useUnscaledTime = true;
-        AnimateStart(animationName, onFinished);
+        AnimateStart(
+            animationKey: animationName,
+            animateReverse: false,
+            onFinished
+        );
     }
 
     /// <summary>
@@ -83,9 +88,12 @@ public class LinearAnimator : MonoBehaviour
         // Which is what happens in AnimateStart().
         // Having a null currentAnimationkey is a valid state.
         if (!IsKeyValid(currentAnimationKey)) return;
-        animateReverse = false;
         useUnscaledTime = false;
-        AnimateStart(currentAnimationKey, onFinished);
+        AnimateStart(
+            animationKey: currentAnimationKey,
+            animateReverse: false,
+            onFinished
+         );
     }
 
     /// <summary>
@@ -97,12 +105,15 @@ public class LinearAnimator : MonoBehaviour
     /// <param name="onFinished"></param>
     public void AnimateReverse(string animationName, Action onFinished = null)
     {
-        animateReverse = true;
         useUnscaledTime = false;
-        AnimateStart(animationName, onFinished);
+        AnimateStart(
+            animationKey: animationName,
+            animateReverse: true,
+            onFinished
+        );
     }
 
-    private void AnimateStart(string animationKey, Action onFinished = null)
+    private void AnimateStart(string animationKey, bool animateReverse, Action onFinished = null)
     {
         // Ignore request to start an animation that is currently running
         if (currentAnimationKey == animationKey && coroutine != null) return;
@@ -126,9 +137,9 @@ public class LinearAnimator : MonoBehaviour
 
         currentAnimation = animations[animationKey];
         currentAnimationKey = animationKey;
-        var sprites = currentAnimation.Sprites;
+        currentAnimation.isReverse = animateReverse;
 
-        if (sprites.Count() == 0)
+        if (currentAnimation.SpriteCount == 0)
         {
             Debug.LogError($"{Tag}: sprite count must be greater than 0!");
             return;
@@ -137,7 +148,7 @@ public class LinearAnimator : MonoBehaviour
         if (!Application.isPlaying)
         {
             // Simply set the first sprite of the animation
-            sr.sprite = sprites[0];
+            sr.sprite = currentAnimation.FirstSpriteOrNull;
             return;
         }
 
@@ -202,11 +213,12 @@ public class LinearAnimator : MonoBehaviour
             {
                 yield return AnimateThrough(animation);
                 onFinished?.Invoke();
-                if (!animation.Loop) break;
+                if (!animation.Loop) break; // Break if loop has been set to false
             }
         }
         else
         {
+            animation.ResetSpriteIndex();
             yield return AnimateThrough(animation);
             onFinished?.Invoke();
         }
@@ -219,23 +231,11 @@ public class LinearAnimator : MonoBehaviour
 
     private IEnumerator AnimateThrough(LinearAnimation animation)
     {
-        var sprites = animation.Sprites;
-
-        if (animateReverse)
+        while (!animation.HasLooped)
         {
-            for (int i = sprites.Count() - 1; i >= 0; i--)
-            {
-                sr.sprite = sprites[i];
-                yield return useUnscaledTime ? animation.GetStepWaitRealtime() : animation.GetStepWait();
-            }
-        }
-        else
-        {
-            for (int i = 0; i < sprites.Count(); i++)
-            {
-                sr.sprite = sprites[i];
-                yield return useUnscaledTime ? animation.GetStepWaitRealtime() : animation.GetStepWait();
-            }
+            sr.sprite = animation.GetSprite();
+            animation.Next();
+            yield return useUnscaledTime ? animation.GetStepWaitRealtime() : animation.GetStepWait();
         }
     }
 
@@ -246,17 +246,32 @@ public class LinearAnimator : MonoBehaviour
         [SerializeField][Tooltip("The sprite to use when not animating")] private Sprite inactiveSprite;
         [SerializeField] private float duration;
         [SerializeField] private bool clearSpriteOnCompletion = false;
+        [SerializeField] private bool loop = false;
 
-        [SerializeField]
-        private bool loop = false;
+        [Space]
+        [Header("Debug")]
+
+        public bool isReverse = false;
+        [SerializeField] private int spriteIndex = 0;
 
         private WaitForSeconds stepWait;
         private WaitForSecondsRealtime stepWaitRealtime;
+        private bool hasLooped;
 
-        public Sprite[] Sprites => sprites;
         public Sprite InactiveSprite => inactiveSprite;
         public bool Loop => loop;
         public bool ClearSpriteOnCompletion => clearSpriteOnCompletion;
+        public int SpriteCount => sprites.Length;
+        public bool HasLooped
+        {
+            get
+            {
+                var value = hasLooped;
+                hasLooped = false;
+                return value;
+            }
+        }
+        public Sprite FirstSpriteOrNull => SpriteCount > 0 ? sprites[0] : null;
 
         public WaitForSeconds GetStepWait()
         {
@@ -270,11 +285,36 @@ public class LinearAnimator : MonoBehaviour
             return stepWaitRealtime;
         }
 
+        public Sprite GetSprite() => sprites[spriteIndex];
+
+        public void Next()
+        {
+            var originalIndex = spriteIndex;
+
+            if (isReverse)
+            {
+                MoveNextReverse();
+            }
+            else
+            {
+                MoveNextForward();
+            }
+
+            hasLooped = (originalIndex == 0 && spriteIndex == SpriteCount - 1) ||
+                (originalIndex == SpriteCount - 1 && spriteIndex == 0);
+        }
+
         public void UpdateDuration(float duration)
         {
             this.duration = duration;
             stepWait = new(duration / sprites.Length);
             stepWaitRealtime = new(duration / sprites.Length);
         }
+
+        public void ResetSpriteIndex() => spriteIndex = 0;
+
+        private void MoveNextForward() => spriteIndex = (spriteIndex + 1) % SpriteCount;
+
+        private void MoveNextReverse() => spriteIndex = (spriteIndex - 1 + SpriteCount) % SpriteCount;
     }
 }

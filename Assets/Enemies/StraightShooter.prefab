@@ -126,8 +126,9 @@ MonoBehaviour:
         duration: 0.35
         clearSpriteOnCompletion: 0
         loop: 1
+        isReverse: 0
+        spriteIndex: 0
   currentAnimationKey: 
-  animateReverse: 0
   useUnscaledTime: 0
 --- !u!114 &7743796823536458332
 MonoBehaviour:

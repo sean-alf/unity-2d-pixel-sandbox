@@ -128,8 +128,9 @@ MonoBehaviour:
         duration: 0.8
         clearSpriteOnCompletion: 0
         loop: 1
+        isReverse: 0
+        spriteIndex: 0
   currentAnimationKey: 
-  animateReverse: 0
   useUnscaledTime: 0
 --- !u!61 &6443525786323936037
 BoxCollider2D:

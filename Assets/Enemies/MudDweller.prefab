@@ -387,6 +387,8 @@ MonoBehaviour:
         duration: 2
         clearSpriteOnCompletion: 0
         loop: 0
+        isReverse: 0
+        spriteIndex: 0
     - key: Submerge
       value:
         sprites:
@@ -397,8 +399,9 @@ MonoBehaviour:
         duration: 0.25
         clearSpriteOnCompletion: 0
         loop: 0
+        isReverse: 0
+        spriteIndex: 0
   currentAnimationKey: 
-  animateReverse: 0
   useUnscaledTime: 0
 --- !u!114 &7059230295511092237
 MonoBehaviour:
