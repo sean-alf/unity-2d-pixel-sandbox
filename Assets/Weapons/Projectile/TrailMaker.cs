@@ -31,7 +31,7 @@ public class TrailMaker : MonoBehaviour
     {
         Vector2 offset = Random.insideUnitCircle * 0.1f;
         var drop = Instantiate(trailParticleTemplate, (Vector2)transform.position + offset, Quaternion.identity);
-        var droplet = drop.GetComponent<MudDroplet>();
+        var droplet = drop.GetComponent<TrailParticle>();
         Vector2 dir = (inheritedDirection + Random.insideUnitCircle * 0.2f).normalized;
         droplet.Init(dir, inheritedSpeed);
     }

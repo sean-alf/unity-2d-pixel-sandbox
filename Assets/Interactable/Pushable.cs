@@ -1,6 +1,6 @@
 using System.Linq;
-using System.Threading;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
@@ -9,6 +9,11 @@ public class Pushable : MonoBehaviour
     [SerializeField] private bool isPushable = true;
     [SerializeField] private float pushSpeed = 1f;
     [SerializeField] private float pushTimerExpirationDuration = 0.5f;
+    /// <summary>
+    /// If enabled, the Rigidbody2D will be set to body type Static once the final push is complete.
+    /// </summary>
+    [Tooltip("If enabled, the Rigidbody2D will be set to Static body type once the final push is complete")]
+    public bool setStaticAfterFinalPush = false;
     [SerializeField][Range(0, 50)][Tooltip("0 is considered infinite")] private int maxPushCount = 1;
     [SerializeField]
     private CardinalDirection[] allowedPushingDirections =
@@ -18,6 +23,11 @@ public class Pushable : MonoBehaviour
         CardinalDirection.Down,
         CardinalDirection.Left
     };
+    /// <summary>
+    /// The pushable has been pushed for the last time and has settled into its permanent position
+    /// </summary>
+    [Tooltip("The pushable has been pushed for the last time and has settled into its permanent position")]
+    public UnityEvent onFinalPushSettled;
 
     [Space]
     [Header("Debug")]
@@ -70,7 +80,9 @@ public class Pushable : MonoBehaviour
                 if (currentPushCount >= maxPushCount && maxPushCount > 0)
                 {
                     isPushable = false;
-                    enabled = false;
+                    if (setStaticAfterFinalPush) rb.bodyType = RigidbodyType2D.Static;
+                    onFinalPushSettled?.Invoke();
+                    Destroy(this);
                 }
             }
         }
@@ -123,6 +135,13 @@ public class Pushable : MonoBehaviour
             }
         }
     }
+
+    public void SetAllowedPushingDirections(params CardinalDirection[] directions)
+    {
+        allowedPushingDirections = directions;
+    }
+
+    public void SetMaxPushCount(int count) => maxPushCount = count;
 
     private void DetermineNextPosition(Vector2 direction)
     {

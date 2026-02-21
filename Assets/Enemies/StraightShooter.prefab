@@ -263,6 +263,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b0c314ce0a514d5781ae78adf36a032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamageHandler
+  deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
+  health: 1
+  onlyDamagableBy: []
+  deferDeath: 0
+  damageCooldownPeriod: 0.25
   onKnockbackStart:
     m_PersistentCalls:
       m_Calls:
@@ -293,6 +298,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
   onDeathPreAnimate:
     m_PersistentCalls:
       m_Calls:
@@ -311,11 +319,8 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
-  deathCloudTemplate: {fileID: 1056829912079122971, guid: cb40323ddc336419dae90588e5d0c948, type: 3}
-  health: 1
-  onlyDamagableBy: []
-  damageCooldownPeriod: 0.25
   invincible: 0
+  currentHealth: 0
   logger:
     logLevel: 3
 --- !u!114 &2621529820718140736

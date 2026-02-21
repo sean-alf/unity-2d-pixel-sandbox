@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 614a8de353706445d9a61d02c6373532
+guid: 9a50ab89c60d9498c9e9f0f41f91d8ed
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ ScriptedImporter:
     sRGBTexture: 1
     spriteMode: 2
     spriteExtrude: 1
-    spriteMeshType: 1
+    spriteMeshType: 0
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
     spritePixelsToUnits: 32
@@ -78,7 +78,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 16
+    mosaicPadding: 8
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -93,7 +93,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
-    mosaicPadding: 16
+    mosaicPadding: 8
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639051191853129550
+  platformSettingsDirtyTick: 639071044462033470
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,7 +127,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: LaserSword
+  - name: ShockWave
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 6
-      height: 32
-    spriteID: ca1acf3d415db4ba4807aa508c590df5
+      width: 32
+      height: 10
+    spriteID: 936ff1512cda64c81838461b8884ad48
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -149,19 +149,19 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: LaserSword_0
+  - name: ShockWave_1
     originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 7
+    pivot: {x: 0, y: 0}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 16
-      y: 16
-      width: 18
-      height: 48
-    spriteID: e6818a113ab144dce8eae6628cb80c1c
+      x: 8
+      y: 32
+      width: 8
+      height: 8
+    spriteID: 660a57df80fb64903998d880a1fa29b6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -170,7 +170,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: LaserSword_Icon
+  - name: ShockWave_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -178,11 +178,53 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 9
-      y: 32
-      width: 32
-      height: 32
-    spriteID: c2218de2161e4454bb4fbb0a6b9dcaf2
+      x: 8
+      y: 8
+      width: 8
+      height: 8
+    spriteID: 7b199e04e71164c839c7d68ede4af001
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: ShockWave_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 32
+      y: 8
+      width: 6
+      height: 6
+    spriteID: 05947f65c4d7c4efabca90588771fc18
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: ShockWave_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 32
+      y: 30
+      width: 4
+      height: 4
+    spriteID: 4fec8bbcb0aef4b65acf471b90f79757
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -195,25 +237,52 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 4166743786
+      value0: 970980897
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: LaserSword
+    name: ShockWave
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: LaserSword
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 0
         y: 0
-        width: 18
-        height: 48
-      spriteId: ca1acf3d415db4ba4807aa508c590df5
+        width: 8
+        height: 8
+      spriteId: 936ff1512cda64c81838461b8884ad48
+    - name: Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 8
+        height: 8
+      spriteId: 9315ef517596f4877b5c46c6c6563faf
+    - name: Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 1
+        width: 6
+        height: 6
+      spriteId: 75584a417e31a45ec880cc9c4da989e1
+    - name: Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 2
+        width: 4
+        height: 4
+      spriteId: 33629e01d5fbc4d619c64a2d33f5aa2f
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -244,20 +313,8 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
-  - name: WebGL
-    overridden: 0
-    ignorePlatformSupport: 0
-    maxTextureSize: 16384
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 32, y: 48}
-  previousTextureSize: {x: 64, y: 128}
+  canvasSize: {x: 8, y: 8}
+  previousTextureSize: {x: 64, y: 64}

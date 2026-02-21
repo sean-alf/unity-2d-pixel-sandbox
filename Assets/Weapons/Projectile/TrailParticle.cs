@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class MudDroplet : MonoBehaviour
+public class TrailParticle : MonoBehaviour
 {
     [SerializeField] private float speedScale = 0.3f;
 

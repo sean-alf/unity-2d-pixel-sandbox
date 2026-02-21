@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,26 +7,28 @@ using UnityEngine.Events;
 [RequireComponent(typeof(SpriteFlasher))]
 public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
 {
-    public UnityEvent onKnockbackStart;
-    public UnityEvent onKnockbackEnd;
-    public UnityEvent onDeathPreAnimate;
-    public UnityEvent onDeath;
-
     [SerializeField] private GameObject deathCloudTemplate;
     [SerializeField] private int health = 1;
     [SerializeField] private List<CollisionData> onlyDamagableBy;
+    [Tooltip("Requires calling DieIfDead() to cause death if health is 0")] public bool deferDeath = false;
 
     [Header("Stationary Enemies")]
     [SerializeField] private float damageCooldownPeriod = 0.25f;
+    public UnityEvent onKnockbackStart;
+    public UnityEvent onKnockbackEnd;
+    public UnityEvent<int, int> onHealthChanged;
+    public UnityEvent onDeathPreAnimate;
+    public UnityEvent onDeath;
 
     [Header("Debug")]
     [Space]
 
     [SerializeField] private bool invincible = false;
+    [SerializeField] private int currentHealth;
     [SerializeField] private Logger logger;
 
     public bool IsInvincible => invincible;
-    public bool IsDead => health <= 0;
+    public bool IsDead => currentHealth <= 0;
     public Logger Logger => logger;
 
     private new Collider2D collider;
@@ -38,6 +41,8 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
         // Some enemies (like fixed enemies, e.g. Globbels) do NOT have a knockback receiver
         TryGetComponent(out knockbackReceiver);
         spriteFlasher = GetComponent<SpriteFlasher>();
+
+        currentHealth = health;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -62,18 +67,21 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
         }
     }
 
+    /// <summary>
+    /// Call this if deferDeath is true.
+    /// </summary>
+    /// <param name="onDone">If IsDead is true, gets called after the death animation completes, otherwise gets called immediately after checking health</param>
+    public void DieIfDead(Action onDone) => CheckHealth(onDone);
+
     private void TakeDamage(CollisionData data, Collision2D other)
     {
+        if (deferDeath && IsDead) return;
+
         logger.D($"type is Damage");
         logger.D($"strength {data.Strength}");
 
-        health -= data.Strength;
-
-        if (IsDead)
-        {
-            onDeathPreAnimate?.Invoke();
-        }
-
+        currentHealth = Mathf.Max(currentHealth - data.Strength, 0);
+        onHealthChanged?.Invoke(currentHealth, /*full health*/ health);
         invincible = true;
         spriteFlasher.StartFlash();
 
@@ -85,30 +93,38 @@ public class EnemyDamageHandler : MonoBehaviour, ILoggerProvider
             {
                 spriteFlasher.StopFlash();
                 invincible = false;
-                CheckHealth();
+                if (!deferDeath) CheckHealth();
                 onKnockbackEnd?.Invoke();
             });
         }
         else
         {
             // Handle stationary enemies
-            this.StartTimer(damageCooldownPeriod, onExpired: () =>
+            float duration = deferDeath && IsDead ? float.MaxValue : damageCooldownPeriod;
+
+            this.StartTimer(duration, onExpired: () =>
             {
                 spriteFlasher.StopFlash();
                 invincible = false;
-                CheckHealth();
+                if (!deferDeath) CheckHealth();
             });
         }
     }
 
-    private void CheckHealth()
+    private void CheckHealth(Action onDone = null)
     {
         if (IsDead)
         {
+            onDeathPreAnimate?.Invoke();
             collider.enabled = false;
             var deathCloud = Instantiate(deathCloudTemplate, transform).GetComponent<DeathCloud>();
             deathCloud.onAnimationEnd += Die;
+            if (onDone != null) deathCloud.onAnimationEnd += onDone;
             deathCloud.Begin();
+        }
+        else
+        {
+            onDone?.Invoke();
         }
     }
 

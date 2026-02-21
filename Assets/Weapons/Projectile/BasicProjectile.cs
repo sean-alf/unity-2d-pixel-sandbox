@@ -123,9 +123,14 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
             yield return null;
         }
 
-        if (ShouldAnimate(impactAnimationKey)) linearAnimator.Animate(impactAnimationKey,
-            onFinished: () => Destroy(gameObject)
-        );
+        if (ShouldAnimate(impactAnimationKey))
+        {
+            linearAnimator.Animate(impactAnimationKey, onFinished: () => Destroy(gameObject));
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // ──────────────────────────────────────────────────────────────
