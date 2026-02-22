@@ -13,8 +13,10 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     [SerializeField] private float coolDownDuration = 0.25f;
     [SerializeField][Range(0, 40)] private int maxReflectionCount = 5;
     [SerializeField] private float destructionDelay = 0f;
+    [SerializeField][Range(0, 1000)] private float maxDistance = 1000f;
     [SerializeField] private bool allowRotation = true;
     [SerializeField] private bool offsetForHalfHeight = true;
+    [SerializeField] private string releaseAnimationKey = "Release";
     [SerializeField] private string defaultAnimationKey = "Default";
     [SerializeField] private string impactAnimationKey = "Impact";
     public UnityEvent onImpact;
@@ -22,6 +24,7 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
     [Header("Debug")]
     [Space]
 
+    [SerializeField] Vector2 startPosition;
     [SerializeField] private Logger logger;
 
     private Rigidbody2D rb;
@@ -52,9 +55,10 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
         destructionWait = new(destructionDelay);
     }
 
-    private void Start()
+    private void Update()
     {
-        if (ShouldAnimate(defaultAnimationKey)) linearAnimator.Animate(defaultAnimationKey);
+        var distanceFromStartingPosition = Vector2.Distance(startPosition, transform.position);
+        if (distanceFromStartingPosition >= maxDistance) OnImpact();
     }
 
 #if UNITY_EDITOR
@@ -102,10 +106,17 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
 
         if (offsetForHalfHeight) startPosition = startPosition.Add(halfHeight * direction.normalized);
 
+        this.startPosition = startPosition;
+
         transform.SetPositionAndRotation(startPosition, rotation);
         gameObject.SetActive(true);
+
+        HandleInitialAnimations();
+
         rb.linearVelocity = speed * direction;
     }
+
+    public void SetMaxDistance(float maxDistance) => this.maxDistance = Mathf.Clamp(maxDistance, 0f, 1000f);
 
     // ──────────────────────────────────────────────────────────────
     // Coroutines
@@ -142,6 +153,23 @@ public class BasicProjectile : MonoBehaviour, ILoggerProvider, ReflectingWall.IR
         collider.enabled = false;
         onImpact?.Invoke();
         StartCoroutine(DelayDestroy());
+    }
+
+    private void HandleInitialAnimations()
+    {
+        if (!AnimateRelease()) AnimateDefault();
+    }
+
+    private bool AnimateRelease()
+    {
+        var shouldAnimate = ShouldAnimate(releaseAnimationKey);
+        if (shouldAnimate) linearAnimator.Animate(releaseAnimationKey, onFinished: () => AnimateDefault());
+        return shouldAnimate;
+    }
+
+    private void AnimateDefault()
+    {
+        if (ShouldAnimate(defaultAnimationKey)) linearAnimator.Animate(defaultAnimationKey);
     }
 
     /// <summary>

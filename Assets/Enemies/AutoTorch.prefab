@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &452059082856455489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7630212450128060464}
+  m_Layer: 0
+  m_Name: ProjectileSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7630212450128060464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452059082856455489}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.625, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2832542715669754914}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2632731986295069494
 GameObject:
   m_ObjectHideFlags: 0
@@ -19,6 +50,7 @@ GameObject:
   - component: {fileID: 8125851037162844852}
   - component: {fileID: 1969439478185464087}
   - component: {fileID: 99403505113130364}
+  - component: {fileID: -6588081557385926777}
   m_Layer: 11
   m_Name: AutoTorch
   m_TagString: Untagged
@@ -42,6 +74,7 @@ Transform:
   - {fileID: 5492910902871992177}
   - {fileID: 2359382230667630731}
   - {fileID: 1289762007042093715}
+  - {fileID: 7630212450128060464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4955245727786145465
@@ -115,18 +148,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4238fec56554152ab66b5e8cf16153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  projectileSpawnPoint: {fileID: 7630212450128060464}
   leftWheelAnimator: {fileID: 8305766535727413816}
   rightWheelAnimator: {fileID: 2287980716526781890}
   moveSpeed: 3
   turnSpeed: 90
   idleAngle: 0
+  shootDelayDuration: 0.25
   stopDistance: 3
-  backupDistance: 1.5
+  backupDistance: 2.5
   currentLinearVelocity: {x: 0, y: 0}
   currentAngularVelocity: 0
   currentState: 0
   targetAngle: 0
   targetDirection: {x: 0, y: 0}
+  shootDelaytimer: 0
 --- !u!50 &4179555315328075853
 Rigidbody2D:
   serializedVersion: 5
@@ -499,6 +535,38 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   currentDirection: {x: 0, y: 0}
+--- !u!114 &-6588081557385926777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632731986295069494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845ebb81f27e5409a9c73cec60b91fa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileManager
+  shootingLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  onProjectileChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onProjectileInstantiated:
+    m_PersistentCalls:
+      m_Calls: []
+  projectiles:
+  - {fileID: 11400000, guid: 49138170f072441c68132b553a631709, type: 2}
+  spriteChangeEvent: {fileID: 0}
+  coolDownCounter: 0
+  selectedProjectile: {fileID: 0}
+  shootingLayerIndex: 13
+  projectileCount: 0
+  currentIndex: 0
+  activeProjectiles: 0
+  logger:
+    logLevel: 2
 --- !u!1001 &791712046005162239
 PrefabInstance:
   m_ObjectHideFlags: 0

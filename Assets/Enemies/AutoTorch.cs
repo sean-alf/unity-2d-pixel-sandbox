@@ -1,15 +1,17 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(DirectionWatcher))]
+[RequireComponent(typeof(ProjectileManager))]
 public class AutoTorch : MonoBehaviour
 {
+    [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private LinearAnimator leftWheelAnimator;
     [SerializeField] private LinearAnimator rightWheelAnimator;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float turnSpeed;
     [SerializeField] private float idleAngle;
+    [SerializeField] private float shootDelayDuration = 0.5f;
     [SerializeField][Tooltip("How close the player should be when this should stop")] private float stopDistance = 2f;
     [SerializeField][Tooltip("How close the player should be when this should back up (must be less than stopDistance)")] private float backupDistance = 1.5f;
 
@@ -21,13 +23,17 @@ public class AutoTorch : MonoBehaviour
     [SerializeField] private State currentState;
     [SerializeField] private float targetAngle;
     [SerializeField] private Vector2 targetDirection;
+    [SerializeField] private float shootDelaytimer;
 
     private Rigidbody2D rb;
+    private ProjectileManager projectileManager;
     private Transform playerTransform;
+    private bool shouldAttack = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        projectileManager = GetComponent<ProjectileManager>();
 
         playerTransform = GameObject.Find("Player").transform;
         var distanceWatchers = GetComponents<DistanceWatcher>();
@@ -40,9 +46,25 @@ public class AutoTorch : MonoBehaviour
         directionWatcher.target = playerTransform;
     }
 
-    private void Start()
+    private void Update()
     {
-        // StartCoroutine(TestTurningAndMovement());
+        if (shouldAttack)
+        {
+            if (shootDelaytimer <= 0f)
+            {
+                projectileManager.Shoot(
+                    new ProjectileManager.StartingPointWithDirection()
+                    {
+                        position = projectileSpawnPoint.position,
+                        direction = transform.rotation * Vector2.up,
+                    }
+                );
+            }
+            else
+            {
+                shootDelaytimer = shootDelayDuration;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -77,6 +99,7 @@ public class AutoTorch : MonoBehaviour
 
     public void MoveForward()
     {
+        shouldAttack = false;
         leftWheelAnimator.Animate("Default");
         rightWheelAnimator.Animate("Default");
         Vector2 direction = Quaternion.Euler(0f, 0f, rb.rotation) * Vector2.up;
@@ -85,6 +108,7 @@ public class AutoTorch : MonoBehaviour
 
     public void MoveBackward()
     {
+        shouldAttack = true;
         leftWheelAnimator.AnimateReverse("Default");
         rightWheelAnimator.AnimateReverse("Default");
         Vector2 direction = Quaternion.Euler(0f, 0f, rb.rotation) * Vector2.up;
@@ -118,6 +142,7 @@ public class AutoTorch : MonoBehaviour
 
     public void StopMoving()
     {
+        shouldAttack = currentState == State.Attack;
         currentLinearVelocity = Vector2.zero;
 
         if (currentAngularVelocity == 0f)
@@ -188,7 +213,7 @@ public class AutoTorch : MonoBehaviour
 
     private void SetAttack()
     {
-
+        shootDelaytimer = 0f;
     }
 
     public enum State
