@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(DirectionWatcher))]
 [RequireComponent(typeof(ProjectileManager))]
+[RequireComponent(typeof(Collider2D))]
 public class AutoTorch : MonoBehaviour
 {
     [SerializeField] private Transform projectileSpawnPoint;
@@ -14,6 +15,12 @@ public class AutoTorch : MonoBehaviour
     [SerializeField] private float shootDelayDuration = 0.5f;
     [SerializeField][Tooltip("How close the player should be when this should stop")] private float stopDistance = 2f;
     [SerializeField][Tooltip("How close the player should be when this should back up (must be less than stopDistance)")] private float backupDistance = 1.5f;
+
+    [Header("Obstruction Avoidance")]
+    [SerializeField] private float boxcastDistance = 3f;
+    [SerializeField] private float boxcastForwardOffset = 0.25f;
+    [SerializeField] private float boxcastBoundsSizeScale = 1.2f;
+    [SerializeField] private LayerMask boxcastLayerMask;
 
     [Space]
     [Header("Debug")]
@@ -27,6 +34,7 @@ public class AutoTorch : MonoBehaviour
 
     private Rigidbody2D rb;
     private ProjectileManager projectileManager;
+    private new Collider2D collider;
     private Transform playerTransform;
     private bool shouldAttack = false;
 
@@ -34,6 +42,7 @@ public class AutoTorch : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         projectileManager = GetComponent<ProjectileManager>();
+        collider = GetComponent<Collider2D>();
 
         playerTransform = GameObject.Find("Player").transform;
         var distanceWatchers = GetComponents<DistanceWatcher>();
@@ -56,19 +65,21 @@ public class AutoTorch : MonoBehaviour
                     new ProjectileManager.StartingPointWithDirection()
                     {
                         position = projectileSpawnPoint.position,
-                        direction = transform.rotation * Vector2.up,
+                        direction = transform.up,
                     }
                 );
+                shootDelaytimer = shootDelayDuration;
             }
             else
             {
-                shootDelaytimer = shootDelayDuration;
+                shootDelaytimer -= Time.deltaTime;
             }
         }
     }
 
     private void FixedUpdate()
     {
+
         rb.linearVelocity = currentLinearVelocity;
 
         if (Mathf.Abs(Mathf.DeltaAngle(rb.rotation, targetAngle)) < 1f)
@@ -83,36 +94,53 @@ public class AutoTorch : MonoBehaviour
 
         float playerDistance = Vector2.Distance(rb.position, playerTransform.position);
 
-        if (playerDistance <= backupDistance)
+        if (currentState == State.Attack)
         {
-            MoveBackward();
-        }
-        else if (playerDistance <= stopDistance)
-        {
-            StopMoving();
-        }
-        else if (currentState == State.Attack)
-        {
-            MoveForward();
+            if (playerDistance <= backupDistance)
+            {
+                MoveBackward();
+            }
+            else if (playerDistance <= stopDistance)
+            {
+                StopMoving();
+            }
+            else
+            {
+                MoveForward();
+            }
         }
     }
 
     public void MoveForward()
     {
+        Vector2 direction = transform.up;
+
+        if (CheckForObstruction(direction))
+        {
+            StopMoving();
+            return;
+        }
+
         shouldAttack = false;
         leftWheelAnimator.Animate("Default");
         rightWheelAnimator.Animate("Default");
-        Vector2 direction = Quaternion.Euler(0f, 0f, rb.rotation) * Vector2.up;
         currentLinearVelocity = moveSpeed * direction;
     }
 
     public void MoveBackward()
     {
+        Vector2 direction = -transform.up;
+
+        if (CheckForObstruction(direction))
+        {
+            StopMoving();
+            return;
+        }
+
         shouldAttack = true;
         leftWheelAnimator.AnimateReverse("Default");
         rightWheelAnimator.AnimateReverse("Default");
-        Vector2 direction = Quaternion.Euler(0f, 0f, rb.rotation) * Vector2.up;
-        currentLinearVelocity = -moveSpeed * direction;
+        currentLinearVelocity = moveSpeed * direction;
     }
 
     public void TurnLeft()
@@ -181,6 +209,25 @@ public class AutoTorch : MonoBehaviour
     public void TransitionToWatch() => SetState(State.Watch);
 
     public void TransitionToAttack() => SetState(State.Attack);
+
+    /// <summary>
+    /// Checks for obstructions in direction for boxCastDistance distance.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns>True if there is an obstruction</returns>
+    private bool CheckForObstruction(Vector2 direction)
+    {
+        var adjustedSize = collider.bounds.size * boxcastBoundsSizeScale;
+        var hits = Physics2D.BoxCastAll(
+            origin: rb.position + (direction * boxcastForwardOffset),
+            size: adjustedSize,
+            angle: 0f,
+            direction: direction.normalized,
+            distance: boxcastDistance,
+            layerMask: boxcastLayerMask
+        );
+        return gameObject.HasHits(hits);
+    }
 
     private void SetState(State newState)
     {

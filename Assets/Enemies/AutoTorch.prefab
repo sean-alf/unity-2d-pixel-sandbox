@@ -154,9 +154,13 @@ MonoBehaviour:
   moveSpeed: 3
   turnSpeed: 90
   idleAngle: 0
-  shootDelayDuration: 0.25
+  shootDelayDuration: 0.05
   stopDistance: 3
   backupDistance: 2.5
+  boxcastDistance: 0.25
+  boxcastLayerMask:
+    serializedVersion: 2
+    m_Bits: 3584
   currentLinearVelocity: {x: 0, y: 0}
   currentAngularVelocity: 0
   currentState: 0
