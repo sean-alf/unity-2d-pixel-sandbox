@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(DirectionWatcher))]
 [RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(KnockbackReceiver))]
 public class AutoTorch : MonoBehaviour
 {
     [SerializeField] private Transform projectileSpawnPoint;
@@ -26,7 +27,6 @@ public class AutoTorch : MonoBehaviour
     [Header("Debug")]
 
     [SerializeField] private Vector2 currentLinearVelocity;
-    [SerializeField] private float currentAngularVelocity;
     [SerializeField] private State currentState;
     [SerializeField] private float targetAngle;
     [SerializeField] private Vector2 targetDirection;
@@ -35,14 +35,18 @@ public class AutoTorch : MonoBehaviour
     private Rigidbody2D rb;
     private ProjectileManager projectileManager;
     private new Collider2D collider;
+    private KnockbackReceiver knockbackReceiver;
     private Transform playerTransform;
     private bool shouldAttack = false;
+
+    private bool ShouldTurn => Mathf.Abs(Mathf.DeltaAngle(rb.rotation, targetAngle)) >= 1f;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         projectileManager = GetComponent<ProjectileManager>();
         collider = GetComponent<Collider2D>();
+        knockbackReceiver = GetComponent<KnockbackReceiver>();
 
         playerTransform = GameObject.Find("Player").transform;
         var distanceWatchers = GetComponents<DistanceWatcher>();
@@ -57,6 +61,8 @@ public class AutoTorch : MonoBehaviour
 
     private void Update()
     {
+        if (currentState == State.Dead) return;
+
         if (shouldAttack)
         {
             if (shootDelaytimer <= 0f)
@@ -79,17 +85,18 @@ public class AutoTorch : MonoBehaviour
 
     private void FixedUpdate()
     {
+        rb.linearVelocity = knockbackReceiver.KnockbackVelocity + currentLinearVelocity;
 
-        rb.linearVelocity = currentLinearVelocity;
+        if (currentState == State.Dead) return;
 
-        if (Mathf.Abs(Mathf.DeltaAngle(rb.rotation, targetAngle)) < 1f)
+        if (ShouldTurn)
         {
-            StopTurning();
-            rb.rotation = targetAngle;
+            rb.rotation = Mathf.MoveTowardsAngle(rb.rotation, targetAngle, turnSpeed * Time.fixedDeltaTime);
         }
         else
         {
-            rb.rotation = Mathf.MoveTowardsAngle(rb.rotation, targetAngle, turnSpeed * Time.fixedDeltaTime);
+            StopTurning();
+            rb.rotation = targetAngle;
         }
 
         float playerDistance = Vector2.Distance(rb.position, playerTransform.position);
@@ -147,43 +154,12 @@ public class AutoTorch : MonoBehaviour
     {
         leftWheelAnimator.AnimateReverse("Default");
         rightWheelAnimator.Animate("Default");
-        currentAngularVelocity = turnSpeed;
     }
 
     public void TurnRight()
     {
         leftWheelAnimator.Animate("Default");
         rightWheelAnimator.AnimateReverse("Default");
-        currentAngularVelocity = -turnSpeed;
-    }
-
-    public void StopTurning()
-    {
-        currentAngularVelocity = 0f;
-
-        if (currentLinearVelocity == Vector2.zero)
-        {
-            leftWheelAnimator.Stop();
-            rightWheelAnimator.Stop();
-        }
-    }
-
-    public void StopMoving()
-    {
-        shouldAttack = currentState == State.Attack;
-        currentLinearVelocity = Vector2.zero;
-
-        if (currentAngularVelocity == 0f)
-        {
-            leftWheelAnimator.Stop();
-            rightWheelAnimator.Stop();
-        }
-    }
-
-    public void Stop()
-    {
-        StopTurning();
-        StopMoving();
     }
 
     public void OnTargetDirectionChange(Vector2 newDirection)
@@ -209,6 +185,12 @@ public class AutoTorch : MonoBehaviour
     public void TransitionToWatch() => SetState(State.Watch);
 
     public void TransitionToAttack() => SetState(State.Attack);
+
+    public void TransitionToDead() => SetState(State.Dead);
+
+    public void Knockback_OnStart() => rb.bodyType = RigidbodyType2D.Dynamic;
+
+    public void Knockback_OnEnd() => rb.bodyType = RigidbodyType2D.Kinematic;
 
     /// <summary>
     /// Checks for obstructions in direction for boxCastDistance distance.
@@ -244,6 +226,9 @@ public class AutoTorch : MonoBehaviour
             case State.Attack:
                 SetAttack();
                 break;
+            case State.Dead:
+                SetDead();
+                break;
         }
     }
 
@@ -253,14 +238,37 @@ public class AutoTorch : MonoBehaviour
         targetAngle = idleAngle;
     }
 
-    private void SetWatch()
+    private void SetWatch() => StopMoving();
+
+    private void SetAttack() => shootDelaytimer = 0f;
+
+    private void SetDead() => Stop();
+
+    private void Stop()
     {
+        StopTurning();
         StopMoving();
     }
 
-    private void SetAttack()
+    private void StopTurning()
     {
-        shootDelaytimer = 0f;
+        if (currentLinearVelocity == Vector2.zero)
+        {
+            leftWheelAnimator.Stop();
+            rightWheelAnimator.Stop();
+        }
+    }
+
+    private void StopMoving()
+    {
+        shouldAttack = currentState == State.Attack;
+        currentLinearVelocity = Vector2.zero;
+
+        if (!ShouldTurn)
+        {
+            leftWheelAnimator.Stop();
+            rightWheelAnimator.Stop();
+        }
     }
 
     public enum State
@@ -268,5 +276,6 @@ public class AutoTorch : MonoBehaviour
         Idle,
         Watch,
         Attack,
+        Dead,
     }
 }
