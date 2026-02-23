@@ -656,7 +656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04161d9267ba4025bf36bb67b2b929f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  teleportInInitially: 1
+  teleportInInitially: 0
   followerCamera: {fileID: 6241744935921634885}
   washoutController: {fileID: 1563252028}
   theEndController: {fileID: 1537121069}

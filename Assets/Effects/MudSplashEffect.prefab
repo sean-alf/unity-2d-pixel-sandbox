@@ -80,7 +80,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 26
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -122,6 +122,8 @@ MonoBehaviour:
         duration: 0.5
         clearSpriteOnCompletion: 1
         loop: 0
+        isReverse: 0
+        spriteIndex: 0
     - key: Splash
       value:
         sprites:
@@ -134,6 +136,8 @@ MonoBehaviour:
         duration: 0.5
         clearSpriteOnCompletion: 1
         loop: 0
+        isReverse: 0
+        spriteIndex: 0
     - key: Ripple
       value:
         sprites:
@@ -147,6 +151,7 @@ MonoBehaviour:
         duration: 0.5
         clearSpriteOnCompletion: 0
         loop: 0
+        isReverse: 0
+        spriteIndex: 0
   currentAnimationKey: 
-  animateReverse: 0
   useUnscaledTime: 0

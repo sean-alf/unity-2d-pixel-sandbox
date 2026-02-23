@@ -21,6 +21,7 @@ public class StraightShooter : MonoBehaviour
     [SerializeField] private float mainCastDistance = 10;
     [SerializeField] private float reverseCastDistance = 4;
     [SerializeField] private LayerMask castLayerMask;
+    [SerializeField] private Transform projectileSpawnPoint;
 
     [Space]
     [Header("Debug")]
@@ -269,7 +270,7 @@ public class StraightShooter : MonoBehaviour
         projectileManager.Shoot(new ProjectileManager.StartingPointWithDirection()
         {
             direction = transform.rotation * Vector2.up,
-            position = transform.position
+            position = projectileSpawnPoint.position
         });
     }
 

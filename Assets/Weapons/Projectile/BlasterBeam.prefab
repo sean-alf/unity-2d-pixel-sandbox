@@ -87,7 +87,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 30
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5310342397081596427, guid: ee755864374ae45099cfc1438abb14b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -234,10 +234,16 @@ MonoBehaviour:
   coolDownDuration: 0.25
   maxReflectionCount: 4
   destructionDelay: 0
+  maxDistance: 1000
   allowRotation: 1
   offsetForHalfHeight: 1
+  releaseAnimationKey: Release
   defaultAnimationKey: 
   impactAnimationKey: Impact
+  onImpact:
+    m_PersistentCalls:
+      m_Calls: []
+  startPosition: {x: 0, y: 0}
   logger:
     logLevel: 3
 --- !u!114 &6643108539801083361
@@ -253,6 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
   autoStart: 0
+  destroySelfOnFinish: 0
   animations:
     kvpList:
     - key: Impact
@@ -264,6 +271,10 @@ MonoBehaviour:
         duration: 0.2
         clearSpriteOnCompletion: 0
         loop: 0
+        isReverse: 0
+        spriteIndex: 0
+  currentAnimationKey: 
+  useUnscaledTime: 0
 --- !u!114 &7206876176557520153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,3 +287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807e4904b909d4a6db4a09d3e3763afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Destroyable
+  onDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
