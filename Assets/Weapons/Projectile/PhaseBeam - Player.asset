@@ -9,12 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57227deb4c5e94035b8c402ab8768622, type: 3}
-  m_Name: PhaseBeam
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectileSO
+  m_Script: {fileID: 11500000, guid: 79e0f663f0e424308a9c86e5fecaefc8, type: 3}
+  m_Name: PhaseBeam - Player
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerProjectileSO
   menuIcon: {fileID: -5663166529958197167, guid: f02d3a0e75a70418fba86825a90ef759, type: 3}
   cacheIcon: {fileID: 4011951315771019982, guid: 5e312332e382d4e96b90486b5516d2ec, type: 3}
   displayName: Phase Beam
-  description: 
+  description: 'It has double the power of the Blaster Beam,
+
+    but a slower shot
+    rate.'
   playerEye: {fileID: -4852244164238081006, guid: 0b9fdba65669940fcaa70cf23f51c1fa, type: 3}
-  template: {fileID: 6726146697752115651, guid: 38a076081aab04bf1952f02100ccf903, type: 3}
+  projectileSO: {fileID: 11400000, guid: ff070e1858bb447bc940df4cf678b0d5, type: 2}

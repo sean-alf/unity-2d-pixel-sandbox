@@ -206,7 +206,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2563345749772365630, guid: fc2ca9e86f288478fbc07d17428938b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -287,14 +287,14 @@ MonoBehaviour:
       m_Calls: []
   projectiles:
   - {fileID: 11400000, guid: bdbdf2253b56642c68f69b24d7e1264a, type: 2}
-  spriteChangeEvent: {fileID: 0}
   coolDownCounter: 0
-  logger:
-    logLevel: 3
   selectedProjectile: {fileID: 0}
+  shootingLayerIndex: 13
   projectileCount: 0
   currentIndex: 0
   activeProjectiles: 0
+  logger:
+    logLevel: 3
 --- !u!114 &574804052815560789
 MonoBehaviour:
   m_ObjectHideFlags: 0

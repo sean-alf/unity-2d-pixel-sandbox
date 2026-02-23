@@ -212,18 +212,27 @@ public class LinearAnimator : MonoBehaviour
             while (true)
             {
                 yield return AnimateThrough(animation);
-                onFinished?.Invoke();
-                if (!animation.Loop) break; // Break if loop has been set to false
+                if (!animation.Loop)
+                {
+                    // coroutine must be set null before calling onFinished
+                    coroutine = null;
+                    onFinished?.Invoke();
+                    break; // Break if loop has been set to false
+                }
+                else
+                {
+                    onFinished?.Invoke();
+                }
             }
         }
         else
         {
             animation.ResetSpriteIndex();
             yield return AnimateThrough(animation);
+            // coroutine must be set null before calling onFinished
+            coroutine = null;
             onFinished?.Invoke();
         }
-
-        coroutine = null;
 
         if (animation.ClearSpriteOnCompletion) sr.sprite = null;
         if (destroySelfOnFinish) Destroy(gameObject);
@@ -311,7 +320,17 @@ public class LinearAnimator : MonoBehaviour
             stepWaitRealtime = new(duration / sprites.Length);
         }
 
-        public void ResetSpriteIndex() => spriteIndex = 0;
+        public void ResetSpriteIndex()
+        {
+            if (isReverse)
+            {
+                spriteIndex = SpriteCount - 1;
+            }
+            else
+            {
+                spriteIndex = 0;
+            }
+        }
 
         private void MoveNextForward() => spriteIndex = (spriteIndex + 1) % SpriteCount;
 

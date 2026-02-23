@@ -255,7 +255,6 @@ MonoBehaviour:
       m_Calls: []
   projectiles:
   - {fileID: 11400000, guid: a738750d7d44e444983d7522068984d9, type: 2}
-  spriteChangeEvent: {fileID: 0}
   coolDownCounter: 0
   selectedProjectile: {fileID: 0}
   shootingLayerIndex: 13

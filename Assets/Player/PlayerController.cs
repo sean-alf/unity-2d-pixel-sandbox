@@ -15,6 +15,7 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(MeleeWeaponManager))]
 [RequireComponent(typeof(SpriteFlasher))]
 [RequireComponent(typeof(KnockbackReceiver))]
+[RequireComponent(typeof(PlayerProjectileStash))]
 public class PlayerController : MonoBehaviour,
     AutoMover.IAutoMoverTarget,
     ILoggerProvider,
@@ -91,6 +92,7 @@ public class PlayerController : MonoBehaviour,
     private ActionableItemGroupsManager itemGroupsManager;
     private MeleeWeaponManager meleeWeaponManager;
     private ProjectileManager projectileManager;
+    private PlayerProjectileStash projectileStash;
     private HealthManager healthManager;
     private KnockbackReceiver knockbackReceiver;
     private SpriteFlasher spriteFlasher;
@@ -115,6 +117,7 @@ public class PlayerController : MonoBehaviour,
         itemGroupsManager = GetComponent<ActionableItemGroupsManager>();
         meleeWeaponManager = GetComponent<MeleeWeaponManager>();
         projectileManager = GetComponent<ProjectileManager>();
+        projectileStash = GetComponent<PlayerProjectileStash>();
         healthManager = GetComponent<HealthManager>();
         knockbackReceiver = GetComponent<KnockbackReceiver>();
         spriteFlasher = GetComponent<SpriteFlasher>();
@@ -129,13 +132,13 @@ public class PlayerController : MonoBehaviour,
 
     private void OnEnable()
     {
-        projectileManager.onProjectileChanged.AddListener(ProjectileManager_OnProjectilChanged);
+        projectileStash.onProjectileChanged.AddListener(ProjectileStash_OnProjectilChanged);
         projectileManager.onProjectileInstantiated.AddListener(ProjectileManager_OnShoot);
     }
 
     private void OnDisable()
     {
-        projectileManager.onProjectileChanged.RemoveListener(ProjectileManager_OnProjectilChanged);
+        projectileStash.onProjectileChanged.RemoveListener(ProjectileStash_OnProjectilChanged);
         projectileManager.onProjectileInstantiated.RemoveListener(ProjectileManager_OnShoot);
     }
 
@@ -411,7 +414,7 @@ public class PlayerController : MonoBehaviour,
     // Other UnityEvent Methods
     // ──────────────────────────────────────────────────────────────
 
-    private void ProjectileManager_OnProjectilChanged(ProjectileSO projectile) => eye.GetComponent<SpriteRenderer>().sprite = projectile.PlayerEye;
+    private void ProjectileStash_OnProjectilChanged(PlayerProjectileSO projectile) => eye.GetComponent<SpriteRenderer>().sprite = projectile.PlayerEye;
 
     private void ProjectileManager_OnShoot(Transform _) => RecoilBegin();
 

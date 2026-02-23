@@ -17,7 +17,6 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
     public UnityEvent<Transform> onProjectileInstantiated;
 
     [SerializeField] private List<ProjectileSO> projectiles;
-    [SerializeField] private SpriteChangeEvent spriteChangeEvent;
 
     [Space]
     [Header("Debug")]
@@ -48,13 +47,6 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
     private void Awake()
     {
         projectileCount = projectiles.Count;
-
-        if (projectiles == null || projectileCount == 0)
-        {
-            Debug.LogError("Projectile Manager: Projectiles not set!!");
-            return;
-        }
-
         CalculateShootingLayerIndex();
     }
 
@@ -145,6 +137,8 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
     {
         projectiles.Add(so);
         projectileCount = projectiles.Count;
+
+        if (projectileCount == 1) SetProjectiles();
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -173,11 +167,7 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
 
     private void SetProjectiles()
     {
-        if (projectileCount == 0)
-        {
-            if (spriteChangeEvent) spriteChangeEvent.Raise(null);
-            return;
-        }
+        if (projectileCount == 0) return;
 
         selectedProjectile = projectiles[currentIndex];
 
@@ -188,8 +178,6 @@ public class ProjectileManager : MonoBehaviour, ActionableItemGroupsManager.IAct
         }
 
         onProjectileChanged?.Invoke(selectedProjectile);
-        // Some projectiles don't need this (e.g., CannonBalls)
-        if (spriteChangeEvent) spriteChangeEvent.Raise(selectedProjectile.LargeIcon);
     }
 
     private void CalculateShootingLayerIndex()

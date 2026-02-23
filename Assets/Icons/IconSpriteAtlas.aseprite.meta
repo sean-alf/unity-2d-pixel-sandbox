@@ -149,7 +149,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: PhaseBeamIcon
+  - name: PhaseBeamMenuIcon
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
