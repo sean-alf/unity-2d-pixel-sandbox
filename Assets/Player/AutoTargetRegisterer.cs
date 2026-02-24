@@ -8,12 +8,23 @@ public class AutoTargetRegisterer : MonoBehaviour
     [SerializeField] private TargetFollowerCameraRequestEvent targetFollowerCameraRequestEvent;
 
 #if UNITY_EDITOR
-    private void OnEnable()
+    private TargetFollowerCamera targetFollowerCamera;
+
+    private void Awake() => FindCameraAndSetTarget();
+
+    private void OnEnable() => FindCameraAndSetTarget();
+
+    private void OnValidate() => FindCameraAndSetTarget();
+
+    private void FindCameraAndSetTarget()
     {
-        var go = GameObject.Find("Main Camera");
-        if (go)
+        if (Application.isPlaying) return;
+
+        var mainCamera = GameObject.Find("Main Camera");
+
+        if (mainCamera)
         {
-            var targetFollowerCamera = go.GetComponent<TargetFollowerCamera>();
+            targetFollowerCamera = mainCamera.GetComponent<TargetFollowerCamera>();
             targetFollowerCamera.UnityEvent_SetRequest(new(
                 command: TargetFollowerCamera.Command.SetMainTarget,
                 target: transform,
@@ -21,7 +32,24 @@ public class AutoTargetRegisterer : MonoBehaviour
             ));
         }
     }
+
+    private void Update()
+    {
+        if (Application.isPlaying ||
+            targetFollowerCamera == null ||
+            (targetFollowerCamera.CurrentTarget != null && targetFollowerCamera.CurrentTarget.gameObject == gameObject))
+        {
+            return;
+        }
+        Debug.Log($"{name} ({GetType().Name}): setting camera target");
+        targetFollowerCamera.UnityEvent_SetRequest(new(
+            command: TargetFollowerCamera.Command.SetMainTarget,
+            target: transform,
+            maxSpeed: 0 // ignore
+        ));
+    }
 #endif
+
 
     private void Start()
     {

@@ -86,6 +86,7 @@ public class AutoTorch : MonoBehaviour
     private void FixedUpdate()
     {
         rb.linearVelocity = knockbackReceiver.KnockbackVelocity + currentLinearVelocity;
+        rb.angularVelocity = 0f;
 
         if (currentState == State.Dead) return;
 

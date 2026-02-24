@@ -4,26 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class TargetFollowerCamera : MonoBehaviour
 {
-    public enum Command
-    {
-        SetMainTarget,
-        SetTemporaryTarget,
-        SwitchBackToMainTarget,
-    }
-
-    public readonly struct TargetRequest
-    {
-        public readonly Command command;
-        public readonly Transform target;
-        public readonly float maxSpeed;
-
-        public TargetRequest(Command command, Transform target, float maxSpeed)
-        {
-            this.command = command;
-            this.target = target;
-            this.maxSpeed = maxSpeed;
-        }
-    }
 
     [SerializeField] private TransformChangeEvent finishedCenteringTargetEvent;
 
@@ -36,12 +16,22 @@ public class TargetFollowerCamera : MonoBehaviour
     [SerializeField] private Vector3 velocity = Vector3.zero;
     [SerializeField] private bool catchUp = false;
 
+    public Transform CurrentTarget => currentTarget;
+
     private Transform mainTarget;
     private Transform currentTarget;
 
     void LateUpdate()
     {
-        if (currentTarget == null) return;
+        if (currentTarget == null)
+        {
+            if (currentTargetName != "[Unset]")
+            {
+                Debug.LogError($"{name} ({GetType().Name}): current target may be a stale reference!");
+                currentTargetName = "[Unset]";
+            }
+            return;
+        }
 
         if (catchUp)
         {
@@ -118,5 +108,26 @@ public class TargetFollowerCamera : MonoBehaviour
 
         mainTargetName = mainTarget != null ? mainTarget.name : "[Unset]";
         currentTargetName = currentTarget != null ? currentTarget.name : "[Unset]";
+    }
+
+    public enum Command
+    {
+        SetMainTarget,
+        SetTemporaryTarget,
+        SwitchBackToMainTarget,
+    }
+
+    public readonly struct TargetRequest
+    {
+        public readonly Command command;
+        public readonly Transform target;
+        public readonly float maxSpeed;
+
+        public TargetRequest(Command command, Transform target, float maxSpeed)
+        {
+            this.command = command;
+            this.target = target;
+            this.maxSpeed = maxSpeed;
+        }
     }
 }

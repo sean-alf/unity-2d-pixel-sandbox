@@ -120,10 +120,10 @@ MonoBehaviour:
     - key: Default
       value:
         sprites:
-        - {fileID: -7414092595178962185, guid: 705fea091dab84f108cb097638ab5f52, type: 3}
-        - {fileID: 109268347293318779, guid: 705fea091dab84f108cb097638ab5f52, type: 3}
-        - {fileID: -1730259031134737528, guid: 705fea091dab84f108cb097638ab5f52, type: 3}
         - {fileID: 7833869231708578234, guid: 705fea091dab84f108cb097638ab5f52, type: 3}
+        - {fileID: 109268347293318779, guid: 705fea091dab84f108cb097638ab5f52, type: 3}
+        - {fileID: -7414092595178962185, guid: 705fea091dab84f108cb097638ab5f52, type: 3}
+        - {fileID: -1730259031134737528, guid: 705fea091dab84f108cb097638ab5f52, type: 3}
         inactiveSprite: {fileID: 0}
         duration: 0.8
         clearSpriteOnCompletion: 0
@@ -176,7 +176,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9375, y: 0.9375}
   m_EdgeRadius: 0
 --- !u!50 &1741821919636745873
 Rigidbody2D:

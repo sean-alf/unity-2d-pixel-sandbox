@@ -84,7 +84,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 15
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3660650854414092634, guid: 8022af2d0811e4805941477b9de8100c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e8bc5df205b4e7eab3af5c42e7b79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LinearAnimator
+  autoStart: 0
+  destroySelfOnFinish: 0
   animations:
     kvpList:
     - key: Default
@@ -166,6 +168,10 @@ MonoBehaviour:
         duration: 0.5
         clearSpriteOnCompletion: 0
         loop: 0
+        isReverse: 0
+        spriteIndex: 0
+  currentAnimationKey: 
+  useUnscaledTime: 0
 --- !u!114 &1676443266850016143
 MonoBehaviour:
   m_ObjectHideFlags: 0
