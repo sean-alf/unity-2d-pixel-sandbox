@@ -1,0 +1,27 @@
+{
+    "maps": [
+        {
+            "fileName": "../Tilemaps/w3-l1-map.tmx",
+            "height": 3200,
+            "width": 3200,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "../Tilemaps/w3-l2-map.tmx",
+            "height": 3200,
+            "width": 3200,
+            "x": 3200,
+            "y": 0
+        },
+        {
+            "fileName": "../Tilemaps/w3-l3-map.tmx",
+            "height": 3200,
+            "width": 3200,
+            "x": 6400,
+            "y": 0
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

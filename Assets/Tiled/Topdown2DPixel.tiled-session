@@ -5,13 +5,13 @@
     },
     "activeFile": "Tilemaps/w1-l1-map.tmx",
     "expandedProjectPaths": [
+        "Properties",
         "Worlds",
-        "Rules",
         "Tilemaps",
         ".",
-        "TileSets",
+        "Rules",
         "Tilemaps/Rules",
-        "Properties"
+        "TileSets"
     ],
     "fileStates": {
         ":/automap-tiles.tsx": {
@@ -31,6 +31,10 @@
         "TileSets/Conveyer.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 2.19
+        },
+        "TileSets/ForestEnvironment.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "TileSets/ForestGround.tsx": {
             "scaleInDock": 1.5222,
@@ -88,28 +92,25 @@
             }
         },
         "Tilemaps/w1-l1-map.tmx": {
-            "expandedGroupLayers": [
-                11
-            ],
             "expandedObjectLayers": [
-                7
+                4
             ],
-            "scale": 4.6837,
+            "scale": 1.3994,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1600.0170805132695,
-                "y": 1599.9103273053356
+                "x": 174.3604401886523,
+                "y": 296.198370730313
             }
         },
         "Tilemaps/w1-l2-map.tmx": {
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 0.2686,
+            "scale": 0.0503,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1600.893521965748,
-                "y": 1599.0320178704392
+                "x": -666.0039761431408,
+                "y": 3966.202783300199
             }
         },
         "Tilemaps/w1-l3-map.tmx": {
@@ -119,8 +120,27 @@
             "scale": 0.2686,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1600.893521965748,
+                "x": 1600.8935219657483,
                 "y": 1599.0320178704392
+            }
+        },
+        "Tilemaps/w3-l1-map.tmx": {
+            "expandedObjectLayers": [
+                7
+            ],
+            "scale": 0.83,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 388.5542168674699,
+                "y": 376.5060240963856
+            }
+        },
+        "Tilemaps/w3-l2-map.tmx": {
+            "scale": 0.201578125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -726.7653670258123,
+                "y": 1748.701651034804
             }
         }
     },
@@ -132,30 +152,27 @@
     "loadedWorlds": [
         "/Users/seanalf/UnityProjects/2D Pixel Game Sandbox/Assets/Tiled/Worlds/World1.world"
     ],
-    "map.height": 100,
+    "map.height": 80,
     "map.lastUsedFormat": "tmx",
-    "map.width": 100,
+    "map.width": 80,
     "openFiles": [
-        "Tilemaps/w1-l1-map.tmx",
-        "Tilemaps/w1-l2-map.tmx",
-        "Tilemaps/w1-l3-map.tmx",
-        "TileSets/Hazards.tsx"
+        "Tilemaps/w1-l1-map.tmx"
     ],
     "project": "Topdown2DPixel.tiled-project",
     "property.type": "TileType",
     "recentFiles": [
+        "Tilemaps/w1-l1-map.tmx",
+        "TileSets/Wall.tsx",
+        "TileSets/ForestEnvironment.tsx",
+        "Tilemaps/w3-l1-map.tmx",
+        "Tilemaps/w3-l2-map.tmx",
+        "Tilemaps/w1-l2-map.tmx",
         "TileSets/Hazards.tsx",
         "Tilemaps/w1-l3-map.tmx",
-        "Tilemaps/w1-l2-map.tmx",
-        "Tilemaps/w1-l1-map.tmx",
         "TileSets/ItemsTileset.tsx",
         "TileSets/GeneralFloorAndGround.tsx",
         "TileSets/ForestGround.tsx",
-        "TileSets/Wall.tsx",
-        "TileSets/StairsLaddersStepsEtc.tsx",
-        "TileSets/MuddyGround.tsx",
-        "TileSets/PlatformTracks.tsx",
-        "Rules/wall_rules.tmx"
+        "TileSets/StairsLaddersStepsEtc.tsx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx"

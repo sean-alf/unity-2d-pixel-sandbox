@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff72ddc2da234e244a8e96eb44e4c03d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SuperTiled2UnityEditor::SuperTiled2Unity.Editor.ST2USettings
-  m_DefaultPixelsPerUnit: 1
+  m_DefaultPixelsPerUnit: 32
   m_DefaultEdgesPerEllipse: 32
   m_AnimationFramerate: 20
   m_DefaultMaterial: {fileID: 0}
@@ -59,9 +59,3 @@ MonoBehaviour:
     m_Prefab: {fileID: 5960115265259701228, guid: d40f634540a4849c39d4cb52b9474dee, type: 3}
   - m_TypeName: TeleportOut
     m_Prefab: {fileID: 648869025803306261, guid: 14c64d577dc0449cd8e5d595d218026b, type: 3}
-  - m_TypeName: Button
-    m_Prefab: {fileID: 1959126929194402644, guid: a5a2e833127fb4bce8bddc9df59bd784, type: 3}
-  - m_TypeName: Door
-    m_Prefab: {fileID: 433261070183263688, guid: b2125c8413e4d40b49568b40c8517508, type: 3}
-  - m_TypeName: HealthPickup
-    m_Prefab: {fileID: 1939985941744912168, guid: 4cca6c2f0c58f4f939a22e8ac8e06ee5, type: 3}

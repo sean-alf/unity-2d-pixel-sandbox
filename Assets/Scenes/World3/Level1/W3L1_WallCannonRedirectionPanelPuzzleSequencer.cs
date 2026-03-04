@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class W1L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, BetterInputManager.IInputChangeRequestor
+public class W3L1_WallCannonRedirectionPanelPuzzleSequencer : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 {
     [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority = 80;
     [SerializeField] private BetterInputManager inputManager;

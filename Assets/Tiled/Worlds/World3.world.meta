@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d63ce27b8e65a4efe801f4b9359a04fe
+guid: 87d66e629d5604b638680dc4454ae4c5
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -9,6 +9,6 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: c6b19dac32d07094ca0a4ffc902a36c4, type: 3}
   importerVersion: 1
-  pixelsPerUnit: 1
+  pixelsPerUnit: 100
   edgesPerEllipse: 32
   numberOfObjectsImported: 2

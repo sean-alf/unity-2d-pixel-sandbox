@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Persistent.unity
     guid: eb5bfb256ca534216b77f7bc919352a9
   - enabled: 1
-    path: Assets/Scenes/World1/Level1/W1L1.unity
+    path: Assets/Scenes/World3/Level1/W3L1.unity
     guid: ca2bfbc5475174bf0870084147568c69
   - enabled: 1
-    path: Assets/Scenes/World1/Level2/W1L2.unity
+    path: Assets/Scenes/World3/Level2/W3L2.unity
     guid: 3c151abe1be52499c84eb59a28997d54
   - enabled: 1
-    path: Assets/Scenes/World1/Level3/W1L3.unity
+    path: Assets/Scenes/World3/Level3/W3L3.unity
     guid: 86ff717bdc1d0469a884c41236f4ad00
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

@@ -30,7 +30,7 @@ MonoBehaviour:
     sortingOrder: 2
   - name: Above Wall
     layer: 10
-    sortingOrder: 3
+    sortingOrder: 50
   - name: NPC Barrier
     layer: 17
-    sortingOrder: 2
+    sortingOrder: 0

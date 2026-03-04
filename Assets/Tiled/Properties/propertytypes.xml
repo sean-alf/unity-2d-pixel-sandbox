@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
- <objecttype name="HealthPickup" color="#00b2b3">
-  <property name="healAmount" type="int" default="5"/>
- </objecttype>
  <objecttype name="TeleportIn" color="#a024a4">
   <property name="travelType" type="int" propertytype="TravelType" default="0"/>
  </objecttype>

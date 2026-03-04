@@ -10,35 +10,6 @@
     ],
     "propertyTypes": [
         {
-            "id": 16,
-            "name": "DestroyableType",
-            "storageType": "string",
-            "type": "enum",
-            "values": [
-                "Bush"
-            ],
-            "valuesAsFlags": false
-        },
-        {
-            "color": "#ff00b2b3",
-            "drawFill": true,
-            "id": 9,
-            "members": [
-                {
-                    "name": "healAmount",
-                    "type": "int",
-                    "value": 5
-                }
-            ],
-            "name": "HealthPickup",
-            "type": "class",
-            "useAs": [
-                "property",
-                "object",
-                "project"
-            ]
-        },
-        {
             "color": "#ffa024a4",
             "drawFill": true,
             "id": 1,
@@ -132,30 +103,6 @@
                 "Oneway"
             ],
             "valuesAsFlags": false
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 17,
-            "members": [
-                {
-                    "name": "unity:SortingOrder",
-                    "type": "int",
-                    "value": 4
-                },
-                {
-                    "name": "unity:layer",
-                    "type": "string",
-                    "value": "Environment"
-                }
-            ],
-            "name": "WallTileLayer",
-            "type": "class",
-            "useAs": [
-                "property",
-                "layer",
-                "project"
-            ]
         }
     ]
 }

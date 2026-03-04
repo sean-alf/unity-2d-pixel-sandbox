@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(GamePauser))]
-public class W1L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour, BetterInputManager.IInputChangeRequestor
+public class W3L1_MovingPlatformCrystalSwitchPuzzleSequencer : MonoBehaviour, BetterInputManager.IInputChangeRequestor
 {
     [SerializeField][Range(0, 100)] private int inputMapSwitchingPriority = 80;
     [SerializeField] private BetterInputManager inputManager;
